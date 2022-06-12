@@ -10,7 +10,7 @@ using Today.Model.Models;
 namespace Today.Model.Migrations
 {
     [DbContext(typeof(TodayContext))]
-    [Migration("20220612112226_Init")]
+    [Migration("20220612134333_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
