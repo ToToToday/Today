@@ -41,7 +41,7 @@ namespace Today.Model.Migrations
                     CityName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CityImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CityIntrod = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsIsland = table.Column<bool>(type: "bit", nullable: false)
+                    Island = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -168,6 +168,17 @@ namespace Today.Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StoreMessage", x => x.StoreMessageID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscription",
+                columns: table => new
+                {
+                    SubscriptionID = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(name: "E-mail", type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
                 });
 
             migrationBuilder.CreateTable(
@@ -627,6 +638,37 @@ namespace Today.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShppingCart",
+                columns: table => new
+                {
+                    MemberID = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<int>(type: "int", nullable: false),
+                    DepartureDate = table.Column<DateTime>(type: "date", nullable: true),
+                    TicketID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_ShppingCart_MemberInfoID",
+                        column: x => x.MemberID,
+                        principalTable: "MemberInfoID",
+                        principalColumn: "MemberID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShppingCart_Product",
+                        column: x => x.ProductID,
+                        principalTable: "Product",
+                        principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShppingCart_Tickets",
+                        column: x => x.TicketID,
+                        principalTable: "Tickets",
+                        principalColumn: "TicketID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tag",
                 columns: table => new
                 {
@@ -859,6 +901,21 @@ namespace Today.Model.Migrations
                 column: "SupplierID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShppingCart_MemberID",
+                table: "ShppingCart",
+                column: "MemberID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShppingCart_ProductID",
+                table: "ShppingCart",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShppingCart_TicketID",
+                table: "ShppingCart",
+                column: "TicketID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Supplier_CityID",
                 table: "Supplier",
                 column: "CityID");
@@ -899,6 +956,12 @@ namespace Today.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderDetais");
+
+            migrationBuilder.DropTable(
+                name: "ShppingCart");
+
+            migrationBuilder.DropTable(
+                name: "Subscription");
 
             migrationBuilder.DropTable(
                 name: "Tag");

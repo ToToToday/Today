@@ -44,7 +44,9 @@ namespace Today.Model.Models
         public virtual DbSet<PrimaryCategory> PrimaryCategories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<PromotionWay> PromotionWays { get; set; }
+        public virtual DbSet<ShppingCart> ShppingCarts { get; set; }
         public virtual DbSet<StoreMessage> StoreMessages { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<TagDetail> TagDetails { get; set; }
@@ -667,6 +669,38 @@ namespace Today.Model.Models
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<ShppingCart>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("ShppingCart");
+
+                entity.Property(e => e.DepartureDate).HasColumnType("date");
+
+                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.TicketId).HasColumnName("TicketID");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany()
+                    .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShppingCart_MemberInfoID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany()
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShppingCart_Product");
+
+                entity.HasOne(d => d.Ticket)
+                    .WithMany()
+                    .HasForeignKey(d => d.TicketId)
+                    .HasConstraintName("FK_ShppingCart_Tickets");
+            });
+
             modelBuilder.Entity<StoreMessage>(entity =>
             {
                 entity.ToTable("StoreMessage");
@@ -674,6 +708,20 @@ namespace Today.Model.Models
                 entity.Property(e => e.StoreMessageId)
                     .ValueGeneratedNever()
                     .HasColumnName("StoreMessageID");
+            });
+
+            modelBuilder.Entity<Subscription>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Subscription");
+
+                entity.Property(e => e.EMail)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("E-mail");
+
+                entity.Property(e => e.SubscriptionId).HasColumnName("SubscriptionID");
             });
 
             modelBuilder.Entity<Supplier>(entity =>
