@@ -95,7 +95,7 @@ namespace Today.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventLocation", x => x.LocationDetailsID);
+                    table.PrimaryKey("PK_LocationDetails", x => x.LocationDetailsID);
                 });
 
             migrationBuilder.CreateTable(
