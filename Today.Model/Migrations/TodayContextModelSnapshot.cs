@@ -76,7 +76,7 @@ namespace Today.Model.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("IsIsland")
+                    b.Property<bool>("Island")
                         .HasColumnType("bit");
 
                     b.HasKey("CityId");
@@ -713,6 +713,32 @@ namespace Today.Model.Migrations
                     b.ToTable("PromotionWay");
                 });
 
+            modelBuilder.Entity("Today.Model.Models.ShppingCart", b =>
+                {
+                    b.Property<DateTime?>("DepartureDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int")
+                        .HasColumnName("MemberID");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
+                        .HasColumnName("ProductID");
+
+                    b.Property<int?>("TicketId")
+                        .HasColumnType("int")
+                        .HasColumnName("TicketID");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("ShppingCart");
+                });
+
             modelBuilder.Entity("Today.Model.Models.StoreMessage", b =>
                 {
                     b.Property<int>("StoreMessageId")
@@ -725,6 +751,21 @@ namespace Today.Model.Migrations
                     b.HasKey("StoreMessageId");
 
                     b.ToTable("StoreMessage");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.Subscription", b =>
+                {
+                    b.Property<string>("EMail")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("E-mail");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("int")
+                        .HasColumnName("SubscriptionID");
+
+                    b.ToTable("Subscription");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Supplier", b =>
@@ -1140,6 +1181,32 @@ namespace Today.Model.Migrations
                     b.Navigation("MinorCategory");
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.ShppingCart", b =>
+                {
+                    b.HasOne("Today.Model.Models.MemberInfoId", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .HasConstraintName("FK_ShppingCart_MemberInfoID")
+                        .IsRequired();
+
+                    b.HasOne("Today.Model.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("FK_ShppingCart_Product")
+                        .IsRequired();
+
+                    b.HasOne("Today.Model.Models.Ticket", "Ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketId")
+                        .HasConstraintName("FK_ShppingCart_Tickets");
+
+                    b.Navigation("Member");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Supplier", b =>
