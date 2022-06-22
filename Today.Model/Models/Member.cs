@@ -7,14 +7,27 @@ namespace Today.Model.Models
 {
     public partial class Member
     {
-        public int MemberId { get; set; }
-        public int MessageId { get; set; }
-        public int CollectId { get; set; }
-        public int CouponId { get; set; }
+        public Member()
+        {
+            Comments = new HashSet<Comment>();
+            Orders = new HashSet<Order>();
+        }
 
-        public virtual Collect Collect { get; set; }
+        public int MemberId { get; set; }
+        public string MemberName { get; set; }
+        public int CityId { get; set; }
+        public int? Age { get; set; }
+        public string Phone { get; set; }
+        public string IdentityCard { get; set; }
+        public bool? Gender { get; set; }
+        public string Password { get; set; }
+        public int? MessageId { get; set; }
+        public int? CouponId { get; set; }
+
+        public virtual City City { get; set; }
         public virtual Coupon Coupon { get; set; }
-        public virtual MemberInfoId MemberNavigation { get; set; }
         public virtual Message Message { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

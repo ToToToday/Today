@@ -5,13 +5,12 @@ using System.Collections.Generic;
 
 namespace Today.Model.Models
 {
-    public partial class EventLocation
+    public partial class Category
     {
-        public int EventLocationId { get; set; }
-        public int LocationDetailsId { get; set; }
         public int ProductId { get; set; }
+        public int MinorCategoryId { get; set; }
 
-        public virtual LocationDetail LocationDetails { get; set; }
+        public virtual MinorCategory MinorCategory { get; set; }
         public virtual Product Product { get; set; }
     }
 }

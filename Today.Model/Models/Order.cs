@@ -9,24 +9,19 @@ namespace Today.Model.Models
     {
         public Order()
         {
-            Comments = new HashSet<Comment>();
-            OrderDetais = new HashSet<OrderDetai>();
+            Messages = new HashSet<Message>();
+            OrderDetails = new HashSet<OrderDetail>();
         }
 
         public int OrderId { get; set; }
         public int MemberId { get; set; }
-        public DateTime? OrderDate { get; set; }
-        public DateTime? DepartureDate { get; set; }
-        public int? PaymentId { get; set; }
-        public int? InvoiceId { get; set; }
-        public DateTime? LeaseTime { get; set; }
-        public decimal? SumPrice { get; set; }
-        public int? Total { get; set; }
+        public DateTime OrderDate { get; set; }
+        public DateTime DepartureDate { get; set; }
+        public int PaymentId { get; set; }
 
-        public virtual Invoice Invoice { get; set; }
-        public virtual MemberInfoId Member { get; set; }
+        public virtual Member Member { get; set; }
         public virtual Payment Payment { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<OrderDetai> OrderDetais { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace Today.Model.Models
 {
-    public partial class PamerType
+    public partial class PartnerType
     {
-        public PamerType()
+        public PartnerType()
         {
             Comments = new HashSet<Comment>();
         }
 
-        public int PamerTypeId { get; set; }
-        public string PamerType1 { get; set; }
+        public int PartnerTypeId { get; set; }
+        public string PartnerType1 { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }

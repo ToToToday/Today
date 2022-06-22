@@ -9,12 +9,12 @@ namespace Today.Model.Models
     {
         public Ticket()
         {
-            OrderDetais = new HashSet<OrderDetai>();
+            OrderDetails = new HashSet<OrderDetail>();
         }
 
-        public int TicketId { get; set; }
-        public string TicketsName { get; set; }
+        public int TicketsId { get; set; }
+        public byte[] TicketsQrcode { get; set; }
 
-        public virtual ICollection<OrderDetai> OrderDetais { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

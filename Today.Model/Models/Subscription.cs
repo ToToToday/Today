@@ -8,6 +8,6 @@ namespace Today.Model.Models
     public partial class Subscription
     {
         public int SubscriptionId { get; set; }
-        public string EMail { get; set; }
+        public string Email { get; set; }
     }
 }
