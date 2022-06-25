@@ -23,10 +23,10 @@
                 <div class="inputlogo-group d-flex justify-content-start col-7 align-items-center">
                     <h1 class="w-25 me-3">
                         <a href="#" class="align-top">
-                            <img src="./LOGO.png" alt="Today" class="w-100">
+                            <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
                         </a>
                     </h1>
-                    <div class="input-group w-75 border-secondary border rounded-pill d-none">
+                    <div class="input-group w-75 border-secondary border rounded-pill @(ViewData["Controller"].ToString() != "Home"?"d-inlineblock":"d-none")">
                         <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
                             aria-label="Recipient's username" aria-describedby="search">
                         <button class="btn" type="button" id="search"><i
