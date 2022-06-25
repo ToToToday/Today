@@ -20,7 +20,8 @@ namespace Today.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            ViewData["Controller"] = "Home";
+            return View(ViewData["Controller"]);
         }
 
         public IActionResult Privacy()

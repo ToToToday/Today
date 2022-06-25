@@ -1,7 +1,8 @@
 ﻿@section topCSS{
     <link rel="stylesheet" href="~/css/CityClassify.css" />
     <link rel="stylesheet" href="~/css/reset.css" />
-
+    <link rel="stylesheet" href="~/css/MoneyRange.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 }
 <div class="city-product-list-group">
         <div class="city-product-list-banner py-3">
@@ -1930,3 +1931,29 @@
             </div>
         </section>
     </div>
+    @section endJS{
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <script src="~/js/calendar.js"></script>
+        <script type="text/javascript">
+            $(function () {
+
+                $('input[name="datefilter"]').daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                });
+
+                $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                });
+
+                $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+                    $(this).val('');
+                });
+
+            });
+        </script>
+    }

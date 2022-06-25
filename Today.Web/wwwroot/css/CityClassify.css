@@ -1,10 +1,5 @@
 /* 側欄 */
-body {
-    font-family: 'Noto Sans TC', '微软雅黑', sans-serif;
-    background-color: white;
-    font-weight: 500;
-    scroll-behavior: smooth;
-}
+
 
 .input-group-text {
     color: #26bec9;
@@ -93,9 +88,7 @@ h2 {
     padding: 10px;
     margin: 0px 5px 15px;
 }
-/* .container-fluid-ProductList{
-    background-color: #F6F7F9;
-} */
+
 span.sort:hover {
     color: #26bec9;
 }
@@ -159,9 +152,7 @@ span.sort:hover {
         /* margin-top: 55px; */
     }
 
-    /* #sort {
-        height: 30vh;
-    } */
+    
 
     #moreconditions {
         height: 86vh;
@@ -206,19 +197,7 @@ span.sort:hover {
     height: 70vh;
 }
 
-/* .label-addational {
-    background-color: rgba(100, 179, 244, .1);
-    color: #64b3f4;
-    margin: 0 6px 6px 0;
-    font-size: 12px;
-    padding: 3px 8px;
-    font-weight: 700;
-} */
 
-/* .card-text-info {
-    font-size: 14px;
-    max-height: 52px;
-} */
 
 p .card-text {
     font-size: 12px;
@@ -257,10 +236,7 @@ p .card-text {
     color: #ffc612;
 }
 
-/* .card-footer,
-.sort {
-    color: #999;
-} */
+
 
 
 
@@ -268,9 +244,7 @@ p .card-text {
     color: #000;
 }
 
-.sort:hover {
-    /* color: #26bec9; */
-}
+
 
 .fa-calendar,
 .fa-location-dot {
@@ -299,11 +273,6 @@ h5 .card-title_group {
 }
 
 
-/* .number, */
-
-/* .subscription, */
-
-/* .TWD-line, */
 
 .span_divider {
     font-size: 15px;
@@ -314,18 +283,7 @@ h5 .card-title_group {
     background: #666;
 }
 
-/* .discount {
-    background: linear-gradient(45deg, #ffaf1e, #ffd56e);
-    color: #fff;
-    text-shadow: 0 1px 2px #e18d0e;
-    border-radius: 4px 4px 0 4px;
-} */
 
-/* .fa-heart:hover {
-    transform: scale(1.5);
-    color: red;
-    -webkit-text-stroke: 1px red;
-} */
 
 .fa-heart {
     position: absolute;
@@ -344,33 +302,6 @@ h5 .card-title_group {
     border-color: none;
 }
 
-/* .page {
-    display: inline-block;
-    padding-left: 0;
-    margin: 20px auto;
-    width: 333px;
-    border-radius: 4px;
-} */
-
-
-/* .scroll-top {
-    text-decoration: none;
-    width: 35px;
-    height: 35px;
-    background: rgba(0, 0, 0, .4);
-    color: #f1f1f1;
-    font-size: 1em;
-    text-align: center;
-    line-height: 40px;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    right: 25px;
-    bottom: 50px;
-    padding-top: 2px;
-    border-radius: 2px;
-    border: none;
-} */
 
 
 
@@ -387,10 +318,13 @@ h5 .card-title_group {
 .city-web-path{
     text-align: 0.75rem;
     color: #138184;
-    
+    padding-bottom:10px;
 }
 h2{
     font-size: 2rem;
+}
+.city-product-list-group{
+    margin-top: 55px;
 }
 .city-product-list-banner{
     background-color: #F6F7F9;
@@ -438,14 +372,7 @@ h2{
 .commodity .carousel-inner span{
     z-index: 1;
 }
-/* .commodity .card{
-    border-radius: 10px;
-} */
-/* .commodity .card .carousel-inner{
-    border-radius: 10px;
-    overflow: hidden;
-    height: 150px;
-} */
+
 .commodity .card .card-footer{
     background-color: white;
 }
