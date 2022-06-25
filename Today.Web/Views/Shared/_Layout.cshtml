@@ -9,7 +9,7 @@
     @*<link rel="stylesheet" href="~/css/site.css" />*@
     <link rel="stylesheet" href="~/lib/fontawesome6/css/all.min.css">
     <link rel="stylesheet" href="~/lib/icofont/icofont.min.css">
-    <link rel="stylesheet" href="~/css/reset.css" />
+    @*<link rel="stylesheet" href="~/css/reset.css" />*@
     <link rel="stylesheet" href="~/css/homestyle.css" />
     <link rel="stylesheet" href="~/css/shared.css" />
     @await RenderSectionAsync("topCSS", required: false)
@@ -71,11 +71,11 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    @*<div class="container">
+        <main role="main" class="pb-3">*@
             @RenderBody()
-        </main>
-    </div>
+        @*</main>
+    </div>*@
 
     <footer class="footer-limit w-100 py-5">
         <div class="book fixed-width m-auto w-75 pb-3 border-bottom">
