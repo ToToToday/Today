@@ -68,6 +68,7 @@ namespace Today.Web.Controllers
         }
         public IActionResult AboutToday() //公司介紹
         {
+            ViewData["SearchBox"] = "None";
             return View();
         }
     }
