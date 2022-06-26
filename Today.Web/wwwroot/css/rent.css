@@ -1,0 +1,80 @@
+.rent-banner-h2
+{
+    line-height:1.5;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 0.625rem;
+    font-weight: 700;
+}
+.rent-hotel-banner 
+{
+    background-image: url("https://cdn.kkday.com/pc-web/assets/img/car_rentals/car-rentals-banner.jpg");
+    height:18.5rem;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rent-banner-p
+{
+    width: 80%;
+    margin: auto;  
+    margin-bottom: 0.938rem;
+    line-height: 1.6;
+}
+.rent-search
+{
+    width: 80%;
+    margin: auto;   
+}
+.rent-type-button
+{
+    margin-top: 0.938rem;
+    margin-bottom: 0.938rem;
+}
+
+@media screen and (max-width:768px)
+{
+    .rent-search
+    {
+        display: none;
+    }
+}
+@media screen and (min-width:768px)
+{
+    .rent-search
+    {
+        display: none;
+    }
+    .rent-search
+    {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width:992px)
+{
+    .rent-collapse-search
+    {
+        display: none;
+    }
+    .rent-search
+    {
+        display: block;
+        width: 65%;
+    }
+    .rent-type-button-collapse
+    {
+        display: none;
+    }
+}
+@media screen and(min-width:1200px)
+{
+    .rent-search
+    {
+        width: 55%;
+    }
+}   

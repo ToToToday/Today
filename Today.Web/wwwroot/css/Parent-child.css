@@ -1,0 +1,110 @@
+.Parent-child-banner-h2
+{
+    line-height:1.5;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 0.625rem;
+    font-weight: 700;
+}
+
+.Parent-child-hotel-banner 
+{
+    background-image: url("https://cdn.kkday.com/m-web/assets/img/family/family-banner.jpg");
+    height:18.5rem;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Parent-child-banner-p
+{
+    width: 80%;
+    margin: auto;  
+    margin-bottom: 0.938rem;
+    line-height: 1.6rem;
+}
+.Parent-child-search
+{
+    width: 90%;
+    margin: auto;  
+}
+.Parent-child-main-p
+{
+    font-weight: 500;
+}
+
+.Parent-child-type-button
+{
+    margin-top:0.938rem;
+    margin-bottom: 0.938rem;
+}
+.Parent-child-carousel
+{
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+}
+@media screen and (max-width:768px)
+{
+    .Parent-child-card-money
+    {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+    .Parent-child-search
+    {
+        display: none;
+    }
+    .Parent-child-main-p
+    {
+        padding-top: 0.938rem;
+        padding-bottom: 0.938rem;
+    }
+}
+@media screen and (min-width:768px)
+{
+    .Parent-child-main-p
+    {
+        padding-top: 0.938rem;
+        padding-bottom: 0.938rem;
+    }
+    .Parent-child-search
+    {
+        display: none;
+    }
+    .Parent-child-search
+    {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width:992px)
+{
+    .Parent-child-banner-p
+    {
+        width: 55%;
+    }
+    .Parent-child-collapse-search
+    {
+        display: none;
+    }
+    .Parent-child-search
+    {
+        display: block;
+        width: 65%;
+    }
+    .Parent-child-type-button-collapse
+    {
+        display: none;
+    }
+}
+@media screen and (min-width:1200px)
+{
+    .Parent-child-search
+    {
+        width: 55%;
+    }
+}   
