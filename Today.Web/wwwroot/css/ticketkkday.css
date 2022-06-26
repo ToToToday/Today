@@ -1,0 +1,436 @@
+h3,
+h4,
+h5,
+.each-section .px-md-4 a,
+.precautions p,
+.precautions ul,
+.recommend,
+.pink-style button,
+.green-style button,
+.blue-style button,
+.red-style button,
+.orange-style button,
+.tag {
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+}
+
+h5 {
+    font-size: 0.8rem;
+}
+
+.each-section {
+    padding: 15px 0px;
+    border-top: 1px solid #6c757d;
+}
+
+.each-section .px-md-4 a {
+    margin-right: 25px;
+}
+
+.each-section .px-md-4 a:hover {
+    color: #26bec9;
+    animation: swing .5s 1;
+}
+
+@keyframes swing {
+    15% {
+        transform: translateX(5px);
+    }
+
+    40% {
+        transform: translateX(-5px);
+    }
+
+    65% {
+        transform: translateX(2px);
+    }
+
+    85% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.fa-angle-up {
+    margin-top: 13px;
+    color: white;
+}
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(0, 0, 0, .4);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    opacity: .8;
+    border-radius: 2px;
+    z-index: 10;
+}
+
+.precautions p,
+.precautions ul,
+.tag {
+    font-size: 0.7rem;
+}
+
+.container-fluid {
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+
+.long-banner-pic,
+.scroll-to-top,
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.banner img,
+.row img,
+.trans img {
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    overflow: auto;
+}
+
+.nav-slide {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.card-body ul,
+.precautions .container ul {
+    line-height: 2
+}
+
+.card-body ul li,
+.precautions .container ul li,
+.px-md-4 a {
+    list-style: disc;
+    color: #666666;
+}
+
+h4+p {
+    color: #333333;
+}
+
+.card {
+    margin: auto;
+    width: 85%;
+    margin-top: 30px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 20%);
+}
+
+.TWD {
+    color: #26bec9;
+    margin-left: 5px;
+}
+
+h3+h3 {
+    border-top: 10px dotted;
+    width: 60%;
+    margin: auto;
+    font-size: 3rem;
+}
+
+.recommend {
+    text-align: center;
+    letter-spacing: 0.2em;
+    padding-top: 140px;
+}
+
+.pink-style button:first-of-type,
+.pink-ticket {
+    background-color: #fc7cb6;
+    color: white;
+}
+
+.pink-style button {
+    color: #fc7cb6;
+    background-color: white;
+    border: 1px solid #fc7cb6;
+}
+
+.recommend:not(.blue-style, .orange-style, .red-style) button:first-of-type,
+.green-ticket {
+    background-color: #84de76;
+    color: white;
+}
+
+.recommend:not(.blue-style, .orange-style, .red-style) button {
+    background-color: white;
+    color: #84de76;
+    border: 1px solid #84de76;
+}
+
+.recommend:not(.green-style, .orange-style, .red-style) button:first-of-type,
+.blue-ticket {
+    background-color: #78bfef;
+    color: white;
+}
+
+.recommend:not(.green-style, .orange-style, .red-style) button {
+    background-color: white;
+    color: #78bfef;
+    border: 1px solid #78bfef;
+}
+
+.recommend:not(.green-style, .orange-style, .blue-style) button:first-of-type,
+.red-ticket {
+    background-color: #ff855d;
+    color: white;
+}
+
+.recommend:not(.green-style, .orange-style, .blue-style) button {
+    background-color: white;
+    color: #ff855d;
+    border: 1px solid #ff855d;
+}
+
+.recommend:not(.green-style, .red-style, .blue-style) button:first-of-type,
+.orange-ticket {
+    background-color: #ffad49;
+    color: white;
+}
+
+.recommend:not(.green-style, .red-style, .blue-style) button {
+    background-color: white;
+    color: #ffad49;
+    border: 1px solid #ffad49;
+}
+
+.pink-style button,
+.green-style button,
+.blue-style button,
+.red-style button,
+.orange-style button {
+    padding: 2px 8px;
+    border-radius: 100px;
+    margin: 30px 10px;
+    font-size: 0.9rem;
+}
+
+.tag {
+    color: #fc7cb6;
+}
+
+.each-card .text-decoration-none {
+    margin-right: 1rem;
+}
+
+.each-card .text-decoration-none:hover {
+    opacity: 0.8;
+    transition: 1s;
+}
+
+#bgp,
+#bgg,
+#bgb,
+#bgr,
+#bgo {
+    padding-bottom: 40px;
+}
+
+#bgp {
+    background: linear-gradient(#ffc7e1, #d9ffd3);
+    padding-top: 180px;
+}
+
+#bgg {
+    background: linear-gradient(#d9ffd3, #bff7ff);
+}
+
+#bgb {
+    background: linear-gradient(#bff7ff, #ffc7c5);
+}
+
+#bgr {
+    background: linear-gradient(#ffc7c5, #ffd4c0);
+}
+
+#bgo {
+    background: linear-gradient(#ffd4c0, #ffffff);
+}
+
+.long-card {
+    padding: 1rem;
+}
+
+.each-card,
+.precautions {
+    width: 85%;
+}
+
+.precautions {
+    background-color: #ffffff;
+    padding-top: 100px;
+}
+
+.precautions p {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.precautions ul {
+    margin-bottom: 50px;
+}
+
+.ticket-style {
+    position: absolute;
+    padding: 2px 8px;
+    border-radius: 0px .25rem .25rem .25rem;
+}
+
+@media screen and (max-width:576px) {
+    .carousel-item img {
+        width: 345px;
+        height: 320px;
+    }
+
+    .recommend button:last-child {
+        margin: 0px 10px 30px 10px;
+    }
+
+}
+
+@media screen and (min-width:576px) {
+    .carousel-item img {
+        width: 640px;
+        height: 320px;
+    }
+}
+
+/*平板直向、橫向、桌機*/
+@media screen and (min-width:768px) {
+    h4 {
+        font-size: 1.2rem;
+    }
+
+    p,
+    .tag,
+    .precautions ul {
+        font-size: 0.8rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    h5 {
+        font-size: 0.9rem;
+    }
+
+    .tag span {
+        font-size: 0.7rem;
+    }
+
+    .pink-style button,
+    .green-style button,
+    .blue-style button,
+    .red-style button,
+    .orange-style button {
+        font-size: 1rem;
+    }
+
+    .ticket {
+        width: 48%;
+    }
+
+    .carousel-item img {
+        width: 720px;
+        height: 380px;
+    }
+
+    .precautions p {
+        font-size: 1.6rem;
+        color: #333333;
+    }
+
+    .scroll-to-top {
+        display: block;
+    }
+
+    .scroll-to-top:hover {
+        background-color: #333333;
+        transition: 1s;
+    }
+}
+
+/*平板橫向、桌機*/
+@media screen and (min-width:992px) {
+    h4 {
+        font-size: 1.4rem;
+    }
+
+    p,
+    .tag,
+    .precautions ul {
+        font-size: 0.9rem;
+    }
+
+    h5 {
+        font-size: 1rem;
+    }
+
+    .tag span {
+        font-size: 0.8rem;
+    }
+    .pink-style button,
+    .green-style button,
+    .blue-style button,
+    .red-style button,
+    .orange-style button {
+        font-size: 1.1rem;
+    }
+    .carousel-item img {
+        width: 470px;
+        height: 330px;
+    }
+
+    .precautions p {
+        font-size: 1.9rem;
+    }
+
+    .long-banner-pic {
+        display: block;
+    }
+
+    .short-banner-pic {
+        display: none;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .carousel-item img {
+        width: 345px;
+        height: 320px;
+    }
+
+    .carousel-item img {
+        width: 570px;
+        height: 320px;
+    }
+
+    .card,
+    .each-card,
+    .precautions {
+        width: 100%;
+    }
+}
