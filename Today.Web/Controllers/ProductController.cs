@@ -20,7 +20,8 @@ namespace Today.Web.Controllers
        
         public IActionResult Souvenir() //伴手禮
         {
-            return View();
+            ViewData["SearchBox"] = "None";
+            return View(ViewData["SearchBox"]);
         }
         public IActionResult CityClassify() //城市 分類
         {
