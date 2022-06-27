@@ -1,0 +1,193 @@
+.container{
+    width: 100%;
+    max-width: 1200px;
+}
+.aside{
+    display: none;
+}
+.text .card{
+    padding: 20px;
+}
+.page-head{
+    margin-bottom: 20px;
+}
+.page-head h2 {
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+.page-head .nav-item{
+    padding: 15px;
+}
+.page-head .nav-item a{
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+    font-size: 0.875rem;
+}
+.page-head .nav-item a:hover{
+    color: #138184;
+}
+.page-text .form-control,
+.page-text .form-select{
+    margin-bottom: 15px;
+}
+.page-text label{
+    font-size: 0.875rem;
+}
+.needs-validation{
+    padding: 0 15px;
+}
+.needs-validation .row{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.needs-validation [class*='col-']{
+    padding: 0 15px;
+}
+.save{
+    text-align: end;
+}
+.container{
+    padding-top: 78px;
+}
+.container-row{
+    padding-bottom: 20px;
+}
+
+/* 基本資料 */
+ #profile{
+    display: none;
+} 
+.addtraveler {
+    padding: 30px;
+}
+.addtraveler-text{
+    text-align: center;
+}
+.addtraveler-text h4{
+    font-weight: bolder;
+    color: #aaaaaa;
+    margin: 10px 0;
+}
+.addtraveler-text a{
+    font-weight: bolder;
+    margin: 10px 0;
+}
+/* 尚未建立常用旅客資料 */
+.buddy-group .addtraveler{
+    display: none;
+}
+.addtraveler-heading h4{
+    font-weight: bolder;
+}
+.addtraveler-heading{
+    padding: 0 15px 15px;
+    align-items: center;
+}
+.addtraveler-text{
+    margin-right: 5px;
+}
+/*#buddy .buddy-valid{
+    display: none;
+}*/
+
+
+@media screen and (min-width:768px) {
+    .container-row {
+        padding-bottom: 160px;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .aside{
+        display: block;
+    }
+    .editor-logo img{
+        width: 120px;
+        height: 120px; 
+    }
+    .editor-logo{
+        margin: auto;
+        position: relative;
+    }
+    .editor-logo i{
+        font-size: 25px;
+        padding: 3px;
+    }
+    .icon-bg{
+        background-color: #fff;
+        position: absolute;
+        right: 0px;
+        top: 85px;
+    }
+    .aside-box .name{
+        font-weight: bolder;
+    }
+    .aside-box .level{
+        font-weight: bolder;
+        font-size: 0.875rem;
+        color: #666666;
+    }
+    .aside-box{
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    body{
+        background-color: #f5f5f5;
+    }
+    .page-aside{
+        background-color: #f5f5f5;
+    }
+    .aside-box-text{
+        padding-top: 10px;
+        text-align: center;
+    }
+    .google-icon{
+        padding-right: 15px;
+    }
+    .account{
+        align-items: center;
+    }
+    .account img{
+        margin-right: 10px;
+    }
+    .page-menu{
+        list-style: none;
+        padding-left: 0;
+    }
+    .list-item{
+        padding: 10px 15px;
+    }
+    .list-item i {
+        margin-right: 10px;
+    }
+    .list-item a{
+        text-decoration: none;
+        color: #333333;
+        font-size: 0.875rem;
+    }
+    .page-menu .active,
+    .page-menu .active a{
+        color: #26bec9;
+    }
+    .page-menu .active{
+        border-left: #26bec9 solid 4px;
+    }
+    .page-menu .active .list-item-text{
+        margin-left: -4px;
+    }
+    .icofont-check-circled{
+        font-size: 20px;
+    }
+    .list-item-text .text-warning{
+        font-weight: bolder;
+        margin-right: 6px;
+    }
+    .container-row {
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    
+}

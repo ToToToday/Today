@@ -1,5 +1,126 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@section topCSS{
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/coupon.css">
 }
+
+    <div class="container">
+        <div class="row container-row">
+            <div class="col-12 col-lg-3 aside">
+                <div class="page-aside">
+                    <div class="card aside-box">
+                        <div class="editor-logo">
+                            <img class="rounded-circle" src="https://picsum.photos/200/200/?random=10">
+                            <div class="icon-bg rounded-circle">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                        </div>
+                        <div class="aside-box-text name">盧致文</div>
+                        <div class="aside-box-text level">白銀會員</div>
+                        <hr>
+                        <div class="account-group">
+                            <div class="account d-flex">
+                                <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/google.svg"
+                                 alt="">
+                                <div class="channel-name flex-grow-1">
+                                    <div>Google</div>
+                                </div>
+                                <i class="icofont-check-circled text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="card page-menu">
+                        <li class="list-item active">
+                            <div class="list-item-text">
+                                <i class="icofont-gear-alt"></i>
+                                <a href="#">帳號設定</a>
+                            </div>
+                        </li>
+                        <!-- <li class="list-item">
+                            <div class="list-item-text">
+                                <i class="icofont-diamond"></i>
+                                <a href="#">我的會籍禮遇</a>
+                            </div>
+                        </li> -->
+                        <li class="list-item">
+                            <div class="list-item-text d-flex">
+                                <i class="icofont-ticket"></i>
+                                <a class="flex-grow-1" href="#">KKday折扣卷</a>
+                                <span class="text-warning">0</span>
+                            </div>
+                        </li>
+                        <!-- <li class="list-item">
+                            <div class="list-item-text d-flex">
+                                <i class="icofont-copyright"></i>
+                                <a class="flex-grow-1" href="#">KKday Points</a>
+                                <span class="text-warning">0</span>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-text">
+                                <i class="icofont-flag-alt-1"></i>
+                                <a href="#">解任務，賺獎勵</a>
+                            </div>
+                        </li> -->
+                        <li class="list-item">
+                            <div class="list-item-text">
+                                <i class="icofont-ui-file"></i>
+                                <a href="#">訂單管理</a>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-text">
+                                <i class="icofont-ello"></i>
+                                <a href="#">訊息管理</a>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-text">
+                                <i class="icofont-hype-machine"></i>
+                                <a href="#">我的收藏</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-9 text">
+                <div class="card">
+                    <div class="page-head">
+                        <h2>KKday 折扣劵</h2>
+
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="請輸入折扣碼"
+                                   aria-label="請輸入折扣碼" aria-describedby="button-addon2">
+                                <button class="btn btn-info text-light" type="button" id="button-addon2">增加</button>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item active">
+                                <a href="#profile">可使用</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#buddy">已使用</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#buddy">無法使用</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="page-text">
+                        <div class="coupon-group">
+                            <div class="coupon">
+                                <div class="coupon-text">
+                                    <img src="https://cdn.kkday.com/pc-web/assets/img/empty_state/coupon_list.svg"
+                                     width="140" height="140">
+                                    <h4>目前沒有任何折扣劵</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

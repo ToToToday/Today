@@ -26,7 +26,7 @@
                             <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
                         </a>
                     </h1>
-                    <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["Controller"], "Home")?"d-none":"d-inlineblock")">
+                    <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-inlineblock")">
                         <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
                             aria-label="Recipient's username" aria-describedby="search">
                         <button class="btn" type="button" id="search"><i
@@ -96,13 +96,14 @@
                 </div>
             </div>
         </nav>
+        <partial name="_NavBottomPartial"></partial>
     </header>
     @*<div class="container">
         <main role="main" class="pb-3">*@
             @RenderBody()
         @*</main>
-    </div>
-*@
+    </div>*@
+
     <footer class="footer-limit w-100 py-5">
         <div class="book fixed-width m-auto w-75 pb-3 border-bottom">
             <div class="info text-center">
