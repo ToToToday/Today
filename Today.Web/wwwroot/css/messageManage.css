@@ -1,0 +1,170 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+}
+.aside{
+    display: none;
+}
+.text .card{
+    padding: 20px;
+}
+.page-head{
+    margin-bottom: 20px;
+}
+.page-head h2{
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+.page-head .nav-item{
+    padding: 15px;
+}
+.page-head .nav-item a{
+    text-decoration: none;
+    color: #000;
+    font-weight: bolder;
+    font-size: 0.875rem;
+}
+.page-head .nav-item a:hover{
+    color: #138184;
+}
+.page-head .input-group{
+    height: 40px;
+}
+.message-text h4{
+    color: #aaa;
+    margin: 15px 0 0;
+}
+.message{
+    text-align: center;
+}
+.page-text{
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.container{
+    padding-top: 78px;
+}
+.container-row{
+    padding-bottom: 20px;
+}
+.table-head{
+    display: none;
+}
+
+
+
+
+@media screen and (min-width:768px) {
+    .table-head{
+        display: block;
+    }
+    .table-head{
+        background-color: #eee;
+        padding: 5px 10px;
+        border-radius: 4px 4px 0 0;
+        color: #666;
+    }
+    .table-head .row{
+        padding-bottom: 0px;
+    }
+    .message-text img{
+        margin-top: 15px;
+    }
+    .container-row {
+        padding-bottom: 180px;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .aside{
+        display: block;
+    }
+    .editor-logo img{
+        width: 120px;
+        height: 120px; 
+    }
+    .editor-logo{
+        margin: auto;
+        position: relative;
+    }
+    .editor-logo i{
+        font-size: 25px;
+        padding: 3px;
+    }
+    .icon-bg{
+        background-color: #fff;
+        position: absolute;
+        right: 0px;
+        top: 85px;
+    }
+    .aside-box .name{
+        font-weight: bolder;
+    }
+    .aside-box .level{
+        font-weight: bolder;
+        font-size: 0.875rem;
+        color: #666666;
+    }
+    .aside-box{
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    body{
+        background-color: #f5f5f5;
+    }
+    .page-aside{
+        background-color: #f5f5f5;
+    }
+    .aside-box-text{
+        padding-top: 10px;
+        text-align: center;
+    }
+    .google-icon{
+        padding-right: 15px;
+    }
+    .account{
+        align-items: center;
+    }
+    .account img{
+        margin-right: 10px;
+    }
+    .page-menu{
+        list-style: none;
+        padding-left: 0;
+    }
+    .list-item{
+        padding: 10px 15px;
+    }
+    .list-item i {
+        margin-right: 10px;
+    }
+    .list-item a{
+        text-decoration: none;
+        color: #333333;
+        font-size: 0.875rem;
+    }
+    .page-menu .active,
+    .page-menu .active a{
+        color: #26bec9;
+    }
+    .page-menu .active{
+        border-left: #26bec9 solid 4px;
+    }
+    .page-menu .active .list-item-text{
+        margin-left: -4px;
+    }
+    .icofont-check-circled{
+        font-size: 20px;
+    }
+    .list-item-text .text-warning{
+        font-weight: bolder;
+        margin-right: 6px;
+    }
+    .container-row {
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (min-width:1200px) {
+
+}

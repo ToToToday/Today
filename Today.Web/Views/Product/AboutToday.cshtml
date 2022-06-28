@@ -1,5 +1,64 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["SearchBox"] = "None";
 }
+@section topCSS{
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/whykkday.css">
+}
+<!-- banner -->
+    <a href="#" class="scroll-to-top"><i class="fa-solid fa-angle-up"></i></a>
+    <div class="container-fluid slogan">
+        <div class="container banner position-relative">
+            <h2 class="why-today">Why TOday ?</h2>
+            <p>輕易體驗各國的在地文化</p>
+            <img src="~/image/car.png" alt="TOday" class="col-6 col-md-4 position-absolute">
+        </div>
+    </div>
+    <section class="container-fluid area">
+        <h3 class="title">旅人們打造的旅遊小棧</h3>
+        <article class="container about-trip">
+            <div class="col-12 col-lg-4 each-trip">
+                <img src="~/image/honest evaluation.png" alt="Today">
+                <h3>誠實評價</h3>
+                <p>我們了解口耳相傳的重要性，所以我們鼓勵所有跟我們一起玩的旅人們都留下他們誠實的評價。不但提供更多資訊給下一位旅客，也同時告訴TOday的營運團他們的努力是否有成功結果！</p>
+            </div>
+            <div class="col-12 col-lg-4 each-trip">
+                <img src="~/image/essence.png" alt="Today">
+                <h3>全世界的精華</h3>
+                <p>我們的旅遊團隊不停的在嘗試全世界最安全，最特別，最擁有當地風味的體驗。就是為了可以提供這些不容易找的經驗給我們的旅客。不開玩笑，聽起來輕鬆可是為了找最好的－我們可累壞了唷！</p>
+            </div>
+            <div class="col-12 col-lg-4 each-trip">
+                <img src="~/image/reliable partner.png" alt="Today">
+                <h3>牢靠的夥伴</h3>
+                <p>透過嚴格的篩選和盡職調查，TOday發誓只跟最可靠，最可信賴的服務供應商合作。所以你放輕鬆－勇敢的去探索世界吧。</p>
+            </div>
+        </article>
+    </section>
+    <section class="container-fluid poster">
+        <h3 class="title">安全的平台</h3>
+        <article class="container about-platform">
+            <div class="col-12 col-lg-3 each-platform  fix d-flex flex-column position-relative">
+                <img src="~/image/privacy.png" alt="Today">
+                <h3>隱私及系統加密</h3>
+                <p>您的隱私還有安全是我們的第一考量。不但適用我們的保密系統保護您的資料，我們還保證不會把這資料透露給第三方。</p>
+            </div>
+            <div class="col-12 col-lg-3 each-platform set d-flex flex-column position-relative">
+                <img src="~/image/seamless integration.png" alt="Today">
+                <h3>無縫整合</h3>
+                <p>旅行者在預訂時通過TOday付款。 結束後，TOday將直接轉帳付款給活動供應商。 當你外出玩樂時，不必再煩惱交易，這部分交給我們來處理。</p>
+            </div>
+            <div class="col-12 col-lg-3 each-platform d-flex flex-column position-relative">
+                <img src="~/image/slip.png" alt="Today">
+                <h3>隨時隨地「滑」到你想去的地點</h3>
+                <p>無論您習慣提前計劃或者是喜歡當下做決定都沒關係！讓你自由選擇你的旅途路程並獲得即時確認。</p>
+            </div>
+        </article>
+    </section>
+    <div class="container trip">
+        <h3 class="title">體驗您意想不到的旅遊可能 開啟一趟前所未有的旅程</h3>
+        <p>苦工我們都先做完了。您現在就可以輕鬆的體驗當地的文化精華了。不必再走別人走過的行程，有了TOday您將開始開發屬於自己獨一無二的旅程。</p>
+    </div>
+    <div class="container-fluid adventure p-0 position-relative d-flex justify-content-center">
+        <img src="~/image/adventure.jpg" alt="today">
+        <a href="#">開始冒險</a>
+    </div>
