@@ -30,7 +30,7 @@ namespace TodayMVC.Admin
             services.AddDbContext<TodayDBContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
-                
+
             });
         }
 

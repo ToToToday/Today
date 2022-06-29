@@ -25,29 +25,30 @@ namespace Today.Model.Models
         public virtual DbSet<Collect> Collects { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
+        public virtual DbSet<CouponManage> CouponManages { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<LoginWay> LoginWays { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<MinorCategory> MinorCategories { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<PartnerType> PartnerTypes { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
-        public virtual DbSet<PricingItem> PricingItems { get; set; }
-        public virtual DbSet<PrimaryCategory> PrimaryCategories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductStatus> ProductStatuses { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<ProductPhoto> ProductPhotos { get; set; }
+        public virtual DbSet<ProductTag> ProductTags { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
-        public virtual DbSet<ProgramDatePicker> ProgramDatePickers { get; set; }
+        public virtual DbSet<ProgramCantUseDate> ProgramCantUseDates { get; set; }
         public virtual DbSet<ProgramInclude> ProgramIncludes { get; set; }
         public virtual DbSet<ProgramSpecification> ProgramSpecifications { get; set; }
-        public virtual DbSet<Reply> Replies { get; set; }
-        public virtual DbSet<ShoppinCart> ShoppinCarts { get; set; }
+        public virtual DbSet<RaidersManage> RaidersManages { get; set; }
+        public virtual DbSet<Screening> Screenings { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<staff> staff { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -68,9 +69,7 @@ namespace Today.Model.Models
 
                 entity.ToTable("AboutProgram");
 
-                entity.Property(e => e.AboutProgramOptionsId).HasColumnName("AboutProgramOptionsID");
-
-                entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+                entity.Property(e => e.ProgramId).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.AboutProgramOptions)
                     .WithMany()
@@ -89,100 +88,121 @@ namespace Today.Model.Models
             {
                 entity.HasKey(e => e.AboutProgramOptionsId);
 
-                entity.Property(e => e.AboutProgramOptionsId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("AboutProgramOptionsID");
-
                 entity.Property(e => e.Context)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("{n}天內確認");
 
-                entity.Property(e => e.IconClass).HasMaxLength(50);
+                entity.Property(e => e.IconClass)
+                    .HasMaxLength(50)
+                    .HasComment("icon圖標");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.AboutProgramOptions)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AboutProgramOptions_Product");
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Category");
 
-                entity.Property(e => e.MinorCategoryId).HasColumnName("MinorCategoryID");
+                entity.Property(e => e.CategoryName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasComment("類別名稱");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.ParentCategoryId).HasComment("父類別");
 
-                entity.HasOne(d => d.MinorCategory)
-                    .WithMany()
-                    .HasForeignKey(d => d.MinorCategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Category_MinorCategory");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany()
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Category_Product");
+                entity.HasOne(d => d.ParentCategory)
+                    .WithMany(p => p.InverseParentCategory)
+                    .HasForeignKey(d => d.ParentCategoryId)
+                    .HasConstraintName("FK_Category_Category");
             });
 
             modelBuilder.Entity<City>(entity =>
             {
                 entity.ToTable("City");
 
-                entity.Property(e => e.CityId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CityID");
+                entity.HasComment("");
 
                 entity.Property(e => e.CityImg)
                     .IsRequired()
-                    .HasColumnType("image");
+                    .HasColumnType("image")
+                    .HasComment("城市圖片");
 
-                entity.Property(e => e.CityIntrod).IsRequired();
+                entity.Property(e => e.CityIntrod)
+                    .IsRequired()
+                    .HasComment("城市說明");
 
                 entity.Property(e => e.CityName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("城市名稱");
+
+                entity.Property(e => e.IsIsland).HasComment("是否為本島");
             });
 
             modelBuilder.Entity<CityRaider>(entity =>
             {
                 entity.HasKey(e => e.RaidersId);
 
-                entity.Property(e => e.RaidersId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("RaidersID");
+                entity.Property(e => e.IsUpdate).HasComment("是否更新");
 
-                entity.Property(e => e.CityId).HasColumnName("CityID");
+                entity.Property(e => e.Isdeleted).HasComment("軟刪除");
 
-                entity.Property(e => e.Text).IsRequired();
+                entity.Property(e => e.PostDate)
+                    .HasColumnType("datetime")
+                    .HasComment("發文時間");
 
-                entity.Property(e => e.Title).IsRequired();
+                entity.Property(e => e.Status).HasComment("文章狀態");
 
-                entity.Property(e => e.Video).IsRequired();
+                entity.Property(e => e.Subtitle).HasComment("副標題");
+
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasComment("攻略內文");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasComment("主標題");
+
+                entity.Property(e => e.Video)
+                    .IsRequired()
+                    .HasComment("banner影片");
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.CityRaiders)
                     .HasForeignKey(d => d.CityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CityRaiders_City");
+
+                entity.HasOne(d => d.Staff)
+                    .WithMany(p => p.CityRaiders)
+                    .HasForeignKey(d => d.StaffId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CityRaiders_Staff");
             });
 
             modelBuilder.Entity<Collect>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Collect");
 
-                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+                entity.Property(e => e.CollectId).HasComment("收藏id");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.CreateTime)
+                    .HasColumnType("datetime")
+                    .HasComment("加入時間");
 
                 entity.HasOne(d => d.Member)
-                    .WithMany()
+                    .WithMany(p => p.Collects)
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Collect_Member");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.Collects)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Collect_Product");
@@ -192,25 +212,32 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Comment");
 
-                entity.Property(e => e.CommentId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CommentID");
+                entity.Property(e => e.CommentId).HasComment("評論");
 
-                entity.Property(e => e.CommentDate).HasColumnType("date");
+                entity.Property(e => e.CommentDate)
+                    .HasColumnType("datetime")
+                    .HasComment("評論時間");
 
-                entity.Property(e => e.CommentText).IsRequired();
+                entity.Property(e => e.CommentText)
+                    .IsRequired()
+                    .HasComment("評論內文");
 
                 entity.Property(e => e.CommentTitle)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("評論標題");
 
-                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+                entity.Property(e => e.MemberId).HasComment("會員id");
 
-                entity.Property(e => e.OrderDetailsId).HasColumnName("OrderDetailsID");
+                entity.Property(e => e.OrderDetailsId)
+                    .HasColumnName("OrderDetailsID")
+                    .HasComment("詳細訂單ID");
 
-                entity.Property(e => e.PartnerTypeId).HasColumnName("PartnerTypeID");
+                entity.Property(e => e.PartnerType).HasComment("旅伴類型ID");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.ProductId).HasComment("商品id");
+
+                entity.Property(e => e.RatingStar).HasComment("幾星評價");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Comments)
@@ -224,12 +251,6 @@ namespace Today.Model.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Comment_OrderDetails");
 
-                entity.HasOne(d => d.PartnerType)
-                    .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.PartnerTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_PartnerType");
-
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.ProductId)
@@ -241,65 +262,108 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Coupon");
 
-                entity.Property(e => e.CouponId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CouponID");
+                entity.Property(e => e.Context).HasComment("優惠卷說明");
 
-                entity.Property(e => e.Context).IsRequired();
-
-                entity.Property(e => e.CouponDiscount).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.CouponDiscount)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasComment("折扣金額");
 
                 entity.Property(e => e.CouponName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("優惠卷名稱");
 
-                entity.Property(e => e.CouponStatus)
-                    .IsRequired()
-                    .HasMaxLength(10);
+                entity.Property(e => e.CouponStatus).HasComment("狀態");
 
                 entity.Property(e => e.DiscountCode)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("優惠碼");
 
-                entity.Property(e => e.EndDate).HasColumnType("date");
+                entity.Property(e => e.EndDate)
+                    .HasColumnType("date")
+                    .HasComment("結束日期");
 
-                entity.Property(e => e.StartDate).HasColumnType("date");
+                entity.Property(e => e.FullConsumption).HasComment("滿額 多少 (使用條件)");
+
+                entity.Property(e => e.Rebate).HasComment("減價 多少 (使用條件)");
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnType("date")
+                    .HasComment("開始日期");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.Coupons)
+                    .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Coupon_Member");
+            });
+
+            modelBuilder.Entity<CouponManage>(entity =>
+            {
+                entity.ToTable("CouponManage");
+
+                entity.Property(e => e.CouponManageId).HasComment("優惠卷管理");
+
+                entity.Property(e => e.CouponId).HasComment("優惠眷id");
+
+                entity.Property(e => e.SendTime)
+                    .HasColumnType("datetime")
+                    .HasComment("發卷時間");
+
+                entity.Property(e => e.StaffId).HasComment("員工發眷人");
+
+                entity.HasOne(d => d.Coupon)
+                    .WithMany(p => p.CouponManages)
+                    .HasForeignKey(d => d.CouponId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CouponManage_Coupon");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.CouponManages)
+                    .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CouponManage_Member");
+
+                entity.HasOne(d => d.Staff)
+                    .WithMany(p => p.CouponManages)
+                    .HasForeignKey(d => d.StaffId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CouponManage_Staff");
             });
 
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.ToTable("Location");
 
-                entity.Property(e => e.LocationId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("LocationID");
+                entity.Property(e => e.LocationId).HasComment("體驗地點ID");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("地點");
 
                 entity.Property(e => e.Latitude)
                     .HasMaxLength(50)
-                    .HasColumnName("latitude");
+                    .HasComment("緯度");
 
                 entity.Property(e => e.Longitude)
                     .HasMaxLength(50)
-                    .HasColumnName("longitude");
+                    .HasComment("經度");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.ProductId).HasComment("商品ID");
 
                 entity.Property(e => e.Text)
                     .IsRequired()
-                    .HasColumnName("text");
+                    .HasColumnName("text")
+                    .HasComment("內文");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Type)
-                    .IsRequired()
                     .HasMaxLength(50)
-                    .HasColumnName("type");
+                    .HasComment("體驗地點標題");
+
+                entity.Property(e => e.Type).HasComment("類型0＝體驗 ,1,2...\r\n(地點種類)");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Locations)
@@ -310,23 +374,24 @@ namespace Today.Model.Models
 
             modelBuilder.Entity<LoginWay>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("LoginWay");
 
-                entity.Property(e => e.LongWayName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.LoginWayId).HasComment("登入方式ID");
 
-                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+                entity.Property(e => e.LongWayName).HasComment("登入方式(email1, fb2, google3)");
+
+                entity.Property(e => e.MemberId)
+                    .HasColumnName("MemberID")
+                    .HasComment("會員ID");
 
                 entity.Property(e => e.UniqueId)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .HasColumnName("UniqueID");
+                    .HasColumnName("UniqueID")
+                    .HasComment("唯一ID (如果是EMAIL存EMAIL 若為三方登入給一個ID");
 
                 entity.HasOne(d => d.Member)
-                    .WithMany()
+                    .WithMany(p => p.LoginWays)
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_LoginWay_Member");
@@ -336,108 +401,102 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Member");
 
-                entity.Property(e => e.MemberId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("MemberID");
+                entity.Property(e => e.MemberId).HasComment("會員ID");
 
-                entity.Property(e => e.CityId).HasColumnName("CityID");
+                entity.Property(e => e.Age).HasComment("年齡");
 
-                entity.Property(e => e.CouponId).HasColumnName("CouponID");
+                entity.Property(e => e.CityId).HasComment("城市ID");
 
-                entity.Property(e => e.IdentityCard).HasMaxLength(10);
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasComment("電子信箱");
+
+                entity.Property(e => e.Gender).HasComment("性別");
+
+                entity.Property(e => e.IdentityCard)
+                    .HasMaxLength(10)
+                    .HasComment("身分證字號");
+
+                entity.Property(e => e.Image)
+                    .HasColumnType("image")
+                    .HasComment("會員圖片");
 
                 entity.Property(e => e.MemberName)
                     .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.MessageId).HasColumnName("MessageID");
+                    .HasMaxLength(50)
+                    .HasComment("會員名稱");
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("密碼");
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
-                    .HasMaxLength(10);
+                    .HasMaxLength(10)
+                    .HasComment("電話");
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Members)
                     .HasForeignKey(d => d.CityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_City");
-
-                entity.HasOne(d => d.Coupon)
-                    .WithMany(p => p.Members)
-                    .HasForeignKey(d => d.CouponId)
-                    .HasConstraintName("FK_Member_Coupon");
-
-                entity.HasOne(d => d.Message)
-                    .WithMany(p => p.Members)
-                    .HasForeignKey(d => d.MessageId)
-                    .HasConstraintName("FK_Member_Message");
             });
 
             modelBuilder.Entity<Message>(entity =>
             {
                 entity.ToTable("Message");
 
-                entity.Property(e => e.MessageId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("MessageID");
-
-                entity.Property(e => e.MessageContext).IsRequired();
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
-                entity.Property(e => e.Recipient)
+                entity.Property(e => e.MessageContext)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasComment("訊息內容");
 
-                entity.Property(e => e.SendDate).HasColumnType("datetime");
+                entity.Property(e => e.OrderId).HasComment("因為有訂單才能傳訊息");
+
+                entity.Property(e => e.Recipient).HasComment("接受者(平台1 商家2 使用者3)");
+
+                entity.Property(e => e.ReplyId).HasComment("回覆");
+
+                entity.Property(e => e.SendDate)
+                    .HasColumnType("datetime")
+                    .HasComment("傳送時間");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.Messages)
+                    .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Message_Member");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Messages)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Message_Order");
-            });
 
-            modelBuilder.Entity<MinorCategory>(entity =>
-            {
-                entity.ToTable("MinorCategory");
-
-                entity.Property(e => e.MinorCategoryId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("MinorCategoryID");
-
-                entity.Property(e => e.CategoryName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.PrimaryCategoryId).HasColumnName("PrimaryCategoryID");
-
-                entity.HasOne(d => d.PrimaryCategory)
-                    .WithMany(p => p.MinorCategories)
-                    .HasForeignKey(d => d.PrimaryCategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MinorCategory_PrimaryCategory");
+                entity.HasOne(d => d.Reply)
+                    .WithMany(p => p.InverseReply)
+                    .HasForeignKey(d => d.ReplyId)
+                    .HasConstraintName("FK_Message_Message");
             });
 
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.ToTable("Order");
 
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderID");
+                entity.Property(e => e.OrderId).HasComment("訂單ID");
 
-                entity.Property(e => e.DepartureDate).HasColumnType("datetime");
+                entity.Property(e => e.Note).HasComment("備註");
 
-                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+                entity.Property(e => e.OrderDate)
+                    .HasColumnType("datetime")
+                    .HasComment("下單日期");
 
-                entity.Property(e => e.OrderDate).HasColumnType("datetime");
+                entity.Property(e => e.PaymentId).HasComment("付款ID");
 
-                entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
+                entity.Property(e => e.Status).HasComment("狀態");
+
+                entity.Property(e => e.StatusUpdate).HasComment("訂單狀態更新");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Orders)
@@ -454,25 +513,41 @@ namespace Today.Model.Models
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.HasKey(e => e.OrderDetailsId);
+                entity.HasKey(e => e.OrderDetailsId)
+                    .HasName("PK_OrderDetails");
 
-                entity.Property(e => e.OrderDetailsId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderDetailsID");
+                entity.ToTable("OrderDetail");
 
-                entity.Property(e => e.DetailJson)
+                entity.Property(e => e.OrderDetailsId).HasComment("訂單詳細ID");
+
+                entity.Property(e => e.DepartureDate)
+                    .HasColumnType("datetime")
+                    .HasComment("出發日期");
+
+                entity.Property(e => e.Discount)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasComment("折扣");
+
+                entity.Property(e => e.Itemtext)
                     .IsRequired()
-                    .HasColumnName("DetailJSON");
+                    .HasMaxLength(50)
+                    .HasComment("票種（成人/兒童/車)");
 
-                entity.Property(e => e.LeaseTime).HasColumnType("date");
+                entity.Property(e => e.LeaseTime)
+                    .HasColumnType("datetime")
+                    .HasComment("租賃時間");
 
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+                entity.Property(e => e.OrderId).HasComment("訂單ID");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.Quantity).HasComment("數量");
 
-                entity.Property(e => e.SubTotal).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.SpecificationId).HasComment("規格ID");
 
-                entity.Property(e => e.TicketsId).HasColumnName("TicketsID");
+                entity.Property(e => e.TicketsId).HasComment("電子憑證ID");
+
+                entity.Property(e => e.UnitPrice)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasComment("價格");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetails)
@@ -480,105 +555,49 @@ namespace Today.Model.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderDetails_Order");
 
-                entity.HasOne(d => d.Product)
+                entity.HasOne(d => d.Specification)
                     .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.ProductId)
+                    .HasForeignKey(d => d.SpecificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OrderDetails_Product");
+                    .HasConstraintName("FK_OrderDetail_ProgramSpecification");
 
                 entity.HasOne(d => d.Tickets)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.TicketsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OrderDetails_Tickets");
-            });
-
-            modelBuilder.Entity<PartnerType>(entity =>
-            {
-                entity.ToTable("PartnerType");
-
-                entity.Property(e => e.PartnerTypeId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PartnerTypeID");
-
-                entity.Property(e => e.PartnerType1)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("PartnerType");
+                    .HasConstraintName("FK_OrderDetail_Ticket");
             });
 
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.ToTable("Payment");
 
-                entity.Property(e => e.PaymentId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PaymentID");
-
                 entity.Property(e => e.PaymentWay)
                     .IsRequired()
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<PricingItem>(entity =>
-            {
-                entity.Property(e => e.PricingItemId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PricingItemID");
-
-                entity.Property(e => e.Itemtext)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.OriginalUnitPrice).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.SpecificationId).HasColumnName("SpecificationID");
-
-                entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.UnitText)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.HasOne(d => d.Specification)
-                    .WithMany(p => p.PricingItems)
-                    .HasForeignKey(d => d.SpecificationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PricingItems_ProgramSpecification");
-            });
-
-            modelBuilder.Entity<PrimaryCategory>(entity =>
-            {
-                entity.ToTable("PrimaryCategory");
-
-                entity.Property(e => e.PrimaryCategoryId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PrimaryCategoryID");
-
-                entity.Property(e => e.CategoryName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("付款方式");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
 
-                entity.Property(e => e.ProductId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProductID");
+                entity.Property(e => e.CancellationPolicy).HasComment("取消政策");
 
-                entity.Property(e => e.CityId).HasColumnName("CityID");
+                entity.Property(e => e.HowUse).HasComment("如何使用");
+
+                entity.Property(e => e.Illustrate).HasComment("商品說明");
+
+                entity.Property(e => e.Isdeleted).HasComment("軟刪除");
 
                 entity.Property(e => e.ProductName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("商品名稱");
 
-                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+                entity.Property(e => e.ShoppingNotice).HasComment("購物須知");
 
-                entity.Property(e => e.UnitsOnOrder)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Status).HasComment("上下架狀態");
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Products)
@@ -593,40 +612,86 @@ namespace Today.Model.Models
                     .HasConstraintName("FK_Product_Supplier");
             });
 
-            modelBuilder.Entity<ProductStatus>(entity =>
+            modelBuilder.Entity<ProductCategory>(entity =>
             {
-                entity.ToTable("ProductStatus");
+                entity.HasKey(e => e.CategoryId)
+                    .HasName("PK_ProductCategory_1");
 
-                entity.Property(e => e.ProductStatusId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProductStatusID");
+                entity.ToTable("ProductCategory");
 
-                entity.Property(e => e.OrderDate).HasColumnType("date");
+                entity.Property(e => e.CategoryId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.ProductCategoryId).HasComment("商品類別");
+
+                entity.HasOne(d => d.Category)
+                    .WithOne(p => p.ProductCategory)
+                    .HasForeignKey<ProductCategory>(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductCategory_Category");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductStatuses)
+                    .WithMany(p => p.ProductCategories)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProductStatus_Product");
+                    .HasConstraintName("FK_ProductCategory_Product");
+            });
+
+            modelBuilder.Entity<ProductPhoto>(entity =>
+            {
+                entity.HasKey(e => e.PhotoId);
+
+                entity.ToTable("ProductPhoto");
+
+                entity.Property(e => e.Path)
+                    .IsRequired()
+                    .HasComment("路徑");
+
+                entity.Property(e => e.Sort).HasComment("照片排序");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductPhotos)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductPhoto_Product");
+            });
+
+            modelBuilder.Entity<ProductTag>(entity =>
+            {
+                entity.ToTable("ProductTag");
+
+                entity.Property(e => e.ProductTagId).HasComment("商品標籤");
+
+                entity.Property(e => e.ProductId).HasComment("商品id");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductTags)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductTag_Product");
+
+                entity.HasOne(d => d.Tag)
+                    .WithMany(p => p.ProductTags)
+                    .HasForeignKey(d => d.TagId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductTag_Tag");
             });
 
             modelBuilder.Entity<Program>(entity =>
             {
                 entity.ToTable("Program");
 
-                entity.Property(e => e.ProgramId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProgramID");
+                entity.Property(e => e.ProgramId).HasComment("");
 
-                entity.Property(e => e.Context).IsRequired();
+                entity.Property(e => e.Context)
+                    .IsRequired()
+                    .HasComment("方案內文");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.Status).HasComment("方案狀態(上下架)");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("方案標題");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Programs)
@@ -635,24 +700,21 @@ namespace Today.Model.Models
                     .HasConstraintName("FK_Program_Product");
             });
 
-            modelBuilder.Entity<ProgramDatePicker>(entity =>
+            modelBuilder.Entity<ProgramCantUseDate>(entity =>
             {
-                entity.HasKey(e => e.ProgramDateId);
+                entity.HasKey(e => e.ProgramDateId)
+                    .HasName("PK_ProgramDatePicker");
 
-                entity.ToTable("ProgramDatePicker");
+                entity.ToTable("ProgramCantUseDate");
 
-                entity.Property(e => e.ProgramDateId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProgramDateID");
-
-                entity.Property(e => e.DatimePickerConfigurationJson)
-                    .IsRequired()
-                    .HasColumnName("DatimePickerConfigurationJSON");
+                entity.Property(e => e.Date)
+                    .HasColumnType("date")
+                    .HasComment("要關閉的日期");
 
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
                 entity.HasOne(d => d.Program)
-                    .WithMany(p => p.ProgramDatePickers)
+                    .WithMany(p => p.ProgramCantUseDates)
                     .HasForeignKey(d => d.ProgramId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProgramDatePicker_Program");
@@ -664,11 +726,15 @@ namespace Today.Model.Models
 
                 entity.ToTable("ProgramInclude");
 
+                entity.Property(e => e.IncludeTorF).HasComment("是否包含(判斷放在哪邊)");
+
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.Property(e => e.ProgramIncludeId).HasColumnName("ProgramIncludeID");
+                entity.Property(e => e.ProgramIncludeId).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.Text).IsRequired();
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasComment("內文");
 
                 entity.HasOne(d => d.Program)
                     .WithMany()
@@ -683,15 +749,31 @@ namespace Today.Model.Models
 
                 entity.ToTable("ProgramSpecification");
 
-                entity.Property(e => e.SpecificationId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("SpecificationID");
+                entity.Property(e => e.Inventory).HasComment("庫存量");
 
-                entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
+                entity.Property(e => e.IsScreening).HasComment("有無場次");
 
-                entity.Property(e => e.SpecificationJson)
+                entity.Property(e => e.Itemtext)
                     .IsRequired()
-                    .HasColumnName("SpecificationJSON");
+                    .HasMaxLength(50)
+                    .HasComment("票種（成人/兒童/車)");
+
+                entity.Property(e => e.OriginalUnitPrice)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasComment("原價");
+
+                entity.Property(e => e.ProgramId).HasComment("方案ID");
+
+                entity.Property(e => e.Status).HasComment("狀態(上下架)");
+
+                entity.Property(e => e.UnitPrice)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasComment("單價");
+
+                entity.Property(e => e.UnitText)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasComment("單位文字(人/間/輛）");
 
                 entity.HasOne(d => d.Program)
                     .WithMany(p => p.ProgramSpecifications)
@@ -700,47 +782,74 @@ namespace Today.Model.Models
                     .HasConstraintName("FK_ProgramSpecification_Program");
             });
 
-            modelBuilder.Entity<Reply>(entity =>
+            modelBuilder.Entity<RaidersManage>(entity =>
             {
-                entity.ToTable("Reply");
+                entity.ToTable("RaidersManage");
 
-                entity.Property(e => e.ReplyId)
+                entity.Property(e => e.RaidersManageId)
                     .ValueGeneratedNever()
-                    .HasColumnName("ReplyID");
+                    .HasComment("攻略管理Id");
 
-                entity.Property(e => e.MessageId).HasColumnName("MessageID");
+                entity.Property(e => e.IsUpdate).HasComment("是否更新");
 
-                entity.Property(e => e.ReplayText).IsRequired();
+                entity.Property(e => e.Isdeleted).HasComment("軟刪除");
 
-                entity.Property(e => e.SendDate).HasColumnType("datetime");
+                entity.Property(e => e.PostDate)
+                    .HasColumnType("date")
+                    .HasComment("發文時間");
 
-                entity.HasOne(d => d.Message)
-                    .WithMany(p => p.Replies)
-                    .HasForeignKey(d => d.MessageId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Reply_Message");
+                entity.Property(e => e.Status).HasComment("文章狀態");
             });
 
-            modelBuilder.Entity<ShoppinCart>(entity =>
+            modelBuilder.Entity<Screening>(entity =>
             {
-                entity.HasNoKey();
+                entity.ToTable("Screening");
 
-                entity.ToTable("ShoppinCart");
+                entity.Property(e => e.ScreeningId).HasComment("場次ID");
 
-                entity.Property(e => e.DepartureDate).HasColumnType("date");
+                entity.Property(e => e.Status).HasComment("狀態(上下架)");
 
-                entity.Property(e => e.MemberId).HasColumnName("MemberID");
+                entity.Property(e => e.Time).HasComment("時間");
 
-                entity.Property(e => e.SpecificationId).HasColumnName("SpecificationID");
+                entity.HasOne(d => d.Specification)
+                    .WithMany(p => p.Screenings)
+                    .HasForeignKey(d => d.SpecificationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Screening_ProgramSpecification");
+            });
+
+            modelBuilder.Entity<ShoppingCart>(entity =>
+            {
+                entity.ToTable("ShoppingCart");
+
+                entity.Property(e => e.ShoppingCartId).HasComment("購物車ID");
+
+                entity.Property(e => e.DepartureDate)
+                    .HasColumnType("date")
+                    .HasComment("出發日期");
+
+                entity.Property(e => e.JoinTime)
+                    .HasColumnType("datetime")
+                    .HasComment("加入購物車時間");
+
+                entity.Property(e => e.Quantity).HasComment("數量");
+
+                entity.Property(e => e.ScreeningId).HasComment("場次");
 
                 entity.HasOne(d => d.Member)
-                    .WithMany()
+                    .WithMany(p => p.ShoppingCarts)
                     .HasForeignKey(d => d.MemberId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ShoppinCart_Member");
 
+                entity.HasOne(d => d.Screening)
+                    .WithMany(p => p.ShoppingCarts)
+                    .HasForeignKey(d => d.ScreeningId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShoppingCart_Screening");
+
                 entity.HasOne(d => d.Specification)
-                    .WithMany()
+                    .WithMany(p => p.ShoppingCarts)
                     .HasForeignKey(d => d.SpecificationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ShoppinCart_ProgramSpecification");
@@ -750,13 +859,12 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Subscription");
 
-                entity.Property(e => e.SubscriptionId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("SubscriptionID");
+                entity.Property(e => e.SubscriptionId).HasComment("訂閱ID");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("email");
             });
 
             modelBuilder.Entity<Supplier>(entity =>
@@ -764,28 +872,34 @@ namespace Today.Model.Models
                 entity.ToTable("Supplier");
 
                 entity.Property(e => e.SupplierId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("SupplierID");
+                    .HasColumnName("SupplierID")
+                    .HasComment("供應商ID");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("公司地址");
 
-                entity.Property(e => e.CityId).HasColumnName("CityID");
+                entity.Property(e => e.CityId).HasComment("城市");
 
                 entity.Property(e => e.CompanyName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("公司名稱");
 
                 entity.Property(e => e.ContactName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .HasComment("聯繫人姓名");
 
-                entity.Property(e => e.ContactTitle).HasMaxLength(50);
+                entity.Property(e => e.ContactTitle)
+                    .HasMaxLength(50)
+                    .HasComment("聯繫人職稱");
 
                 entity.Property(e => e.Phone)
                     .IsRequired()
-                    .HasMaxLength(10);
+                    .HasMaxLength(10)
+                    .HasComment("電話");
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Suppliers)
@@ -798,31 +912,50 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Tag");
 
-                entity.Property(e => e.TagId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("TagID");
-
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Tags)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tag_Product");
+                entity.Property(e => e.TagText).HasComment("標籤名稱");
             });
 
             modelBuilder.Entity<Ticket>(entity =>
             {
-                entity.HasKey(e => e.TicketsId);
+                entity.HasKey(e => e.TicketsId)
+                    .HasName("PK_Tickets");
 
-                entity.Property(e => e.TicketsId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("TicketsID");
+                entity.ToTable("Ticket");
 
-                entity.Property(e => e.TicketsQrcode)
+                entity.Property(e => e.TicketsId).HasComment("電子憑證ID");
+
+                entity.Property(e => e.Status).HasComment("狀態");
+
+                entity.Property(e => e.TicketQrcode)
                     .IsRequired()
-                    .HasColumnType("image")
-                    .HasColumnName("TicketsQRcode");
+                    .HasColumnName("TicketQRcode")
+                    .HasComment("qrcode");
+            });
+
+            modelBuilder.Entity<staff>(entity =>
+            {
+                entity.ToTable("Staff");
+
+                entity.Property(e => e.StaffId).HasComment("員工ID");
+
+                entity.Property(e => e.Birthday)
+                    .HasColumnType("date")
+                    .HasComment("生日");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasComment("員工姓名");
+
+                entity.Property(e => e.PassWord)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasComment("密碼");
+
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasComment("電話");
             });
 
             OnModelCreatingPartial(modelBuilder);

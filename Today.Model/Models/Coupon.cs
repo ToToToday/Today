@@ -9,19 +9,22 @@ namespace Today.Model.Models
     {
         public Coupon()
         {
-            Members = new HashSet<Member>();
+            CouponManages = new HashSet<CouponManage>();
         }
 
         public int CouponId { get; set; }
         public string CouponName { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Context { get; set; }
         public string DiscountCode { get; set; }
         public decimal CouponDiscount { get; set; }
-        public string ConditionsOfUse { get; set; }
-        public string CouponStatus { get; set; }
+        public int? FullConsumption { get; set; }
+        public int? Rebate { get; set; }
+        public int CouponStatus { get; set; }
+        public int MemberId { get; set; }
 
-        public virtual ICollection<Member> Members { get; set; }
+        public virtual Member Member { get; set; }
+        public virtual ICollection<CouponManage> CouponManages { get; set; }
     }
 }

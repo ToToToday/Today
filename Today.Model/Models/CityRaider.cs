@@ -13,7 +13,13 @@ namespace Today.Model.Models
         public string Subtitle { get; set; }
         public string Video { get; set; }
         public string Text { get; set; }
+        public DateTime PostDate { get; set; }
+        public bool IsUpdate { get; set; }
+        public int Status { get; set; }
+        public bool Isdeleted { get; set; }
+        public int StaffId { get; set; }
 
         public virtual City City { get; set; }
+        public virtual staff Staff { get; set; }
     }
 }
