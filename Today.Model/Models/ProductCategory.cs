@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace Today.Model.Models
 {
-    public partial class AboutProgramOption
+    public partial class ProductCategory
     {
-        public int AboutProgramOptionsId { get; set; }
-        public string Context { get; set; }
-        public string IconClass { get; set; }
+        public int CategoryId { get; set; }
+        public int ProductCategoryId { get; set; }
         public int ProductId { get; set; }
 
+        public virtual Category Category { get; set; }
         public virtual Product Product { get; set; }
     }
 }
