@@ -22,12 +22,18 @@ namespace Today.Model.Migrations
 
             modelBuilder.Entity("Today.Model.Models.AboutProgram", b =>
                 {
+                    b.Property<int>("AboutProgramId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("AboutProgramOptionsId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProgramId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.HasKey("AboutProgramId");
 
                     b.HasIndex("AboutProgramOptionsId");
 
@@ -95,10 +101,9 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("CityImg")
+                    b.Property<string>("CityImage")
                         .IsRequired()
-                        .HasColumnType("image")
-                        .HasComment("城市圖片");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CityIntrod")
                         .IsRequired()
@@ -466,8 +471,8 @@ namespace Today.Model.Migrations
                         .HasColumnType("nvarchar(10)")
                         .HasComment("身分證字號");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("image")
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("會員圖片");
 
                     b.Property<string>("MemberName")
@@ -707,19 +712,21 @@ namespace Today.Model.Migrations
 
             modelBuilder.Entity("Today.Model.Models.ProductCategory", b =>
                 {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductCategoryId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("商品類別");
+                        .HasComment("商品類別")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("CategoryId")
-                        .HasName("PK_ProductCategory_1");
+                    b.HasKey("ProductCategoryId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ProductId");
 
@@ -834,6 +841,11 @@ namespace Today.Model.Migrations
 
             modelBuilder.Entity("Today.Model.Models.ProgramInclude", b =>
                 {
+                    b.Property<int>("ProgramIncludeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<bool>("IncludeTorF")
                         .HasColumnType("bit")
                         .HasComment("是否包含(判斷放在哪邊)");
@@ -842,15 +854,12 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ProgramID");
 
-                    b.Property<int>("ProgramIncludeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("內文");
+
+                    b.HasKey("ProgramIncludeId");
 
                     b.HasIndex("ProgramId");
 
@@ -905,39 +914,6 @@ namespace Today.Model.Migrations
                     b.HasIndex("ProgramId");
 
                     b.ToTable("ProgramSpecification");
-                });
-
-            modelBuilder.Entity("Today.Model.Models.RaidersManage", b =>
-                {
-                    b.Property<int>("RaidersManageId")
-                        .HasColumnType("int")
-                        .HasComment("攻略管理Id");
-
-                    b.Property<bool>("IsUpdate")
-                        .HasColumnType("bit")
-                        .HasComment("是否更新");
-
-                    b.Property<bool>("Isdeleted")
-                        .HasColumnType("bit")
-                        .HasComment("軟刪除");
-
-                    b.Property<DateTime>("PostDate")
-                        .HasColumnType("date")
-                        .HasComment("發文時間");
-
-                    b.Property<int>("RaidersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StaffId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int")
-                        .HasComment("文章狀態");
-
-                    b.HasKey("RaidersManageId");
-
-                    b.ToTable("RaidersManage");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Screening", b =>
@@ -1156,13 +1132,13 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.AboutProgram", b =>
                 {
                     b.HasOne("Today.Model.Models.AboutProgramOption", "AboutProgramOptions")
-                        .WithMany()
+                        .WithMany("AboutPrograms")
                         .HasForeignKey("AboutProgramOptionsId")
                         .HasConstraintName("FK_AboutProgram_AboutProgramOptions")
                         .IsRequired();
 
                     b.HasOne("Today.Model.Models.Program", "Program")
-                        .WithMany()
+                        .WithMany("AboutPrograms")
                         .HasForeignKey("ProgramId")
                         .HasConstraintName("FK_AboutProgram_Program")
                         .IsRequired();
@@ -1423,8 +1399,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProductCategory", b =>
                 {
                     b.HasOne("Today.Model.Models.Category", "Category")
-                        .WithOne("ProductCategory")
-                        .HasForeignKey("Today.Model.Models.ProductCategory", "CategoryId")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId")
                         .HasConstraintName("FK_ProductCategory_Category")
                         .IsRequired();
 
@@ -1494,7 +1470,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProgramInclude", b =>
                 {
                     b.HasOne("Today.Model.Models.Program", "Program")
-                        .WithMany()
+                        .WithMany("ProgramIncludes")
                         .HasForeignKey("ProgramId")
                         .HasConstraintName("FK_ProgramInclude_Program")
                         .IsRequired();
@@ -1562,11 +1538,16 @@ namespace Today.Model.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("Today.Model.Models.AboutProgramOption", b =>
+                {
+                    b.Navigation("AboutPrograms");
+                });
+
             modelBuilder.Entity("Today.Model.Models.Category", b =>
                 {
                     b.Navigation("InverseParentCategory");
 
-                    b.Navigation("ProductCategory");
+                    b.Navigation("ProductCategories");
                 });
 
             modelBuilder.Entity("Today.Model.Models.City", b =>
@@ -1647,7 +1628,11 @@ namespace Today.Model.Migrations
 
             modelBuilder.Entity("Today.Model.Models.Program", b =>
                 {
+                    b.Navigation("AboutPrograms");
+
                     b.Navigation("ProgramCantUseDates");
+
+                    b.Navigation("ProgramIncludes");
 
                     b.Navigation("ProgramSpecifications");
                 });

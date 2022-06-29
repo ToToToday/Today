@@ -41,7 +41,6 @@ namespace Today.Model.Models
         public virtual DbSet<ProgramCantUseDate> ProgramCantUseDates { get; set; }
         public virtual DbSet<ProgramInclude> ProgramIncludes { get; set; }
         public virtual DbSet<ProgramSpecification> ProgramSpecifications { get; set; }
-        public virtual DbSet<RaidersManage> RaidersManages { get; set; }
         public virtual DbSet<Screening> Screenings { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
@@ -64,20 +63,16 @@ namespace Today.Model.Models
 
             modelBuilder.Entity<AboutProgram>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("AboutProgram");
 
-                entity.Property(e => e.ProgramId).ValueGeneratedOnAdd();
-
                 entity.HasOne(d => d.AboutProgramOptions)
-                    .WithMany()
+                    .WithMany(p => p.AboutPrograms)
                     .HasForeignKey(d => d.AboutProgramOptionsId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AboutProgram_AboutProgramOptions");
 
                 entity.HasOne(d => d.Program)
-                    .WithMany()
+                    .WithMany(p => p.AboutPrograms)
                     .HasForeignKey(d => d.ProgramId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AboutProgram_Program");
@@ -126,10 +121,7 @@ namespace Today.Model.Models
 
                 entity.HasComment("");
 
-                entity.Property(e => e.CityImg)
-                    .IsRequired()
-                    .HasColumnType("image")
-                    .HasComment("城市圖片");
+                entity.Property(e => e.CityImage).IsRequired();
 
                 entity.Property(e => e.CityIntrod)
                     .IsRequired()
@@ -417,9 +409,7 @@ namespace Today.Model.Models
                     .HasMaxLength(10)
                     .HasComment("身分證字號");
 
-                entity.Property(e => e.Image)
-                    .HasColumnType("image")
-                    .HasComment("會員圖片");
+                entity.Property(e => e.Image).HasComment("會員圖片");
 
                 entity.Property(e => e.MemberName)
                     .IsRequired()
@@ -613,18 +603,13 @@ namespace Today.Model.Models
 
             modelBuilder.Entity<ProductCategory>(entity =>
             {
-                entity.HasKey(e => e.CategoryId)
-                    .HasName("PK_ProductCategory_1");
-
                 entity.ToTable("ProductCategory");
-
-                entity.Property(e => e.CategoryId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ProductCategoryId).HasComment("商品類別");
 
                 entity.HasOne(d => d.Category)
-                    .WithOne(p => p.ProductCategory)
-                    .HasForeignKey<ProductCategory>(d => d.CategoryId)
+                    .WithMany(p => p.ProductCategories)
+                    .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductCategory_Category");
 
@@ -721,22 +706,18 @@ namespace Today.Model.Models
 
             modelBuilder.Entity<ProgramInclude>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("ProgramInclude");
 
                 entity.Property(e => e.IncludeTorF).HasComment("是否包含(判斷放在哪邊)");
 
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.Property(e => e.ProgramIncludeId).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Text)
                     .IsRequired()
                     .HasComment("內文");
 
                 entity.HasOne(d => d.Program)
-                    .WithMany()
+                    .WithMany(p => p.ProgramIncludes)
                     .HasForeignKey(d => d.ProgramId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProgramInclude_Program");
@@ -779,25 +760,6 @@ namespace Today.Model.Models
                     .HasForeignKey(d => d.ProgramId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProgramSpecification_Program");
-            });
-
-            modelBuilder.Entity<RaidersManage>(entity =>
-            {
-                entity.ToTable("RaidersManage");
-
-                entity.Property(e => e.RaidersManageId)
-                    .ValueGeneratedNever()
-                    .HasComment("攻略管理Id");
-
-                entity.Property(e => e.IsUpdate).HasComment("是否更新");
-
-                entity.Property(e => e.Isdeleted).HasComment("軟刪除");
-
-                entity.Property(e => e.PostDate)
-                    .HasColumnType("date")
-                    .HasComment("發文時間");
-
-                entity.Property(e => e.Status).HasComment("文章狀態");
             });
 
             modelBuilder.Entity<Screening>(entity =>
