@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Today.Model.Migrations
 {
-    public partial class InitDB : Migration
+    public partial class initDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,9 +34,9 @@ namespace Today.Model.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CityName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "城市名稱"),
-                    CityImg = table.Column<byte[]>(type: "image", nullable: false, comment: "城市圖片"),
                     CityIntrod = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "城市說明"),
-                    IsIsland = table.Column<bool>(type: "bit", nullable: false, comment: "是否為本島")
+                    IsIsland = table.Column<bool>(type: "bit", nullable: false, comment: "是否為本島"),
+                    CityImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,23 +55,6 @@ namespace Today.Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Payment", x => x.PaymentId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RaidersManage",
-                columns: table => new
-                {
-                    RaidersManageId = table.Column<int>(type: "int", nullable: false, comment: "攻略管理Id"),
-                    PostDate = table.Column<DateTime>(type: "date", nullable: false, comment: "發文時間"),
-                    IsUpdate = table.Column<bool>(type: "bit", nullable: false, comment: "是否更新"),
-                    Status = table.Column<int>(type: "int", nullable: false, comment: "文章狀態"),
-                    Isdeleted = table.Column<bool>(type: "bit", nullable: false, comment: "軟刪除"),
-                    RaidersId = table.Column<int>(type: "int", nullable: false),
-                    StaffId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RaidersManage", x => x.RaidersManageId);
                 });
 
             migrationBuilder.CreateTable(
@@ -138,8 +121,8 @@ namespace Today.Model.Migrations
                     MemberId = table.Column<int>(type: "int", nullable: false, comment: "會員ID")
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MemberName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "會員名稱"),
-                    Image = table.Column<byte[]>(type: "image", nullable: true, comment: "會員圖片"),
                     CityId = table.Column<int>(type: "int", nullable: false, comment: "城市ID"),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "會員圖片"),
                     Age = table.Column<int>(type: "int", nullable: true, comment: "年齡"),
                     Phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "電話"),
                     IdentityCard = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true, comment: "身分證字號"),
@@ -475,13 +458,14 @@ namespace Today.Model.Migrations
                 name: "ProductCategory",
                 columns: table => new
                 {
+                    ProductCategoryId = table.Column<int>(type: "int", nullable: false, comment: "商品類別")
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ProductCategoryId = table.Column<int>(type: "int", nullable: false, comment: "商品類別"),
                     ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategory_1", x => x.CategoryId);
+                    table.PrimaryKey("PK_ProductCategory", x => x.ProductCategoryId);
                     table.ForeignKey(
                         name: "FK_ProductCategory_Category",
                         column: x => x.CategoryId,
@@ -569,11 +553,14 @@ namespace Today.Model.Migrations
                 name: "AboutProgram",
                 columns: table => new
                 {
+                    AboutProgramId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProgramId = table.Column<int>(type: "int", nullable: false),
                     AboutProgramOptionsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_AboutProgram", x => x.AboutProgramId);
                     table.ForeignKey(
                         name: "FK_AboutProgram_AboutProgramOptions",
                         column: x => x.AboutProgramOptionsId,
@@ -620,6 +607,7 @@ namespace Today.Model.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_ProgramInclude", x => x.ProgramIncludeId);
                     table.ForeignKey(
                         name: "FK_ProgramInclude_Program",
                         column: x => x.ProgramID,
@@ -929,6 +917,11 @@ namespace Today.Model.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductCategory_CategoryId",
+                table: "ProductCategory",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductCategory_ProductId",
                 table: "ProductCategory",
                 column: "ProductId");
@@ -1034,9 +1027,6 @@ namespace Today.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProgramInclude");
-
-            migrationBuilder.DropTable(
-                name: "RaidersManage");
 
             migrationBuilder.DropTable(
                 name: "ShoppingCart");

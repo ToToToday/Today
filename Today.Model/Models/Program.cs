@@ -9,7 +9,9 @@ namespace Today.Model.Models
     {
         public Program()
         {
+            AboutPrograms = new HashSet<AboutProgram>();
             ProgramCantUseDates = new HashSet<ProgramCantUseDate>();
+            ProgramIncludes = new HashSet<ProgramInclude>();
             ProgramSpecifications = new HashSet<ProgramSpecification>();
         }
 
@@ -20,7 +22,9 @@ namespace Today.Model.Models
         public int Status { get; set; }
 
         public virtual Product Product { get; set; }
+        public virtual ICollection<AboutProgram> AboutPrograms { get; set; }
         public virtual ICollection<ProgramCantUseDate> ProgramCantUseDates { get; set; }
+        public virtual ICollection<ProgramInclude> ProgramIncludes { get; set; }
         public virtual ICollection<ProgramSpecification> ProgramSpecifications { get; set; }
     }
 }

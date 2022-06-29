@@ -10,6 +10,7 @@ namespace Today.Model.Models
         public Category()
         {
             InverseParentCategory = new HashSet<Category>();
+            ProductCategories = new HashSet<ProductCategory>();
         }
 
         public int CategoryId { get; set; }
@@ -17,7 +18,7 @@ namespace Today.Model.Models
         public int? ParentCategoryId { get; set; }
 
         public virtual Category ParentCategory { get; set; }
-        public virtual ProductCategory ProductCategory { get; set; }
         public virtual ICollection<Category> InverseParentCategory { get; set; }
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
     }
 }

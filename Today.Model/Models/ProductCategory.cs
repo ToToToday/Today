@@ -7,8 +7,8 @@ namespace Today.Model.Models
 {
     public partial class ProductCategory
     {
-        public int CategoryId { get; set; }
         public int ProductCategoryId { get; set; }
+        public int CategoryId { get; set; }
         public int ProductId { get; set; }
 
         public virtual Category Category { get; set; }
