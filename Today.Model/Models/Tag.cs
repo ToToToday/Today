@@ -14,7 +14,6 @@ namespace Today.Model.Models
 
         public int TagId { get; set; }
         public int TagText { get; set; }
-        public int ProductId { get; set; }
 
         public virtual ICollection<ProductTag> ProductTags { get; set; }
     }

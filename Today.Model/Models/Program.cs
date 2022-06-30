@@ -19,7 +19,7 @@ namespace Today.Model.Models
         public int ProductId { get; set; }
         public string Title { get; set; }
         public string Context { get; set; }
-        public int Status { get; set; }
+        public bool Isdeleted { get; set; }
 
         public virtual Product Product { get; set; }
         public virtual ICollection<AboutProgram> AboutPrograms { get; set; }

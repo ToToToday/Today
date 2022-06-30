@@ -12,6 +12,7 @@ namespace Today.Model.Models
         public int StaffId { get; set; }
         public DateTime SendTime { get; set; }
         public int MemberId { get; set; }
+        public int CouponStatus { get; set; }
 
         public virtual Coupon Coupon { get; set; }
         public virtual Member Member { get; set; }

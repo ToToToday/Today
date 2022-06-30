@@ -45,6 +45,26 @@ namespace Today.Model.Migrations
                 comment: "");
 
             migrationBuilder.CreateTable(
+                name: "Coupon",
+                columns: table => new
+                {
+                    CouponId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CouponName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠卷名稱"),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false, comment: "開始日期"),
+                    EndDate = table.Column<DateTime>(type: "date", nullable: true, comment: "結束日期"),
+                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "優惠卷說明"),
+                    DiscountCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠碼"),
+                    CouponDiscount = table.Column<decimal>(type: "decimal(18,0)", nullable: false, comment: "折扣金額"),
+                    FullConsumption = table.Column<int>(type: "int", nullable: true, comment: "滿額 多少 (使用條件)"),
+                    Rebate = table.Column<int>(type: "int", nullable: true, comment: "減價 多少 (使用條件)")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Coupon", x => x.CouponId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Payment",
                 columns: table => new
                 {
@@ -66,7 +86,7 @@ namespace Today.Model.Migrations
                     Name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "員工姓名"),
                     Phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "電話"),
                     Birthday = table.Column<DateTime>(type: "date", nullable: true, comment: "生日"),
-                    PassWord = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "密碼")
+                    PassWord = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "密碼")
                 },
                 constraints: table =>
                 {
@@ -92,8 +112,7 @@ namespace Today.Model.Migrations
                 {
                     TagId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TagText = table.Column<int>(type: "int", nullable: false, comment: "標籤名稱"),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    TagText = table.Column<int>(type: "int", nullable: false, comment: "標籤名稱")
                 },
                 constraints: table =>
                 {
@@ -127,7 +146,7 @@ namespace Today.Model.Migrations
                     Phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "電話"),
                     IdentityCard = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true, comment: "身分證字號"),
                     Gender = table.Column<bool>(type: "bit", nullable: true, comment: "性別"),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "密碼"),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "密碼"),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "電子信箱")
                 },
                 constraints: table =>
@@ -177,7 +196,7 @@ namespace Today.Model.Migrations
                     Video = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "banner影片"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "攻略內文"),
                     PostDate = table.Column<DateTime>(type: "datetime", nullable: false, comment: "發文時間"),
-                    IsUpdate = table.Column<bool>(type: "bit", nullable: false, comment: "是否更新"),
+                    UpdateTime = table.Column<DateTime>(type: "datetime", nullable: false, comment: "更新時間(第一次發文存發文時間)"),
                     Status = table.Column<int>(type: "int", nullable: false, comment: "文章狀態"),
                     Isdeleted = table.Column<bool>(type: "bit", nullable: false, comment: "軟刪除"),
                     StaffId = table.Column<int>(type: "int", nullable: false)
@@ -200,30 +219,37 @@ namespace Today.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coupon",
+                name: "CouponManage",
                 columns: table => new
                 {
-                    CouponId = table.Column<int>(type: "int", nullable: false)
+                    CouponManageId = table.Column<int>(type: "int", nullable: false, comment: "優惠卷管理")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CouponName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠卷名稱"),
-                    StartDate = table.Column<DateTime>(type: "date", nullable: false, comment: "開始日期"),
-                    EndDate = table.Column<DateTime>(type: "date", nullable: true, comment: "結束日期"),
-                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "優惠卷說明"),
-                    DiscountCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠碼"),
-                    CouponDiscount = table.Column<decimal>(type: "decimal(18,0)", nullable: false, comment: "折扣金額"),
-                    FullConsumption = table.Column<int>(type: "int", nullable: true, comment: "滿額 多少 (使用條件)"),
-                    Rebate = table.Column<int>(type: "int", nullable: true, comment: "減價 多少 (使用條件)"),
-                    CouponStatus = table.Column<int>(type: "int", nullable: false, comment: "狀態"),
-                    MemberId = table.Column<int>(type: "int", nullable: false)
+                    CouponId = table.Column<int>(type: "int", nullable: false, comment: "優惠眷id"),
+                    StaffId = table.Column<int>(type: "int", nullable: false, comment: "員工發眷人"),
+                    SendTime = table.Column<DateTime>(type: "datetime", nullable: false, comment: "發卷時間"),
+                    MemberId = table.Column<int>(type: "int", nullable: false),
+                    CouponStatus = table.Column<int>(type: "int", nullable: false, comment: "狀態")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coupon", x => x.CouponId);
+                    table.PrimaryKey("PK_CouponManage", x => x.CouponManageId);
                     table.ForeignKey(
-                        name: "FK_Coupon_Member",
+                        name: "FK_CouponManage_Coupon",
+                        column: x => x.CouponId,
+                        principalTable: "Coupon",
+                        principalColumn: "CouponId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CouponManage_Member",
                         column: x => x.MemberId,
                         principalTable: "Member",
                         principalColumn: "MemberId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CouponManage_Staff",
+                        column: x => x.StaffId,
+                        principalTable: "Staff",
+                        principalColumn: "StaffId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -291,7 +317,6 @@ namespace Today.Model.Migrations
                     HowUse = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "如何使用"),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false, comment: "上下架狀態"),
                     Isdeleted = table.Column<bool>(type: "bit", nullable: false, comment: "軟刪除")
                 },
                 constraints: table =>
@@ -308,40 +333,6 @@ namespace Today.Model.Migrations
                         column: x => x.SupplierId,
                         principalTable: "Supplier",
                         principalColumn: "SupplierID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CouponManage",
-                columns: table => new
-                {
-                    CouponManageId = table.Column<int>(type: "int", nullable: false, comment: "優惠卷管理")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CouponId = table.Column<int>(type: "int", nullable: false, comment: "優惠眷id"),
-                    StaffId = table.Column<int>(type: "int", nullable: false, comment: "員工發眷人"),
-                    SendTime = table.Column<DateTime>(type: "datetime", nullable: false, comment: "發卷時間"),
-                    MemberId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CouponManage", x => x.CouponManageId);
-                    table.ForeignKey(
-                        name: "FK_CouponManage_Coupon",
-                        column: x => x.CouponId,
-                        principalTable: "Coupon",
-                        principalColumn: "CouponId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CouponManage_Member",
-                        column: x => x.MemberId,
-                        principalTable: "Member",
-                        principalColumn: "MemberId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CouponManage_Staff",
-                        column: x => x.StaffId,
-                        principalTable: "Staff",
-                        principalColumn: "StaffId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -536,7 +527,7 @@ namespace Today.Model.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "方案標題"),
                     Context = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "方案內文"),
-                    Status = table.Column<int>(type: "int", nullable: false, comment: "方案狀態(上下架)")
+                    Isdeleted = table.Column<bool>(type: "bit", nullable: false, comment: "軟刪除(上下架)")
                 },
                 constraints: table =>
                 {
@@ -603,7 +594,7 @@ namespace Today.Model.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProgramID = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "內文"),
-                    IncludeTorF = table.Column<bool>(type: "bit", nullable: false, comment: "是否包含(判斷放在哪邊)")
+                    IsInclude = table.Column<bool>(type: "bit", nullable: false, comment: "是否包含(判斷放在哪邊)")
                 },
                 constraints: table =>
                 {
@@ -830,11 +821,6 @@ namespace Today.Model.Migrations
                 name: "IX_Comment_ProductId",
                 table: "Comment",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Coupon_MemberId",
-                table: "Coupon",
-                column: "MemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CouponManage_CouponId",

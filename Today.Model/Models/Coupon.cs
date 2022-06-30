@@ -21,10 +21,7 @@ namespace Today.Model.Models
         public decimal CouponDiscount { get; set; }
         public int? FullConsumption { get; set; }
         public int? Rebate { get; set; }
-        public int CouponStatus { get; set; }
-        public int MemberId { get; set; }
 
-        public virtual Member Member { get; set; }
         public virtual ICollection<CouponManage> CouponManages { get; set; }
     }
 }

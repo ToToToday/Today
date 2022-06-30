@@ -27,7 +27,6 @@ namespace Today.Model.Models
         public string HowUse { get; set; }
         public int CityId { get; set; }
         public int SupplierId { get; set; }
-        public int Status { get; set; }
         public bool Isdeleted { get; set; }
 
         public virtual City City { get; set; }

@@ -12,7 +12,6 @@ namespace Today.Model.Models
             Collects = new HashSet<Collect>();
             Comments = new HashSet<Comment>();
             CouponManages = new HashSet<CouponManage>();
-            Coupons = new HashSet<Coupon>();
             LoginWays = new HashSet<LoginWay>();
             Messages = new HashSet<Message>();
             Orders = new HashSet<Order>();
@@ -34,7 +33,6 @@ namespace Today.Model.Models
         public virtual ICollection<Collect> Collects { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<CouponManage> CouponManages { get; set; }
-        public virtual ICollection<Coupon> Coupons { get; set; }
         public virtual ICollection<LoginWay> LoginWays { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
