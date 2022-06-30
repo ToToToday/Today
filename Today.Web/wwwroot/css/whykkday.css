@@ -1,0 +1,167 @@
+h3{
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+.container{
+    max-width: 1200px;
+}
+.slogan {
+    height: 280px;
+    background-color: #f4f4f4;
+    margin-top: 40px;
+}
+.fa-angle-up {
+    margin-top: 13px;
+    color: white;
+}
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(0, 0, 0, .4);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    opacity: .8;
+    border-radius: 2px;
+    z-index: 10;
+}
+.scroll-to-top{
+    display: none;
+}
+.banner{
+    padding-top: 50px;
+}
+.why-today{
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+.why-today+p+img{
+    border-radius: 10%;
+    right: 20px;
+    top: 140%;
+}
+.about-trip img{
+    width: 40%;
+    margin-top: 30px;
+}
+.about-trip img:hover{
+    transform: scale(1.2);
+    transition: 1s;
+}
+.title,.about-trip{
+    text-align: center;
+    margin-top: 30px;
+}
+.title+p{
+    text-align: center;
+    margin-top: 70px;
+}
+.area{
+    padding-top: 90px;
+}
+h3+p{
+    line-height: 1.8;
+}
+.each-trip{
+    padding: 0px 30px 30px 30px;
+    margin: auto;
+    border-bottom: 1px solid #f4f4f4;
+}
+.poster{
+    background-color: #f4f4f4;
+    padding: 50px 20px 50px 20px;
+}
+.fix{
+    margin-top: 80px;
+}
+.each-platform{
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px 30px 30px 30px;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+}
+.each-platform:hover{
+    transition: 1s;
+    transform: translateY(-3%);
+}
+.trip .title,.trip p{
+    padding: 0px 20px;
+}
+.adventure img{
+    width: 100%;
+}
+.adventure a{
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+    color: white;
+    background-color: #26bec9;
+    padding: 15px 120px;
+    position: absolute;
+    top: 5%;
+    text-decoration: none;
+    border-radius: 10px;
+}
+.adventure a:hover{
+    background-color: #22a7aa;
+    transform: translateY(-10%);
+    transition: 1s;
+}
+/*平板直向、橫向、桌機*/
+@media screen and (min-width:768px) {
+    .why-today+p+img{
+        top: 50px;
+    }
+    p{
+        font-size: 0.7rem;
+    }
+    .why-today{
+        font-size: 2.2rem;
+    }
+    h3{
+        font-size: 1.2rem;
+    }
+    .scroll-to-top {
+        display: block;
+    }
+
+    .scroll-to-top:hover {
+        background-color: #26bec9;
+        transition: 1s;
+    }
+}
+/*平板橫向、桌機*/
+@media screen and (min-width:992px) {
+    .why-today+p+img{
+        right: 100px;
+    }
+    p{
+        font-size: 0.8rem;
+    }
+    .why-today{
+        font-size: 2.5rem;
+    }
+    h3{
+        font-size: 1.4rem;
+    }
+    .about-trip,.about-platform{
+        display: flex;
+        justify-content: space-around;
+    }
+    .each-trip{
+        border: none;
+    }
+    .each-platform{
+        margin-top: 80px;
+    }
+    .poster {
+        background: url("/image/background.jpg") no-repeat;
+        background-position: top;
+        background-size: 125%;
+    }
+}

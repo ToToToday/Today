@@ -20,6 +20,7 @@ namespace Today.Web.Controllers
 
         public IActionResult Index()
         {
+            //ViewData["SearchBox"] = "None";
             return View();
         }
 

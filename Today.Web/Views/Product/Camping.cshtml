@@ -1,5 +1,959 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "_Layout_Camping";
 }
+@section topCSS{
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/camping.css">
+}
+
+    <section class="banner">
+        <div class="banner_vedio">
+            <img src="https://image.kkday.com/v2/image/get/w_%2Ch_2Cq_55%2Ct/s1.kkday.com/campaign_1237/20200622034320_2qeVp/jpg"
+             alt="手機板影片的圖片">
+
+            <!-- 桌機放假圖 -->
+            <img class="pcImg" src="https://picsum.photos/1180/600/?random=10">
+            <!-- <iframe width="1180" height="600" src="https://www.youtube.com/embed/DkAlyeGg8YI?start=19" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        </div>
+
+        <div class="banner_img">
+            <div class="container">
+                <img src="https://image.kkday.com/v2/image/get/w_%2Ch_400%2Cc_fill%2Cq_55%2Ct/s1.kkday.com/campaign_1237/20200622023406_r2gzL/png"
+                 alt="露營生活 CAMPLIFE">
+            </div>
+
+            <div class="circle_button">
+                <a href="#tab">
+                    <button type="button" class="btn btn-light rounded-circle">
+                        <i class="icofont-rounded-down text-dark"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="area">
+        <div class="container" id="tab">
+            <div class="wrap">
+                <section class="intro">
+                    <div class="intro_card row g-0 bg-light position-relative">
+                        <div class="intro_body col-lg-6 p-4">
+                            <div class="intro_body_All">
+                                <h4 class="intro_title mt-0">＼限．時．優．惠／<br>遠山望月溫泉風呂露營區</h4>
+                                <p class="intro-text">
+                                    <i class="fa-brands fa-gratipay"></i>
+                                    即日起-6/30限定！平日 88 折優惠
+                                </p>
+                                <p class="intro-text">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    享一泊一食 & 美人湯浴
+                                </p>
+                                <p class="intro-text">
+                                    <i class="fa-solid fa-heart"></i>
+                                    備有私人衛浴 & 盥洗備品
+                                </p>
+                                <a href="#" class="btn intro-btn">戶外露營透透氣</a>
+                            </div>
+                        </div>
+                        <div class="intro_pic col-md-6 mb-md-0">
+                            <img src="https://image.kkday.com/v2/image/get/w_1920%2Ch_1080%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_105497/20201126072606_UimKd/jpg"
+                             class="card-img-bottom">
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="Special" id="Special">
+                    <div class="card Special_card row g-0 bg-light position-relative">
+                        <div class="Special_body col-md-6">
+                            <div class="Special_body_All">
+                                <h4 class="Special_title mt-0">
+                                    特別推薦
+                                    <span>blank_green</span>
+                                </h4>
+                                <p class="Special-text">
+                                    ❤️ KKday 新品入荷❤️<br>不用再google了
+                                    <span>最新營地資訊看這邊</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="Special_pic mb-md-0 position-relative">
+                            <button class="btn-left position-absolute" type="button">
+                                <i class="icofont-rounded-left"></i>
+                            </button>
+
+                            <div class="Special_card">
+                                <div class="Special_wrap d-flex">
+                                    <!-- 第一個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=1"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    農野遊・聊綠遊方案任選
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊二食：早餐 & 晚餐+點心/零嘴
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    兩樣周邊 & 三項體驗
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        苗栗 - 卓蘭
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        7,000
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第二個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=2"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第三個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=1"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    農野遊・聊綠遊方案任選
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊二食：早餐 & 晚餐+點心/零嘴
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    兩樣周邊 & 三項體驗
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        苗栗 - 卓蘭
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        7,000
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第四個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=4"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第五個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=5"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    農野遊・聊綠遊方案任選
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊二食：早餐 & 晚餐+點心/零嘴
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    兩樣周邊 & 三項體驗
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        苗栗 - 卓蘭
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        7,000
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第六個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=6"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第七個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=7"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <button class="btn-right position-absolute" type="button">
+                                <i class="icofont-rounded-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="SSGlamping" id="SSGlamping">
+                    <div class="card SSGlamping_card row g-0 bg-light position-relative">
+                        <div class="SSGlamping_body col-md-6">
+                            <div class="SSGlamping_body_All">
+                                <h4 class="SSGlamping_title mt-0">
+                                    豪華露營 Glamping
+                                    <span>blank_green</span>
+                                </h4>
+                                <p class="SSGlamping-text">
+                                    對面的網美看過來 拍出絕世美照的秘密基地在這裡<br>小心！一上傳 IG
+                                    <span>❤️❤️❤️</span>
+                                    收不完
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="SSGlamping_pic mb-md-0 position-relative">
+                            <button class="btn-left position-absolute" type="button">
+                                <i class="icofont-rounded-left"></i>
+                            </button>
+                            <div class="SSGlamping_card">
+                                <div class="SSGlamping_wrap d-flex">
+                                    <!-- 第一個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=8"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    農野遊・聊綠遊方案任選
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊二食：早餐 & 晚餐+點心/零嘴
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    兩樣周邊 & 三項體驗
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        苗栗 - 卓蘭
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        7,000
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第二個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=9"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第三個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=10"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    農野遊・聊綠遊方案任選
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊二食：早餐 & 晚餐+點心/零嘴
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    兩樣周邊 & 三項體驗
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        苗栗 - 卓蘭
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        7,000
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第四個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=11"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第五個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=12"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    農野遊・聊綠遊方案任選
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊二食：早餐 & 晚餐+點心/零嘴
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    兩樣周邊 & 三項體驗
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        苗栗 - 卓蘭
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        7,000
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第六個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=13"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 第七個 -->
+                                    <div class="card col-12 col-md-6 col-lg-3">
+                                        <img src="https://picsum.photos/300/200/?random=14"
+                                         class="card-img-top d-block w-100">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                            <hr>
+                                            <div class="card-body_text">
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-campground"></i>
+                                                    希臘神話主題星空帳
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-fire"></i>
+                                                    一泊三食：早晚餐、下午茶
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fa-solid fa-face-grin-hearts"></i>
+                                                    獨立衛浴帳 & 高級烤肉爐
+                                                </p>
+                                                <div class="address_price d-flex">
+                                                    <p class="location flex-grow-1">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        南投 - 魚池
+                                                    </p>
+                                                    <p class="price_new">
+                                                        <span class="twd">TWD</span>
+                                                        9,240
+                                                        <span class="twd">起</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <button class="btn-right position-absolute" type="button">
+                                <i class="icofont-rounded-right"></i>
+                            </button>
+
+                            <section class="position-relative">
+                                <button class="btn-left position-absolute" type="button">
+                                    <i class="icofont-rounded-left"></i>
+                                </button>
+                                <div class="SSGlamping_card">
+                                    <div class="SSGlamping_wrap d-flex">
+                                        <!-- 第一個 -->
+                                        <div class="card col-12 col-md-6 col-lg-3">
+                                            <img src="https://picsum.photos/300/200/?random=15"
+                                             class="card-img-top d-block w-100">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                                <hr>
+                                                <div class="card-body_text">
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-campground"></i>
+                                                        農野遊・聊綠遊方案任選
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-fire"></i>
+                                                        一泊二食：早餐 & 晚餐+點心/零嘴
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-face-grin-hearts"></i>
+                                                        兩樣周邊 & 三項體驗
+                                                    </p>
+                                                    <div class="address_price d-flex">
+                                                        <p class="location flex-grow-1">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            苗栗 - 卓蘭
+                                                        </p>
+                                                        <p class="price_new">
+                                                            <span class="twd">TWD</span>
+                                                            7,000
+                                                            <span class="twd">起</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 第二個 -->
+                                        <div class="card col-12 col-md-6 col-lg-3">
+                                            <img src="https://picsum.photos/300/200/?random=16"
+                                             class="card-img-top d-block w-100">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                                <hr>
+                                                <div class="card-body_text">
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-campground"></i>
+                                                        希臘神話主題星空帳
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-fire"></i>
+                                                        一泊三食：早晚餐、下午茶
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-face-grin-hearts"></i>
+                                                        獨立衛浴帳 & 高級烤肉爐
+                                                    </p>
+                                                    <div class="address_price d-flex">
+                                                        <p class="location flex-grow-1">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            南投 - 魚池
+                                                        </p>
+                                                        <p class="price_new">
+                                                            <span class="twd">TWD</span>
+                                                            9,240
+                                                            <span class="twd">起</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 第三個 -->
+                                        <div class="card col-12 col-md-6 col-lg-3">
+                                            <img src="https://picsum.photos/300/200/?random=17"
+                                             class="card-img-top d-block w-100">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                                <hr>
+                                                <div class="card-body_text">
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-campground"></i>
+                                                        農野遊・聊綠遊方案任選
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-fire"></i>
+                                                        一泊二食：早餐 & 晚餐+點心/零嘴
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-face-grin-hearts"></i>
+                                                        兩樣周邊 & 三項體驗
+                                                    </p>
+                                                    <div class="address_price d-flex">
+                                                        <p class="location flex-grow-1">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            苗栗 - 卓蘭
+                                                        </p>
+                                                        <p class="price_new">
+                                                            <span class="twd">TWD</span>
+                                                            7,000
+                                                            <span class="twd">起</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 第四個 -->
+                                        <div class="card col-12 col-md-6 col-lg-3">
+                                            <img src="https://picsum.photos/300/200/?random=18"
+                                             class="card-img-top d-block w-100">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                                <hr>
+                                                <div class="card-body_text">
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-campground"></i>
+                                                        希臘神話主題星空帳
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-fire"></i>
+                                                        一泊三食：早晚餐、下午茶
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-face-grin-hearts"></i>
+                                                        獨立衛浴帳 & 高級烤肉爐
+                                                    </p>
+                                                    <div class="address_price d-flex">
+                                                        <p class="location flex-grow-1">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            南投 - 魚池
+                                                        </p>
+                                                        <p class="price_new">
+                                                            <span class="twd">TWD</span>
+                                                            9,240
+                                                            <span class="twd">起</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 第五個 -->
+                                        <div class="card col-12 col-md-6 col-lg-3">
+                                            <img src="https://picsum.photos/300/200/?random=19"
+                                             class="card-img-top d-block w-100">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">自然圈免裝備露營｜平日包圈專案</h5>
+                                                <hr>
+                                                <div class="card-body_text">
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-campground"></i>
+                                                        農野遊・聊綠遊方案任選
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-fire"></i>
+                                                        一泊二食：早餐 & 晚餐+點心/零嘴
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-face-grin-hearts"></i>
+                                                        兩樣周邊 & 三項體驗
+                                                    </p>
+                                                    <div class="address_price d-flex">
+                                                        <p class="location flex-grow-1">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            苗栗 - 卓蘭
+                                                        </p>
+                                                        <p class="price_new">
+                                                            <span class="twd">TWD</span>
+                                                            7,000
+                                                            <span class="twd">起</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 第六個 -->
+                                        <div class="card col-12 col-md-6 col-lg-3">
+                                            <img src="https://picsum.photos/300/200/?random=20"
+                                             class="card-img-top d-block w-100">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                                <hr>
+                                                <div class="card-body_text">
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-campground"></i>
+                                                        希臘神話主題星空帳
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-fire"></i>
+                                                        一泊三食：早晚餐、下午茶
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-face-grin-hearts"></i>
+                                                        獨立衛浴帳 & 高級烤肉爐
+                                                    </p>
+                                                    <div class="address_price d-flex">
+                                                        <p class="location flex-grow-1">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            南投 - 魚池
+                                                        </p>
+                                                        <p class="price_new">
+                                                            <span class="twd">TWD</span>
+                                                            9,240
+                                                            <span class="twd">起</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 第七個 -->
+                                        <div class="card col-12 col-md-6 col-lg-3">
+                                            <img src="https://picsum.photos/300/200/?random=21"
+                                             class="card-img-top d-block w-100">
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">峇嵐杉丘 BALAN HILL GLAMPING｜星空帳野奢露營</h5>
+                                                <hr>
+                                                <div class="card-body_text">
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-campground"></i>
+                                                        希臘神話主題星空帳
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-fire"></i>
+                                                        一泊三食：早晚餐、下午茶
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <i class="fa-solid fa-face-grin-hearts"></i>
+                                                        獨立衛浴帳 & 高級烤肉爐
+                                                    </p>
+                                                    <div class="address_price d-flex">
+                                                        <p class="location flex-grow-1">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            南投 - 魚池
+                                                        </p>
+                                                        <p class="price_new">
+                                                            <span class="twd">TWD</span>
+                                                            9,240
+                                                            <span class="twd">起</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <button class="btn-right position-absolute" type="button">
+                                    <i class="icofont-rounded-right"></i>
+                                </button>
+                            </section>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer">
+                <h4>活動注意事項：</h4>
+                <div class="footer_text">
+                    <p>1. 活動頁面顯示的價格可能因匯率與季節因素變動，請以實際訂購時的結帳金額為準。</p>
+                    <p>2. KKday保留隨時於網站上公告變更、修改或終止本活動之權利。</p>
+                    <p>3. 行程類商品KKday將於收到您的訂單後，於指定工作日回覆您訂購結果，如因額滿或是不可抗力之因素導致無法成行，將會由客服人員與您通知。</p>
+                    <p>4. KKday得保留修改、變更本活動內容或提前終止本活動之權利，KKday對本活動所有事宜有最終解釋及決定權利。</p>
+                    <p class="p-0">5. 若對活動內容有任何疑問，請來信至</p>
+                </div>
+            </div>
+
+            <div class="socialMedia">
+                <div class="container">
+                    <div class="footerLogo">
+                        <img src="https://raw.githubusercontent.com/yu1129/yu1129.github.io/main/Today%E5%B0%88%E9%A1%8C/LOGO.png" alt="Today" width="110" height="44">
+                    </div>
+
+                    <div class="footerIcon">
+                        <li>
+                            <a href="#" class="fb">
+                                <i class="fa-brands fa-facebook-f "></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="youtube">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="twitter">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="tumblr">
+                                <i class="fa-brands fa-tumblr"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="blog">
+                                <i class="fa-brands fa-blogger-b"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="pinterest">
+                                <i class="fa-brands fa-pinterest"></i>
+                            </a>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

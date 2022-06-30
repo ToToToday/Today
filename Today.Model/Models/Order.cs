@@ -16,8 +16,10 @@ namespace Today.Model.Models
         public int OrderId { get; set; }
         public int MemberId { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime DepartureDate { get; set; }
         public int PaymentId { get; set; }
+        public int Status { get; set; }
+        public int StatusUpdate { get; set; }
+        public string Note { get; set; }
 
         public virtual Member Member { get; set; }
         public virtual Payment Payment { get; set; }

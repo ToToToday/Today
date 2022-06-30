@@ -1,0 +1,339 @@
+html{
+    font-size: 80%;
+}
+/*.nav_logo{
+    left: 20px;
+}*/
+.navbar-light .navbar-toggler {
+    color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+.navbar-nav .nav-item{
+    margin-bottom: 5px;
+}
+.navbar-nav .nav-link{
+    font-size: 1.2rem;
+}
+.banner_vedio .pcImg{
+    display: none;
+}
+.banner img{
+    width: 100%;
+    vertical-align: bottom;
+}
+.banner_img{
+    position: absolute;
+    top: 3.5em;
+    left: 0;
+    right: 0;
+}
+.banner_img img{
+    width: 100%;
+}
+.offcanvas-top{
+    height: 50vh;
+}
+.circle_button{
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.rounded-circle{
+    width: 60px;
+    height: 60px;
+    color: #fff;
+}
+
+
+.area{
+    background-image: url(https://image.kkday.com/image/get/s1.kkday.com/campaign_594/20180601120237_mgT7d/jpg);
+}
+.area .container{
+    padding: 20px
+}
+.card{
+    border-radius: 0.25rem;
+}
+.intro_body {
+    text-align: center;
+    margin: auto;
+}
+.intro_body_All{
+    margin-top: 10px;
+}
+h4{
+    font-size: 1.125rem;
+}
+.intro_body_All h4{
+    color: #03989e;
+    font-weight: bolder;
+    line-height: 1.5em;
+}
+.area .intro-text{
+    margin-top: 1em;
+}
+.intro_pic img{
+    padding: 20px;
+}
+.intro_card{
+    border-radius: 0.25rem;
+    flex-direction: row-reverse;
+}
+.intro-btn{
+    background-color: #ff807f;
+    border-radius: 1.25rem;
+    color: #fff;
+    font-weight: bolder;
+    margin-top: 20px;
+}
+
+
+/* 往上浮起 */
+.card.col-12:hover{
+    transition: .5s;
+    transform: translateY(-5%);
+}
+/* 滑動 */
+.SSGlamping_wrap,.Special_wrap{
+    scroll-behavior: smooth;
+    overflow-y: hidden;
+    overflow-x: auto;
+    display: grid;
+    grid-auto-flow: column;
+    height: auto; 
+}
+/* 左右滑動按鈕 */
+.btn-left-right{
+    display: none;
+}
+
+.SSGlamping_wrap::-webkit-scrollbar,.Special_wrap::-webkit-scrollbar{
+    display: none;
+}
+
+
+.SSGlamping_wrap,.Special_wrap{
+    padding: 20px 20px 0;
+    /* overflow: hidden; */
+}
+.SSGlamping,.Special{
+    margin-top: 20px;
+}
+.SSGlamping_body,.Special_body{
+    text-align: center;
+    margin: auto;
+    padding: 20px 20px 0;
+}
+.SSGlamping_body_All,.Special_body_All{
+    margin-top: 10px;
+}
+.SSGlamping_body_All h4,.Special_body_All h4{
+    font-weight: bolder;
+}
+.area .SSGlamping-text,.Special-text{
+    margin-top: 1em;
+    line-height: 1.5em;
+}
+.Special-text span{
+    color: #f9afbb;
+}
+.SSGlamping_card,.Special_card{
+    padding: 20px 0;
+}
+
+
+.SSGlamping_wrap .card,.Special_wrap .card{
+    margin-right: 10px;
+}
+
+
+.card-title{
+    font-weight: bolder;
+    color: #666;
+    font-size: 0.94rem;
+    line-height: 1.5em;
+}
+.card-body_text{
+    font-weight: bolder;
+    font-size: 0.8125rem;
+}
+.card-text{
+    margin-bottom: 10px;
+    color: #af9b8e;
+}
+.location{
+    color: #999;
+}
+.address_price{
+    margin-top: 5px;
+}
+.price_new{
+    color: rgb(38, 190, 201);
+}
+.twd{
+    color: #999999;
+}
+
+
+.footer_text{
+    padding: 20px;
+}
+.footer h4{
+    font-weight: bolder;
+}
+.footer_text p{
+    font-size: 0.8125rem;
+    font-weight: bolder;
+    line-height: 1.5rem;
+    margin-bottom: 10px;
+}
+.socialMedia .container{
+    padding: 20px;
+    background-color: #aa9585;
+}
+.footerLogo img{
+    display: block;
+    margin: auto;
+}
+.footerIcon li{
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+    overflow: hidden;
+    font-size: 18px;
+    margin: 5px;
+}
+.footerIcon li a{
+    display: block;
+    height: 40px;
+    width: 40px;
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+}
+.footerIcon{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5px;
+}
+.btn-left,.btn-right{
+    display: none;
+}
+
+
+/* 平板直 */
+@media screen and (min-width:768px) {
+    html{
+        font-size: 87.5%;
+    }
+    .navbar-nav .nav-item{
+        margin-bottom: 30px;
+        /* margin: 15px 0; */
+    }
+    .navbar-nav .nav-link{
+        font-size: 1.9rem;
+    }
+    .banner_img{
+        top: 300px;
+    }
+    .intro_pic{
+        margin: auto;
+    }
+    .footerLogo img{
+        display: inline-block;
+    }
+    .socialMedia .container{
+        display: flex;
+        align-items: flex-end;
+    }
+    .footerIcon{
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+    .btn-left,.btn-right{
+        display: block;
+        color: #A77F2E;
+        font-size: 45px;
+    }
+    .btn-left{
+        border: none;
+        top: 160px;
+        left: -50px;
+        z-index: 2;
+        background-color: transparent;
+    }
+    .btn-right{
+        border: none;
+        top: 160px;
+        right: -50px;
+        z-index: 2;
+        background-color: transparent;
+    }
+    .Special_pic button i{
+        font-weight: 900;
+    }
+    
+}
+
+/* 平板橫 */
+@media screen and (min-width:992px) {
+    html{
+        font-size: 100%;
+    }
+    .navbar-nav .nav-link{
+        font-size: 0.9rem;
+    }
+    .banner_vedio > img{
+        display: none;
+    }
+    .banner_vedio .pcImg{
+        display: block;
+        width: 100%;
+        height: 100vh;
+    }
+    .banner_img{
+        top: 150px;
+    }
+    .banner_img img{
+        display: block;
+        margin: auto;
+        height: 320px;
+        width: auto;
+    }
+    .navbar-nav .nav-item{
+        margin: 15px 0 15px 10px;
+    }
+    .nav-item{
+        border: solid 2px #fff;
+        border-radius: 0.5em;
+        margin-left: 10px;
+    }
+    .navbar-light .navbar-nav .nav-link{
+        color: #fff;
+        font-weight: bolder;
+    }
+    .circle_button{
+        height: 75px;
+    }
+    .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{
+        color: #fff;
+    }
+}
+
+/* 桌機 */
+@media screen and (min-width:1200px) {
+    .banner_img{
+        top: 180px;
+    }
+    .circle_button{
+        height: 100px;
+    }
+    .area .container,
+    .navbar .container{
+        max-width: 1200px;
+        margin: auto;
+    }
+
+}

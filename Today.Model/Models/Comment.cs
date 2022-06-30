@@ -11,7 +11,7 @@ namespace Today.Model.Models
         public int OrderDetailsId { get; set; }
         public int ProductId { get; set; }
         public int MemberId { get; set; }
-        public int PartnerTypeId { get; set; }
+        public int PartnerType { get; set; }
         public DateTime CommentDate { get; set; }
         public int RatingStar { get; set; }
         public string CommentTitle { get; set; }
@@ -19,7 +19,6 @@ namespace Today.Model.Models
 
         public virtual Member Member { get; set; }
         public virtual OrderDetail OrderDetails { get; set; }
-        public virtual PartnerType PartnerType { get; set; }
         public virtual Product Product { get; set; }
     }
 }

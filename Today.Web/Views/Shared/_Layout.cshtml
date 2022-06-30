@@ -9,51 +9,77 @@
     @*<link rel="stylesheet" href="~/css/site.css" />*@
     <link rel="stylesheet" href="~/lib/fontawesome6/css/all.min.css">
     <link rel="stylesheet" href="~/lib/icofont/icofont.min.css">
-    <link rel="stylesheet" href="~/css/reset.css" />
+    @*<link rel="stylesheet" href="~/css/reset.css" />*@
     <link rel="stylesheet" href="~/css/homestyle.css" />
     <link rel="stylesheet" href="~/css/shared.css" />
     @await RenderSectionAsync("topCSS", required: false)
     @await RenderSectionAsync("topJS", required: false)
 </head>
 <body>
-    <header class="nav-limit w-100 position-fixed border-bottom border-secondary py-1">
-        <nav class="navbar navbar-expand-lg fixed-width m-auto">
+    <!-- 導覽列 -->
+    <header class="nav-limit w-100 position-fixed border-bottom border-secondary">
+        <nav class="navbar navbar-expand-lg fixed-width m-auto px-1 py-2">
             <div class="container-fluid px-2 px-md-4">
-                <h1 class="me-4">
-                    <a href="#" class="align-top">
-                        <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="align-top w-100">
-                    </a>
-                </h1>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <!-- <span class="navbar-toggler-icon bg-black">
-                    </span> -->
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <!-- 若要開啟搜尋框，將 justify-content-end 改成 justify-content-between，然後搜尋框那行把 d-none 刪除 -->
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <div class="input-group w-50 border-secondary border rounded d-none">
-                        <input type="text" class="form-control border-0" placeholder="輸入目的地、景點、體驗行程或活動名稱…" aria-label="Recipient's username" aria-describedby="search">
-                        <button class="btn" type="button" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div class="inputlogo-group d-flex justify-content-start col-7 align-items-center">
+                    <h1 class="w-25 me-3">
+                        <a href="#" class="align-top">
+                            <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
+                        </a>
+                    </h1>
+                    <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-inlineblock")">
+                        <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
+                            aria-label="Recipient's username" aria-describedby="search">
+                        <button class="btn" type="button" id="search"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                        <div class="search-box px-2 py-3 border rounded w-120 dropdown-menu dropdown-menu-start mt-2">
+                            <span class="title w-100 d-block mb-2">熱門目的地</span>
+                            <div class="seacrch-keywords d-flex flex-wrap flex-column" style="height: 150px;">
+                                <p class="px-3 py-2 border-end border-secondary">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
+                                <p class="px-3 py-2 border-end border-secondary">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
+                                <p class="px-3 py-2 border-end border-secondary">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
+                                <p class="px-3 py-2 border-end border-secondary">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
+                                <p class="px-3 py-2 border-end border-secondary">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
+                                <p class="px-3 py-2 border-end border-secondary">台南</p>
+                                <p class="px-3 py-2 border-end border-secondary">高雄</p>
+                                <p class="px-3 py-2 border-end border-secondary">桃園</p>
+                                <p class="px-3 py-2 border-end border-secondary">平溪</p>
+                                <p class="px-3 py-2 border-end border-secondary">彰化</p>
+                                <p class="px-3 py-2">苗栗</p>
+                                <p class="px-3 py-2">雲林</p>
+                                <p class="px-3 py-2">台中</p>
+                                <p class="px-3 py-2">嘉義</p>
+                                <p class="px-3 py-2">南投</p>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <!-- <span class="navbar-toggler-icon bg-black">
+                        </span> -->
+                    <span class="bg-black"></span>
+                    <span class="bg-black"></span>
+                    <span class="bg-black"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav my-2 my-lg-0">
                         <!-- 手機 -->
                         <li class="nav-item d-sm-block d-lg-none m-2">
-                            <a class="nav-link text-secondary text-opacity-75 fs-6" href="#">
-                                <i class="fa-solid fa-right-to-bracket fs-6 me-2"></i>
+                            <a class="nav-link text-secondary text-opacity-75" href="#">
+                                <i class="fa-solid fa-right-to-bracket"></i>
                                 登入
                             </a>
                         </li>
                         <li class="nav-item d-sm-block d-lg-none border-bottom m-2 pb-3">
-                            <a class="nav-link text-secondary text-opacity-75 fs-6" href="#">
-                                <i class="fa-solid fa-user fs-6 me-2"></i>
+                            <a class="nav-link text-secondary text-opacity-75" href="#">
+                                <i class="fa-solid fa-user"></i>
                                 註冊
                             </a>
                         </li>
                         <li class="nav-item d-sm-block d-lg-none m-2">
-                            <a class="nav-link text-secondary text-opacity-75 fs-6" href="#">
-                                <i class="fa-regular fa-circle-question fs-6 me-2"></i>
+                            <a class="nav-link text-secondary text-opacity-75" href="#">
+                                <i class="fa-regular fa-circle-question"></i>
                                 常見問題與幫助
                             </a>
                         </li>
@@ -70,8 +96,13 @@
                 </div>
             </div>
         </nav>
+        <partial name="_NavBottomPartial"></partial>
     </header>
+<<<<<<< HEAD
     <@*div class="container">
+=======
+    @*<div class="container">
+>>>>>>> 8ec90adda6f4ceda397435c661097079d36d6c08
         <main role="main" class="pb-3">*@
             @RenderBody()
         @*</main>
@@ -148,10 +179,10 @@
                 </span>
             </div>
             <div class="copyright">
-                &copy; 2022 ??
+                &copy; 2022 BY Today
             </div>
         </div>
-        <div class="details fixed-width w-50 m-auto text-center py-4 d-md-flex flex-md-wrap text-md-start">
+        @*<div class="details fixed-width w-50 m-auto text-center py-4 d-md-flex flex-md-wrap text-md-start">
             <p class="mb-2 col-12 col-md-6 col-lg-3">旅遊產品由 ??? 提供</p>
             <p class="mb-2 col-12 col-md-6 col-lg-3">代表人：???</p>
             <p class="mb-2 col-12 col-md-6 col-lg-3">統一編號：???</p>
@@ -163,7 +194,7 @@
             <p class="mb-2 col-12 col-md-6 col-lg-3">聯絡電話：???</p>
             <p class="mb-2 col-12 col-md-6 col-lg-3">傳真 ???</p>
             <p class="mb-2 col-12 col-md-6 col-lg-3">E-mail：???</p>
-        </div>
+        </div>*@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

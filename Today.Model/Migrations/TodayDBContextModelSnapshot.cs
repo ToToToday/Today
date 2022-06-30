@@ -22,13 +22,18 @@ namespace Today.Model.Migrations
 
             modelBuilder.Entity("Today.Model.Models.AboutProgram", b =>
                 {
-                    b.Property<int>("AboutProgramOptionsId")
+                    b.Property<int>("AboutProgramId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("AboutProgramOptionsID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AboutProgramOptionsId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProgramId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProgramID");
+                        .HasColumnType("int");
+
+                    b.HasKey("AboutProgramId");
 
                     b.HasIndex("AboutProgramOptionsId");
 
@@ -40,36 +45,51 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.AboutProgramOption", b =>
                 {
                     b.Property<int>("AboutProgramOptionsId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("AboutProgramOptionsID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Context")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("{n}天內確認");
 
                     b.Property<string>("IconClass")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("icon圖標");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("AboutProgramOptionsId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("AboutProgramOptions");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Category", b =>
                 {
-                    b.Property<int>("MinorCategoryId")
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("MinorCategoryID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductId")
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("類別名稱");
+
+                    b.Property<int?>("ParentCategoryId")
                         .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasComment("父類別");
 
-                    b.HasIndex("MinorCategoryId");
+                    b.HasKey("CategoryId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Category");
                 });
@@ -77,71 +97,113 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.City", b =>
                 {
                     b.Property<int>("CityId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("CityID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("CityImg")
+                    b.Property<string>("CityImage")
                         .IsRequired()
-                        .HasColumnType("image");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CityIntrod")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("城市說明");
 
                     b.Property<string>("CityName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("城市名稱");
 
                     b.Property<bool>("IsIsland")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("是否為本島");
 
                     b.HasKey("CityId");
 
                     b.ToTable("City");
+
+                    b
+                        .HasComment("");
                 });
 
             modelBuilder.Entity("Today.Model.Models.CityRaider", b =>
                 {
                     b.Property<int>("RaidersId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("RaidersID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Isdeleted")
+                        .HasColumnType("bit")
+                        .HasComment("軟刪除");
+
+                    b.Property<DateTime>("PostDate")
+                        .HasColumnType("datetime")
+                        .HasComment("發文時間");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int")
-                        .HasColumnName("CityID");
+                        .HasComment("文章狀態");
 
                     b.Property<string>("Subtitle")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("副標題");
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("攻略內文");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("主標題");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("datetime")
+                        .HasComment("更新時間(第一次發文存發文時間)");
 
                     b.Property<string>("Video")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("banner影片");
 
                     b.HasKey("RaidersId");
 
                     b.HasIndex("CityId");
+
+                    b.HasIndex("StaffId");
 
                     b.ToTable("CityRaiders");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Collect", b =>
                 {
-                    b.Property<int>("MemberId")
+                    b.Property<int>("CollectId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("MemberID");
+                        .HasComment("收藏id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime")
+                        .HasComment("加入時間");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasColumnType("int");
+
+                    b.HasKey("CollectId");
 
                     b.HasIndex("MemberId");
 
@@ -153,47 +215,52 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Comment", b =>
                 {
                     b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("CommentID");
+                        .HasComment("評論")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CommentDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime")
+                        .HasComment("評論時間");
 
                     b.Property<string>("CommentText")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("評論內文");
 
                     b.Property<string>("CommentTitle")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("評論標題");
 
                     b.Property<int>("MemberId")
                         .HasColumnType("int")
-                        .HasColumnName("MemberID");
+                        .HasComment("會員id");
 
                     b.Property<int>("OrderDetailsId")
                         .HasColumnType("int")
-                        .HasColumnName("OrderDetailsID");
+                        .HasColumnName("OrderDetailsID")
+                        .HasComment("詳細訂單ID");
 
-                    b.Property<int>("PartnerTypeId")
+                    b.Property<int>("PartnerType")
                         .HasColumnType("int")
-                        .HasColumnName("PartnerTypeID");
+                        .HasComment("旅伴類型ID");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasComment("商品id");
 
                     b.Property<int>("RatingStar")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("幾星評價");
 
                     b.HasKey("CommentId");
 
                     b.HasIndex("MemberId");
 
                     b.HasIndex("OrderDetailsId");
-
-                    b.HasIndex("PartnerTypeId");
 
                     b.HasIndex("ProductId");
 
@@ -203,85 +270,132 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Coupon", b =>
                 {
                     b.Property<int>("CouponId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("CouponID");
-
-                    b.Property<string>("ConditionsOfUse")
-                        .HasColumnType("nvarchar(max)");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Context")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("優惠卷說明");
 
                     b.Property<decimal>("CouponDiscount")
-                        .HasColumnType("decimal(18,0)");
+                        .HasColumnType("decimal(18,0)")
+                        .HasComment("折扣金額");
 
                     b.Property<string>("CouponName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("CouponStatus")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("優惠卷名稱");
 
                     b.Property<string>("DiscountCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("優惠碼");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("date")
+                        .HasComment("結束日期");
+
+                    b.Property<int?>("FullConsumption")
+                        .HasColumnType("int")
+                        .HasComment("滿額 多少 (使用條件)");
+
+                    b.Property<int?>("Rebate")
+                        .HasColumnType("int")
+                        .HasComment("減價 多少 (使用條件)");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasComment("開始日期");
 
                     b.HasKey("CouponId");
 
                     b.ToTable("Coupon");
                 });
 
+            modelBuilder.Entity("Today.Model.Models.CouponManage", b =>
+                {
+                    b.Property<int>("CouponManageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("優惠卷管理")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CouponId")
+                        .HasColumnType("int")
+                        .HasComment("優惠眷id");
+
+                    b.Property<int>("CouponStatus")
+                        .HasColumnType("int")
+                        .HasComment("狀態");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SendTime")
+                        .HasColumnType("datetime")
+                        .HasComment("發卷時間");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int")
+                        .HasComment("員工發眷人");
+
+                    b.HasKey("CouponManageId");
+
+                    b.HasIndex("CouponId");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("CouponManage");
+                });
+
             modelBuilder.Entity("Today.Model.Models.Location", b =>
                 {
                     b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("LocationID");
+                        .HasComment("體驗地點ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("地點");
 
                     b.Property<string>("Latitude")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("latitude");
+                        .HasComment("緯度");
 
                     b.Property<string>("Longitude")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("longitude");
+                        .HasComment("經度");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasComment("商品ID");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("text");
+                        .HasColumnName("text")
+                        .HasComment("內文");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("type");
+                        .HasComment("體驗地點標題");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasComment("類型0＝體驗 ,1,2...\r\n(地點種類)");
 
                     b.HasKey("LocationId");
 
@@ -292,20 +406,29 @@ namespace Today.Model.Migrations
 
             modelBuilder.Entity("Today.Model.Models.LoginWay", b =>
                 {
-                    b.Property<string>("LongWayName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("LoginWayId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("登入方式ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LongWayName")
+                        .HasColumnType("int")
+                        .HasComment("登入方式(email1, fb2, google3)");
 
                     b.Property<int>("MemberId")
                         .HasColumnType("int")
-                        .HasColumnName("MemberID");
+                        .HasColumnName("MemberID")
+                        .HasComment("會員ID");
 
                     b.Property<string>("UniqueId")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("UniqueID");
+                        .HasColumnName("UniqueID")
+                        .HasComment("唯一ID (如果是EMAIL存EMAIL 若為三方登入給一個ID");
+
+                    b.HasKey("LoginWayId");
 
                     b.HasIndex("MemberId");
 
@@ -315,53 +438,58 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Member", b =>
                 {
                     b.Property<int>("MemberId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("MemberID");
+                        .HasComment("會員ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("Age")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("年齡");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int")
-                        .HasColumnName("CityID");
+                        .HasComment("城市ID");
 
-                    b.Property<int?>("CouponId")
-                        .HasColumnType("int")
-                        .HasColumnName("CouponID");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("電子信箱");
 
                     b.Property<bool?>("Gender")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("性別");
 
                     b.Property<string>("IdentityCard")
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("身分證字號");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("會員圖片");
 
                     b.Property<string>("MemberName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("MessageId")
-                        .HasColumnType("int")
-                        .HasColumnName("MessageID");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("會員名稱");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("密碼");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("電話");
 
                     b.HasKey("MemberId");
 
                     b.HasIndex("CityId");
-
-                    b.HasIndex("CouponId");
-
-                    b.HasIndex("MessageId");
 
                     b.ToTable("Member");
                 });
@@ -369,73 +497,75 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Message", b =>
                 {
                     b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("MessageID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
 
                     b.Property<string>("MessageContext")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("訊息內容");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int")
-                        .HasColumnName("OrderID");
+                        .HasComment("因為有訂單才能傳訊息");
 
-                    b.Property<string>("Recipient")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("Recipient")
+                        .HasColumnType("int")
+                        .HasComment("接受者(平台1 商家2 使用者3)");
+
+                    b.Property<int?>("ReplyId")
+                        .HasColumnType("int")
+                        .HasComment("回覆");
 
                     b.Property<DateTime>("SendDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime")
+                        .HasComment("傳送時間");
 
                     b.HasKey("MessageId");
 
+                    b.HasIndex("MemberId");
+
                     b.HasIndex("OrderId");
 
+                    b.HasIndex("ReplyId");
+
                     b.ToTable("Message");
-                });
-
-            modelBuilder.Entity("Today.Model.Models.MinorCategory", b =>
-                {
-                    b.Property<int>("MinorCategoryId")
-                        .HasColumnType("int")
-                        .HasColumnName("MinorCategoryID");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("PrimaryCategoryId")
-                        .HasColumnType("int")
-                        .HasColumnName("PrimaryCategoryID");
-
-                    b.HasKey("MinorCategoryId");
-
-                    b.HasIndex("PrimaryCategoryId");
-
-                    b.ToTable("MinorCategory");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("OrderID");
-
-                    b.Property<DateTime>("DepartureDate")
-                        .HasColumnType("datetime");
+                        .HasComment("訂單ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("MemberId")
-                        .HasColumnType("int")
-                        .HasColumnName("MemberID");
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("備註");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime")
+                        .HasComment("下單日期");
 
                     b.Property<int>("PaymentId")
                         .HasColumnType("int")
-                        .HasColumnName("PaymentID");
+                        .HasComment("付款ID");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasComment("狀態");
+
+                    b.Property<int>("StatusUpdate")
+                        .HasColumnType("int")
+                        .HasComment("訂單狀態更新");
 
                     b.HasKey("OrderId");
 
@@ -449,169 +579,117 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.OrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailsId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("OrderDetailsID");
+                        .HasComment("訂單詳細ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DetailJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("DetailJSON");
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("datetime")
+                        .HasComment("出發日期");
 
-                    b.Property<DateTime>("LeaseTime")
-                        .HasColumnType("date");
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("decimal(18,0)")
+                        .HasComment("折扣");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int")
-                        .HasColumnName("OrderID");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
-
-                    b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18,0)");
-
-                    b.Property<int>("TicketsId")
-                        .HasColumnType("int")
-                        .HasColumnName("TicketsID");
-
-                    b.HasKey("OrderDetailsId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TicketsId");
-
-                    b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Today.Model.Models.PartnerType", b =>
-                {
-                    b.Property<int>("PartnerTypeId")
-                        .HasColumnType("int")
-                        .HasColumnName("PartnerTypeID");
-
-                    b.Property<string>("PartnerType1")
+                    b.Property<string>("Itemtext")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("PartnerType");
+                        .HasComment("票種（成人/兒童/車)");
 
-                    b.HasKey("PartnerTypeId");
+                    b.Property<DateTime>("LeaseTime")
+                        .HasColumnType("datetime")
+                        .HasComment("租賃時間");
 
-                    b.ToTable("PartnerType");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int")
+                        .HasComment("訂單ID");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int")
+                        .HasComment("數量");
+
+                    b.Property<int>("SpecificationId")
+                        .HasColumnType("int")
+                        .HasComment("規格ID");
+
+                    b.Property<int>("TicketsId")
+                        .HasColumnType("int")
+                        .HasComment("電子憑證ID");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,0)")
+                        .HasComment("價格");
+
+                    b.HasKey("OrderDetailsId")
+                        .HasName("PK_OrderDetails");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("SpecificationId");
+
+                    b.HasIndex("TicketsId");
+
+                    b.ToTable("OrderDetail");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("PaymentID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("PaymentWay")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("付款方式");
 
                     b.HasKey("PaymentId");
 
                     b.ToTable("Payment");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.PricingItem", b =>
-                {
-                    b.Property<int>("PricingItemId")
-                        .HasColumnType("int")
-                        .HasColumnName("PricingItemID");
-
-                    b.Property<string>("Itemtext")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<decimal>("OriginalUnitPrice")
-                        .HasColumnType("decimal(18,0)");
-
-                    b.Property<int>("SpecificationId")
-                        .HasColumnType("int")
-                        .HasColumnName("SpecificationID");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,0)");
-
-                    b.Property<string>("UnitText")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("PricingItemId");
-
-                    b.HasIndex("SpecificationId");
-
-                    b.ToTable("PricingItems");
-                });
-
-            modelBuilder.Entity("Today.Model.Models.PrimaryCategory", b =>
-                {
-                    b.Property<int>("PrimaryCategoryId")
-                        .HasColumnType("int")
-                        .HasColumnName("PrimaryCategoryID");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("PrimaryCategoryId");
-
-                    b.ToTable("PrimaryCategory");
-                });
-
             modelBuilder.Entity("Today.Model.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CancellationPolicy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("取消政策");
 
                     b.Property<int>("CityId")
-                        .HasColumnType("int")
-                        .HasColumnName("CityID");
+                        .HasColumnType("int");
 
                     b.Property<string>("HowUse")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("如何使用");
 
                     b.Property<string>("Illustrate")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("商品說明");
+
+                    b.Property<bool>("Isdeleted")
+                        .HasColumnType("bit")
+                        .HasComment("軟刪除");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("商品名稱");
 
                     b.Property<string>("ShoppingNotice")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StockMax")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("購物須知");
 
                     b.Property<int>("SupplierId")
-                        .HasColumnType("int")
-                        .HasColumnName("SupplierID");
-
-                    b.Property<string>("UnitsOnOrder")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("UseInfo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
@@ -622,50 +700,104 @@ namespace Today.Model.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.ProductStatus", b =>
+            modelBuilder.Entity("Today.Model.Models.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductStatusId")
+                    b.Property<int>("ProductCategoryId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("ProductStatusID");
+                        .HasComment("商品類別")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookQuantity")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("date");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
-
-                    b.Property<int>("RemainingStock")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductStatusId");
+                    b.HasKey("ProductCategoryId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductStatus");
+                    b.ToTable("ProductCategory");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.ProductPhoto", b =>
+                {
+                    b.Property<int>("PhotoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("路徑");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sort")
+                        .HasColumnType("int")
+                        .HasComment("照片排序");
+
+                    b.HasKey("PhotoId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductPhoto");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.ProductTag", b =>
+                {
+                    b.Property<int>("ProductTagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("商品標籤")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
+                        .HasComment("商品id");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductTagId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("ProductTag");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Program", b =>
                 {
                     b.Property<int>("ProgramId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("ProgramID");
+                        .HasComment("")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Context")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("方案內文");
+
+                    b.Property<bool>("Isdeleted")
+                        .HasColumnType("bit")
+                        .HasComment("軟刪除(上下架)");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("方案標題");
 
                     b.HasKey("ProgramId");
 
@@ -674,44 +806,50 @@ namespace Today.Model.Migrations
                     b.ToTable("Program");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.ProgramDatePicker", b =>
+            modelBuilder.Entity("Today.Model.Models.ProgramCantUseDate", b =>
                 {
                     b.Property<int>("ProgramDateId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("ProgramDateID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DatimePickerConfigurationJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("DatimePickerConfigurationJSON");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date")
+                        .HasComment("要關閉的日期");
 
                     b.Property<int>("ProgramId")
                         .HasColumnType("int")
                         .HasColumnName("ProgramID");
 
-                    b.HasKey("ProgramDateId");
+                    b.HasKey("ProgramDateId")
+                        .HasName("PK_ProgramDatePicker");
 
                     b.HasIndex("ProgramId");
 
-                    b.ToTable("ProgramDatePicker");
+                    b.ToTable("ProgramCantUseDate");
                 });
 
             modelBuilder.Entity("Today.Model.Models.ProgramInclude", b =>
                 {
-                    b.Property<bool>("IncludeTorF")
-                        .HasColumnType("bit");
+                    b.Property<int>("ProgramIncludeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsInclude")
+                        .HasColumnType("bit")
+                        .HasComment("是否包含(判斷放在哪邊)");
 
                     b.Property<int>("ProgramId")
                         .HasColumnType("int")
                         .HasColumnName("ProgramID");
 
-                    b.Property<int>("ProgramIncludeId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProgramIncludeID");
-
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("內文");
+
+                    b.HasKey("ProgramIncludeId");
 
                     b.HasIndex("ProgramId");
 
@@ -721,17 +859,45 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProgramSpecification", b =>
                 {
                     b.Property<int>("SpecificationId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("SpecificationID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Inventory")
+                        .HasColumnType("int")
+                        .HasComment("庫存量");
+
+                    b.Property<bool>("IsScreening")
+                        .HasColumnType("bit")
+                        .HasComment("有無場次");
+
+                    b.Property<string>("Itemtext")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("票種（成人/兒童/車)");
+
+                    b.Property<decimal>("OriginalUnitPrice")
+                        .HasColumnType("decimal(18,0)")
+                        .HasComment("原價");
 
                     b.Property<int>("ProgramId")
                         .HasColumnType("int")
-                        .HasColumnName("ProgramID");
+                        .HasComment("方案ID");
 
-                    b.Property<string>("SpecificationJson")
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasComment("狀態(上下架)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,0)")
+                        .HasComment("單價");
+
+                    b.Property<string>("UnitText")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SpecificationJSON");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("單位文字(人/間/輛）");
 
                     b.HasKey("SpecificationId");
 
@@ -740,60 +906,86 @@ namespace Today.Model.Migrations
                     b.ToTable("ProgramSpecification");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.Reply", b =>
+            modelBuilder.Entity("Today.Model.Models.Screening", b =>
                 {
-                    b.Property<int>("ReplyId")
+                    b.Property<int>("ScreeningId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("ReplyID");
-
-                    b.Property<int>("MessageId")
-                        .HasColumnType("int")
-                        .HasColumnName("MessageID");
-
-                    b.Property<string>("ReplayText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SendDate")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("ReplyId");
-
-                    b.HasIndex("MessageId");
-
-                    b.ToTable("Reply");
-                });
-
-            modelBuilder.Entity("Today.Model.Models.ShoppinCart", b =>
-                {
-                    b.Property<DateTime>("DepartureDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int")
-                        .HasColumnName("MemberID");
+                        .HasComment("場次ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("SpecificationId")
-                        .HasColumnType("int")
-                        .HasColumnName("SpecificationID");
+                        .HasColumnType("int");
 
-                    b.HasIndex("MemberId");
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasComment("狀態(上下架)");
+
+                    b.Property<TimeSpan>("Time")
+                        .HasColumnType("time")
+                        .HasComment("時間");
+
+                    b.HasKey("ScreeningId");
 
                     b.HasIndex("SpecificationId");
 
-                    b.ToTable("ShoppinCart");
+                    b.ToTable("Screening");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("ShoppingCartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("購物車ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("date")
+                        .HasComment("出發日期");
+
+                    b.Property<DateTime>("JoinTime")
+                        .HasColumnType("datetime")
+                        .HasComment("加入購物車時間");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int")
+                        .HasComment("數量");
+
+                    b.Property<int>("ScreeningId")
+                        .HasColumnType("int")
+                        .HasComment("場次");
+
+                    b.Property<int>("SpecificationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShoppingCartId");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex("ScreeningId");
+
+                    b.HasIndex("SpecificationId");
+
+                    b.ToTable("ShoppingCart");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Subscription", b =>
                 {
                     b.Property<int>("SubscriptionId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("SubscriptionID");
+                        .HasComment("訂閱ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("email");
 
                     b.HasKey("SubscriptionId");
 
@@ -803,36 +995,44 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("SupplierID");
+                        .HasColumnName("SupplierID")
+                        .HasComment("供應商ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("公司地址");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int")
-                        .HasColumnName("CityID");
+                        .HasComment("城市");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("公司名稱");
 
                     b.Property<string>("ContactName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("聯繫人姓名");
 
                     b.Property<string>("ContactTitle")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("聯繫人職稱");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("電話");
 
                     b.HasKey("SupplierId");
 
@@ -844,19 +1044,15 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Tag", b =>
                 {
                     b.Property<int>("TagId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("TagID");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProductID");
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("TagText")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("標籤名稱");
 
                     b.HasKey("TagId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Tag");
                 });
@@ -864,29 +1060,71 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Ticket", b =>
                 {
                     b.Property<int>("TicketsId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("TicketsID");
+                        .HasComment("電子憑證ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("TicketsQrcode")
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasComment("狀態");
+
+                    b.Property<string>("TicketQrcode")
                         .IsRequired()
-                        .HasColumnType("image")
-                        .HasColumnName("TicketsQRcode");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TicketQRcode")
+                        .HasComment("qrcode");
 
-                    b.HasKey("TicketsId");
+                    b.HasKey("TicketsId")
+                        .HasName("PK_Tickets");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Ticket");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.staff", b =>
+                {
+                    b.Property<int>("StaffId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("員工ID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("Birthday")
+                        .HasColumnType("date")
+                        .HasComment("生日");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("員工姓名");
+
+                    b.Property<string>("PassWord")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("密碼");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasComment("電話");
+
+                    b.HasKey("StaffId");
+
+                    b.ToTable("Staff");
                 });
 
             modelBuilder.Entity("Today.Model.Models.AboutProgram", b =>
                 {
                     b.HasOne("Today.Model.Models.AboutProgramOption", "AboutProgramOptions")
-                        .WithMany()
+                        .WithMany("AboutPrograms")
                         .HasForeignKey("AboutProgramOptionsId")
                         .HasConstraintName("FK_AboutProgram_AboutProgramOptions")
                         .IsRequired();
 
                     b.HasOne("Today.Model.Models.Program", "Program")
-                        .WithMany()
+                        .WithMany("AboutPrograms")
                         .HasForeignKey("ProgramId")
                         .HasConstraintName("FK_AboutProgram_Program")
                         .IsRequired();
@@ -896,23 +1134,25 @@ namespace Today.Model.Migrations
                     b.Navigation("Program");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.Category", b =>
+            modelBuilder.Entity("Today.Model.Models.AboutProgramOption", b =>
                 {
-                    b.HasOne("Today.Model.Models.MinorCategory", "MinorCategory")
-                        .WithMany()
-                        .HasForeignKey("MinorCategoryId")
-                        .HasConstraintName("FK_Category_MinorCategory")
-                        .IsRequired();
-
                     b.HasOne("Today.Model.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("AboutProgramOptions")
                         .HasForeignKey("ProductId")
-                        .HasConstraintName("FK_Category_Product")
+                        .HasConstraintName("FK_AboutProgramOptions_Product")
                         .IsRequired();
-
-                    b.Navigation("MinorCategory");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.Category", b =>
+                {
+                    b.HasOne("Today.Model.Models.Category", "ParentCategory")
+                        .WithMany("InverseParentCategory")
+                        .HasForeignKey("ParentCategoryId")
+                        .HasConstraintName("FK_Category_Category");
+
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("Today.Model.Models.CityRaider", b =>
@@ -923,19 +1163,27 @@ namespace Today.Model.Migrations
                         .HasConstraintName("FK_CityRaiders_City")
                         .IsRequired();
 
+                    b.HasOne("Today.Model.Models.staff", "Staff")
+                        .WithMany("CityRaiders")
+                        .HasForeignKey("StaffId")
+                        .HasConstraintName("FK_CityRaiders_Staff")
+                        .IsRequired();
+
                     b.Navigation("City");
+
+                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Collect", b =>
                 {
                     b.HasOne("Today.Model.Models.Member", "Member")
-                        .WithMany()
+                        .WithMany("Collects")
                         .HasForeignKey("MemberId")
                         .HasConstraintName("FK_Collect_Member")
                         .IsRequired();
 
                     b.HasOne("Today.Model.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Collects")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("FK_Collect_Product")
                         .IsRequired();
@@ -959,12 +1207,6 @@ namespace Today.Model.Migrations
                         .HasConstraintName("FK_Comment_OrderDetails")
                         .IsRequired();
 
-                    b.HasOne("Today.Model.Models.PartnerType", "PartnerType")
-                        .WithMany("Comments")
-                        .HasForeignKey("PartnerTypeId")
-                        .HasConstraintName("FK_Comment_PartnerType")
-                        .IsRequired();
-
                     b.HasOne("Today.Model.Models.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId")
@@ -975,9 +1217,34 @@ namespace Today.Model.Migrations
 
                     b.Navigation("OrderDetails");
 
-                    b.Navigation("PartnerType");
-
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.CouponManage", b =>
+                {
+                    b.HasOne("Today.Model.Models.Coupon", "Coupon")
+                        .WithMany("CouponManages")
+                        .HasForeignKey("CouponId")
+                        .HasConstraintName("FK_CouponManage_Coupon")
+                        .IsRequired();
+
+                    b.HasOne("Today.Model.Models.Member", "Member")
+                        .WithMany("CouponManages")
+                        .HasForeignKey("MemberId")
+                        .HasConstraintName("FK_CouponManage_Member")
+                        .IsRequired();
+
+                    b.HasOne("Today.Model.Models.staff", "Staff")
+                        .WithMany("CouponManages")
+                        .HasForeignKey("StaffId")
+                        .HasConstraintName("FK_CouponManage_Staff")
+                        .IsRequired();
+
+                    b.Navigation("Coupon");
+
+                    b.Navigation("Member");
+
+                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Location", b =>
@@ -994,7 +1261,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.LoginWay", b =>
                 {
                     b.HasOne("Today.Model.Models.Member", "Member")
-                        .WithMany()
+                        .WithMany("LoginWays")
                         .HasForeignKey("MemberId")
                         .HasConstraintName("FK_LoginWay_Member")
                         .IsRequired();
@@ -1010,43 +1277,33 @@ namespace Today.Model.Migrations
                         .HasConstraintName("FK_Member_City")
                         .IsRequired();
 
-                    b.HasOne("Today.Model.Models.Coupon", "Coupon")
-                        .WithMany("Members")
-                        .HasForeignKey("CouponId")
-                        .HasConstraintName("FK_Member_Coupon");
-
-                    b.HasOne("Today.Model.Models.Message", "Message")
-                        .WithMany("Members")
-                        .HasForeignKey("MessageId")
-                        .HasConstraintName("FK_Member_Message");
-
                     b.Navigation("City");
-
-                    b.Navigation("Coupon");
-
-                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Message", b =>
                 {
+                    b.HasOne("Today.Model.Models.Member", "Member")
+                        .WithMany("Messages")
+                        .HasForeignKey("MemberId")
+                        .HasConstraintName("FK_Message_Member")
+                        .IsRequired();
+
                     b.HasOne("Today.Model.Models.Order", "Order")
                         .WithMany("Messages")
                         .HasForeignKey("OrderId")
                         .HasConstraintName("FK_Message_Order")
                         .IsRequired();
 
+                    b.HasOne("Today.Model.Models.Message", "Reply")
+                        .WithMany("InverseReply")
+                        .HasForeignKey("ReplyId")
+                        .HasConstraintName("FK_Message_Message");
+
+                    b.Navigation("Member");
+
                     b.Navigation("Order");
-                });
 
-            modelBuilder.Entity("Today.Model.Models.MinorCategory", b =>
-                {
-                    b.HasOne("Today.Model.Models.PrimaryCategory", "PrimaryCategory")
-                        .WithMany("MinorCategories")
-                        .HasForeignKey("PrimaryCategoryId")
-                        .HasConstraintName("FK_MinorCategory_PrimaryCategory")
-                        .IsRequired();
-
-                    b.Navigation("PrimaryCategory");
+                    b.Navigation("Reply");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Order", b =>
@@ -1076,34 +1333,23 @@ namespace Today.Model.Migrations
                         .HasConstraintName("FK_OrderDetails_Order")
                         .IsRequired();
 
-                    b.HasOne("Today.Model.Models.Product", "Product")
+                    b.HasOne("Today.Model.Models.ProgramSpecification", "Specification")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("ProductId")
-                        .HasConstraintName("FK_OrderDetails_Product")
+                        .HasForeignKey("SpecificationId")
+                        .HasConstraintName("FK_OrderDetail_ProgramSpecification")
                         .IsRequired();
 
                     b.HasOne("Today.Model.Models.Ticket", "Tickets")
                         .WithMany("OrderDetails")
                         .HasForeignKey("TicketsId")
-                        .HasConstraintName("FK_OrderDetails_Tickets")
+                        .HasConstraintName("FK_OrderDetail_Ticket")
                         .IsRequired();
 
                     b.Navigation("Order");
 
-                    b.Navigation("Product");
+                    b.Navigation("Specification");
 
                     b.Navigation("Tickets");
-                });
-
-            modelBuilder.Entity("Today.Model.Models.PricingItem", b =>
-                {
-                    b.HasOne("Today.Model.Models.ProgramSpecification", "Specification")
-                        .WithMany("PricingItems")
-                        .HasForeignKey("SpecificationId")
-                        .HasConstraintName("FK_PricingItems_ProgramSpecification")
-                        .IsRequired();
-
-                    b.Navigation("Specification");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Product", b =>
@@ -1125,15 +1371,53 @@ namespace Today.Model.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.ProductStatus", b =>
+            modelBuilder.Entity("Today.Model.Models.ProductCategory", b =>
+                {
+                    b.HasOne("Today.Model.Models.Category", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId")
+                        .HasConstraintName("FK_ProductCategory_Category")
+                        .IsRequired();
+
+                    b.HasOne("Today.Model.Models.Product", "Product")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("FK_ProductCategory_Product")
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.ProductPhoto", b =>
                 {
                     b.HasOne("Today.Model.Models.Product", "Product")
-                        .WithMany("ProductStatuses")
+                        .WithMany("ProductPhotos")
                         .HasForeignKey("ProductId")
-                        .HasConstraintName("FK_ProductStatus_Product")
+                        .HasConstraintName("FK_ProductPhoto_Product")
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.ProductTag", b =>
+                {
+                    b.HasOne("Today.Model.Models.Product", "Product")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("ProductId")
+                        .HasConstraintName("FK_ProductTag_Product")
+                        .IsRequired();
+
+                    b.HasOne("Today.Model.Models.Tag", "Tag")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("TagId")
+                        .HasConstraintName("FK_ProductTag_Tag")
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Program", b =>
@@ -1147,10 +1431,10 @@ namespace Today.Model.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.ProgramDatePicker", b =>
+            modelBuilder.Entity("Today.Model.Models.ProgramCantUseDate", b =>
                 {
                     b.HasOne("Today.Model.Models.Program", "Program")
-                        .WithMany("ProgramDatePickers")
+                        .WithMany("ProgramCantUseDates")
                         .HasForeignKey("ProgramId")
                         .HasConstraintName("FK_ProgramDatePicker_Program")
                         .IsRequired();
@@ -1161,7 +1445,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProgramInclude", b =>
                 {
                     b.HasOne("Today.Model.Models.Program", "Program")
-                        .WithMany()
+                        .WithMany("ProgramIncludes")
                         .HasForeignKey("ProgramId")
                         .HasConstraintName("FK_ProgramInclude_Program")
                         .IsRequired();
@@ -1180,32 +1464,40 @@ namespace Today.Model.Migrations
                     b.Navigation("Program");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.Reply", b =>
+            modelBuilder.Entity("Today.Model.Models.Screening", b =>
                 {
-                    b.HasOne("Today.Model.Models.Message", "Message")
-                        .WithMany("Replies")
-                        .HasForeignKey("MessageId")
-                        .HasConstraintName("FK_Reply_Message")
+                    b.HasOne("Today.Model.Models.ProgramSpecification", "Specification")
+                        .WithMany("Screenings")
+                        .HasForeignKey("SpecificationId")
+                        .HasConstraintName("FK_Screening_ProgramSpecification")
                         .IsRequired();
 
-                    b.Navigation("Message");
+                    b.Navigation("Specification");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.ShoppinCart", b =>
+            modelBuilder.Entity("Today.Model.Models.ShoppingCart", b =>
                 {
                     b.HasOne("Today.Model.Models.Member", "Member")
-                        .WithMany()
+                        .WithMany("ShoppingCarts")
                         .HasForeignKey("MemberId")
                         .HasConstraintName("FK_ShoppinCart_Member")
                         .IsRequired();
 
+                    b.HasOne("Today.Model.Models.Screening", "Screening")
+                        .WithMany("ShoppingCarts")
+                        .HasForeignKey("ScreeningId")
+                        .HasConstraintName("FK_ShoppingCart_Screening")
+                        .IsRequired();
+
                     b.HasOne("Today.Model.Models.ProgramSpecification", "Specification")
-                        .WithMany()
+                        .WithMany("ShoppingCarts")
                         .HasForeignKey("SpecificationId")
                         .HasConstraintName("FK_ShoppinCart_ProgramSpecification")
                         .IsRequired();
 
                     b.Navigation("Member");
+
+                    b.Navigation("Screening");
 
                     b.Navigation("Specification");
                 });
@@ -1221,15 +1513,16 @@ namespace Today.Model.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.Tag", b =>
+            modelBuilder.Entity("Today.Model.Models.AboutProgramOption", b =>
                 {
-                    b.HasOne("Today.Model.Models.Product", "Product")
-                        .WithMany("Tags")
-                        .HasForeignKey("ProductId")
-                        .HasConstraintName("FK_Tag_Product")
-                        .IsRequired();
+                    b.Navigation("AboutPrograms");
+                });
 
-                    b.Navigation("Product");
+            modelBuilder.Entity("Today.Model.Models.Category", b =>
+                {
+                    b.Navigation("InverseParentCategory");
+
+                    b.Navigation("ProductCategories");
                 });
 
             modelBuilder.Entity("Today.Model.Models.City", b =>
@@ -1245,21 +1538,29 @@ namespace Today.Model.Migrations
 
             modelBuilder.Entity("Today.Model.Models.Coupon", b =>
                 {
-                    b.Navigation("Members");
+                    b.Navigation("CouponManages");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Member", b =>
                 {
+                    b.Navigation("Collects");
+
                     b.Navigation("Comments");
 
+                    b.Navigation("CouponManages");
+
+                    b.Navigation("LoginWays");
+
+                    b.Navigation("Messages");
+
                     b.Navigation("Orders");
+
+                    b.Navigation("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Message", b =>
                 {
-                    b.Navigation("Members");
-
-                    b.Navigation("Replies");
+                    b.Navigation("InverseReply");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Order", b =>
@@ -1274,46 +1575,53 @@ namespace Today.Model.Migrations
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.PartnerType", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
             modelBuilder.Entity("Today.Model.Models.Payment", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Today.Model.Models.PrimaryCategory", b =>
-                {
-                    b.Navigation("MinorCategories");
-                });
-
             modelBuilder.Entity("Today.Model.Models.Product", b =>
                 {
+                    b.Navigation("AboutProgramOptions");
+
+                    b.Navigation("Collects");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Locations");
 
-                    b.Navigation("OrderDetails");
+                    b.Navigation("ProductCategories");
 
-                    b.Navigation("ProductStatuses");
+                    b.Navigation("ProductPhotos");
+
+                    b.Navigation("ProductTags");
 
                     b.Navigation("Programs");
-
-                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Program", b =>
                 {
-                    b.Navigation("ProgramDatePickers");
+                    b.Navigation("AboutPrograms");
+
+                    b.Navigation("ProgramCantUseDates");
+
+                    b.Navigation("ProgramIncludes");
 
                     b.Navigation("ProgramSpecifications");
                 });
 
             modelBuilder.Entity("Today.Model.Models.ProgramSpecification", b =>
                 {
-                    b.Navigation("PricingItems");
+                    b.Navigation("OrderDetails");
+
+                    b.Navigation("Screenings");
+
+                    b.Navigation("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.Screening", b =>
+                {
+                    b.Navigation("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Today.Model.Models.Supplier", b =>
@@ -1321,9 +1629,21 @@ namespace Today.Model.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Today.Model.Models.Tag", b =>
+                {
+                    b.Navigation("ProductTags");
+                });
+
             modelBuilder.Entity("Today.Model.Models.Ticket", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("Today.Model.Models.staff", b =>
+                {
+                    b.Navigation("CityRaiders");
+
+                    b.Navigation("CouponManages");
                 });
 #pragma warning restore 612, 618
         }

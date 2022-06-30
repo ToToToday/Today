@@ -14,7 +14,7 @@ namespace Today.Model.Models
         public string Address { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         public virtual Product Product { get; set; }
     }
