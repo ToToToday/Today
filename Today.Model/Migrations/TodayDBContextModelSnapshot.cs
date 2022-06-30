@@ -138,10 +138,6 @@ namespace Today.Model.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsUpdate")
-                        .HasColumnType("bit")
-                        .HasComment("是否更新");
-
                     b.Property<bool>("Isdeleted")
                         .HasColumnType("bit")
                         .HasComment("軟刪除");
@@ -170,6 +166,10 @@ namespace Today.Model.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("主標題");
+
+                    b.Property<DateTime>("UpdateTime")
+                        .HasColumnType("datetime")
+                        .HasComment("更新時間(第一次發文存發文時間)");
 
                     b.Property<string>("Video")
                         .IsRequired()
@@ -288,10 +288,6 @@ namespace Today.Model.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasComment("優惠卷名稱");
 
-                    b.Property<int>("CouponStatus")
-                        .HasColumnType("int")
-                        .HasComment("狀態");
-
                     b.Property<string>("DiscountCode")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -306,9 +302,6 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasComment("滿額 多少 (使用條件)");
 
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("Rebate")
                         .HasColumnType("int")
                         .HasComment("減價 多少 (使用條件)");
@@ -318,8 +311,6 @@ namespace Today.Model.Migrations
                         .HasComment("開始日期");
 
                     b.HasKey("CouponId");
-
-                    b.HasIndex("MemberId");
 
                     b.ToTable("Coupon");
                 });
@@ -335,6 +326,10 @@ namespace Today.Model.Migrations
                     b.Property<int>("CouponId")
                         .HasColumnType("int")
                         .HasComment("優惠眷id");
+
+                    b.Property<int>("CouponStatus")
+                        .HasColumnType("int")
+                        .HasComment("狀態");
 
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
@@ -483,8 +478,7 @@ namespace Today.Model.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("密碼");
 
                     b.Property<string>("Phone")
@@ -694,10 +688,6 @@ namespace Today.Model.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasComment("購物須知");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int")
-                        .HasComment("上下架狀態");
-
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
@@ -796,12 +786,12 @@ namespace Today.Model.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasComment("方案內文");
 
+                    b.Property<bool>("Isdeleted")
+                        .HasColumnType("bit")
+                        .HasComment("軟刪除(上下架)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int")
-                        .HasComment("方案狀態(上下架)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -846,7 +836,7 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IncludeTorF")
+                    b.Property<bool>("IsInclude")
                         .HasColumnType("bit")
                         .HasComment("是否包含(判斷放在哪邊)");
 
@@ -1058,9 +1048,6 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TagText")
                         .HasColumnType("int")
                         .HasComment("標籤名稱");
@@ -1114,8 +1101,7 @@ namespace Today.Model.Migrations
 
                     b.Property<string>("PassWord")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("密碼");
 
                     b.Property<string>("Phone")
@@ -1232,17 +1218,6 @@ namespace Today.Model.Migrations
                     b.Navigation("OrderDetails");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Today.Model.Models.Coupon", b =>
-                {
-                    b.HasOne("Today.Model.Models.Member", "Member")
-                        .WithMany("Coupons")
-                        .HasForeignKey("MemberId")
-                        .HasConstraintName("FK_Coupon_Member")
-                        .IsRequired();
-
-                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("Today.Model.Models.CouponManage", b =>
@@ -1573,8 +1548,6 @@ namespace Today.Model.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("CouponManages");
-
-                    b.Navigation("Coupons");
 
                     b.Navigation("LoginWays");
 

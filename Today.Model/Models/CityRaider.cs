@@ -14,7 +14,7 @@ namespace Today.Model.Models
         public string Video { get; set; }
         public string Text { get; set; }
         public DateTime PostDate { get; set; }
-        public bool IsUpdate { get; set; }
+        public DateTime UpdateTime { get; set; }
         public int Status { get; set; }
         public bool Isdeleted { get; set; }
         public int StaffId { get; set; }
