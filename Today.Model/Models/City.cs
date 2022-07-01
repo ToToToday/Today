@@ -17,9 +17,9 @@ namespace Today.Model.Models
 
         public int CityId { get; set; }
         public string CityName { get; set; }
-        public byte[] CityImg { get; set; }
         public string CityIntrod { get; set; }
         public bool IsIsland { get; set; }
+        public string CityImage { get; set; }
 
         public virtual ICollection<CityRaider> CityRaiders { get; set; }
         public virtual ICollection<Member> Members { get; set; }

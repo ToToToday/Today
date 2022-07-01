@@ -13,7 +13,8 @@ namespace Today.Model.Models
         }
 
         public int TicketsId { get; set; }
-        public byte[] TicketsQrcode { get; set; }
+        public string TicketQrcode { get; set; }
+        public int Status { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
