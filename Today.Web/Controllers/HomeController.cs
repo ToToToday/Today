@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Today.Model.Models;
 using Today.Web.Models;
 
 namespace Today.Web.Controllers
@@ -26,6 +28,7 @@ namespace Today.Web.Controllers
 
         public IActionResult Privacy()
         {
+           
             return View();
         }
 
