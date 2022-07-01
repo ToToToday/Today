@@ -1,9 +1,8 @@
 body {
-    /*    font-family: 'Noto Sans TC', '微软雅黑', sans-serif;
-*/ background-color: #f5f5f5;
-    /*    font-weight: 500;
+    font-family: 'Noto Sans TC', '微软雅黑', sans-serif;
+    background-color: #f5f5f5;
+    font-weight: 500;
     scroll-behavior: smooth;
-*/
 }
 
 .container-fluid button .navbar-toggler {
@@ -18,14 +17,42 @@ body {
     padding: 20px;
 }
 
-ad.fa-chevron-down {
-    -webkit-transform: rotate(90deg);
+.fa-minus {
     transform: rotate(90deg);
+}
+
+.a:checked ~ .fa-chevron-down {
+    transform: rotate(-90deg);
+    translate: rotate 1s ease;
+}
+
+/* .fa-chevron-down {
+    transform: rotate(0deg);
+} */
+
+/* .fa-chevron-down {
+    transform: rotate(-180deg);
+    transform:transform .5s;
+
+} */
+.fa-ticket {
+    -webkit-text-stroke: 1px #138184;
+    color: transparent;
+}
+
+.booking-coupon {
+    border: 1px solid #138184;
+    background: transparent;
+    color: #138184;
 }
 
 .fa-circle-info {
     -webkit-text-stroke: 1px #999;
     color: transparent;
+}
+
+input[type=radio] {
+    margin: 0 4px;
 }
 
 .tip {
@@ -46,7 +73,7 @@ ad.fa-chevron-down {
 
 .checkbox-title {
     display: inline-block;
-    min-width: 130px;
+    min-width: 138px;
 }
 
 .form-check-label {
@@ -65,6 +92,13 @@ ad.fa-chevron-down {
     border: 1px solid #eee;
     margin-right: 5px;
     border-radius: 2px;
+}
+
+.con__coupon .btn {
+    border: 1px px solid #138184;
+    color: #138184;
+    background-color: #fff;
+    margin: 20px 20px 0 0;
 }
 
 .payment-critical-info__fee-remind {
@@ -116,7 +150,8 @@ h1.page-head {
 }
 
 .product-option,
-.critical-info {
+.critical-info,
+.Program_info {
     color: #666;
 }
 
@@ -125,7 +160,8 @@ h1.page-head {
     /* border: transparent; */
 }
 
-.Passenger {
+.Passenger,
+.board {
     border-top: 1px solid #f4f4f4;
     -webkit-box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
     box-shadow: 0 2px 4pxrgba(0, 0, 0, .15);
@@ -184,9 +220,17 @@ li.active > a {
         text-align: end;
     }
 
+.fa-minus {
+    transform-origin:;
+}
+
 /* .caculate {
     margin: 0 -15px;
 } */
+
+.TWD {
+    color: #26bec9;
+}
 
 .caculate .total span + span {
     color: #26bec9;
@@ -198,9 +242,9 @@ li.active > a {
     color: white;
     text-decoration: none;
     display: inline-block;
-    width: 80px;
+    /* width: 80px;
     height: 40px;
-    padding: 14px 13px;
+    padding: 14px 13px; */
     border-radius: 5px;
 }
 
@@ -209,9 +253,47 @@ li.active > a {
         transition: 1.2s;
     }
 
-/* .form-check {
-    border-bottom: 1px solid #eee;
-} */
+/* 使用折扣券 */
+.page-head h2 {
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+.page-head .nav-item {
+    padding: 15px;
+}
+
+    .page-head .nav-item a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bolder;
+        font-size: 0.875rem;
+    }
+
+        .page-head .nav-item a:hover {
+            color: #138184;
+        }
+
+.page-head .input-group {
+    height: 40px;
+}
+
+.coupon-text h4 {
+    color: #aaa;
+    margin: 15px 0 0;
+}
+
+.coupon {
+    text-align: center;
+}
+
+.modal-footer {
+    color: #eee;
+}
+
+.btn-white:hover {
+    color: #000;
+}
 
 @media screen and (min-width: 768px) {
     .caculate .total span + span {
@@ -232,6 +314,19 @@ li.active > a {
         height: 45px;
         padding: 15px;
     }
+
+    .page-menu .active,
+    .page-menu .active a {
+        color: #26bec9;
+    }
+
+    .page-menu .active {
+        border-left: #26bec9 solid 4px;
+    }
+
+        .page-menu .active .list-item-text {
+            margin-left: -4px;
+        }
 }
 
 @media screen and (min-width:768px) {
