@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using Today.Model.Models;
+using Today.Model.Models;
 
 namespace TodayMVC.Admin
 {
@@ -27,11 +27,11 @@ namespace TodayMVC.Admin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //services.AddDbContext<TodayDBContext>(options =>
-            //{
-            //    options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
+            services.AddDbContext<TodayDBContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
 
-            //});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
