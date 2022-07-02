@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Today.Model.Migrations
 {
-    public partial class initDB : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,13 +51,14 @@ namespace Today.Model.Migrations
                     CouponId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CouponName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠卷名稱"),
-                    StartDate = table.Column<DateTime>(type: "date", nullable: false, comment: "開始日期"),
-                    EndDate = table.Column<DateTime>(type: "date", nullable: true, comment: "結束日期"),
-                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "優惠卷說明"),
+                    StartDate = table.Column<DateTime>(type: "datetime", nullable: true, comment: "開始日期"),
+                    EndDate = table.Column<DateTime>(type: "datetime", nullable: true, comment: "結束日期"),
+                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "優惠卷簡易說明"),
                     DiscountCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠碼"),
                     CouponDiscount = table.Column<decimal>(type: "decimal(18,0)", nullable: false, comment: "折扣金額"),
                     FullConsumption = table.Column<int>(type: "int", nullable: true, comment: "滿額 多少 (使用條件)"),
-                    Rebate = table.Column<int>(type: "int", nullable: true, comment: "減價 多少 (使用條件)")
+                    Rebate = table.Column<int>(type: "int", nullable: true, comment: "減價 多少 (使用條件)"),
+                    UseInfo = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "使用條件")
                 },
                 constraints: table =>
                 {
@@ -112,7 +113,7 @@ namespace Today.Model.Migrations
                 {
                     TagId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TagText = table.Column<int>(type: "int", nullable: false, comment: "標籤名稱")
+                    TagText = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "標籤名稱")
                 },
                 constraints: table =>
                 {
@@ -428,7 +429,7 @@ namespace Today.Model.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false, comment: "商品ID"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "體驗地點標題"),
-                    text = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "內文"),
+                    text = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "內文"),
                     Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "地點"),
                     Longitude = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "經度"),
                     Latitude = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "緯度"),
