@@ -7,10 +7,18 @@ namespace Today.Model.Models
 {
     public partial class Category
     {
-        public int ProductId { get; set; }
-        public int MinorCategoryId { get; set; }
+        public Category()
+        {
+            InverseParentCategory = new HashSet<Category>();
+            ProductCategories = new HashSet<ProductCategory>();
+        }
 
-        public virtual MinorCategory MinorCategory { get; set; }
-        public virtual Product Product { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public int? ParentCategoryId { get; set; }
+
+        public virtual Category ParentCategory { get; set; }
+        public virtual ICollection<Category> InverseParentCategory { get; set; }
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
     }
 }

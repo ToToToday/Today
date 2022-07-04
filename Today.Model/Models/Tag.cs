@@ -7,10 +7,14 @@ namespace Today.Model.Models
 {
     public partial class Tag
     {
-        public int TagId { get; set; }
-        public int TagText { get; set; }
-        public int ProductId { get; set; }
+        public Tag()
+        {
+            ProductTags = new HashSet<ProductTag>();
+        }
 
-        public virtual Product Product { get; set; }
+        public int TagId { get; set; }
+        public string TagText { get; set; }
+
+        public virtual ICollection<ProductTag> ProductTags { get; set; }
     }
 }

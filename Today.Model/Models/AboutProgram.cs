@@ -7,6 +7,7 @@ namespace Today.Model.Models
 {
     public partial class AboutProgram
     {
+        public int AboutProgramId { get; set; }
         public int ProgramId { get; set; }
         public int AboutProgramOptionsId { get; set; }
 
