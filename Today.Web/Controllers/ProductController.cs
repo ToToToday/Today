@@ -62,6 +62,7 @@ namespace Today.Web.Controllers
         }
         public IActionResult QuarantineHotel() //防疫旅館頁面
         {
+
             return View();
         }
         public IActionResult HSR() //國旅
