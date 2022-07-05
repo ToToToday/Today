@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
+using Today.Web.Data;
 using Today.Web.Models;
 
 namespace Today.Web.Controllers
@@ -36,6 +37,12 @@ namespace Today.Web.Controllers
             //TodayDBContext context = new TodayDBContext();
             //var result = await context.Categories.ToListAsync();
             return View();
+        }
+        public IActionResult Data()
+        {
+            InitDB data = new InitDB();
+            data.CreateBaseData();
+            return Content("成功");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
