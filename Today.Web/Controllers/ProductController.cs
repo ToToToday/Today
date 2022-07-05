@@ -1,9 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using Today.Model.Models;
+using Today.Web.ViewModels;
 
 namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly TodayDBContext _context;
+        public ProductController(TodayDBContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -29,9 +39,11 @@ namespace Today.Web.Controllers
             //var result = await context.Cities.ToListAsync();
             return View();
         }
-        public IActionResult CityTour() //各城市導覽頁
+        public async Task<IActionResult> CityTourAsync() //各城市導覽頁
         {
-            return View();
+            var result = await _context.Cities.ToListAsync();
+            var cities = await _context.Cities.Select(c => new CityVM { CityName = c.CityName, CityImage = c.CityImage, CityIntrod = c.CityIntrod }).ToListAsync();
+            return View(cities);
         }
         public IActionResult CityRaiders() //城市攻略
         {
