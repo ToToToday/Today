@@ -28,6 +28,8 @@ namespace Today.Web.Controllers
         }
         public IActionResult CityClassify() //城市 分類
         {
+            //TodayDBContext context = new TodayDBContext();
+            //var result = await context.Cities.ToListAsync();
             return View();
         }
         public IActionResult CityTour() //各城市導覽頁

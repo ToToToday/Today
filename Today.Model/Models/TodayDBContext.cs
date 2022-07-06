@@ -88,9 +88,7 @@ namespace Today.Model.Models
                     .HasMaxLength(50)
                     .HasComment("{n}天內確認");
 
-                entity.Property(e => e.IconClass)
-                    .HasMaxLength(50)
-                    .HasComment("icon圖標");
+                entity.Property(e => e.IconClass).HasComment("icon圖標");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.AboutProgramOptions)
@@ -256,7 +254,7 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Coupon");
 
-                entity.Property(e => e.Context).HasComment("優惠卷說明");
+                entity.Property(e => e.Context).HasComment("優惠卷簡易說明");
 
                 entity.Property(e => e.CouponDiscount)
                     .HasColumnType("decimal(18, 0)")
@@ -273,7 +271,7 @@ namespace Today.Model.Models
                     .HasComment("優惠碼");
 
                 entity.Property(e => e.EndDate)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasComment("結束日期");
 
                 entity.Property(e => e.FullConsumption).HasComment("滿額 多少 (使用條件)");
@@ -281,8 +279,10 @@ namespace Today.Model.Models
                 entity.Property(e => e.Rebate).HasComment("減價 多少 (使用條件)");
 
                 entity.Property(e => e.StartDate)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasComment("開始日期");
+
+                entity.Property(e => e.UseInfo).HasComment("使用條件");
             });
 
             modelBuilder.Entity<CouponManage>(entity =>
@@ -342,7 +342,6 @@ namespace Today.Model.Models
                 entity.Property(e => e.ProductId).HasComment("商品ID");
 
                 entity.Property(e => e.Text)
-                    .IsRequired()
                     .HasColumnName("text")
                     .HasComment("內文");
 
@@ -577,7 +576,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.ProductName)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(200)
                     .HasComment("商品名稱");
 
                 entity.Property(e => e.ShoppingNotice).HasComment("購物須知");
@@ -660,9 +659,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.ProgramId).HasComment("");
 
-                entity.Property(e => e.Context)
-                    .IsRequired()
-                    .HasComment("方案內文");
+                entity.Property(e => e.Context).HasComment("方案內文");
 
                 entity.Property(e => e.Isdeleted).HasComment("軟刪除(上下架)");
 
@@ -706,9 +703,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.Property(e => e.Text)
-                    .IsRequired()
-                    .HasComment("內文");
+                entity.Property(e => e.Text).HasComment("內文");
 
                 entity.HasOne(d => d.Program)
                     .WithMany(p => p.ProgramIncludes)
@@ -867,7 +862,10 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Tag");
 
-                entity.Property(e => e.TagText).HasComment("標籤名稱");
+                entity.Property(e => e.TagText)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasComment("標籤名稱");
             });
 
             modelBuilder.Entity<Ticket>(entity =>

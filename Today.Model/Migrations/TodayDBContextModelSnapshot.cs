@@ -56,8 +56,7 @@ namespace Today.Model.Migrations
                         .HasComment("{n}天內確認");
 
                     b.Property<string>("IconClass")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("icon圖標");
 
                     b.Property<int>("ProductId")
@@ -276,7 +275,7 @@ namespace Today.Model.Migrations
 
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)")
-                        .HasComment("優惠卷說明");
+                        .HasComment("優惠卷簡易說明");
 
                     b.Property<decimal>("CouponDiscount")
                         .HasColumnType("decimal(18,0)")
@@ -295,7 +294,7 @@ namespace Today.Model.Migrations
                         .HasComment("優惠碼");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("date")
+                        .HasColumnType("datetime")
                         .HasComment("結束日期");
 
                     b.Property<int?>("FullConsumption")
@@ -306,9 +305,13 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasComment("減價 多少 (使用條件)");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime")
                         .HasComment("開始日期");
+
+                    b.Property<string>("UseInfo")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("使用條件");
 
                     b.HasKey("CouponId");
 
@@ -382,7 +385,6 @@ namespace Today.Model.Migrations
                         .HasComment("商品ID");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("text")
                         .HasComment("內文");
@@ -680,8 +682,8 @@ namespace Today.Model.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
                         .HasComment("商品名稱");
 
                     b.Property<string>("ShoppingNotice")
@@ -782,7 +784,6 @@ namespace Today.Model.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Context")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("方案內文");
 
@@ -836,7 +837,7 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsInclude")
+                    b.Property<bool?>("IsInclude")
                         .HasColumnType("bit")
                         .HasComment("是否包含(判斷放在哪邊)");
 
@@ -845,7 +846,6 @@ namespace Today.Model.Migrations
                         .HasColumnName("ProgramID");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("內文");
 
@@ -1048,8 +1048,10 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("TagText")
-                        .HasColumnType("int")
+                    b.Property<string>("TagText")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
                         .HasComment("標籤名稱");
 
                     b.HasKey("TagId");
