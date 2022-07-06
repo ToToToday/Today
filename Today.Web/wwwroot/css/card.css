@@ -1,0 +1,63 @@
+﻿.card {
+    overflow: hidden;
+    border-radius: 10px;
+    width: 270px;
+    height: 350px;
+}
+
+.card img {
+    border-radius: 10px;
+}
+
+.card:hover img {
+    transform: scale(1.2);
+    transition: All 1s;
+}
+
+.card a > div {
+    height: 150px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.card .fa-regular {
+    color: white;
+}
+
+.city-tag {
+    display: flex;
+    align-items: flex-start;
+}
+
+h4 {
+    line-height: 1.4;
+}
+
+a {
+    color: black;
+}
+
+.card .remind {
+    background-color: rgba(100, 179, 244, .1);
+    padding: 3px;
+    color: #36a1fa;
+    font-weight: 600;
+}
+
+.card-footer {
+    background-color: white;
+}
+
+.score i {
+    color: #26bec9;
+}
+
+@media screen and (min-width: 992px) {
+    html {
+        font-size: 100%;
+    }
+
+    .card h4 {
+        font-size: 1rem;
+    }
+}

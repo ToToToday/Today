@@ -1,11 +1,11 @@
-.outerlayer-limit {
+/*.outerlayer-limit {
     box-sizing: border-box;
 }
 
 .innerlayer-limit {
     max-width: 1200px;
 }
-
+*/
 .card {
     border-radius: 10px;
     width: 270px;
