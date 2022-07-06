@@ -56,8 +56,7 @@ namespace Today.Model.Migrations
                         .HasComment("{n}天內確認");
 
                     b.Property<string>("IconClass")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("nvarchar(max)")
                         .HasComment("icon圖標");
 
                     b.Property<int>("ProductId")
@@ -683,8 +682,8 @@ namespace Today.Model.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
                         .HasComment("商品名稱");
 
                     b.Property<string>("ShoppingNotice")
@@ -785,7 +784,6 @@ namespace Today.Model.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Context")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("方案內文");
 
@@ -839,7 +837,7 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsInclude")
+                    b.Property<bool?>("IsInclude")
                         .HasColumnType("bit")
                         .HasComment("是否包含(判斷放在哪邊)");
 
@@ -848,7 +846,6 @@ namespace Today.Model.Migrations
                         .HasColumnName("ProgramID");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("內文");
 
