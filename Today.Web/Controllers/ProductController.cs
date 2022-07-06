@@ -5,16 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
+using Today.Web.Services.CityService;
 using Today.Web.ViewModels;
+
 
 namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly TodayDBContext _context;
-        public ProductController(TodayDBContext context)
+       
+        private readonly ICityService _cityServices;
+        public ProductController(ICityService cityServices)
         {
-            _context = context;
+            _cityServices = cityServices;
         }
         public IActionResult Index()
         {
@@ -41,11 +44,11 @@ namespace Today.Web.Controllers
             //var result = await context.Cities.ToListAsync();
             return View();
         }
-        public async Task<IActionResult> CityTourAsync(int id) //各城市導覽頁
+        public IActionResult CityTour() //各城市導覽頁
         {
-            CityServices citySevice = new CityServices();
-            List<CityVM> cityAll = await citySevice.CityAllPages();
-            return View(cityAll);
+
+            var CityPages = _cityServices.GetCityPages();
+            return View(CityPages);
         }
         public IActionResult CityRaiders() //城市攻略
         {

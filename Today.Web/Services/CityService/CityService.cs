@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
+using Today.Model.Repositories;
 using Today.Web.ViewModels;
 
-namespace Today.Web.Services
+namespace Today.Web.Services.CityService
 {
 
-    public class CityServices
+    public class CityService:ICityService
     {
-        private readonly TodayDBContext _context;
-        public CityServices()
+      
+        private readonly IGenericRepository _repo;
+        public CityService(IGenericRepository repo)
         {
-            _context = new TodayDBContext();
+            _repo = repo;
         }
-        public async Task<List<CityVM>> CityAllPages()
+        public List<CityVM> GetCityPages()
         {
-            var result = await _context.Cities.ToListAsync();
-            var citypages = (from cp in result
+            //var result = _repo.GetAll<City>;
+            var citypages = (from cp in _repo.GetAll<City>()
                              where cp.CityId == 12
                              select cp).Select(c => new CityVM { Id = c.CityId, CityName = c.CityName, CityImage = c.CityImage, CityIntrod = c.CityIntrod }).ToList();
-            return citypages.ToList();
+            return citypages;
         }
     }
 }

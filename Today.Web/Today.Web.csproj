@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Today.Model\Today.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\NewFolder\" />
+  </ItemGroup>
+
 </Project>
