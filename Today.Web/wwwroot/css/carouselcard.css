@@ -1,5 +1,28 @@
-.carousel-inner span {
+/*.outerlayer-limit {
+    box-sizing: border-box;
+}
+
+.innerlayer-limit {
+    max-width: 1200px;
+}
+*/
+.card {
+    border-radius: 10px;
+    width: 270px;
+}
+
+.card .carousel-inner {
+    border-radius: 10px;
+    overflow: hidden;
+    height: 150px;
+}
+
+.card .carousel-inner span {
     z-index: 1;
+}
+
+.card .card-footer {
+    background-color: white;
 }
 
 .score i {

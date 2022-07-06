@@ -53,7 +53,6 @@ namespace Today.Model.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Database=TodayDB;");
             }
         }
@@ -88,9 +87,7 @@ namespace Today.Model.Models
                     .HasMaxLength(50)
                     .HasComment("{n}天內確認");
 
-                entity.Property(e => e.IconClass)
-                    .HasMaxLength(50)
-                    .HasComment("icon圖標");
+                entity.Property(e => e.IconClass).HasComment("icon圖標");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.AboutProgramOptions)
@@ -578,7 +575,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.ProductName)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(200)
                     .HasComment("商品名稱");
 
                 entity.Property(e => e.ShoppingNotice).HasComment("購物須知");
@@ -661,9 +658,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.ProgramId).HasComment("");
 
-                entity.Property(e => e.Context)
-                    .IsRequired()
-                    .HasComment("方案內文");
+                entity.Property(e => e.Context).HasComment("方案內文");
 
                 entity.Property(e => e.Isdeleted).HasComment("軟刪除(上下架)");
 
@@ -707,9 +702,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.ProgramId).HasColumnName("ProgramID");
 
-                entity.Property(e => e.Text)
-                    .IsRequired()
-                    .HasComment("內文");
+                entity.Property(e => e.Text).HasComment("內文");
 
                 entity.HasOne(d => d.Program)
                     .WithMany(p => p.ProgramIncludes)
