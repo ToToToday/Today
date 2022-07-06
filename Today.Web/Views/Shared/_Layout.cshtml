@@ -26,29 +26,29 @@
                             <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
                         </a>
                     </h1>
-                    <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-inlineblock")">
+                    <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")">
                         <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
-                            aria-label="Recipient's username" aria-describedby="search">
+                            aria-label="Recipient's username" aria-describedby="search" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                         <button class="btn" type="button" id="search"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                         <div class="search-box px-2 py-3 border rounded w-120 dropdown-menu dropdown-menu-start mt-2">
                             <span class="title w-100 d-block mb-2">熱門目的地</span>
                             <div class="seacrch-keywords d-flex flex-wrap flex-column" style="height: 150px;">
-                                <p class="px-3 py-2 border-end border-secondary">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
-                                <p class="px-3 py-2 border-end border-secondary">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
-                                <p class="px-3 py-2 border-end border-secondary">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
-                                <p class="px-3 py-2 border-end border-secondary">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
-                                <p class="px-3 py-2 border-end border-secondary">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></p>
-                                <p class="px-3 py-2 border-end border-secondary">台南</p>
-                                <p class="px-3 py-2 border-end border-secondary">高雄</p>
-                                <p class="px-3 py-2 border-end border-secondary">桃園</p>
-                                <p class="px-3 py-2 border-end border-secondary">平溪</p>
-                                <p class="px-3 py-2 border-end border-secondary">彰化</p>
-                                <p class="px-3 py-2">苗栗</p>
-                                <p class="px-3 py-2">雲林</p>
-                                <p class="px-3 py-2">台中</p>
-                                <p class="px-3 py-2">嘉義</p>
-                                <p class="px-3 py-2">南投</p>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">台南</a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">高雄</a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">桃園</a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">平溪</a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">彰化</a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">苗栗</a>
+                                <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none">雲林</a>
+                                <a class="px-3 py-2 text-black-50 text-decoration-none">台中</a>
+                                <a class="px-3 py-2 text-black-50 text-decoration-none">嘉義</a>
+                                <a class="px-3 py-2 text-black-50 text-decoration-none">南投</a>
                             </div>
                         </div>
                     </div>
@@ -98,8 +98,9 @@
         </nav>
         <partial name="_NavBottomPartial"></partial>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    @*<div class="container out-border">
+        <main role="main" class="main" class="pb-3">*@
             @RenderBody()
         @*</main>
     </div>*@

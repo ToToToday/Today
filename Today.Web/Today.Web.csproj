@@ -25,11 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\Today.Model\Today.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Today.Model\Today.Model.csproj" />
+    <Folder Include="Services\NewFolder\" />
   </ItemGroup>
 
 </Project>

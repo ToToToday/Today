@@ -24,23 +24,31 @@ h1{
     top: 0;
     left: 0;
 }
-.nav-limit .navbar-nav a:hover, .category-limit a:hover{
-    color: #26bec9!important;
+.nav-limit .navbar-nav a:hover, .category-limit a:hover, header .search-keywords a:hover {
+    color: #26bec9 !important;
 }
 /* 多加 */
-.w-40{
+.w-40 {
     width: 40%;
 }
-.w-120{
+
+.w-120 {
     width: 120%;
 }
-.user-info{
+
+.user-info {
     box-sizing: border-box;
     width: 200px;
 }
-header li img, .big-headimg img{
+
+header li img, .big-headimg img {
     aspect-ratio: 5/5;
     max-width: 30px;
+    cursor: pointer;
+}
+
+header ul li, header .search-keywords a {
+    cursor: pointer;
 }
 
 header li .user-info::after{
@@ -56,7 +64,7 @@ header li .user-info::after{
 }
 
 /* footer */
-.footer-limit{
+.footer-limit {
     background-color: #aaa;
 }
 .app a{
