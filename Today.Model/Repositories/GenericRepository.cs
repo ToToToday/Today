@@ -4,17 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Today.Model.Models;
 
 namespace Today.Model.Repositories
 {
-    public class GenericRepostory
+    public class GenericRepository : IGenericRepository
     {
-        private DbContext _context;
+        private readonly TodayDBContext _context;
 
-        public GenericRepostory(DbContext context)
+        public GenericRepository(TodayDBContext context)
         {
-            if (context == null)
-            { throw new ArgumentNullException(); }
             _context = context;
         }
         public void Create<T>(T value) where T : class
@@ -32,7 +31,7 @@ namespace Today.Model.Repositories
 
         }
 
-        public IQueryable<T> GetAll<T, TKey>() where T : class
+        public IQueryable<T> GetAll<T>() where T : class
         {
             return _context.Set<T>();
         }
@@ -41,5 +40,7 @@ namespace Today.Model.Repositories
         {
             _context.SaveChanges();
         }
+
+
     }
 }

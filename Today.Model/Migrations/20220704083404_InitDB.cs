@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Today.Model.Migrations
 {
-    public partial class initDB : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,13 +51,14 @@ namespace Today.Model.Migrations
                     CouponId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CouponName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠卷名稱"),
-                    StartDate = table.Column<DateTime>(type: "date", nullable: false, comment: "開始日期"),
-                    EndDate = table.Column<DateTime>(type: "date", nullable: true, comment: "結束日期"),
-                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "優惠卷說明"),
+                    StartDate = table.Column<DateTime>(type: "datetime", nullable: true, comment: "開始日期"),
+                    EndDate = table.Column<DateTime>(type: "datetime", nullable: true, comment: "結束日期"),
+                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "優惠卷簡易說明"),
                     DiscountCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠碼"),
                     CouponDiscount = table.Column<decimal>(type: "decimal(18,0)", nullable: false, comment: "折扣金額"),
                     FullConsumption = table.Column<int>(type: "int", nullable: true, comment: "滿額 多少 (使用條件)"),
-                    Rebate = table.Column<int>(type: "int", nullable: true, comment: "減價 多少 (使用條件)")
+                    Rebate = table.Column<int>(type: "int", nullable: true, comment: "減價 多少 (使用條件)"),
+                    UseInfo = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "使用條件")
                 },
                 constraints: table =>
                 {
@@ -112,7 +113,7 @@ namespace Today.Model.Migrations
                 {
                     TagId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TagText = table.Column<int>(type: "int", nullable: false, comment: "標籤名稱")
+                    TagText = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "標籤名稱")
                 },
                 constraints: table =>
                 {
@@ -310,7 +311,7 @@ namespace Today.Model.Migrations
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "商品名稱"),
+                    ProductName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "商品名稱"),
                     Illustrate = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "商品說明"),
                     ShoppingNotice = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "購物須知"),
                     CancellationPolicy = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "取消政策"),
@@ -379,7 +380,7 @@ namespace Today.Model.Migrations
                     AboutProgramOptionsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Context = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "{n}天內確認"),
-                    IconClass = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "icon圖標"),
+                    IconClass = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "icon圖標"),
                     ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -428,7 +429,7 @@ namespace Today.Model.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false, comment: "商品ID"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "體驗地點標題"),
-                    text = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "內文"),
+                    text = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "內文"),
                     Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "地點"),
                     Longitude = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "經度"),
                     Latitude = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "緯度"),
@@ -526,7 +527,7 @@ namespace Today.Model.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "方案標題"),
-                    Context = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "方案內文"),
+                    Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "方案內文"),
                     Isdeleted = table.Column<bool>(type: "bit", nullable: false, comment: "軟刪除(上下架)")
                 },
                 constraints: table =>
@@ -593,8 +594,8 @@ namespace Today.Model.Migrations
                     ProgramIncludeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProgramID = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "內文"),
-                    IsInclude = table.Column<bool>(type: "bit", nullable: false, comment: "是否包含(判斷放在哪邊)")
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "內文"),
+                    IsInclude = table.Column<bool>(type: "bit", nullable: true, comment: "是否包含(判斷放在哪邊)")
                 },
                 constraints: table =>
                 {

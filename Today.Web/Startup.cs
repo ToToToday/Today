@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
+using Today.Model.Repositories;
+using Today.Web.Services.CityService;
 
 namespace Today.Web
 {
@@ -30,6 +32,8 @@ namespace Today.Web
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
             });
+            services.AddTransient<IGenericRepository, GenericRepository>();
+            services.AddTransient<ICityService, CityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
