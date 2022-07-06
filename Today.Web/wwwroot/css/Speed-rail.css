@@ -1,36 +1,3 @@
-.Speed-rail-banner-h2
-{
-    line-height:1.5;
-    width: 80%;
-    margin: auto;
-    margin-bottom: 0.625rem;
-    font-weight: 700;
-}
-
-.Speed-rail-hotel-banner 
-{
-    background-image: url("https://cdn.kkday.com/pc-web/assets/img/thsr/thsr-banner.jpeg");
-    height:18.5rem;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.Speed-rail-banner-p
-{
-    width: 80%;
-    margin: auto;  
-    margin-bottom: 0.938rem;
-    line-height: 1.6;
-}
-.Speed-rail-search
-{
-    width: 80%;
-    margin: auto;  
-}
 .Speed-rail-type-button
 {
     margin-top: 0.938rem;

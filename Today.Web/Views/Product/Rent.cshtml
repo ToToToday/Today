@@ -18,196 +18,12 @@
   <link rel="stylesheet" href="~/css/homestyle.css">
     <link rel="stylesheet" href="~/css/rent.css">
   <link rel="stylesheet" href="~/css/google-map.css">
+  <link rel="stylesheet" href="~/css/hotel-banner-partical.css">
 }
 
 
-<div class="rent-hotel-banner">
-    <div class="container p-0 ">
-      <h2 class="rent-banner-h2 fs-2 fw-bold text-white text-md-center ">租車推薦 即刻預訂享折扣・輕鬆享受自駕遊</h2>
-      <p class="rent-banner-p text-white  text-md-center ">多元的租車商品與KKday獨家優惠，讓你的自駕遊，安全輕鬆沒煩惱！</p>
+<partial name="hotel_bannerPartial" />
 
-      <div class="rent-search mb-3 p-1 ps-2 bg-white rounded">
-        <div class="input-group row  m-0"> 
-          <div class="btn-group col-12 col-md-5 p-0">
-            <button type="button" class="btn btn-light d-flex justify-content-between align-items-center" data-bs-toggle="dropdown" aria-expanded="true">
-              <i class="fa-solid fa-location-dot"></i><span>取車地點</span><span class="fa-solid fa-caret-down opacity-25"></span>
-            </button>
-            <ul class="dropdown-menu w-100">
-              <li class="col-3 d-inline-block m-2 ">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">台北</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">台中</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">台南</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">南投</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">新竹</button>
-              </li>
-              <li class="col-3 d-inline-block m-2" >
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">高雄</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">嘉義</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">屏東</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">墾丁</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">宜蘭</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">花蓮</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">新北市</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">桃園</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">苗栗</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">雲林</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">蘭嶼</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">小琉球</button>
-              </li>
-              <li class="col-3 d-inline-block m-2">
-                <button type="button" class="btn btn-outline-info rounded-pill w-100">基隆</button>
-              </li>
-            </ul>
-          </div>
-          <div class="btn-group col-12 col-md-5 p-0">
-            <button type="button" class="btn btn-light  d-flex justify-content-between align-items-center">
-              <i class="fa-solid fa-calendar-days pe-2 fw-lighter"><span class="ps-2">取車日期</span></i><span class="pick-car"><input type="date"></span><span class="fa-solid fa-caret-down opacity-25"></span>
-            </button>
-          </div>
-            <button class="col-12 col-md-2   btn text-white btn-info  border rounded-end " type="button" id="button-addon2"><i class="fa-solid fa-magnifying-glass search-icon"></i>搜尋</button>
-        </div>
-      </div>
-      <div class="rent-collapse-search rounded-pill w-75 m-auto">
-        <button class="btn btn-light w-100 rounded-pill" data-bs-toggle="modal" data-bs-target="#rent-ModalFullscreen"><i class="fa-solid fa-magnifying-glass opacity-50 pe-2"></i><span>請選擇取車地點及日期</span></button>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade " id="rent-ModalFullscreen" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-      <div class="modal-content">
-          <div class="container modal-header d-flex justify-content-between align-items-center">
-              <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
-              <p class="fw-bold m-0">搜尋</p>
-              <a class="modal-title m-0 text-decoration-none text-black-50"
-                  id="exampleModalFullscreenLabel">全部清除</a>
-          </div>
-          <div class="modal-body container">
-              <p class="d-inline-block">取車地點</p>
-              <ul class="d-flex justify-content-left flex-wrap">
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">台北</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">台中</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">台南</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">南投</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">新竹</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">高雄</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">嘉義</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">屏東</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">墾丁</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">宜蘭</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">花蓮</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button"
-                          class="btn btn-light rounded-pill w-100 text-black-50 p-0">新北市</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">桃園</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">苗栗</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">雲林</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">蘭嶼</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button"
-                          class="btn btn-light rounded-pill w-100 text-black-50 p-0">小琉球</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0">基隆</button>
-                  </li>
-              </ul>
-              <p>取車日期</p>
-              <div class="calendar">
-                  <div class="title">
-                      <p class="text-info" id="calendar-year">Year</p>
-                      <ul class="head-list">
-                          <li class="calendar-title list-unstyled"></li>
-                          <li class="calendar-title list-unstyled"></li>
-                          <li class="calendar-title list-unstyled"></li>
-                          <li class="calendar-title list-unstyled"></li>
-                      </ul>
-                      <a href="" id="prev">Prev Month</a>
-                      <a href="" id="next">Next Month</a>
-                  </div>
-                  <table class="table">
-                      <tr class="text-black-50 body-tr ">
-                          <th>一</th>
-                          <th>二</th>
-                          <th>三</th>
-                          <th>四</th>
-                          <th>五</th>
-                          <th>六</th>
-                          <th>日</th>
-                      </tr>
-                      <tr class="days">
-                          
-                      </tr>
-                  </table>
-
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
-  </div> 
   <div class="container rent-type-button-collapse">
     <div class="d-flex justify-content-left rent-type-button">
       <button type="button" class="btn btn-outline-secondary rounded-pill p-2 d-flex align-items-center  me-2"><i
@@ -230,7 +46,7 @@
                 <img src="https://cdn.kkday.com/pc-web/assets/img/map_marker.svg"
                   class="google-local-mark position-absolute  top-50 start-50 translate-middle ">
                 <div class="map-card-p position-absolute bg-light bg-opacity-75 w-100 pt-2 pb-2">
-                  <p class="text-center ">檢視地圖</p>
+                  <p class="text-center mb-0">檢視地圖</p>
                 </div>
               </a>
             </div>
@@ -1035,6 +851,7 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="~/js/homescript.js"></script>
   <script src="~/js/google-map.js"></script>
+    <script src="~/js/show_city.js"></script>
    <script type="text/javascript">
            $(function () {
       $('input[name="datefilter"]').daterangepicker({
