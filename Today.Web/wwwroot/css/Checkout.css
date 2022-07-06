@@ -40,10 +40,21 @@ body {
     color: transparent;
 }
 
-.booking-coupon {
+/* .booking-coupon {
     border: 1px solid #138184;
     background: transparent;
     color: #138184;
+} */
+
+.booking-coupon:hover {
+    background-color: #f4f4f4;
+    border: 1px solid #138184;
+}
+
+.booking-coupon {
+    border: 1px solid #138184;
+    color: #138184;
+    background-color: #fff;
 }
 
 .fa-circle-info {
@@ -114,8 +125,8 @@ input[type=radio] {
     max-height: 25px;
 }
 
-h1.page-head {
-    font-size: 24px;
+h4.page-head {
+    font-size: 1.25rem;
     font-weight: bolder;
     color: #212529;
     display: contents;
@@ -288,8 +299,30 @@ li.active > a {
 }
 
 .modal-footer {
-    color: #eee;
+    background-color: #f4f4f4;
 }
+
+    .modal-footer .btn-default {
+        border: 1px solid #e1e1e1;
+    }
+
+        .modal-footer .btn-default:focus,
+        .modal-footer .btn-default:hover {
+            background-color: transparent;
+            color: #333;
+        }
+
+.btn-primary {
+    color: #fff;
+    background-color: #26bec9;
+    border: none;
+}
+
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #22a7aa;
+        border-color: #22a7aa;
+    }
 
 .btn-white:hover {
     color: #000;
@@ -353,28 +386,6 @@ li.active > a {
         right: 0;
     }
 
-    .editor-logo i {
-        position: absolute;
-        font-size: 25px;
-        right: 10px;
-    }
-
-    .aside-box .name {
-        font-size: 16px;
-        font-weight: bolder;
-    }
-
-    .aside-box .level {
-        font-weight: bolder;
-        font-size: 14px;
-        color: #666666;
-    }
-
-    .aside-box {
-        padding: 15px;
-        margin-bottom: 15px;
-    }
-
     body {
         background-color: #f5f5f5;
     }
@@ -405,36 +416,18 @@ li.active > a {
         padding-left: 0;
     }
 
-    .list-item {
-        padding: 10px 15px;
-    }
-
-        .list-item i {
-            margin-right: 10px;
+        .page-menu .active,
+        .page-menu .active a {
+            color: #26bec9;
         }
 
-        .list-item a {
-            text-decoration: none;
-            color: #333333;
-            font-size: 14px;
+        .page-menu .active {
+            border-left: #26bec9 solid 4px;
         }
 
-    .page-menu .active,
-    .page-menu .active a {
-        color: #26bec9;
-    }
-
-    .page-menu .active {
-        border-left: #26bec9 solid 4px;
-    }
-
-        .page-menu .active .list-item-text {
-            margin-left: -4px;
-        }
-
-    .icofont-check-circled {
-        font-size: 20px;
-    }
+            .page-menu .active .list-item-text {
+                margin-left: -4px;
+            }
 
     .list-item-text .text-warning {
         font-weight: bolder;

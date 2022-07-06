@@ -30,8 +30,8 @@
 
 
     <div class="container-fluid">
-        <div class="Orderinformation mw-100 mt-4">
-            <div class="container row m-auto ">
+        <div class="Orderinformation mw-100 pt-5">
+            <div class="container row m-auto pt-4">
                 <!-- <div class="Paytoorder-fliud">
                     <div class="Paytoorder my-4 ms-2">
                         <h3 class=""> 付款 <i class="fa-solid fa-greater-than me-1"></i> 訂購完成</h3>
@@ -39,7 +39,7 @@
                 </div> -->
 
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb ms-2">
                         <li class="breadcrumb-item fw-bolder">付款</li>
                         <li class="breadcrumb-item active" aria-current="page">訂購完成</li>
                     </ol>
@@ -61,7 +61,7 @@
                                 <div class="page-text">
                                     <form class="row g-3 needs-validation" id="profile" novalidate>
                                         <div class="row">
-                                            <div class="col-md-4 mt-4 mx-4">
+                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
                                                 <label for="validationCustom01" class="form-label">名字
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -72,7 +72,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4 mt-4 mx-4">
+                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
                                                 <label for="validationCustom02" class="form-label">姓氏
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -85,7 +85,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-4 mt-4 mx-4">
+                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
                                                 <label for="validationCustom08" class="form-label ">國家/地區
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -97,7 +97,7 @@
                                                     此欄位必填
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 mt-4 mx-4">
+                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
                                                 <label for="validationCustom09" class="form-label">電話號碼
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -106,7 +106,7 @@
                                                     此欄位必填
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 mt-4 mx-4">
+                                            <div class="col-md-8 col-xs-12 mt-4 mx-4">
                                                 <label for="validationCustom10" class="form-label">聯絡 E-mail
                                                     <span class="text-danger">*</span>
                                                 </label>
@@ -228,7 +228,8 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-md-4 mt-4 mx-4">
+                                    <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4" style="
+                                    width: 80%;">
                                         <label for="validationCustom08" class="form-label ">國家/地區
                                             <span class="text-danger">*</span>
                                         </label>
@@ -240,7 +241,7 @@
                                             此欄位必填
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mt-4 mx-4">
+                                    <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
                                         <label for="validationCustom011" class="form-label">出生日期
                                             <span class="text-danger">*</span>
                                         </label>
@@ -249,27 +250,52 @@
                                             此欄位必填
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mt-4 mx-4">
-                                        <label for="validationCustom02" class="form-label">中文姓
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="validationCustom02"
-                                            placeholder="例 : 陳" required="">
-                                        <div class="invalid-feedback">
-                                            此欄位必填
+                                    <!-- <div class="name_group">
+                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
+                                            <label for="validationCustom02" class="form-label">中文姓
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="validationCustom02"
+                                                placeholder="例 : 陳" required="">
+                                            <div class="invalid-feedback">
+                                                此欄位必填
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
+                                            <label for="validationCustom011" class="form-label">中文名
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="validationCustom011"
+                                                placeholder="例 : 品叡" required="">
+                                            <div class="invalid-feedback">
+                                                此欄位必填
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
+                                            <label for="validationCustom01" class="form-label">名字
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="validationCustom01"
+                                                placeholder="品叡" required="">
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
+                                            <label for="validationCustom02" class="form-label">姓氏
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="validationCustom02"
+                                                placeholder="陳" required="">
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mt-4 mx-4">
-                                        <label for="validationCustom011" class="form-label">中文名
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="validationCustom011"
-                                            placeholder="例 : 品叡" required="">
-                                        <div class="invalid-feedback">
-                                            此欄位必填
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mt-4 mx-4">
+                                    <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
                                         <label for="validationCustom02" class="form-label">台灣身份證字號
                                             <span class="text-danger">*</span>
                                         </label>
@@ -289,7 +315,7 @@
                                 <div class="traveler-con">
                                     <div class="sub-title my-3">
                                         <i class="fa-solid fa-minus"></i>
-                                        <span>旅遊期間聯絡方式</span>
+                                        <span class="fw-bolder">旅遊期間聯絡方式</span>
                                     </div>
                                     <div class="board p-3 mx-2 mb-2 bg-body rounded ">
                                         <div class="btn-group">
@@ -308,32 +334,32 @@
                                             </ul>
                                         </div>
 
-                                        <div class="row my-4 mx-3">
-                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                        <div class="row ms-1">
+                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-2">
                                                 <div class="form-group mb-2">
                                                     <label class="my-2">聯絡人名
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <input id="booking-contact-firstname" placeholder="例：Ming Ni"
                                                         name="contactFirstName0" type="text" class="form-control">
-                                                    <!---->
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-2">
                                                 <div class="form-group">
                                                     <label class="my-2">聯絡人姓
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <input id="booking-contact-lastname" placeholder="例：Chen"
                                                         name="contactLastName0" type="text" class="form-control">
-                                                    <!---->
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row mt-4">
                                             <div class="col-md-4 col-sm-6 col-xs-12 mx-4">
-                                                <div class="form-group "><label>旅遊期間聯絡電話<span
-                                                            class="text-danger">*</span></label>
+                                                <div class="form-group ">
+                                                    <label>旅遊期間聯絡電話
+                                                        <span class="text-danger">*</span>
+                                                    </label>
                                                     <div data-validate-value="" name="contactTelOption0"
                                                         class="form-inline radio-has-son my-3"><label>
                                                             <input id="booking-contact-tel-yes" class="-2" type="radio"
@@ -344,9 +370,7 @@
                                                             沒有
                                                         </label></div>
                                                     <div class="form-group-son form-group must">
-                                                        <!---->
                                                     </div>
-                                                    <!---->
                                                 </div>
                                             </div>
                                         </div>
@@ -358,7 +382,7 @@
                                 <div class="traveler-con">
                                     <div class="sub-title my-3">
                                         <i class="fa-solid fa-minus"></i>
-                                        <span> 特殊需求備註</span>
+                                        <span class="fw-bolder"> 特殊需求備註</span>
                                     </div>
                                     <div class="row mt-10">
                                         <div class="col-md-8 col-sm-12 ms-3">
@@ -376,11 +400,11 @@
                                     </div>
 
 
-                                    <button type="button" class="booking-coupon btn btn-light mt-2 ms-1"
+                                    <button type="button" class="booking-coupon btn btn-light mt-2 ms-3 shadow-none"
                                         data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fa-solid fa-ticket me-3"></i>使用折扣券
                                     </button>
-                                    <div class="col-12 mt-3 ms-2">
+                                    <div class="col-12 mt-3 ms-3">
                                         <button class="btn btn-info text-light" type="submit">繼續</button>
                                     </div>
 
@@ -434,9 +458,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-white"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                    <button type="button" class="btn btn-white btn-default"
+                                                        data-bs-dismiss="modal">取消</button>
+                                                    <button type="button"
+                                                        class="btn btn-primary shadow-none">確認</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -470,12 +495,12 @@
                             </div>
                         </h2>
                         <div id="paymentmethod" class="accordion-collapse collapse " aria-labelledby="headingthree"
-                            data-bs-parent="#accordionExample" style="">
+                            data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="page-text">
                                     <form class="row g-3 needs-validation border-top" id="profile" novalidate="">
 
-                                        <div class="con">
+                                        <div class="con ms-2">
                                             <div
                                                 class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
                                                 <input class="form-check-input me-2" type="radio" id="Choosepay">
@@ -486,9 +511,8 @@
                                                         class="pmch-logo linepay-point">
                                                 </label>
                                             </div>
-
                                         </div>
-                                        <div class="con">
+                                        <div class="con ms-2">
                                             <div
                                                 class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
                                                 <input class="form-check-input me-2" type="radio" id="Choosepay">
@@ -506,7 +530,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="con">
+                                        <div class="con ms-2">
                                             <div
                                                 class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
                                                 <input class="form-check-input me-2" type="radio" id="Choosepay">
@@ -524,7 +548,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="con">
+                                        <div class="con ms-2">
                                             <div
                                                 class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
                                                 <input class="form-check-input me-2" type="radio" id="Choosepay">
@@ -536,7 +560,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="con">
+                                        <div class="con ms-2">
                                             <div
                                                 class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
                                                 <input class="form-check-input me-2" type="radio" id="Choosepay">
@@ -548,7 +572,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="con">
+                                        <div class="con ms-2">
                                             <div class="d-flex payment-critical-info critical-info text-grey">
                                                 <span class="payment-critical-info__icon me-2">
                                                     <i class="fa-solid fa-circle-info"></i>
@@ -576,12 +600,9 @@
                             </div>
                         </h2>
                         <div id="electronicinvoice" class="accordion-collapse collapse" aria-labelledby="headingfour"
-                            data-bs-parent="#accordionExample" style="">
+                            data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <div class="page-text">
-                                    <!-- <form class="row g-3 needs-validation border-top" id="profile" novalidate>
-
-                                    </form> -->
+                                <div class="page-text ms-2">
                                     <div class="brownow">
                                         <div class=" mt-4 ">
                                             <div class="invoice-wrap">
@@ -687,7 +708,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-10 text-heavy py-3">
+                                <div class="mt-10 text-heavy p-3 mx-3">
                                     <span>支付金額</span>
                                     <div class="TWD" style="
                                     float: right;">
