@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Today.Model.Models;
 
 namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
+       
+        private readonly ICityService _cityServices;
+        public ProductController(ICityService cityServices)
+        {
+            _cityServices = cityServices;
+        }
         public IActionResult Index()
         {
             return View();
@@ -34,7 +37,9 @@ namespace Today.Web.Controllers
         }
         public IActionResult CityTour() //各城市導覽頁
         {
-            return View();
+
+            var CityPages = _cityServices.GetCityPages();
+            return View(CityPages);
         }
         public IActionResult CityRaiders() //城市攻略
         {

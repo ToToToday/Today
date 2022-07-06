@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
+using Today.Web.Data;
 
 namespace Today.Web
 {
@@ -15,7 +16,6 @@ namespace Today.Web
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -24,7 +24,5 @@ namespace Today.Web
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-        
     }
 }
