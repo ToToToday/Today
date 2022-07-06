@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<CityVM>
+﻿@model IEnumerable<CityVM>
 
 <!-- 導覽列 -->
 @foreach (var item in Model)
@@ -129,7 +128,7 @@
                         <a herf="#">台灣 </a>
                     </li>
                     <li class="me-2">
-                        <a herf="#">@item.CityName </a>
+                        <a herf="#">@(item.CityName) </a>
                     </li>
                 </ul>
             </div>
