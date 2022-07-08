@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Data;
 using Today.Web.Models;
+using Today.Web.Services.ProductService;
 
 namespace Today.Web.Controllers
 {
@@ -20,22 +21,23 @@ namespace Today.Web.Controllers
         //    _context = context;
         //}
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
 
         public IActionResult Index()
         {
+            var cardshow = _productService.GetProductCard();
             //ViewData["SearchBox"] = "None";
-            return View();
+            return View(cardshow);
         }
 
-        public async Task<IActionResult> Privacy()
+        public IActionResult Privacy()
         {
-            //TodayDBContext context = new TodayDBContext();
-            //var result = await context.Categories.ToListAsync();
             return View();
         }
         public IActionResult Data()
