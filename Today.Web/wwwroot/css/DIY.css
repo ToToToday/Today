@@ -13,6 +13,10 @@
     height: 100%;
 }
 
+.DIY-main-card {
+    margin-top: 0.938rem;
+    margin-bottom: 0.938rem;
+}
 .DIY-card {
     background-image: linear-gradient(to bottom,transparent 70%, rgb(19, 19, 19) 100%), url("https://image.kkday.com/v2/image/get/w_400.0000059604645%2Ch_250.0000037252903%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/campaign_1670/20210520063345_D0fan/jpg");
 }
@@ -57,15 +61,6 @@
 }
 
 @media screen and (min-width:768px) {
-    .rent-type-button, .owl-theme 
-    {
-        margin: auto;
-    }
-
-    .DIY-main-card {
-        margin-top:0.938rem; 
-        margin-bottom: 0.938rem;
-    }
 
     .DIY-card-h5 
     {
@@ -73,11 +68,6 @@
         left: 0.8rem;
     }
 
-    .rent-class-item {
-        margin: 0;
-        margin-top: 1.875rem;
-        margin-bottom: 0.938rem;
-    }
 
     .rent-type-button {
         margin-bottom: 0.938rem;
