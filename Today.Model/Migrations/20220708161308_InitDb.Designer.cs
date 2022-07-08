@@ -10,8 +10,8 @@ using Today.Model.Models;
 namespace Today.Model.Migrations
 {
     [DbContext(typeof(TodayDBContext))]
-    [Migration("20220704083404_InitDB")]
-    partial class InitDB
+    [Migration("20220708161308_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,9 +25,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.AboutProgram", b =>
                 {
                     b.Property<int>("AboutProgramId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("AboutProgramOptionsId")
                         .HasColumnType("int");
@@ -47,9 +45,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.AboutProgramOption", b =>
                 {
                     b.Property<int>("AboutProgramOptionsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Context")
                         .IsRequired()
@@ -74,9 +70,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -98,9 +92,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.City", b =>
                 {
                     b.Property<int>("CityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("CityImage")
                         .IsRequired()
@@ -132,9 +124,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.CityRaider", b =>
                 {
                     b.Property<int>("RaidersId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
@@ -189,10 +179,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Collect", b =>
                 {
                     b.Property<int>("CollectId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("收藏id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("收藏id");
 
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime")
@@ -216,10 +204,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Comment", b =>
                 {
                     b.Property<int>("CommentId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("評論")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("評論");
 
                     b.Property<DateTime>("CommentDate")
                         .HasColumnType("datetime")
@@ -271,9 +257,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Coupon", b =>
                 {
                     b.Property<int>("CouponId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)")
@@ -323,10 +307,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.CouponManage", b =>
                 {
                     b.Property<int>("CouponManageId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("優惠卷管理")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("優惠卷管理");
 
                     b.Property<int>("CouponId")
                         .HasColumnType("int")
@@ -361,10 +343,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Location", b =>
                 {
                     b.Property<int>("LocationId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("體驗地點ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("體驗地點ID");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -411,10 +391,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.LoginWay", b =>
                 {
                     b.Property<int>("LoginWayId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("登入方式ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("登入方式ID");
 
                     b.Property<int>("LongWayName")
                         .HasColumnType("int")
@@ -442,10 +420,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Member", b =>
                 {
                     b.Property<int>("MemberId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("會員ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("會員ID");
 
                     b.Property<int?>("Age")
                         .HasColumnType("int")
@@ -543,10 +519,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("訂單ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("訂單ID");
 
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
@@ -583,10 +557,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.OrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailsId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("訂單詳細ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("訂單詳細ID");
 
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime")
@@ -641,9 +613,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("PaymentWay")
                         .IsRequired()
@@ -659,9 +629,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("CancellationPolicy")
                         .HasColumnType("nvarchar(max)")
@@ -707,10 +675,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProductCategory", b =>
                 {
                     b.Property<int>("ProductCategoryId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("商品類別")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("商品類別");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -730,9 +696,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProductPhoto", b =>
                 {
                     b.Property<int>("PhotoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Path")
                         .IsRequired()
@@ -756,10 +720,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProductTag", b =>
                 {
                     b.Property<int>("ProductTagId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("商品標籤")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("商品標籤");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
@@ -780,10 +742,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Program", b =>
                 {
                     b.Property<int>("ProgramId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("");
 
                     b.Property<string>("Context")
                         .HasColumnType("nvarchar(max)")
@@ -812,9 +772,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProgramCantUseDate", b =>
                 {
                     b.Property<int>("ProgramDateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("date")
@@ -835,9 +793,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProgramInclude", b =>
                 {
                     b.Property<int>("ProgramIncludeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<bool?>("IsInclude")
                         .HasColumnType("bit")
@@ -861,9 +817,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.ProgramSpecification", b =>
                 {
                     b.Property<int>("SpecificationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int?>("Inventory")
                         .HasColumnType("int")
@@ -911,10 +865,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Screening", b =>
                 {
                     b.Property<int>("ScreeningId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("場次ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("場次ID");
 
                     b.Property<int>("SpecificationId")
                         .HasColumnType("int");
@@ -997,11 +949,9 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("SupplierID")
-                        .HasComment("供應商ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("供應商ID");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -1046,9 +996,7 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Tag", b =>
                 {
                     b.Property<int>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("TagText")
                         .IsRequired()
@@ -1064,10 +1012,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.Ticket", b =>
                 {
                     b.Property<int>("TicketsId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("電子憑證ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("電子憑證ID");
 
                     b.Property<int>("Status")
                         .HasColumnType("int")
@@ -1088,10 +1034,8 @@ namespace Today.Model.Migrations
             modelBuilder.Entity("Today.Model.Models.staff", b =>
                 {
                     b.Property<int>("StaffId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasComment("員工ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasComment("員工ID");
 
                     b.Property<DateTime?>("Birthday")
                         .HasColumnType("date")
