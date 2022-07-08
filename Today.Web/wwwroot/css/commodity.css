@@ -3,6 +3,115 @@
     --font-color-Ash: #8a8a8a;
     --font-color-span: #26bec9;
 }
+button.shopping-cart-btn.ms-auto {
+    background-color: cornflowerblue;
+}
+html h5 {
+    font-weight: bold;
+}
+
+.select-total-div {
+    border-bottom: 1px solid #ccc;
+}
+
+.shopping-cart-div {
+    margin: 10px 0 0 0;
+}
+
+h6.product-initial-title {
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 0 0 0 20px;
+}
+
+.shopping-cart-div button {
+    padding: 10px;
+    margin: 0 0 0 10px;
+}
+
+.select-total-div p, .select-total-div span {
+    margin: 250px 0 0 0;
+}
+
+.shopping-cart-div {
+    margin: 10px 0 0 0;
+}
+
+    .shopping-cart-div button {
+        padding: 10px;
+        margin: 0 0 0 10px;
+    }
+
+.AboutProgram-ProgramInclude-div {
+    padding: 10px;
+    background-color: #f6f6f6;
+    border-radius: 10px;
+}
+
+
+.select-quantity-title{
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+
+.AboutProgram-ProgramInclude-div h5, .AboutProgram-ProgramInclude-div li {
+    font-weight: bold;
+    color: var(--font-color-Ash);
+}
+
+.iph-ProgramInclude-true-ul > li::before, .ProgramInclude-true-ul > li::before {
+    margin: 0 10px 0 0;
+    content: "\f00c";
+    font-weight: 700;
+    font-family: 'Font Awesome 5 Free';
+    color: var(--font-color-span);
+}
+
+.iph-ProgramInclude-fals-ul > li::before, .ProgramInclude-fals-ul > li::before {
+    margin: 0 10px 0 0;
+    content: "\f00d";
+    font-weight: 700;
+    font-family: 'Font Awesome 5 Free';
+    color: var(--font-color-Ash);
+}
+
+.fa-calendar, .fa-bitcoin {
+    margin: 0 10px 0 0;
+    color: #8a8a8a;
+}
+
+.iph-ProgramInclude-h5 {
+    font-weight: bold;
+}
+
+.iph-AboutProgram-ul > li {
+    font-weight: bold;
+}
+
+.iph-ProgramInclude-fals-ul > li, .iph-ProgramInclude-true-ul > li, .iph-AboutProgram-ul > li {
+    margin: 10px 0;
+}
+
+.iph-AboutProgram-div {
+    padding: 0 0 20px 0;
+    margin: 0 0 30px 0;
+}
+
+.AboutProgram-div {
+    padding: 10px 0;
+    margin: 10px 0;
+    border-bottom: 1px solid #c7c7c7;
+}
+
+.flatpickr-calendar {
+    display: inline;
+    margin: auto;
+}
+
+.flatpickr-input {
+    display: none;
+}
 
 html i {
     font-size: 25px;
@@ -27,6 +136,7 @@ h5 {
     font-size: 0.8rem;
     font-weight: bold;
 }
+
 .row > * {
     padding: 0;
     margin: 0;
@@ -40,14 +150,16 @@ header {
     z-index: 10;
 }
 
-.order-quantity p{
+.order-quantity p {
     padding: 15px 0 0 0;
 }
+
 .nav-limit .container-fluid,
 .fixed-width {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 .slideshow-phone {
     z-index: 10;
 }
@@ -338,9 +450,6 @@ div.Evaluation > a {
     font-weight: bold;
 }
 
-    .send-order-div .order-amount-div {
-        padding: 0 0 0 30px;
-    }
 
     .send-order-div .amount {
         color: var(--font-color-span);
@@ -501,13 +610,15 @@ h5 {
 }
 
 @media screen and (min-width: 992px) {
-   
-.Product-number a {
-    margin: 30px 0 0 0;
-}
-    .productDetail-path{
+
+    .Product-number a {
+        margin: 30px 0 0 0;
+    }
+
+    .productDetail-path {
         overflow: inherit;
     }
+
     a {
         text-decoration: none;
     }
@@ -515,6 +626,7 @@ h5 {
     .productDetail {
         margin: 40px auto 0 auto;
     }
+
     .product h3 {
         margin: 20px 0;
     }
@@ -534,7 +646,17 @@ h5 {
             .product-name .product-heart i {
                 font-weight: normal;
             }
-
+    .select-quantity-btn {
+        align-items: center;
+        line-height: 2;
+    }
+        .select-quantity-btn .select-quantity-btn-reduce, .select-quantity-btn .select-quantity-btn-add {
+        width: 40px;
+        padding: 5px;
+    }
+    .initial {
+        padding: 10px;
+    }
     .initial-money {
         padding: 0 0 0 30px;
         margin: 0 0 auto 0;
@@ -580,12 +702,14 @@ h5 {
     position: sticky;
     top: 50px;
 }
+
     .product-infon-a a {
         padding: 10px;
         text-align: end;
         color: var(--font-color-Ash);
         font-weight: bold;
     }
+
     .product-infon-a > a:hover {
         border-right: 5px solid var(--font-color-span);
         color: var(--font-color-span);
