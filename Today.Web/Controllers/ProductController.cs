@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
+using Today.Web.Services.ClassifyService;
 using Today.Web.ViewModels;
 
 
@@ -13,9 +14,9 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-       
+
         private readonly ICityService _cityServices;
-        public ProductController(ICityService cityServices)
+        public ProductController(ICityService cityServices, IClassifyService classifyService)
         {
             _cityServices = cityServices;
         }
@@ -23,15 +24,24 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        
+
         public IActionResult ProductPages() //商品頁面
         {
             return View();
         }
-        public IActionResult Classify() //楊 分類
-        {
-            return View();
-        }
+        //private readonly IClassifyService _classifyService;
+        //public ProductController(IClassifyService classifyService )
+        //{
+        //    _classifyService = classifyService;
+        //}
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+        //public IActionResult Classify() //楊 分類
+        //{
+        //    return View();
+        //}
        
         public IActionResult Souvenir() //伴手禮
         {
