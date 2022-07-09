@@ -7,4 +7,5 @@
         public string CityIntrod { get; set; }
         public string CityImage { get; set; }
     }
+    
 }
