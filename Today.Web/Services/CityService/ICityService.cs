@@ -5,6 +5,7 @@ namespace Today.Web.Services.CityService
 {
     public interface ICityService
     {
-        List<CityVM> GetCityPages();
+        List<CityVM> GetCityPages(int id);
+        List<RaiderVM> GetRaiders(int id);
     }
 }

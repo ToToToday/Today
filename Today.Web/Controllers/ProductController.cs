@@ -43,15 +43,16 @@ namespace Today.Web.Controllers
            
             return View();
         }
-        public IActionResult CityTour() //各城市導覽頁
+        public IActionResult CityTour(int id) //各城市導覽頁
         {
 
-            var CityPages = _cityServices.GetCityPages();
+            var CityPages = _cityServices.GetCityPages(id);
             return View(CityPages);
         }
-        public IActionResult CityRaiders() //城市攻略
+        public IActionResult CityRaiders(int id) //城市攻略
         {
-            return View();
+            var RaderPages = _cityServices.GetRaiders(id);
+            return View(RaderPages);
         }
         public IActionResult OffIsland() //離島 分類
         {
