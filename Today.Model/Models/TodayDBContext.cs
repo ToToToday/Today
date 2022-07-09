@@ -53,6 +53,7 @@ namespace Today.Model.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Database=TodayDB;");
             }
         }
@@ -64,6 +65,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<AboutProgram>(entity =>
             {
                 entity.ToTable("AboutProgram");
+
+                entity.Property(e => e.AboutProgramId).ValueGeneratedNever();
 
                 entity.HasOne(d => d.AboutProgramOptions)
                     .WithMany(p => p.AboutPrograms)
@@ -82,6 +85,8 @@ namespace Today.Model.Models
             {
                 entity.HasKey(e => e.AboutProgramOptionsId);
 
+                entity.Property(e => e.AboutProgramOptionsId).ValueGeneratedNever();
+
                 entity.Property(e => e.Context)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -99,6 +104,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
+
+                entity.Property(e => e.CategoryId).ValueGeneratedNever();
 
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
@@ -119,6 +126,8 @@ namespace Today.Model.Models
 
                 entity.HasComment("");
 
+                entity.Property(e => e.CityId).ValueGeneratedNever();
+
                 entity.Property(e => e.CityImage).IsRequired();
 
                 entity.Property(e => e.CityIntrod)
@@ -136,6 +145,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<CityRaider>(entity =>
             {
                 entity.HasKey(e => e.RaidersId);
+
+                entity.Property(e => e.RaidersId).ValueGeneratedNever();
 
                 entity.Property(e => e.Isdeleted).HasComment("軟刪除");
 
@@ -180,7 +191,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Collect");
 
-                entity.Property(e => e.CollectId).HasComment("收藏id");
+                entity.Property(e => e.CollectId)
+                    .ValueGeneratedNever()
+                    .HasComment("收藏id");
 
                 entity.Property(e => e.CreateTime)
                     .HasColumnType("datetime")
@@ -203,7 +216,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Comment");
 
-                entity.Property(e => e.CommentId).HasComment("評論");
+                entity.Property(e => e.CommentId)
+                    .ValueGeneratedNever()
+                    .HasComment("評論");
 
                 entity.Property(e => e.CommentDate)
                     .HasColumnType("datetime")
@@ -253,6 +268,8 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Coupon");
 
+                entity.Property(e => e.CouponId).ValueGeneratedNever();
+
                 entity.Property(e => e.Context).HasComment("優惠卷簡易說明");
 
                 entity.Property(e => e.CouponDiscount)
@@ -288,7 +305,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("CouponManage");
 
-                entity.Property(e => e.CouponManageId).HasComment("優惠卷管理");
+                entity.Property(e => e.CouponManageId)
+                    .ValueGeneratedNever()
+                    .HasComment("優惠卷管理");
 
                 entity.Property(e => e.CouponId).HasComment("優惠眷id");
 
@@ -323,7 +342,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Location");
 
-                entity.Property(e => e.LocationId).HasComment("體驗地點ID");
+                entity.Property(e => e.LocationId)
+                    .ValueGeneratedNever()
+                    .HasComment("體驗地點ID");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -362,7 +383,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("LoginWay");
 
-                entity.Property(e => e.LoginWayId).HasComment("登入方式ID");
+                entity.Property(e => e.LoginWayId)
+                    .ValueGeneratedNever()
+                    .HasComment("登入方式ID");
 
                 entity.Property(e => e.LongWayName).HasComment("登入方式(email1, fb2, google3)");
 
@@ -387,7 +410,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Member");
 
-                entity.Property(e => e.MemberId).HasComment("會員ID");
+                entity.Property(e => e.MemberId)
+                    .ValueGeneratedNever()
+                    .HasComment("會員ID");
 
                 entity.Property(e => e.Age).HasComment("年齡");
 
@@ -467,7 +492,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Order");
 
-                entity.Property(e => e.OrderId).HasComment("訂單ID");
+                entity.Property(e => e.OrderId)
+                    .ValueGeneratedNever()
+                    .HasComment("訂單ID");
 
                 entity.Property(e => e.Note).HasComment("備註");
 
@@ -501,7 +528,9 @@ namespace Today.Model.Models
 
                 entity.ToTable("OrderDetail");
 
-                entity.Property(e => e.OrderDetailsId).HasComment("訂單詳細ID");
+                entity.Property(e => e.OrderDetailsId)
+                    .ValueGeneratedNever()
+                    .HasComment("訂單詳細ID");
 
                 entity.Property(e => e.DepartureDate)
                     .HasColumnType("datetime")
@@ -555,6 +584,8 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Payment");
 
+                entity.Property(e => e.PaymentId).ValueGeneratedNever();
+
                 entity.Property(e => e.PaymentWay)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -564,6 +595,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
+
+                entity.Property(e => e.ProductId).ValueGeneratedNever();
 
                 entity.Property(e => e.CancellationPolicy).HasComment("取消政策");
 
@@ -597,7 +630,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("ProductCategory");
 
-                entity.Property(e => e.ProductCategoryId).HasComment("商品類別");
+                entity.Property(e => e.ProductCategoryId)
+                    .ValueGeneratedNever()
+                    .HasComment("商品類別");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.ProductCategories)
@@ -618,6 +653,8 @@ namespace Today.Model.Models
 
                 entity.ToTable("ProductPhoto");
 
+                entity.Property(e => e.PhotoId).ValueGeneratedNever();
+
                 entity.Property(e => e.Path)
                     .IsRequired()
                     .HasComment("路徑");
@@ -635,7 +672,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("ProductTag");
 
-                entity.Property(e => e.ProductTagId).HasComment("商品標籤");
+                entity.Property(e => e.ProductTagId)
+                    .ValueGeneratedNever()
+                    .HasComment("商品標籤");
 
                 entity.Property(e => e.ProductId).HasComment("商品id");
 
@@ -656,7 +695,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Program");
 
-                entity.Property(e => e.ProgramId).HasComment("");
+                entity.Property(e => e.ProgramId)
+                    .ValueGeneratedNever()
+                    .HasComment("");
 
                 entity.Property(e => e.Context).HasComment("方案內文");
 
@@ -681,6 +722,8 @@ namespace Today.Model.Models
 
                 entity.ToTable("ProgramCantUseDate");
 
+                entity.Property(e => e.ProgramDateId).ValueGeneratedNever();
+
                 entity.Property(e => e.Date)
                     .HasColumnType("date")
                     .HasComment("要關閉的日期");
@@ -697,6 +740,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<ProgramInclude>(entity =>
             {
                 entity.ToTable("ProgramInclude");
+
+                entity.Property(e => e.ProgramIncludeId).ValueGeneratedNever();
 
                 entity.Property(e => e.IsInclude).HasComment("是否包含(判斷放在哪邊)");
 
@@ -716,6 +761,8 @@ namespace Today.Model.Models
                 entity.HasKey(e => e.SpecificationId);
 
                 entity.ToTable("ProgramSpecification");
+
+                entity.Property(e => e.SpecificationId).ValueGeneratedNever();
 
                 entity.Property(e => e.Inventory).HasComment("庫存量");
 
@@ -754,7 +801,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Screening");
 
-                entity.Property(e => e.ScreeningId).HasComment("場次ID");
+                entity.Property(e => e.ScreeningId)
+                    .ValueGeneratedNever()
+                    .HasComment("場次ID");
 
                 entity.Property(e => e.Status).HasComment("狀態(上下架)");
 
@@ -821,6 +870,7 @@ namespace Today.Model.Models
                 entity.ToTable("Supplier");
 
                 entity.Property(e => e.SupplierId)
+                    .ValueGeneratedNever()
                     .HasColumnName("SupplierID")
                     .HasComment("供應商ID");
 
@@ -861,6 +911,8 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Tag");
 
+                entity.Property(e => e.TagId).ValueGeneratedNever();
+
                 entity.Property(e => e.TagText)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -874,7 +926,9 @@ namespace Today.Model.Models
 
                 entity.ToTable("Ticket");
 
-                entity.Property(e => e.TicketsId).HasComment("電子憑證ID");
+                entity.Property(e => e.TicketsId)
+                    .ValueGeneratedNever()
+                    .HasComment("電子憑證ID");
 
                 entity.Property(e => e.Status).HasComment("狀態");
 
@@ -888,7 +942,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Staff");
 
-                entity.Property(e => e.StaffId).HasComment("員工ID");
+                entity.Property(e => e.StaffId)
+                    .ValueGeneratedNever()
+                    .HasComment("員工ID");
 
                 entity.Property(e => e.Birthday)
                     .HasColumnType("date")

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Today.Model.Migrations
 {
-    public partial class InitDB : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,8 +11,7 @@ namespace Today.Model.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "類別名稱"),
                     ParentCategoryId = table.Column<int>(type: "int", nullable: true, comment: "父類別")
                 },
@@ -31,8 +30,7 @@ namespace Today.Model.Migrations
                 name: "City",
                 columns: table => new
                 {
-                    CityId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CityId = table.Column<int>(type: "int", nullable: false),
                     CityName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "城市名稱"),
                     CityIntrod = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "城市說明"),
                     IsIsland = table.Column<bool>(type: "bit", nullable: false, comment: "是否為本島"),
@@ -48,8 +46,7 @@ namespace Today.Model.Migrations
                 name: "Coupon",
                 columns: table => new
                 {
-                    CouponId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CouponId = table.Column<int>(type: "int", nullable: false),
                     CouponName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "優惠卷名稱"),
                     StartDate = table.Column<DateTime>(type: "datetime", nullable: true, comment: "開始日期"),
                     EndDate = table.Column<DateTime>(type: "datetime", nullable: true, comment: "結束日期"),
@@ -69,8 +66,7 @@ namespace Today.Model.Migrations
                 name: "Payment",
                 columns: table => new
                 {
-                    PaymentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PaymentId = table.Column<int>(type: "int", nullable: false),
                     PaymentWay = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "付款方式")
                 },
                 constraints: table =>
@@ -82,8 +78,7 @@ namespace Today.Model.Migrations
                 name: "Staff",
                 columns: table => new
                 {
-                    StaffId = table.Column<int>(type: "int", nullable: false, comment: "員工ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StaffId = table.Column<int>(type: "int", nullable: false, comment: "員工ID"),
                     Name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "員工姓名"),
                     Phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "電話"),
                     Birthday = table.Column<DateTime>(type: "date", nullable: true, comment: "生日"),
@@ -111,8 +106,7 @@ namespace Today.Model.Migrations
                 name: "Tag",
                 columns: table => new
                 {
-                    TagId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TagId = table.Column<int>(type: "int", nullable: false),
                     TagText = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "標籤名稱")
                 },
                 constraints: table =>
@@ -124,8 +118,7 @@ namespace Today.Model.Migrations
                 name: "Ticket",
                 columns: table => new
                 {
-                    TicketsId = table.Column<int>(type: "int", nullable: false, comment: "電子憑證ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TicketsId = table.Column<int>(type: "int", nullable: false, comment: "電子憑證ID"),
                     TicketQRcode = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "qrcode"),
                     Status = table.Column<int>(type: "int", nullable: false, comment: "狀態")
                 },
@@ -138,8 +131,7 @@ namespace Today.Model.Migrations
                 name: "Member",
                 columns: table => new
                 {
-                    MemberId = table.Column<int>(type: "int", nullable: false, comment: "會員ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MemberId = table.Column<int>(type: "int", nullable: false, comment: "會員ID"),
                     MemberName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "會員名稱"),
                     CityId = table.Column<int>(type: "int", nullable: false, comment: "城市ID"),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "會員圖片"),
@@ -165,8 +157,7 @@ namespace Today.Model.Migrations
                 name: "Supplier",
                 columns: table => new
                 {
-                    SupplierID = table.Column<int>(type: "int", nullable: false, comment: "供應商ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SupplierID = table.Column<int>(type: "int", nullable: false, comment: "供應商ID"),
                     CompanyName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "公司名稱"),
                     ContactName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "聯繫人姓名"),
                     ContactTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "聯繫人職稱"),
@@ -189,8 +180,7 @@ namespace Today.Model.Migrations
                 name: "CityRaiders",
                 columns: table => new
                 {
-                    RaidersId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RaidersId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "主標題"),
                     Subtitle = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "副標題"),
@@ -223,8 +213,7 @@ namespace Today.Model.Migrations
                 name: "CouponManage",
                 columns: table => new
                 {
-                    CouponManageId = table.Column<int>(type: "int", nullable: false, comment: "優惠卷管理")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CouponManageId = table.Column<int>(type: "int", nullable: false, comment: "優惠卷管理"),
                     CouponId = table.Column<int>(type: "int", nullable: false, comment: "優惠眷id"),
                     StaffId = table.Column<int>(type: "int", nullable: false, comment: "員工發眷人"),
                     SendTime = table.Column<DateTime>(type: "datetime", nullable: false, comment: "發卷時間"),
@@ -258,8 +247,7 @@ namespace Today.Model.Migrations
                 name: "LoginWay",
                 columns: table => new
                 {
-                    LoginWayId = table.Column<int>(type: "int", nullable: false, comment: "登入方式ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LoginWayId = table.Column<int>(type: "int", nullable: false, comment: "登入方式ID"),
                     MemberID = table.Column<int>(type: "int", nullable: false, comment: "會員ID"),
                     LongWayName = table.Column<int>(type: "int", nullable: false, comment: "登入方式(email1, fb2, google3)"),
                     UniqueID = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "唯一ID (如果是EMAIL存EMAIL 若為三方登入給一個ID")
@@ -279,8 +267,7 @@ namespace Today.Model.Migrations
                 name: "Order",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false, comment: "訂單ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false, comment: "訂單ID"),
                     MemberId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime", nullable: false, comment: "下單日期"),
                     PaymentId = table.Column<int>(type: "int", nullable: false, comment: "付款ID"),
@@ -309,8 +296,7 @@ namespace Today.Model.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "商品名稱"),
                     Illustrate = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "商品說明"),
                     ShoppingNotice = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "購物須知"),
@@ -377,8 +363,7 @@ namespace Today.Model.Migrations
                 name: "AboutProgramOptions",
                 columns: table => new
                 {
-                    AboutProgramOptionsId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AboutProgramOptionsId = table.Column<int>(type: "int", nullable: false),
                     Context = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "{n}天內確認"),
                     IconClass = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "icon圖標"),
                     ProductId = table.Column<int>(type: "int", nullable: false)
@@ -398,8 +383,7 @@ namespace Today.Model.Migrations
                 name: "Collect",
                 columns: table => new
                 {
-                    CollectId = table.Column<int>(type: "int", nullable: false, comment: "收藏id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CollectId = table.Column<int>(type: "int", nullable: false, comment: "收藏id"),
                     MemberId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     CreateTime = table.Column<DateTime>(type: "datetime", nullable: false, comment: "加入時間")
@@ -425,8 +409,7 @@ namespace Today.Model.Migrations
                 name: "Location",
                 columns: table => new
                 {
-                    LocationId = table.Column<int>(type: "int", nullable: false, comment: "體驗地點ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationId = table.Column<int>(type: "int", nullable: false, comment: "體驗地點ID"),
                     ProductId = table.Column<int>(type: "int", nullable: false, comment: "商品ID"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "體驗地點標題"),
                     text = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "內文"),
@@ -450,8 +433,7 @@ namespace Today.Model.Migrations
                 name: "ProductCategory",
                 columns: table => new
                 {
-                    ProductCategoryId = table.Column<int>(type: "int", nullable: false, comment: "商品類別")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductCategoryId = table.Column<int>(type: "int", nullable: false, comment: "商品類別"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -476,8 +458,7 @@ namespace Today.Model.Migrations
                 name: "ProductPhoto",
                 columns: table => new
                 {
-                    PhotoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PhotoId = table.Column<int>(type: "int", nullable: false),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "路徑"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Sort = table.Column<int>(type: "int", nullable: false, comment: "照片排序")
@@ -497,8 +478,7 @@ namespace Today.Model.Migrations
                 name: "ProductTag",
                 columns: table => new
                 {
-                    ProductTagId = table.Column<int>(type: "int", nullable: false, comment: "商品標籤")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductTagId = table.Column<int>(type: "int", nullable: false, comment: "商品標籤"),
                     ProductId = table.Column<int>(type: "int", nullable: false, comment: "商品id"),
                     TagId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -523,8 +503,7 @@ namespace Today.Model.Migrations
                 name: "Program",
                 columns: table => new
                 {
-                    ProgramId = table.Column<int>(type: "int", nullable: false, comment: "")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgramId = table.Column<int>(type: "int", nullable: false, comment: ""),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "方案標題"),
                     Context = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "方案內文"),
@@ -545,8 +524,7 @@ namespace Today.Model.Migrations
                 name: "AboutProgram",
                 columns: table => new
                 {
-                    AboutProgramId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AboutProgramId = table.Column<int>(type: "int", nullable: false),
                     ProgramId = table.Column<int>(type: "int", nullable: false),
                     AboutProgramOptionsId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -571,8 +549,7 @@ namespace Today.Model.Migrations
                 name: "ProgramCantUseDate",
                 columns: table => new
                 {
-                    ProgramDateId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgramDateId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "date", nullable: false, comment: "要關閉的日期"),
                     ProgramID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -591,8 +568,7 @@ namespace Today.Model.Migrations
                 name: "ProgramInclude",
                 columns: table => new
                 {
-                    ProgramIncludeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgramIncludeId = table.Column<int>(type: "int", nullable: false),
                     ProgramID = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "內文"),
                     IsInclude = table.Column<bool>(type: "bit", nullable: true, comment: "是否包含(判斷放在哪邊)")
@@ -612,8 +588,7 @@ namespace Today.Model.Migrations
                 name: "ProgramSpecification",
                 columns: table => new
                 {
-                    SpecificationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SpecificationId = table.Column<int>(type: "int", nullable: false),
                     IsScreening = table.Column<bool>(type: "bit", nullable: false, comment: "有無場次"),
                     ProgramId = table.Column<int>(type: "int", nullable: false, comment: "方案ID"),
                     Itemtext = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "票種（成人/兒童/車)"),
@@ -638,8 +613,7 @@ namespace Today.Model.Migrations
                 name: "OrderDetail",
                 columns: table => new
                 {
-                    OrderDetailsId = table.Column<int>(type: "int", nullable: false, comment: "訂單詳細ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderDetailsId = table.Column<int>(type: "int", nullable: false, comment: "訂單詳細ID"),
                     OrderId = table.Column<int>(type: "int", nullable: false, comment: "訂單ID"),
                     SpecificationId = table.Column<int>(type: "int", nullable: false, comment: "規格ID"),
                     Quantity = table.Column<int>(type: "int", nullable: false, comment: "數量"),
@@ -677,8 +651,7 @@ namespace Today.Model.Migrations
                 name: "Screening",
                 columns: table => new
                 {
-                    ScreeningId = table.Column<int>(type: "int", nullable: false, comment: "場次ID")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ScreeningId = table.Column<int>(type: "int", nullable: false, comment: "場次ID"),
                     Time = table.Column<TimeSpan>(type: "time", nullable: false, comment: "時間"),
                     SpecificationId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false, comment: "狀態(上下架)")
@@ -698,8 +671,7 @@ namespace Today.Model.Migrations
                 name: "Comment",
                 columns: table => new
                 {
-                    CommentId = table.Column<int>(type: "int", nullable: false, comment: "評論")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CommentId = table.Column<int>(type: "int", nullable: false, comment: "評論"),
                     OrderDetailsID = table.Column<int>(type: "int", nullable: false, comment: "詳細訂單ID"),
                     ProductId = table.Column<int>(type: "int", nullable: false, comment: "商品id"),
                     MemberId = table.Column<int>(type: "int", nullable: false, comment: "會員id"),
