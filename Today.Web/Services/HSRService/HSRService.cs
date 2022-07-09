@@ -8,17 +8,24 @@ using Today.Web.ViewModels;
 
 namespace Today.Web.Services.OrderService
 {
-    public class OrderService : IOrderService
+    public class HSRService : IHSRService
     {
         private readonly IGenericRepository _repo;
-        public OrderService(IGenericRepository repo)
+        public HSRService(IGenericRepository repo)
         {
             _repo = repo;
         }
-        public List<OrderVM> GetOrderpages()
+
+        public List<HSRVM> GetHSRpages()
         {
+            //var result = _repo.GetAll<City>;
+            var hsrpageone = (from hp in _repo.GetAll<Product>()
+                            select hp).Select(h => new HSRVM { ProductName = h.ProductName }).ToList();
             
+
         }
+
+
         //private readonly IGenericRepository _repo;
         //public CityService(IGenericRepository repo)
         //{

@@ -3,8 +3,8 @@ using Today.Web.ViewModels;
 
 namespace Today.Web.Services.OrderService
 {
-    public interface IOrderService
+    public interface IHSRService
     {
-        List<OrderVM> GetOrderpages();
+        List<HSRVM> GetHSRpages();
     }
 }
