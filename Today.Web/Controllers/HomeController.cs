@@ -14,11 +14,7 @@ namespace Today.Web.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly TodayDBContext _context;
-        //public HomeController(TodayDBContext context)
-        //{
-        //    _context = context;
-        //}
+        
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
