@@ -7,6 +7,6 @@ namespace Today.Web.Services.ProductService
 {
     public interface IProductService
     {
-        IEnumerable<ProductCardVM> GetProductCard();
+        List<ProductCardVM> GetProductCard();
     }
 }

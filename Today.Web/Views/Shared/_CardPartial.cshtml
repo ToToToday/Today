@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProductCardVM>
+﻿@*@model IEnumerable<ProductCardVM>*@
 @{
 
 }
@@ -17,10 +17,10 @@
             </div>
             <div class="card-body px-0">
                 <h4 class="card-title fw-bolder">@item.ProductName</h4>
-                @foreach(var t in item.Tags)
+                @*@foreach(var t in item.Tags)
                 {
                     <span class="remind d-inline-block mb-1 rounded-3">@t</span>
-                }
+                }*@
                 <p class="score"><i class="fa-solid fa-star"></i>4.7 (124) | 400+個已訂購</p>
                 <div class="card-footer border-0 px-0">
                     <span class="d-block text-decoration-line-through">TWD <strong class="fw-bold">@item.OriginalPrice</strong></span>
