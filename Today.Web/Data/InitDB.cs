@@ -401,6 +401,27 @@ namespace Today.Web.Data
                 new ProductPhoto{PhotoId = 78,Path="https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_105128/20220510062031_TYjf0/jpg",ProductId=25,Sort=2},
                 new ProductPhoto{PhotoId = 79,Path="https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_105128/20210313173831_oCxNY/jpg",ProductId=25,Sort=3},
                 new ProductPhoto{PhotoId = 80,Path="https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_105128/20210311041940_lvEpo/jpg",ProductId=25,Sort=4},
+
+                new ProductPhoto {PhotoId = 81,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128810/20220425091921_rwMJ0/jpg", ProductId = 16, Sort = 1},
+                new ProductPhoto {PhotoId = 82,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128810/20220425091927_VVd1g/jpg", ProductId = 16, Sort = 2},
+                new ProductPhoto {PhotoId = 83, Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128810/20220425091927_QXZa5/jpg", ProductId = 16, Sort = 3},
+                new ProductPhoto {PhotoId = 84, Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128810/20220425091926_SLStP/jpg", ProductId = 16, Sort = 4},
+                new ProductPhoto {PhotoId = 85,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_121059/20211117032757_rsprx/jpg", ProductId = 17, Sort = 1},
+                new ProductPhoto {PhotoId = 86,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_121059/20211117035031_8kxRB/jpg", ProductId = 17, Sort = 2},
+                new ProductPhoto {PhotoId = 87,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_121059/20211117033610_FGSb8/jpg", ProductId = 17, Sort = 3},
+                new ProductPhoto {PhotoId = 88,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_121059/20211117034607_XAYBH/jpg", ProductId = 17, Sort = 4},
+                new ProductPhoto {PhotoId = 89,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_129403/20220513015146_67sJz/jpg", ProductId = 18, Sort = 1},
+                new ProductPhoto {PhotoId = 90,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_129403/20220513020356_CTUVs/jpg", ProductId = 18, Sort = 2},
+                new ProductPhoto {PhotoId = 91,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_129403/20220513015914_bNJT5/jpg", ProductId = 18, Sort = 3},
+                new ProductPhoto {PhotoId = 92,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_129403/20220513015924_n8qEJ/jpg", ProductId = 18, Sort = 4},
+                new ProductPhoto {PhotoId = 93, Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128828/20220426073400_sxQTJ/jpg", ProductId = 19, Sort = 1},
+                new ProductPhoto {PhotoId = 94, Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128828/20220426073401_df5xV/jpg", ProductId = 19, Sort = 2},
+                new ProductPhoto {PhotoId = 95,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128828/20220426073404_tvfx7/jpg", ProductId = 19, Sort = 3},
+                new ProductPhoto {PhotoId = 96,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_128828/20220426073401_oiHJm/jpg", ProductId = 19, Sort = 4},
+                new ProductPhoto {PhotoId = 97,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123483/20211015051533_ziqoj/jpg", ProductId = 20, Sort = 1},
+                new ProductPhoto {PhotoId = 98,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123483/20211015020039_rKf1Y/jpg", ProductId = 20, Sort = 2},
+                new ProductPhoto {PhotoId = 99,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123483/20211015020043_1Im6f/jpg", ProductId = 20, Sort = 3},
+                new ProductPhoto {PhotoId = 100,Path = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123483/20211015020041_3vLwY/jpg", ProductId = 20, Sort = 4},
             };
             _context.ProductPhotos.AddRange(productPhotoList);
             #endregion
