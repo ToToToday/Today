@@ -11,10 +11,6 @@ $(".owl-carousel.google-map-product-list-collapse").owlCarousel
         450: {
           items: 2
         },
-        810:
-        {
-          item: 3
-        }
       }
 });
 

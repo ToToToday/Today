@@ -85,6 +85,12 @@
     top:15%;
     right:20%
 }
+.map-h5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 @media screen and (max-width:768px)
 {
     .google-mapCard,.leaflet-bar,.google-map-product-list
