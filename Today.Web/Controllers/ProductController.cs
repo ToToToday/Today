@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
+
 using Today.Web.ViewModels;
+
+using Today.Model.Migrations;
 
 
 namespace Today.Web.Controllers
@@ -19,6 +22,7 @@ namespace Today.Web.Controllers
         {
             _cityServices = cityServices;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -46,7 +50,6 @@ namespace Today.Web.Controllers
         }
         public IActionResult CityTour() //各城市導覽頁
         {
-
             var CityPages = _cityServices.GetCityPages();
             return View(CityPages);
         }
@@ -54,9 +57,13 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        public IActionResult OffIsland() //離島 分類
+
+
+        public async Task<IActionResult> OffIsland() //離島 分類
         {
-            return View();
+            TodayDBContext context = new TodayDBContext();
+            var location_result = await context.Locations.Select(x => new LocationVM() { Id = x.LocationId, latitude = x.Latitude, longitude = x.Longitude }).ToArrayAsync();
+            return View(location_result);
         }
         public IActionResult ParentChild() //親子 分類
         {

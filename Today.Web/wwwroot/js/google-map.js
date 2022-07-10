@@ -37,6 +37,8 @@ let map = L.map('google-big-map',
     {
         map.invalidateSize()
     })
+
+
 //離島 東西 (經度) 北南 (緯度) 
 //基隆嶼燈塔 25.156652,121.7313924
 //基隆城市博覽會 基隆之星海上展覽(國門廣場附近)  25.1319577,121.7379821
@@ -55,7 +57,7 @@ var site_location =
 }
 
 console.log(site_location.location[1])
-for(let i =0 ;i<site_location.site.length;i++)
+for(let i =0 ;i<;i++)
 {
     L.marker(site_location.location[i])
     .addTo(map)

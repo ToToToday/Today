@@ -29,8 +29,11 @@
     width: 90%;
     margin: auto;
 }
-@media screen and (max-width:768px) 
-{
+.offIsland-type-button-collapse {
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+}
+@media screen and (max-width:768px) {
     .Parent-child-search 
     {
         display: none;
@@ -46,11 +49,19 @@
     {
         width: 60%;
     }
+    .Parent-child-banner-p
+    {
+        font-size:0.9rem;
+    }
 }
 @media screen and (min-width:992px)
 {
-    .Parent-child-collapse-search,.Parent-child-type-button-collapse
-    {
+    .offIsland-type-button-collapse {
+        margin-top: 0;
+        margin-bottom: 0;
+        display: none;
+    }
+    .Parent-child-collapse-search {
         display: none;
     }
     .Parent-child-banner-p

@@ -298,16 +298,16 @@ namespace Today.Web.Data
             #region Location
             List<Location> locationList = new List<Location>()
             {
-                new Location() { ProductId = 1, Title = "關西六福莊生態度假旅館", Address = "新竹縣關西鎮仁安里拱子溝60號", Type = 0 },
-                new Location() { ProductId = 2, Title = "桃禧航空城酒店-新館", Address = "桃園市大園區園航路28號", Type = 0 },
-                new Location() { ProductId = 3, Title = "劍湖山世界度假大飯店", Address = "雲林縣古坑鄉大湖口67-8號", Type = 0 },
-                new Location() { ProductId = 4, Title = "西門享樂文旅 開封館", Address = "台北市中正區開封街一段35號", Type = 0 },
-                new Location() { ProductId = 5, Title = "和逸飯店 台南西門館", Address = "台南市中西區西門路一段658之2號", Type = 0 },
-                new Location() { ProductId = 6, Title = "西湖渡假村", Address = "苗栗縣三義鄉西湖村西湖11號", Type = 0 },
-                new Location() { ProductId = 7, Title = "西湖渡假村", Address = "苗栗縣三義鄉西湖村西湖11號", Type = 0 },
-                new Location() { ProductId = 8, Title = "新明山木屋渡假村", Address = "南投縣鹿谷鄉內湖村興產路50之5號", Type = 0 },
-                new Location() { ProductId = 9, Title = "福容大飯店麗寶樂園", Address = "台中市后里區福容路88號", Type = 0 },
-                new Location() { ProductId = 10, Title = "理想大地渡假飯店", Address = "花蓮縣壽豐鄉理想路一號", Type = 0 }
+                new Location() { ProductId = 1, Title = "關西六福莊生態度假旅館", Address = "新竹縣關西鎮仁安里拱子溝60號",Longitude="121.1784142",Latitude="24.8252393", Type = 0 },
+                new Location() { ProductId = 2, Title = "桃禧航空城酒店-新館", Address = "桃園市大園區園航路28號",Longitude="121.1728099",Latitude="25.0607882", Type = 0 },
+                new Location() { ProductId = 3, Title = "劍湖山世界度假大飯店", Address = "雲林縣古坑鄉大湖口67-8號",Longitude="120.5747465",Latitude="23.6150142", Type = 0 },
+                new Location() { ProductId = 4, Title = "西門享樂文旅 開封館", Address = "台北市中正區開封街一段35號", Longitude="121.5105229",Latitude="25.0462907",Type = 0 },
+                new Location() { ProductId = 5, Title = "和逸飯店 台南西門館", Address = "台南市中西區西門路一段658之2號",Longitude="120.1967613",Latitude="22.986946", Type = 0 },
+                new Location() { ProductId = 6, Title = "西湖渡假村", Address = "苗栗縣三義鄉西湖村西湖11號",Longitude="120.7595633",Latitude="24.389642", Type = 0 },
+                new Location() { ProductId = 7, Title = "西湖渡假村", Address = "苗栗縣三義鄉西湖村西湖11號",Longitude="120.7595633",Latitude="24.389642", Type = 0 },
+                new Location() { ProductId = 8, Title = "新明山木屋渡假村", Address = "南投縣鹿谷鄉內湖村興產路50之5號",Longitude="120.7795195",Latitude="23.7000769", Type = 0 },
+                new Location() { ProductId = 9, Title = "福容大飯店麗寶樂園", Address = "台中市后里區福容路88號",Longitude="120.6943212",Latitude="24.3236467", Type = 0 },
+                new Location() { ProductId = 10, Title = "理想大地渡假飯店", Address = "花蓮縣壽豐鄉理想路一號",Longitude="121.5249421",Latitude="23.8656354", Type = 0 }
             };
             _context.Locations.AddRange(locationList);
             #endregion

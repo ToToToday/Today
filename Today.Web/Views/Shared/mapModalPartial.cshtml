@@ -1,0 +1,26 @@
+﻿<div class="modal fade " id="map-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-lg-down model-map-dialog  position-relative">
+      <div class="modal-content">
+        <div class="bg-black rounded-pill google-map-close">
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row d-flex  justify-content-left p-0 p-lg-2">
+          <!--平板橫and電腦-->
+          <div class="google-map-product-list">
+                @*放Partial View mapCard*@
+                <partial name="mapCard" />
+          </div>
+          <div class="google-map-pic ">
+            <div id="google-big-map" class="me-lg-5 google-big-map">
+            </div>
+          </div>
+          <!-- 加入owl-carousel  當在平板橫以下 -->
+          <div class="owl-carousel google-map-product-list-collapse d-lg-none ">
+               @*放Partial View mapCardPhone*@
+               <partial name="mapCardPhone" />
+          </div>
+          <!---手機-->
+        </div>
+      </div>
+    </div>
+  </div>

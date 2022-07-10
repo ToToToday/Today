@@ -22,6 +22,7 @@
 }
 
 <partial name="hotel_bannerPartial" />
+
   <div class="container">
     <div class="owl-carousel owl-theme DIY-main-card">
       <div class="card position-relative rounded DIY-card border-0 ">
@@ -39,34 +40,13 @@
     </div>
   </div>
   
-  <div class="container rent-type-button-collapse">
-    <div class="d-flex justify-content-left rent-type-button">
-      <button type="button" class="btn btn-outline-secondary rounded-pill p-2 d-flex align-items-center  me-2"><i
-          class="fa-solid fa-sliders  pe-1"></i><span>更多條件</span></button>
-      <button type="button" class="btn btn-outline-secondary rounded-pill p-2 d-flex align-items-center  me-2"><i
-          class="fa-solid fa-arrow-down-short-wide pe-1"></i><span>排序</span></button>
-      <button type="button" data-bs-toggle="modal" data-bs-target="#map-modal"
-        class="btn btn-outline-secondary rounded-pill p-2 d-flex align-items-center me-2"><i
-          class="fa-regular fa-map pe-1"></i><span>地圖</span></button>
-    </div>
-  </div>
+<partial name="hotelFiliterPartial" />
   
   <div class="container-fluid-ProductList ">
     <section class="container m-auto">
       <div class="container row p-0 m-0">
         <div class="col-lg-3 product-filter px-3 pt-3">
-          <div class="google-mapCard">
-            <div class="google-map  d-flex flex-column  mb-2 text collaspe position-relative border-0">
-              <a type="a" data-bs-toggle="modal" data-bs-target="#map-modal">
-                <img src="https://cdn.kkday.com/pc-web/assets/img/img_map.jpg" class="map">
-                <img src="https://cdn.kkday.com/pc-web/assets/img/map_marker.svg"
-                  class="google-local-mark position-absolute  top-50 start-50 translate-middle ">
-                <div class="map-card-p position-absolute bg-light bg-opacity-75 w-100 pt-2 pb-2">
-                  <p class="text-center mb-0">檢視地圖</p>
-                </div>
-              </a>
-            </div>
-          </div>
+            <partial name="mapPartial" />
           <div class="filter-group rounded py-2 mb-1">
             <div class="filter-block py-3 ps-3">
               <h4>所有商品類別</h4>
@@ -710,133 +690,7 @@
       </div>
     </section>
   </div>
-  <div class="modal fade " id="map-modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-lg-down model-map-dialog  position-relative">
-      <div class="modal-content">
-        <div class="bg-black rounded-pill google-map-close">
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body row d-flex  justify-content-left p-0 p-lg-2">
-          <!--平板橫and電腦-->
-          <div class="google-map-product-list">
-            <a class="card d-flex flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=10" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-                  class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-            <a class="card d-flex  flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=11" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-                  class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-            <a class="card d-flex  flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=12" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-            <a class="card d-flex  flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=13" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-                  class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-            <a class="card d-flex  flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=14" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-                  class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-            <a class="card d-flex  flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=15" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-                  class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-            <a class="card d-flex  flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=16" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-                  class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-            <a class="card d-flex  flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=17" class="rounded-start col-5">
-              <div class="card-body col-7 p-1 position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="card-text mb-3">（24/48/72/96小時）</p>
-                <p class="card-text">TWD 358</p>
-                <button type="button"
-                  class="btn btn-outline-info position-absolute google-map-card-button">立即訂購</button>
-              </div>
-            </a>
-          </div>
-          <div class="google-map-pic ">
-            <div id="google-big-map" class="me-lg-5 google-big-map">
-            </div>
-          </div>
-          <!-- 加入owl-carousel  當在平板橫以下 -->
-          <div class="owl-carousel google-map-product-list-collapse d-lg-none ">
-            
-            <a class="card flex-row rounded google-map-product-item w-100 ">
-              <img src="https://picsum.photos/300/200/?random=10" class="rounded-start">
-              <div class="card-body  position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="star text-info">★<span class="star-amount">4.75</span></p>
-                <p class="card-text map-price">TWD <span class="text-info">358</span></p>
-              </div>
-            </a>
-            <a class="card flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=10" class="rounded-start">
-              <div class="card-body  position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="star text-info">★<span class="star-amount">4.75</span></p>
-                <p class="card-text map-price">TWD <span class="text-info">358</span></p>
-              </div>
-            </a>
-            <a class="card flex-row rounded google-map-product-item w-100">
-              <img src="https://picsum.photos/300/200/?random=10" class="rounded-start">
-              <div class="card-body  position-relative">
-                <h5 class="card-title mb-2">【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>
-                <p class="star text-info">★<span class="star-amount">4.75</span></p>
-                <p class="card-text map-price">TWD <span class="text-info">358</span></p>
-              </div>
-            </a>
-          </div>
-          <!---手機-->
-        </div>
-      </div>
-    </div>
-  </div>
+ <partial name ="mapModalPartial" />
 
 
   @section endJS
