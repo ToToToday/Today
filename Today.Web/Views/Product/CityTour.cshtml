@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CityVM>
+﻿@using Today.Model.Models
+@model IEnumerable<CityVM>
+
 
 <!-- 導覽列 -->
 @foreach (var item in Model)
@@ -840,56 +842,73 @@
                     <h3 class="mx-4 my-3 fw-bolder ">探索@(item.CityName)周邊城市</h3>
                     <div class="city-explore-silder d-flex mt-4">
                         <div class="city-explore-card ms-4 ">
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">新北市</span>
+
+                            @*<a href="https://localhost:44338/Product/CityTour/1" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=90" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">基隆</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=89" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative">
-                                    <span class="explore-imgtitle ">台中</span>
+                            </a>
+                            <a href="https://localhost:44338/Product/CityTour/2" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">新北市</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=88" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative">
-                                    <span class="explore-imgtitle ">彰化</span>
+                            </a>
+                            <a href="https://localhost:44338/Product/CityTour" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">新北市</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">雲林</span>
+                            </a>
+                            <a href="https://localhost:44338/Product/CityTour" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">新北市</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">宜蘭</span>
+                            </a>
+                            <a href="https://localhost:44338/Product/CityTour" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">新北市</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=89" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative">
-                                    <span class="explore-imgtitle ">花蓮!</span>
+                            </a>
+                            <a href="https://localhost:44338/Product/CityTour" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">新北市</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=88" class="card-img-top" alt="...">
-                                <div class="city-Raiders-card-span d-flex position-relative">
-                                    <span class="Raiders-imgtitle ">桃園</span>
+                            </a>
+                            <a href="https://localhost:44338/Product/CityTour" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">新北市</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">高雄</span>
+                            </a>
+                            <a href="https://localhost:44338/Product/CityTour" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
+                                    <div class="city-explore-card-span d-flex position-relative ">
+                                        <span class="explore-imgtitle ">新北市</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>*@
                         </div>
-                </div>
+                    </div>
                     <div class="city-keyword-wrap ">
                         <h3 class="mx-4 my-3 fw-bolder ">其他人也搜尋了</h3>
                         <div class="city-keyword-group d-flex flex-wrap mx-4">
