@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
+using Today.Web.Services.OrderService;
 using Today.Web.ViewModels;
 
 
@@ -13,17 +14,20 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-       
+
         private readonly ICityService _cityServices;
-        public ProductController(ICityService cityServices)
+        private readonly IHSRService _HSRServices;
+        public ProductController(ICityService cityServices, IHSRService HSRServices)
         {
             _cityServices = cityServices;
+            _HSRServices = HSRServices;
         }
+
         public IActionResult Index()
         {
             return View();
         }
-        
+
         public IActionResult ProductPages() //商品頁面
         {
             return View();
@@ -32,15 +36,15 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-       
+
         public IActionResult Souvenir() //伴手禮
         {
-            
+
             return View();
         }
         public IActionResult CityClassify() //城市 分類
         {
-           
+
             return View();
         }
         public IActionResult CityTour() //各城市導覽頁
@@ -83,7 +87,8 @@ namespace Today.Web.Controllers
         }
         public IActionResult HSR() //國旅
         {
-            return View();
+            var HSRPages = _HSRServices.GetHSRpages();
+            return Json(HSRPages);
         }
         public IActionResult AboutToday() //公司介紹
         {

@@ -18,26 +18,23 @@ namespace Today.Web.Services.OrderService
 
         public List<HSRVM> GetHSRpages()
         {
-            //var result = _repo.GetAll<City>;
-            var hsrpageone = (from hp in _repo.GetAll<Product>()
-                            select hp).Select(h => new HSRVM { ProductName = h.ProductName }).ToList();
-            
+            //var class13 = from c in _repo.GetAll<Category>()
+            //              where c.CategoryId == 13
+            //              join pc in _repo.GetAll<ProductCategory>() on c.CategoryId equals pc.CategoryId
+            //              join p in _repo.GetAll<Product>() on pc.ProductId equals p.ProductId
+            //              join pp in _repo.GetAll<ProductPhoto>() on p.ProductId equals pp.ProductId
+            //              where pp.Sort == 1
+            //              select new HSRVM { ProductName = p.ProductName, Path = pp.Path };
+            var class13 = (from p in _repo.GetAll<ProductPhoto>()
+                           where p.PhotoId <= 4 && p.Sort == 1
+                           select p).Select(h => new HSRVM { Path = h.Path }).ToList();
+            //var class14 = (from p in _repo.GetAll<Product>()
+            //               where p.ProductId <= 4
+            //               select p).Select(h => new HSRVM { ProductName = h.ProductName }).ToList();
+
+            return class13;
+            //return class13.ToList();
 
         }
-
-
-        //private readonly IGenericRepository _repo;
-        //public CityService(IGenericRepository repo)
-        //{
-        //    _repo = repo;
-        //}
-        //public List<CityVM> GetCityPages()
-        //{
-        //    //var result = _repo.GetAll<City>;
-        //    var citypages = (from cp in _repo.GetAll<City>()
-        //                     where cp.CityId == 12
-        //                     select cp).Select(c => new CityVM { Id = c.CityId, CityName = c.CityName, CityImage = c.CityImage, CityIntrod = c.CityIntrod }).ToList();
-        //    return citypages;
-        //}
     }
 }
