@@ -7,7 +7,8 @@ using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
 using Today.Web.ViewModels;
-
+using static Today.Web.DTOModels.CityDTO;
+using static Today.Web.DTOModels.RaiderDTO;
 
 namespace Today.Web.Controllers
 {
@@ -45,15 +46,46 @@ namespace Today.Web.Controllers
         }
         public IActionResult CityTour(int id) //各城市導覽頁
         {
-
-            var CityPages = _cityServices.GetCityPages(id);
-            return View(CityPages);
+            var cityRequest = new CityRequestDTO
+            {
+                CityId = id
+            };
+            var CityDetail = _cityServices.GetCity(cityRequest);
+            var cityTourPage = new CityVM
+            {
+                CityPage = new CityVM.CityInfo
+                {
+                    Id = CityDetail.CityInfo.Id,
+                    CityName = CityDetail.CityInfo.CityName,
+                    CityImage = CityDetail.CityInfo.CityImage,
+                    CityIntrod = CityDetail.CityInfo.CityIntrod
+                }
+            };
+            
+            return View(cityTourPage);
         }
-        
+
         public IActionResult CityRaiders(int id) //城市攻略
         {
-            var RaderPages = _cityServices.GetRaiders(id);
-            return View(RaderPages);
+            var RaiderRequest = new RaiderRequestDTO
+            {
+                RaiderId = id
+            };
+            var Raidercontent = _cityServices.GetRaiders(RaiderRequest);
+            var CityRaider = new RaiderVM
+            {
+                RaiderPage = new RaiderVM.RaiderInfo
+                {
+                    Id = Raidercontent.RaiderInfo.Id,
+                    CityId = Raidercontent.RaiderInfo.CityId,
+                    Title = Raidercontent.RaiderInfo.Title,
+                    Subtitle = Raidercontent.RaiderInfo.Subtitle,
+                    Text = Raidercontent.RaiderInfo.Text,
+                    Video = Raidercontent.RaiderInfo.Video,
+                }
+            };   
+         
+            return View(CityRaider);
         }
         public IActionResult OffIsland() //離島 分類
         {

@@ -1,14 +1,21 @@
 ﻿using System.Collections.Generic;
 using Today.Model.Models;
 
-namespace Today.Web.ViewModels
+namespace Today.Web.DTOModels
 {
-   
-    public class CityVM
+    public class CityDTO
     {
-        public CityInfo CityPage{ get; set; }
+        public class CityRequestDTO
+        {
+            public int CityId { get; set; }
+        }
 
-        public class CityInfo
+        public class CityResponseDTO
+        {
+            public City CityInfo { get; set; }
+
+        }
+        public class City
         {
             public int Id { get; set; }
             public string CityName { get; set; }
@@ -16,7 +23,5 @@ namespace Today.Web.ViewModels
             public string CityImage { get; set; }
         }
         
-        
     }
-
 }

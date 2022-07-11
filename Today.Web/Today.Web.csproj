@@ -30,8 +30,4 @@
     <ProjectReference Include="..\Today.Model\Today.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOModels\" />
-  </ItemGroup>
-
 </Project>

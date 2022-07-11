@@ -1,20 +1,18 @@
 ﻿
-@model IEnumerable<CityVM>
+@model Today.Web.ViewModels.CityVM
 
 
 <!-- 導覽列 -->
-@foreach (var item in Model)
-{
-    
+  
     <div class="city-group">
         <div class="city-banner">
-            <img src="@item.CityImage " class="city-img">
+            <img src="@Model.CityPage.CityImage " class="city-img">
 
         </div>
         <div class="city-body container row d-flex position-relative m-auto px-0 ">
             <div class="city-title col-12 px-4 text-xl-center mb-xl-5">
-                <h2 class="text-light">@item.CityName</h2>
-                <p class="text-light ">2022@(item.CityName)熱門自由行推薦景點行程</p>
+                <h2 class="text-light">@Model.CityPage.CityName</h2>
+                <p class="text-light ">2022@(Model.CityPage.CityName)熱門自由行推薦景點行程</p>
             </div>
             <!-- 分類按鈕 -->
             <div class="city-type-wrap  justify-content-evenly ">
@@ -130,7 +128,7 @@
                         <a herf="#">台灣 </a>
                     </li>
                     <li class="me-2">
-                        <a herf="#">@(item.CityName) </a>
+                        <a herf="#">@(Model.CityPage.CityName) </a>
                     </li>
                 </ul>
             </div>
@@ -312,7 +310,7 @@
 
                 </div>
                 <!-- 為你精選台北相關行程 -->
-                <h3 class="mx-4 my-3 fw-bolder ">為你精選@(item.CityName)相關行程</h3>
+                <h3 class="mx-4 my-3 fw-bolder ">為你精選@(Model.CityPage.CityName)相關行程</h3>
                 <div class="city-Featured-silder d-flex mt-4">
                     <div class="city-Featured-card ms-4">
                         <div class="card me-3">
@@ -627,10 +625,10 @@
                     </div>
                 </div>
                 <div class="city-btn-wrap d-flex justify-content-center">
-                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有@(item.CityName)體驗活動</a>
+                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有@(Model.CityPage.CityName)體驗活動</a>
                 </div>
                 <!-- 旅遊攻略 -->
-                <h3 class="mx-4 my-3 fw-bolder ">@(item.CityName)旅遊攻略</h3>
+                <h3 class="mx-4 my-3 fw-bolder ">@(Model.CityPage.CityName)旅遊攻略</h3>
                 <div class="city-Raiders-silder d-flex mt-4">
                     <div class="city-Raiders-card ms-4 ">
                         <div class="card me-3">
@@ -726,12 +724,12 @@
                 </div>
                 <!-- map -->
                 <div class="city-about-title ms-4">
-                    <h3 class="fw-bolder">認識 @(item.CityName)</h3>
+                    <h3 class="fw-bolder">認識 @(Model.CityPage.CityName)</h3>
                 </div>
                 <div class="city-map-about-group d-flex flex-wrap flex-lg-nowrap mb-5">
                     <div class="city-aboutcity-wrap col-12 col-md-8 m-3">
                         <div class="city-about-text bg-white p-3 rounded-3">
-                            <p>@item.CityIntrod</p>
+                            <p>@Model.CityPage.CityIntrod</p>
                             <hr>
                             <p><i class="icofont-clock-time"></i> 時區 : GMT+8</p>
                             <p><i class="icofont-money"></i> 貨幣：台幣 NTD</p>
@@ -743,7 +741,7 @@
                             <img src="https://picsum.photos/1200/850/?random=50"
                                 class="card-img rounded-3 align-top w-100 h-100 " alt="...">
                             <div class="city-whach-map position-absolute">
-                                <p class="city-whach-map-title">看地圖搜尋@(item.CityName)體驗活動</p>
+                                <p class="city-whach-map-title">看地圖搜尋@(Model.CityPage.CityName)體驗活動</p>
                                 <p class="city-whach-map-text">點擊前往 ></p>
 
                             </div>
@@ -839,7 +837,7 @@
             <!-- 探索周邊城市 -->
             <section class="px-0">
                 <div class="city-explore-wrap">
-                    <h3 class="mx-4 my-3 fw-bolder ">探索@(item.CityName)周邊城市</h3>
+                    <h3 class="mx-4 my-3 fw-bolder ">探索@(Model.CityPage.CityName)周邊城市</h3>
                     <div class="city-explore-silder d-flex mt-4">
                         <div class="city-explore-card ms-4 ">
                             
@@ -946,7 +944,7 @@
             
         </div>
     </div>
-}
+
 
    @section topCSS{
        <link rel="stylesheet" href="~/css/CityTour.css" />

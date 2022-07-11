@@ -1,44 +1,42 @@
-﻿@model IEnumerable<RaiderVM>
+﻿@model Today.Web.ViewModels.RaiderVM
 
 
 
-@foreach(var item in Model)
-{
-    <div class="raiders-group">
-        <div class="raiders-banner-video ">
-            @*<iframe src="https://www.youtube.com/embed/gUI-XxHhphE" title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>*@
-                @Html.Raw(item.Video)
-        </div>
-        <div class="container">
-            <div class="raiders-text row d-flex justify-content-center  mx-2 ">
-                <div class="raiders-text-title col-md-8 d-flex px-0">
+<div class="raiders-group">
+    <div class="raiders-banner-video ">
+        @*<iframe src="https://www.youtube.com/embed/gUI-XxHhphE" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>*@
+            @Html.Raw(@Model.RaiderPage.Video)
+    </div>
+    <div class="container">
+        <div class="raiders-text row d-flex justify-content-center  mx-2 ">
+            <div class="raiders-text-title col-md-8 d-flex px-0">
 
-                    <h2 class="fw-bolder ">@item.Title</h2>
-                </div>
-                <div class="raiders-text-info col-md-8 px-0">
-                    <p class="fw-bolder">@Html.Raw(item.Text)</p>
-                    <p>-</p>
-                    @*<p>展覽門票輕鬆訂:</p>
-                    <div class="raiders-product-link d-flex">
-                        <i class="icofont-link me-1 mt-1"></i>
-                        <a href="#" class="text-decoration-none fw-bold">神偷奶爸視界特展門票</a>
-                    </div>*@
-                </div>
-                <p><br></p>
-                <p><br></p>
-                <p><br></p>
-
+                <h2 class="fw-bolder ">@Model.RaiderPage.Title</h2>
             </div>
-            <div class="more-product row justify-content-center">
-                <h3 class=" my-5 fw-bolder col-md-8">更多推薦行程</h3>
+            <div class="raiders-text-info col-md-8 px-0">
+                <p class="fw-bolder">@Html.Raw(@Model.RaiderPage.Text)</p>
+                <p>-</p>
+                @*<p>展覽門票輕鬆訂:</p>
+                <div class="raiders-product-link d-flex">
+                    <i class="icofont-link me-1 mt-1"></i>
+                    <a href="#" class="text-decoration-none fw-bold">神偷奶爸視界特展門票</a>
+                </div>*@
+            </div>
+            <p><br></p>
+            <p><br></p>
+            <p><br></p>
 
-                <div class="more-product-card col-md-8">
-                    <!-- 卡牌區 -->
-                </div>
+        </div>
+        <div class="more-product row justify-content-center">
+            <h3 class=" my-5 fw-bolder col-md-8">更多推薦行程</h3>
+
+            <div class="more-product-card col-md-8">
+                <!-- 卡牌區 -->
             </div>
         </div>
+    </div>
 </div>
 }
 

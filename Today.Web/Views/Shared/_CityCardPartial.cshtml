@@ -1,17 +1,19 @@
-﻿@model IEnumerable<CityVM>
+﻿@model Today.Web.ViewModels.CityVM
 
- @foreach(var item in Model)
- {
    
-    <a href="https://localhost:44338/Product/CityTour/@item.Id" class="text-decoration-none">
+    <a href="https://localhost:44338/Product/CityTour/@Model.CityPage.Id" class="text-decoration-none">
         <div class="card me-3">
-            <img src="@item.CityImage" class="card-img-top" alt="@item.CityName">
+            <img src="@Model.CityPage.CityImage" class="card-img-top" alt="@Model.CityPage.CityName">
             <div class="city-explore-card-span d-flex position-relative ">
-                <span class="explore-imgtitle ">@item.CityName</span>
+                <span class="explore-imgtitle ">@Model.CityPage.CityName</span>
             </div>
         </div>
     </a>
+      
     
-   item.Id++;
     
- }
+
+    
+
+    
+ 
