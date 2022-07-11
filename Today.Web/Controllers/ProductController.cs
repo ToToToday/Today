@@ -49,10 +49,7 @@ namespace Today.Web.Controllers
             var CityPages = _cityServices.GetCityPages(id);
             return View(CityPages);
         }
-        //public IActionResult CityCardPartial()
-        //{
-        //    return PartialView();
-        //}
+        
         public IActionResult CityRaiders(int id) //城市攻略
         {
             var RaderPages = _cityServices.GetRaiders(id);

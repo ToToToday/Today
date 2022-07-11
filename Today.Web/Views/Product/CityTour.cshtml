@@ -1,4 +1,4 @@
-﻿@using Today.Model.Models
+﻿
 @model IEnumerable<CityVM>
 
 
@@ -627,7 +627,7 @@
                     </div>
                 </div>
                 <div class="city-btn-wrap d-flex justify-content-center">
-                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有台北體驗活動</a>
+                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有@(item.CityName)體驗活動</a>
                 </div>
                 <!-- 旅遊攻略 -->
                 <h3 class="mx-4 my-3 fw-bolder ">@(item.CityName)旅遊攻略</h3>
@@ -842,7 +842,14 @@
                     <h3 class="mx-4 my-3 fw-bolder ">探索@(item.CityName)周邊城市</h3>
                     <div class="city-explore-silder d-flex mt-4">
                         <div class="city-explore-card ms-4 ">
+                            
+                            @for(int i = 0; i<8; i++)
+                            {
+                                @await Html.PartialAsync("_CityCardPartial")
+                                
+                            }
 
+                            
                             @*<a href="https://localhost:44338/Product/CityTour/1" class="text-decoration-none">
                                 <div class="card me-3">
                                     <img src="https://picsum.photos/300/168/?random=90" class="card-img-top" alt="...">

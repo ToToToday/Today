@@ -1,13 +1,9 @@
-﻿@using Today.Model.Models
+﻿@model IEnumerable<CityVM>
 
-@model IEnumerable<City>
-@{
-    var count = 1;
-}
  @foreach(var item in Model)
  {
-    item.CityId++;
-    <a href="https://localhost:44338/Product/CityTour/" class="text-decoration-none">
+   
+    <a href="https://localhost:44338/Product/CityTour/@item.Id" class="text-decoration-none">
         <div class="card me-3">
             <img src="@item.CityImage" class="card-img-top" alt="@item.CityName">
             <div class="city-explore-card-span d-flex position-relative ">
@@ -16,12 +12,6 @@
         </div>
     </a>
     
-
-
-    if(count == 5)
-    {
-        break;
-    }
-   
+   item.Id++;
     
  }
