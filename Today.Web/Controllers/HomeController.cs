@@ -29,9 +29,9 @@ namespace Today.Web.Controllers
         }
 
         public async Task<IActionResult> Privacy()
-        {
-            //TodayDBContext context = new TodayDBContext();
+        {            //TodayDBContext context = new TodayDBContext();
             //var result = await context.Categories.ToListAsync();
+
             return View();
         }
         public IActionResult Data()

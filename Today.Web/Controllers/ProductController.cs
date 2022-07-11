@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
+using Today.Web.Services.ProductPagesService;
 using Today.Web.ViewModels;
 
 
@@ -13,20 +14,28 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-       
-        private readonly ICityService _cityServices;
-        public ProductController(ICityService cityServices)
+
+        //private readonly ICityService _cityServices;
+        private readonly IProductPagesService _productPagesService;
+
+        //public ProductController(ICityService cityServices)
+        //{
+        //    _cityServices = cityServices;
+        //}
+        public ProductController( IProductPagesService productPagesService)
         {
-            _cityServices = cityServices;
+            _productPagesService = productPagesService;
         }
         public IActionResult Index()
         {
             return View();
         }
-        
+
         public IActionResult ProductPages() //商品頁面
         {
-            return View();
+            var productPagesService = _productPagesService.GetProductPages();
+            //return Json(productPagesService);
+            return View(productPagesService);
         }
         public IActionResult Classify() //楊 分類
         {
@@ -34,20 +43,20 @@ namespace Today.Web.Controllers
         }
         public IActionResult Souvenir() //伴手禮
         {
-            
+
             return View();
         }
         public IActionResult CityClassify() //城市 分類
         {
-           
+
             return View();
         }
-        public IActionResult CityTour() //各城市導覽頁
-        {
+        //public IActionResult CityTour() //各城市導覽頁
+        //{
 
-            var CityPages = _cityServices.GetCityPages();
-            return View(CityPages);
-        }
+        //    var CityPages = _cityServices.GetCityPages();
+        //    return View(CityPages);
+        //}
         public IActionResult CityRaiders() //城市攻略
         {
             return View();
