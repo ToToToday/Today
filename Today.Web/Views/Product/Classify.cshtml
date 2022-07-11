@@ -188,7 +188,8 @@
                         <h4 class="accordion-header" id="Attractions">
                             <div class=" collapsed fw-normal border-bottom d-flex " data-bs-target="#collapsedayofuse" aria-expanded="false">
                                 <span class="fs-6 px-3 py-2 ms-1 w-100 d-flex justify-content-between align-items-center ">
-                                    請選擇使用日<input type="button" name="datefilter" value="07/18/2022 - 08/16/2022" class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder lh-lg" placeholder="篩選出發日期" id="collapsedayofuse" line-height: 2;">
+                                    請選擇使用日
+                                    <input type="button" name="datefilter" value="請選出發日期" class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder lh-lg" placeholder="篩選出發日期" id="collapsedayofuse" line-height: 2;">
                                 </span>
                             </div>
                         </h4>
@@ -989,10 +990,13 @@
                     </div>
                     <!-- 景點門票 -->
                     <div class="accordion-item ">
+                        @* @foreach (var item in Model)
+                        {*@
                         <h2 class="accordion-header " id="Attractions">
                             <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
                                  data-bs-target="#collapseAttractiontickets" aria-expanded="false">
                                 景點門票
+                                @*@item.CategoryName*@
                             </div>
                         </h2>
                         <div id="collapseAttractiontickets" class="accordion-collapse collapse"
@@ -1006,510 +1010,515 @@
                                     <input class="form-check-input mt-1" type="checkbox" value=""
                                            id="Attractiontickets">
                                     <label class="form-check-label ms-1 mt-1" for="Attractiontickets">
+                                        @*@item.CategoryName*@
                                         景點門票
                                         (3210)
                                     </label>
                                 </div>
+
                                 <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="ThemePark">
-                                    <label class="form-check-label ms-1 mt-1" for="ThemePark">
-                                        主題樂園 (351)
-                                    </label>
+                                        <input class="form-check-input mt-1" type="checkbox" value="" id="ThemePark">
+                                        <label class="form-check-label ms-1 mt-1" for="ThemePark">
+                                                主題樂園 (351)
+                                        </label>
                                 </div>
                                 <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Museums&Galleries">
-                                    <label class="form-check-label ms-1 mt-1" for="Museums&Galleries">
-                                        博物館 & 美術館 (379)
-                                    </label>
+                                        <input class="form-check-input mt-1" type="checkbox" value=""
+                                                      id="Museums&Galleries">
+                                        <label class="form-check-label ms-1 mt-1" for="Museums&Galleries">
+                                                博物館 & 美術館 (379)
+                                        </label>
                                 </div>
                                 <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Aquarium&Zoo">
-                                    <label class="form-check-label ms-1 mt-1" for="Aquarium&Zoo">
-                                        水族館 & 動物園 (52)
-                                    </label>
+                                        <input class="form-check-input mt-1" type="checkbox" value="" id="Aquarium&Zoo">
+                                        <label class="form-check-label ms-1 mt-1" for="Aquarium&Zoo">
+                                                水族館 & 動物園 (52)
+                                        </label>
                                 </div>
                                 <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="HistoricSite">
-                                    <label class="form-check-label ms-1 mt-1" for="HistoricSite">
-                                        歷史景點 (152)
-                                    </label>
+                                        <input class="form-check-input mt-1" type="checkbox" value="" id="HistoricSite">
+                                        <label class="form-check-label ms-1 mt-1" for="HistoricSite">
+                                                歷史景點 (152)
+                                        </label>
                                 </div>
+
                             </div>
                         </div>
+                        @*}*@
                     </div>
+
                     <!-- 活動 & 展覽 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseEventsExhibitions" aria-expanded="false">
-                                活動 & 展覽
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseEventsExhibitions" aria-expanded="false">
+                                            活動 & 展覽
+                                    </div>
+                            </h2>
+                            <div id="collapseEventsExhibitions" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Events&Exhibitionsall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Events&Exhibitionsall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="sportsevents">
+                                                    <label class="form-check-label ms-1 mt-1" for="sportsevents">
+                                                            運動賽事 (42)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="entertainment">
+                                                    <label class="form-check-label ms-1 mt-1" for="entertainment">
+                                                            娛樂表演 (208)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="exhibition">
+                                                    <label class="form-check-label ms-1 mt-1" for="exhibition">
+                                                            展覽 (37)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseEventsExhibitions" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Events&Exhibitionsall">
-                                    <label class="form-check-label ms-1 mt-1" for="Events&Exhibitionsall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="sportsevents">
-                                    <label class="form-check-label ms-1 mt-1" for="sportsevents">
-                                        運動賽事 (42)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="entertainment">
-                                    <label class="form-check-label ms-1 mt-1" for="entertainment">
-                                        娛樂表演 (208)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="exhibition">
-                                    <label class="form-check-label ms-1 mt-1" for="exhibition">
-                                        展覽 (37)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 戶外活動 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseOutdooractivities" aria-expanded="false">
-                                戶外活動
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseOutdooractivities" aria-expanded="false">
+                                            戶外活動
+                                    </div>
+                            </h2>
+                            <div id="collapseOutdooractivities" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Outdooractivitiesall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Outdooractivitiesall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Adventure&ExtremeSports">
+                                                    <label class="form-check-label ms-1 mt-1" for="Adventure&ExtremeSports">
+                                                            冒險 & 極限運動 (887)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="snowactivities">
+                                                    <label class="form-check-label ms-1 mt-1" for="snowactivities">
+                                                            雪地活動 (32)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="camping">
+                                                    <label class="form-check-label ms-1 mt-1" for="camping">
+                                                            露營 (106)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Hiking&Mountaineering">
+                                                    <label class="form-check-label ms-1 mt-1" for="Hiking&Mountaineering">
+                                                            遠足 & 登山 (96)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="touristfarm">
+                                                    <label class="form-check-label ms-1 mt-1" for="touristfarm">
+                                                            觀光農場 (263)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="WaterActivities">
+                                                    <label class="form-check-label ms-1 mt-1" for="WaterActivities">
+                                                            水上活動 (1333)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseOutdooractivities" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Outdooractivitiesall">
-                                    <label class="form-check-label ms-1 mt-1" for="Outdooractivitiesall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Adventure&ExtremeSports">
-                                    <label class="form-check-label ms-1 mt-1" for="Adventure&ExtremeSports">
-                                        冒險 & 極限運動 (887)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="snowactivities">
-                                    <label class="form-check-label ms-1 mt-1" for="snowactivities">
-                                        雪地活動 (32)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="camping">
-                                    <label class="form-check-label ms-1 mt-1" for="camping">
-                                        露營 (106)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Hiking&Mountaineering">
-                                    <label class="form-check-label ms-1 mt-1" for="Hiking&Mountaineering">
-                                        遠足 & 登山 (96)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="touristfarm">
-                                    <label class="form-check-label ms-1 mt-1" for="touristfarm">
-                                        觀光農場 (263)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="WaterActivities">
-                                    <label class="form-check-label ms-1 mt-1" for="WaterActivities">
-                                        水上活動 (1333)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 紓壓 & 放鬆 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseRelieveRelax" aria-expanded="false">
-                                紓壓 & 放鬆
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseRelieveRelax" aria-expanded="false">
+                                            紓壓 & 放鬆
+                                    </div>
+                            </h2>
+                            <div id="collapseRelieveRelax" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Relieve&Relaxall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Relieve&Relaxall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Spa&Massage">
+                                                    <label class="form-check-label ms-1 mt-1" for="Spa&Massage">
+                                                            Spa & 按摩 (525)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Beauty&Salon">
+                                                    <label class="form-check-label ms-1 mt-1" for="Beauty&Salon">
+                                                            美容 & 沙龍 (25)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="spa">
+                                                    <label class="form-check-label ms-1 mt-1" for="spa">
+                                                            溫泉 (64)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseRelieveRelax" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Relieve&Relaxall">
-                                    <label class="form-check-label ms-1 mt-1" for="Relieve&Relaxall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Spa&Massage">
-                                    <label class="form-check-label ms-1 mt-1" for="Spa&Massage">
-                                        Spa & 按摩 (525)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Beauty&Salon">
-                                    <label class="form-check-label ms-1 mt-1" for="Beauty&Salon">
-                                        美容 & 沙龍 (25)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="spa">
-                                    <label class="form-check-label ms-1 mt-1" for="spa">
-                                        溫泉 (64)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 工作坊 & 在地文化 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseWorkshopLocalCulture" aria-expanded="false">
-                                工作坊 & 在地文化
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseWorkshopLocalCulture" aria-expanded="false">
+                                            工作坊 & 在地文化
+                                    </div>
+                            </h2>
+                            <div id="collapseWorkshopLocalCulture" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Workshop&LocalCultureall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Workshop&LocalCultureall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Workshops&Courses">
+                                                    <label class="form-check-label ms-1 mt-1" for="Workshops&Courses">
+                                                            工作坊 & 課程 (933)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Culturalexperience">
+                                                    <label class="form-check-label ms-1 mt-1" for="Culturalexperience">
+                                                            文化體驗 (360)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="handmadematerialpackage">
+                                                    <label class="form-check-label ms-1 mt-1" for="handmadematerialpackage">
+                                                            手作材料包 (22)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseWorkshopLocalCulture" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Workshop&LocalCultureall">
-                                    <label class="form-check-label ms-1 mt-1" for="Workshop&LocalCultureall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Workshops&Courses">
-                                    <label class="form-check-label ms-1 mt-1" for="Workshops&Courses">
-                                        工作坊 & 課程 (933)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Culturalexperience">
-                                    <label class="form-check-label ms-1 mt-1" for="Culturalexperience">
-                                        文化體驗 (360)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="handmadematerialpackage">
-                                    <label class="form-check-label ms-1 mt-1" for="handmadematerialpackage">
-                                        手作材料包 (22)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 觀光行程 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseSightseeingitinerary" aria-expanded="false">
-                                觀光行程
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseSightseeingitinerary" aria-expanded="false">
+                                            觀光行程
+                                    </div>
+                            </h2>
+                            <div id="collapseSightseeingitinerary" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Sightseeingitineraryall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Sightseeingitineraryall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Half/DayTour">
+                                                    <label class="form-check-label ms-1 mt-1" for="Half/DayTour">
+                                                            半/一日遊 (3947)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Multi-daytour">
+                                                    <label class="form-check-label ms-1 mt-1" for="Multi-daytour">
+                                                            多日遊 (1213)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="onlinetravel">
+                                                    <label class="form-check-label ms-1 mt-1" for="onlinetravel">
+                                                            線上旅遊 (8)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="biketour">
+                                                    <label class="form-check-label ms-1 mt-1" for="biketour">
+                                                            單車旅遊 (21)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="boattour">
+                                                    <label class="form-check-label ms-1 mt-1" for="boattour">
+                                                            遊船觀光 (231)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="cruisevacation">
+                                                    <label class="form-check-label ms-1 mt-1" for="cruisevacation">
+                                                            遊輪假期 (157)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseSightseeingitinerary" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Sightseeingitineraryall">
-                                    <label class="form-check-label ms-1 mt-1" for="Sightseeingitineraryall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Half/DayTour">
-                                    <label class="form-check-label ms-1 mt-1" for="Half/DayTour">
-                                        半/一日遊 (3947)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Multi-daytour">
-                                    <label class="form-check-label ms-1 mt-1" for="Multi-daytour">
-                                        多日遊 (1213)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="onlinetravel">
-                                    <label class="form-check-label ms-1 mt-1" for="onlinetravel">
-                                        線上旅遊 (8)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="biketour">
-                                    <label class="form-check-label ms-1 mt-1" for="biketour">
-                                        單車旅遊 (21)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="boattour">
-                                    <label class="form-check-label ms-1 mt-1" for="boattour">
-                                        遊船觀光 (231)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="cruisevacation">
-                                    <label class="form-check-label ms-1 mt-1" for="cruisevacation">
-                                        遊輪假期 (157)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 美食 & 生鮮 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseFoodFresh" aria-expanded="false">
-                                美食 & 生鮮
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseFoodFresh" aria-expanded="false">
+                                            美食 & 生鮮
+                                    </div>
+                            </h2>
+                            <div id="collapseFoodFresh" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Food&Freshall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Food&Freshall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="restaurantfood">
+                                                    <label class="form-check-label ms-1 mt-1" for="restaurantfood">
+                                                            餐廳美食 (1142)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="dessertdrink">
+                                                    <label class="form-check-label ms-1 mt-1" for="dessertdrink">
+                                                            甜點飲品 (471)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="freshgroceries">
+                                                    <label class="form-check-label ms-1 mt-1" for="freshgroceries">
+                                                            生鮮雜貨 (76)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseFoodFresh" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Food&Freshall">
-                                    <label class="form-check-label ms-1 mt-1" for="Food&Freshall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="restaurantfood">
-                                    <label class="form-check-label ms-1 mt-1" for="restaurantfood">
-                                        餐廳美食 (1142)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="dessertdrink">
-                                    <label class="form-check-label ms-1 mt-1" for="dessertdrink">
-                                        甜點飲品 (471)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="freshgroceries">
-                                    <label class="form-check-label ms-1 mt-1" for="freshgroceries">
-                                        生鮮雜貨 (76)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 交通 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapsetransportation" aria-expanded="false">
-                                交通
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapsetransportation" aria-expanded="false">
+                                            交通
+                                    </div>
+                            </h2>
+                            <div id="collapsetransportation" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="transportationall">
+                                                    <label class="form-check-label ms-1 mt-1" for="transportationall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="trafficticket">
+                                                    <label class="form-check-label ms-1 mt-1" for="trafficticket">
+                                                            交通票券 (821)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="carrental">
+                                                    <label class="form-check-label ms-1 mt-1" for="carrental">
+                                                            租車自駕 (198)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Privatecarservice">
+                                                    <label class="form-check-label ms-1 mt-1" for="Privatecarservice">
+                                                            專車服務 (864)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="AirportShuttle">
+                                                    <label class="form-check-label ms-1 mt-1" for="AirportShuttle">
+                                                            機場接駁 (444)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapsetransportation" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="transportationall">
-                                    <label class="form-check-label ms-1 mt-1" for="transportationall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="trafficticket">
-                                    <label class="form-check-label ms-1 mt-1" for="trafficticket">
-                                        交通票券 (821)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="carrental">
-                                    <label class="form-check-label ms-1 mt-1" for="carrental">
-                                        租車自駕 (198)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Privatecarservice">
-                                    <label class="form-check-label ms-1 mt-1" for="Privatecarservice">
-                                        專車服務 (864)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="AirportShuttle">
-                                    <label class="form-check-label ms-1 mt-1" for="AirportShuttle">
-                                        機場接駁 (444)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 住宿 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapsestay" aria-expanded="false">
-                                住宿
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapsestay" aria-expanded="false">
+                                            住宿
+                                    </div>
+                            </h2>
+                            <div id="collapsestay" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="stayall">
+                                                    <label class="form-check-label ms-1 mt-1" for="stayall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="restaurant">
+                                                    <label class="form-check-label ms-1 mt-1" for="restaurant">
+                                                            飯店 (998)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="resort">
+                                                    <label class="form-check-label ms-1 mt-1" for="resort">
+                                                            度假村 (29)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="homestay">
+                                                    <label class="form-check-label ms-1 mt-1" for="homestay">
+                                                            民宿 (91)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapsestay" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="stayall">
-                                    <label class="form-check-label ms-1 mt-1" for="stayall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="restaurant">
-                                    <label class="form-check-label ms-1 mt-1" for="restaurant">
-                                        飯店 (998)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="resort">
-                                    <label class="form-check-label ms-1 mt-1" for="resort">
-                                        度假村 (29)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="homestay">
-                                    <label class="form-check-label ms-1 mt-1" for="homestay">
-                                        民宿 (91)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- Wi-Fi & SIM 卡 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseWiFiSIMCard" aria-expanded="false">
-                                Wi-Fi & SIM 卡
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseWiFiSIMCard" aria-expanded="false">
+                                            Wi-Fi & SIM 卡
+                                    </div>
+                            </h2>
+                            <div id="collapseWiFiSIMCard" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Wi-Fi&SIMCardall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Wi-Fi&SIMCardall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Wi-Fi&SIMCard">
+                                                    <label class="form-check-label ms-1 mt-1" for="Wi-Fi&SIMCard">
+                                                            Wi-Fi & SIM 卡 (217)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseWiFiSIMCard" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Wi-Fi&SIMCardall">
-                                    <label class="form-check-label ms-1 mt-1" for="Wi-Fi&SIMCardall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Wi-Fi&SIMCard">
-                                    <label class="form-check-label ms-1 mt-1" for="Wi-Fi&SIMCard">
-                                        Wi-Fi & SIM 卡 (217)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 旅行服務 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapsetravelservice" aria-expanded="false">
-                                旅行服務
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapsetravelservice" aria-expanded="false">
+                                            旅行服務
+                                    </div>
+                            </h2>
+                            <div id="collapsetravelservice" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="travelserviceall">
+                                                    <label class="form-check-label ms-1 mt-1" for="travelserviceall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="TravelDocumentApplicationService">
+                                                    <label class="form-check-label mt-1 ms-1"
+                                                                  for="TravelDocumentApplicationService">
+                                                            旅遊文件申請服務 (21)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="BaggageDelivery/StorageService">
+                                                    <label class="form-check-label ms-1 mt-1" for="BaggageDelivery/StorageService">
+                                                            行李運送 / 寄存服務 (19)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="ProfessionalPhotographyServices">
+                                                    <label class="form-check-label ms-1 mt-1" for="ProfessionalPhotographyServices">
+                                                            專業攝影服務 (45)
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value=""
+                                                                  id="Travelequipmentandrelatedservices">
+                                                    <label class="form-check-label mt-1 ms-1"
+                                                                  for="Travelequipmentandrelatedservices">
+                                                            旅行裝備與相關服務 (2)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapsetravelservice" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="travelserviceall">
-                                    <label class="form-check-label ms-1 mt-1" for="travelserviceall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="TravelDocumentApplicationService">
-                                    <label class="form-check-label mt-1 ms-1"
-                                           for="TravelDocumentApplicationService">
-                                        旅遊文件申請服務 (21)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="BaggageDelivery/StorageService">
-                                    <label class="form-check-label ms-1 mt-1" for="BaggageDelivery/StorageService">
-                                        行李運送 / 寄存服務 (19)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="ProfessionalPhotographyServices">
-                                    <label class="form-check-label ms-1 mt-1" for="ProfessionalPhotographyServices">
-                                        專業攝影服務 (45)
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value=""
-                                           id="Travelequipmentandrelatedservices">
-                                    <label class="form-check-label mt-1 ms-1"
-                                           for="Travelequipmentandrelatedservices">
-                                        旅行裝備與相關服務 (2)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- 伴手禮 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingThree">
-                            <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseSouvenir" aria-expanded="false">
-                                伴手禮
+                            <h2 class="accordion-header " id="headingThree">
+                                    <div class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                              data-bs-target="#collapseSouvenir" aria-expanded="false">
+                                            伴手禮
+                                    </div>
+                            </h2>
+                            <div id="collapseSouvenir" class="accordion-collapse collapse"
+                                      data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <div class="form-check pb-2">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Souvenirall">
+                                                    <label class="form-check-label ms-1 mt-1" for="Souvenirall">
+                                                            全部
+                                                    </label>
+                                            </div>
+                                            <div class="form-check pb-2 border-0">
+                                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Souvenir">
+                                                    <label class="form-check-label ms-1 mt-1" for="Souvenir">
+                                                            伴手禮(474)
+                                                    </label>
+                                            </div>
+                                    </div>
                             </div>
-                        </h2>
-                        <div id="collapseSouvenir" class="accordion-collapse collapse"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="form-check pb-2">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Souvenirall">
-                                    <label class="form-check-label ms-1 mt-1" for="Souvenirall">
-                                        全部
-                                    </label>
-                                </div>
-                                <div class="form-check pb-2 border-0">
-                                    <input class="form-check-input mt-1" type="checkbox" value="" id="Souvenir">
-                                    <label class="form-check-label ms-1 mt-1" for="Souvenir">
-                                        伴手禮(474)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- 篩選出發日期 -->
@@ -1719,25 +1728,25 @@
                                 <div class="col-md-4 ">
                                     <div class="pic h-100">
                                         <img class="img-fluid w-100 h-100 m-auto"
-                                         src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
+                                         src="@item.Path">
                                         <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
                                         <!-- <i class="fa-solid fa-heart-crack"></i> -->
                                     </div>
                                 </div>
                                 <div class="col-md-8 rounded-3 ">
                                     <div class="card-body">
-                                        <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
+                                        <h4 class="card-title">@item.ProductName</h4>
                                         <div class="card-point py-2 ">
 
-                                            <span class="label label-addational rounded-3 ">即買即用</span>
-                                            <span class="label label-addational rounded-3 ">6天前可免費取消</span>
+                                            <span class="label label-addational rounded-3 ">@item.TagText</span>
+                                            @*<span class="label label-addational rounded-3 ">6天前可免費取消</span>
 
-                                            <span class="label label-addational rounded-3 ">出發前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">出發前可免費取消</span>*@
                                             @*<span class="label label-addational rounded-3 ">適用國旅券</span>
-                                            <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">即買即用</span> *@
+                                        <span class="label label-addational rounded-3 ">8天前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">2天前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">3天前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">即買即用</span> *@
                                         </div>
                                         <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
                                             Xpark 於 2022
@@ -1747,7 +1756,7 @@
                                             <i class="fa-solid fa-location-dot"></i>
                                             <div class="product-listview_inco_info flex_item product-palce">
                                                 <p class="card-text d-flex ms-2">
-                                                    台灣 桃園
+                                                    @item.CityName
                                                 </p>
                                             </div>
                                             <i class="fa-regular fa-calendar  ms-3"></i>
@@ -1783,273 +1792,273 @@
                             </div>
                         </div>
                     }
-@*                    <div class="card_detail mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4 ">
-                                <div class="pic h-100">
-                                    <img class="img-fluid w-100 h-100 m-auto"
-                                         src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                    <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                    <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                                </div>
-                            </div>
-                            <div class="col-md-8 rounded-3 ">
-                                <div class="card-body">
-                                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                    <div class="card-point py-2 ">
+                    @*                    <div class="card_detail mb-3">
+                    <div class="row g-0">
+                    <div class="col-md-4 ">
+                    <div class="pic h-100">
+                    <img class="img-fluid w-100 h-100 m-auto"
+                    src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
+                    <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
+                    <!-- <i class="fa-solid fa-heart-crack"></i> -->
+                    </div>
+                    </div>
+                    <div class="col-md-8 rounded-3 ">
+                    <div class="card-body">
+                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
+                    <div class="card-point py-2 ">
 
-                                        <span class="label label-addational rounded-3 ">即買即用</span>
-                                        <span class="label label-addational rounded-3 ">6天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">即買即用</span>
+                    <span class="label label-addational rounded-3 ">6天前可免費取消</span>
 
-                                        <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                        <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                        <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                    </div>
-                                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
-                                        Xpark 於 2022
-                                        年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                    </p>
-                                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <div class="product-listview_inco_info flex_item product-palce">
-                                            <p class="card-text d-flex ms-2">
-                                                台灣 桃園</small>
-                                            </p>
-                                        </div>
-                                        <i class="fa-regular fa-calendar  ms-3"></i>
-                                        <div class="product-listview_inco_info  product-time">
-                                            <p class="card-text ms-2">
-                                                最早可預訂日期 : 今日</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="footer  d-flex flex-wrap">
-                                        <div class="product_footer m-auto col-8 mt-3">
-                                            <i class="fa-solid fa-star "></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star-half"></i>
+                    <span class="label label-addational rounded-3 ">出發前可免費取消</span>
+                    <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
+                    <span class="label label-addational rounded-3 ">8天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">2天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">3天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">即買即用</span> -->
+                    </div>
+                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
+                    Xpark 於 2022
+                    年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
+                    </p>
+                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="product-listview_inco_info flex_item product-palce">
+                    <p class="card-text d-flex ms-2">
+                    台灣 桃園</small>
+                    </p>
+                    </div>
+                    <i class="fa-regular fa-calendar  ms-3"></i>
+                    <div class="product-listview_inco_info  product-time">
+                    <p class="card-text ms-2">
+                    最早可預訂日期 : 今日</small>
+                    </p>
+                    </div>
+                    </div>
+                    <div class="footer  d-flex flex-wrap">
+                    <div class="product_footer m-auto col-8 mt-3">
+                    <i class="fa-solid fa-star "></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half"></i>
 
-                                            <span class="number">(366691)</span>
-                                            <!-- <span class="span_divider mx-1 "> | </span> -->
-                                            <!-- <div class="vr mx-1"></div> -->
-                                            <i class="fa-solid fa-fire py-2">
-                                                <span class="subscription">484K+ 個已訂購</span>
-                                            </i>
-                                        </div>
-                                        <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                            <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                            <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                            <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <span class="number">(366691)</span>
+                    <!-- <span class="span_divider mx-1 "> | </span> -->
+                    <!-- <div class="vr mx-1"></div> -->
+                    <i class="fa-solid fa-fire py-2">
+                    <span class="subscription">484K+ 個已訂購</span>
+                    </i>
+                    </div>
+                    <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
+                    <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
+                    <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
+                    <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                     </div>
                     <div class="card_detail mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4 ">
-                                <img class="img-fluid w-100 h-100 m-auto"
-                                     src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                            </div>
-                            <div class="col-md-8 rounded-3 ">
-                                <div class="card-body">
-                                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                    <div class="card-point py-2 ">
+                    <div class="row g-0">
+                    <div class="col-md-4 ">
+                    <img class="img-fluid w-100 h-100 m-auto"
+                    src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
+                    <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
+                    <!-- <i class="fa-solid fa-heart-crack"></i> -->
+                    </div>
+                    <div class="col-md-8 rounded-3 ">
+                    <div class="card-body">
+                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
+                    <div class="card-point py-2 ">
 
-                                        <span class="label label-addational rounded-3 ">即買即用</span>
-                                        <span class="label label-addational rounded-3 ">6天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">即買即用</span>
+                    <span class="label label-addational rounded-3 ">6天前可免費取消</span>
 
-                                        <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                        <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                        <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                    </div>
-                                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
-                                        Xpark 於 2022
-                                        年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                    </p>
-                                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <div class="product-listview_inco_info flex_item product-palce">
-                                            <p class="card-text d-flex ms-2">
-                                                台灣 桃園</small>
-                                            </p>
-                                        </div>
-                                        <i class="fa-regular fa-calendar  ms-3"></i>
-                                        <div class="product-listview_inco_info  product-time">
-                                            <p class="card-text ms-2">
-                                                最早可預訂日期 : 今日</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="footer  d-flex flex-wrap">
-                                        <div class="product_footer m-auto col-8 mt-3">
-                                            <i class="fa-solid fa-star "></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star-half"></i>
+                    <span class="label label-addational rounded-3 ">出發前可免費取消</span>
+                    <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
+                    <span class="label label-addational rounded-3 ">8天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">2天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">3天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">即買即用</span> -->
+                    </div>
+                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
+                    Xpark 於 2022
+                    年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
+                    </p>
+                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="product-listview_inco_info flex_item product-palce">
+                    <p class="card-text d-flex ms-2">
+                    台灣 桃園</small>
+                    </p>
+                    </div>
+                    <i class="fa-regular fa-calendar  ms-3"></i>
+                    <div class="product-listview_inco_info  product-time">
+                    <p class="card-text ms-2">
+                    最早可預訂日期 : 今日</small>
+                    </p>
+                    </div>
+                    </div>
+                    <div class="footer  d-flex flex-wrap">
+                    <div class="product_footer m-auto col-8 mt-3">
+                    <i class="fa-solid fa-star "></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half"></i>
 
-                                            <span class="number">(366691)</span>
-                                            <!-- <span class="span_divider mx-1 "> | </span> -->
-                                            <!-- <div class="vr mx-1"></div> -->
-                                            <i class="fa-solid fa-fire py-2">
-                                                <span class="subscription">484K+ 個已訂購</span>
-                                            </i>
-                                        </div>
-                                        <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                            <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                            <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                            <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <span class="number">(366691)</span>
+                    <!-- <span class="span_divider mx-1 "> | </span> -->
+                    <!-- <div class="vr mx-1"></div> -->
+                    <i class="fa-solid fa-fire py-2">
+                    <span class="subscription">484K+ 個已訂購</span>
+                    </i>
+                    </div>
+                    <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
+                    <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
+                    <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
+                    <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                     </div>
                     <div class="card_detail mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4 ">
-                                <img class="img-fluid w-100 h-100 m-auto"
-                                     src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                            </div>
-                            <div class="col-md-8 rounded-3 ">
-                                <div class="card-body">
-                                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                    <div class="card-point py-2 ">
+                    <div class="row g-0">
+                    <div class="col-md-4 ">
+                    <img class="img-fluid w-100 h-100 m-auto"
+                    src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
+                    <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
+                    <!-- <i class="fa-solid fa-heart-crack"></i> -->
+                    </div>
+                    <div class="col-md-8 rounded-3 ">
+                    <div class="card-body">
+                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
+                    <div class="card-point py-2 ">
 
-                                        <span class="label label-addational rounded-3 ">即買即用</span>
-                                        <span class="label label-addational rounded-3 ">6天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">即買即用</span>
+                    <span class="label label-addational rounded-3 ">6天前可免費取消</span>
 
-                                        <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                        <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                        <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                    </div>
-                                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
-                                        Xpark 於 2022
-                                        年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                    </p>
-                                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <div class="product-listview_inco_info flex_item product-palce">
-                                            <p class="card-text d-flex ms-2">
-                                                台灣 桃園</small>
-                                            </p>
-                                        </div>
-                                        <i class="fa-regular fa-calendar  ms-3"></i>
-                                        <div class="product-listview_inco_info  product-time">
-                                            <p class="card-text ms-2">
-                                                最早可預訂日期 : 今日</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="footer  d-flex flex-wrap">
-                                        <div class="product_footer m-auto col-8 mt-3">
-                                            <i class="fa-solid fa-star "></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star-half"></i>
+                    <span class="label label-addational rounded-3 ">出發前可免費取消</span>
+                    <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
+                    <span class="label label-addational rounded-3 ">8天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">2天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">3天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">即買即用</span> -->
+                    </div>
+                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
+                    Xpark 於 2022
+                    年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
+                    </p>
+                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="product-listview_inco_info flex_item product-palce">
+                    <p class="card-text d-flex ms-2">
+                    台灣 桃園</small>
+                    </p>
+                    </div>
+                    <i class="fa-regular fa-calendar  ms-3"></i>
+                    <div class="product-listview_inco_info  product-time">
+                    <p class="card-text ms-2">
+                    最早可預訂日期 : 今日</small>
+                    </p>
+                    </div>
+                    </div>
+                    <div class="footer  d-flex flex-wrap">
+                    <div class="product_footer m-auto col-8 mt-3">
+                    <i class="fa-solid fa-star "></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half"></i>
 
-                                            <span class="number">(366691)</span>
-                                            <!-- <span class="span_divider mx-1 "> | </span> -->
-                                            <!-- <div class="vr mx-1"></div> -->
-                                            <i class="fa-solid fa-fire py-2">
-                                                <span class="subscription">484K+ 個已訂購</span>
-                                            </i>
-                                        </div>
-                                        <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                            <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                            <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                            <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <span class="number">(366691)</span>
+                    <!-- <span class="span_divider mx-1 "> | </span> -->
+                    <!-- <div class="vr mx-1"></div> -->
+                    <i class="fa-solid fa-fire py-2">
+                    <span class="subscription">484K+ 個已訂購</span>
+                    </i>
+                    </div>
+                    <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
+                    <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
+                    <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
+                    <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
                     </div>
                     <div class="card_detail mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4 ">
-                                <img class="img-fluid w-100 h-100 m-auto"
-                                     src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                            </div>
-                            <div class="col-md-8 rounded-3 ">
-                                <div class="card-body">
-                                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                    <div class="card-point py-2 ">
-
-                                        <span class="label label-addational rounded-3 ">即買即用</span>
-                                        <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-
-                                        <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                        <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                        <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                        <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                    </div>
-                                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
-                                        Xpark 於 2022
-                                        年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                    </p>
-                                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <div class="product-listview_inco_info flex_item product-palce">
-                                            <p class="card-text d-flex ms-2">
-                                                台灣 桃園</small>
-                                            </p>
-                                        </div>
-                                        <i class="fa-regular fa-calendar  ms-3"></i>
-                                        <div class="product-listview_inco_info  product-time">
-                                            <p class="card-text ms-2">
-                                                最早可預訂日期 : 今日</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="footer  d-flex flex-wrap">
-                                        <div class="product_footer m-auto col-8 mt-3">
-                                            <i class="fa-solid fa-star "></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star-half"></i>
-
-                                            <span class="number">(366691)</span>
-                                            <!-- <span class="span_divider mx-1 "> | </span> -->
-                                            <!-- <div class="vr mx-1"></div> -->
-                                            <i class="fa-solid fa-fire py-2">
-                                                <span class="subscription">484K+ 個已訂購</span>
-                                            </i>
-                                        </div>
-                                        <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                            <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                            <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                            <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row g-0">
+                    <div class="col-md-4 ">
+                    <img class="img-fluid w-100 h-100 m-auto"
+                    src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
+                    <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
+                    <!-- <i class="fa-solid fa-heart-crack"></i> -->
                     </div>
-*@                </div>
+                    <div class="col-md-8 rounded-3 ">
+                    <div class="card-body">
+                    <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
+                    <div class="card-point py-2 ">
+
+                    <span class="label label-addational rounded-3 ">即買即用</span>
+                    <span class="label label-addational rounded-3 ">6天前可免費取消</span>
+
+                    <span class="label label-addational rounded-3 ">出發前可免費取消</span>
+                    <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
+                    <span class="label label-addational rounded-3 ">8天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">2天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">3天前可免費取消</span>
+                    <span class="label label-addational rounded-3 ">即買即用</span> -->
+                    </div>
+                    <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
+                    Xpark 於 2022
+                    年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
+                    </p>
+                    <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="product-listview_inco_info flex_item product-palce">
+                    <p class="card-text d-flex ms-2">
+                    台灣 桃園</small>
+                    </p>
+                    </div>
+                    <i class="fa-regular fa-calendar  ms-3"></i>
+                    <div class="product-listview_inco_info  product-time">
+                    <p class="card-text ms-2">
+                    最早可預訂日期 : 今日</small>
+                    </p>
+                    </div>
+                    </div>
+                    <div class="footer  d-flex flex-wrap">
+                    <div class="product_footer m-auto col-8 mt-3">
+                    <i class="fa-solid fa-star "></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half"></i>
+
+                    <span class="number">(366691)</span>
+                    <!-- <span class="span_divider mx-1 "> | </span> -->
+                    <!-- <div class="vr mx-1"></div> -->
+                    <i class="fa-solid fa-fire py-2">
+                    <span class="subscription">484K+ 個已訂購</span>
+                    </i>
+                    </div>
+                    <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
+                    <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
+                    <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
+                    <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>*@
+                </div>
                 <!-- 頁數切換 -->
                 <div class=" page btn-group d-flex " role="group" aria-label="Basic radio toggle button group">
 

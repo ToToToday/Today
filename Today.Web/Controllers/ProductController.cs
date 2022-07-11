@@ -16,9 +16,12 @@ namespace Today.Web.Controllers
     {
 
         private readonly ICityService _cityServices;
+        private readonly IClassifyService _classifyService;
         public ProductController(ICityService cityServices, IClassifyService classifyService)
         {
             _cityServices = cityServices;
+            _classifyService = classifyService;
+
         }
         public IActionResult Index()
         {
@@ -29,20 +32,13 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        //private readonly IClassifyService _classifyService;
-        //public ProductController(IClassifyService classifyService )
-        //{
-        //    _classifyService = classifyService;
-        //}
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-        //public IActionResult Classify() //楊 分類
-        //{
-        //    return View();
-        //}
-       
+
+        public IActionResult Classify() //楊 分類
+        {
+            var ClassPages = _classifyService.GetClassifyPages();
+            return View(ClassPages);
+        }
+
         public IActionResult Souvenir() //伴手禮
         {
             
