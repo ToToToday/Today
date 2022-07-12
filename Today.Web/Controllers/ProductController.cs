@@ -10,17 +10,19 @@ using Today.Web.Services.CityService;
 using Today.Web.ViewModels;
 
 using Today.Model.Migrations;
-
+using Today.Web.Services.locationService;
 
 namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
        
-        private readonly ICityService _cityServices;
-        public ProductController(ICityService cityServices)
+        private readonly ICityService _cityServices ;
+        private readonly ILocationService _locationServices;
+        public ProductController(ICityService cityServices,ILocationService locationServices)
         {
             _cityServices = cityServices;
+            _locationServices = locationServices;
         }
 
         public IActionResult Index()
@@ -44,7 +46,7 @@ namespace Today.Web.Controllers
         }
         public IActionResult CityClassify() //城市 分類
         {
-           
+
             return View();
         }
         public IActionResult CityTour() //各城市導覽頁
@@ -58,11 +60,12 @@ namespace Today.Web.Controllers
         }
 
 
-        public async Task<IActionResult> OffIsland() //離島 分類
+        public IActionResult OffIsland() //離島 分類
         {
-            TodayDBContext context = new TodayDBContext();
-            var location_result = await context.Locations.Select(x => new LocationVM() { Id = x.LocationId, latitude = x.Latitude, longitude = x.Longitude }).ToArrayAsync();
-            return View(location_result);
+            var getLocation = _locationServices.GetLocations();
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(getLocation);
+            ViewData["locationJson"] = locationJson;
+            return View(getLocation);
         }
         public IActionResult ParentChild() //親子 分類
         {
@@ -73,7 +76,10 @@ namespace Today.Web.Controllers
             ViewData["banner-date-word"] = "日期";
             ViewData["collapse-search"] = "請選擇取車地點及日期";
 
-            return View();
+            var getLocation = _locationServices.GetLocations();
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(getLocation);
+            ViewData["locationJson"] = locationJson;
+            return View(getLocation);
         }
         public IActionResult DIY() //DIY 分類
         {
@@ -83,7 +89,10 @@ namespace Today.Web.Controllers
             ViewData["banner-location-word"] = "目的地";
             ViewData["banner-date-word"] = "出發日期";
             ViewData["collapse-search"] = "請選擇目的地與日期";
-            return View();
+            var getLocation = _locationServices.GetLocations();
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(getLocation);
+            ViewData["locationJson"] = locationJson;
+            return View(getLocation);
         }
         public IActionResult HSRClassify() //高鐵 分類
         {
@@ -93,7 +102,10 @@ namespace Today.Web.Controllers
             ViewData["banner-location-word"] = "你要去哪裡玩?";
             ViewData["banner-date-word"] = "出發日期";
             ViewData["collapse-search"] = "你要去哪裡玩?";
-            return View();
+            var getLocation = _locationServices.GetLocations();
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(getLocation);
+            ViewData["locationJson"] = locationJson;
+            return View(getLocation);
         }
         public IActionResult Rent() //租車 分類
         {
@@ -103,7 +115,10 @@ namespace Today.Web.Controllers
             ViewData["banner-location-word"] = "取車地點";
             ViewData["banner-date-word"] = "取車日期";
             ViewData["collapse-search"] = "請選擇取車地點及日期";
-            return View();
+            var getLocation = _locationServices.GetLocations();
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(getLocation);
+            ViewData["locationJson"] = locationJson;
+            return View(getLocation);
         }
         public IActionResult Camping() //露營頁面
         {

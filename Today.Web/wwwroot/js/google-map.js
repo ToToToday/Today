@@ -14,25 +14,6 @@ $(".owl-carousel.google-map-product-list-collapse").owlCarousel
       }
 });
 
-let mapmodal = document.querySelector('#map-modal')
-        //let modal = bootstrap.Modal.getOrCreateInstance(modalEl)
-        //初始化地圖
-let map = L.map('google-big-map', 
-{
-    center: [23.7625225, 121.0302279],
-    zoom: 8,
-    wheelPxPerZoomLevel:80,
-    tapTolerance:10
-})
-    // 設定圖資來源
-    var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    var osm = new L.TileLayer(osmUrl, { minZoom: 4, maxZoom: 18 })
-    map.addLayer(osm)
-
-    mapmodal.addEventListener('shown.bs.modal', function() 
-    {
-        map.invalidateSize()
-    })
 
 
 //離島 東西 (經度) 北南 (緯度) 
@@ -44,15 +25,7 @@ let map = L.map('google-big-map',
 //碰到 local 標誌 會顯示 整張 card 
 
 /*
-var site_location = 
-{
-    site:
-    ["基隆嶼燈塔","基隆城市博覽會 基隆之星海上展覽(國門廣場附近)","桃園戶外休閒體驗營 | OBT 台灣外展 | 高空繩索  X   落羽松露營"]
-    ,location:
-    [[25.156652,121.7313924],[25.1319577,121.7379821],[24.8418952,121.1881965]]
-}
 
-console.log(site_location.location[1])
 for(let i =0 ;i<;i++)
 {
     L.marker(site_location.location[i])

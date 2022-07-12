@@ -1,3 +1,4 @@
+
 .google-map 
 {
     overflow: hidden;
@@ -90,6 +91,12 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+.bind-map-price
+{
+    position:absolute;
+    right:0;
+    bottom:5px;
 }
 @media screen and (max-width:768px)
 {
@@ -194,7 +201,7 @@
     {
         overflow: auto;
         width: 23rem;
-        height: calc(7.063rem * 6);
+        height: calc(7.063rem * 5.5);
     }
     .google-map-product-item
     {

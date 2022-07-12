@@ -1,8 +1,7 @@
-﻿  <div class="Parent-child-hotel-banner" style="background-image:url(@Model.)">
+﻿  <div class="Parent-child-hotel-banner" style="background-image:url(@ViewData["banner-img"]);">
     <div class="container p-0 " >
       <h2 class="Parent-child-banner-h2 fs-2 fw-bold text-white text-md-center ">@ViewData["banner-h2"]</h2>
       <p class="Parent-child-banner-p text-white  text-md-center ">@ViewData["banner-p"]</p>
-
       <div class="Parent-child-search mb-3 p-1 ps-2 bg-white rounded">
         <div class="input-group row  m-0">
           <div class="btn-group col-12 col-md-5 p-0">
@@ -117,69 +116,78 @@
             <div class="container">
               <p class="d-inline-block pt-2 pe-2">你要去哪裡玩?</p>
               <ul class="d-flex justify-content-center flex-wrap">
-                  <li class="col-2  col-md-1 d-inline-block m-2 ">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">台北</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">台中</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">台南</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">南投</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">新竹</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">高雄</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">嘉義</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">屏東</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">墾丁</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">宜蘭</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">花蓮</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">新北</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">桃園</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">苗栗</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">雲林</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">台東</button>
-                  </li>
-                   <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">綠島</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">蘭嶼</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">小琉球</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0" id="choose-city-phone">澎湖</button>
-                  </li>
-                  <li class="col-2  col-md-1 d-inline-block m-2">
-                      <button type="button" class="btn btn-light rounded-pill w-100 text-black-50 p-0"  id="choose-city-phone">基隆</button>
-                  </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">基隆</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">澎湖</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">小琉球</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">蘭嶼</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">綠島</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">宜蘭</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">花蓮</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">台東</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">屏東</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">墾丁</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">高雄</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">台南</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">嘉義</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">雲林</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">南投</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">彰化</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">台中</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">苗栗</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">新竹</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">桃園</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">台北</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">新北</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">金門</button>
+                </li>
+                <li class="col-2  col-md-1 d-inline-block m-2 ">
+                  <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">馬祖</button>
+                </li>
               </ul>
               <p >日期</p>
               <div class="calendar">
