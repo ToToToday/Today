@@ -24,6 +24,7 @@ namespace Today.Web.Services.CityService
                              where cp.CityId == 24
                              select cp).Select(c => new CityVM { Id = c.CityId, CityName = c.CityName, CityImage = c.CityImage, CityIntrod = c.CityIntrod }).ToList();
             return citypages;
+
         }
     }
 }
