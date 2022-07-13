@@ -11,6 +11,7 @@ using Today.Web.Data;
 using Today.Web.Models;
 using Today.Web.Services.ProductService;
 using Today.Web.ViewModels;
+using static Today.Web.ViewModels.ProductVM;
 
 namespace Today.Web.Controllers
 {
@@ -28,22 +29,21 @@ namespace Today.Web.Controllers
 
         public IActionResult Index()
         {
-            var source = _productService.GetProduct().Take(10);
-            var result = source.Select(x => x.productList.Select(p => new ProductVM.ProductCardInfo
+            var source = _productService.GetProduct();
+            var homeshow = new ProductVM()
             {
-                Id = p.Id,
-                ProductPhoto = p.ProductPhoto,
-                ProductName = p.ProductName,
-                CityName = p.CityName,
-                Tags = p.Tags,
-                OriginalPrice = p.OriginalPrice,
-                Price = p.Price
-            }).ToList());
-
-            var homeshow = new ProductVM
-            {
-                Featured = (List<ProductVM.ProductCardInfo>)result
+                Featured = source.productList.Select(s => new ProductVM.ProductCardInfo
+                {
+                    Id = s.Id,
+                    ProductPhoto = s.ProductPhoto,
+                    ProductName = s.ProductName,
+                    CityName = s.CityName,
+                    Tags = s.Tags,
+                    OriginalPrice = s.OriginalPrice,
+                    Price = s.Price
+                }).ToList()
             };
+            
             return View(homeshow);
         }
 

@@ -8,6 +8,7 @@ namespace Today.Web.Services.ProductService
     public interface IProductService
     {
         //List<FilterVM> Filter();
-        List<ProductDTO> GetProduct();
+        ProductDTO GetProduct();
+        //List<ProductDTO> GetProduct();
     }
 }

@@ -4,14 +4,14 @@ namespace Today.Web.DTO
 {
     public class ProductDTO
     {
-        public class ProductRequestDTO
-        {
-            public int ProductId { get; set; }
-        }
-        public class ProductResponseDTO
-        {
-            public ProductInfo ProductInfo { get; set; }
-        }
+        //public class ProductRequestDTO
+        //{
+        //    public int ProductId { get; set; }
+        //}
+        //public class ProductResponseDTO
+        //{
+        //    public ProductInfo ProductInfo { get; set; }
+        //}
         public List<ProductInfo> productList { get; set; }
 
         public class ProductInfo
