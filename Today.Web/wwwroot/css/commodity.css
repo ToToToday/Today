@@ -30,9 +30,8 @@ h6.product-initial-title {
 }
 
 .select-total-div p, .select-total-div span {
-    margin: 250px 0 0 0;
+    margin: 150px 0 0 0;
 }
-
 .shopping-cart-div {
     margin: 10px 0 0 0;
 }
@@ -206,18 +205,22 @@ h1 {
     border: #ccc;
     background-color: var(--font-color-span);
 }
-
+HTML img{
+    width:100%;
+}
 .nav-limit .navbar-nav a:hover,
 .category-limit a:hover {
     color: var(--font-color-span) !important;
 }
-
 #offcanvasBottom1, .productDetail,
 .Details {
     max-width: 1200px;
     margin: auto;
     padding: 0px 20px 0 20px;
     line-height: 1.5;
+}
+.productDetail{
+    padding:40PX 0 0 0 ;
 }
 
 #offcanvasBottom1,

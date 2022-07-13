@@ -1,25 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace Today.Web.ViewModels
-{
-    public class ProductPagesVM
-    {
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public string CityName { get; set; }
-        public string Producttag { get; set; }
-        public List<Photo> PhtotList { get; set; }
-        public List<Progarm> progarmList { get; set; }
-        public string ProductText { get; set; }//商品說明
-        public string ProductlocationName { get; set; }//地點名
-        public string ProductLocationAddress { get; set; }//地址
-        public string CancellationPolicy { get; set; }//取消政策
-        public string HowUse { get; set; }//如何使用
-        public string ShoppingNotice { get; set; }//購物須知
 
+namespace Today.Web.DTOModel
+{
+    public class ProductInfoDTO
+    {
+        public class ProductInfoRequstDTO
+        {
+            public int ProductId { get; set; }
+        }
+        public class ProductInfoResponseDTO
+        {
+            public Product ProductInfo { get; set; }
+        }
+        public class Product
+        {
+            public int ProductId { get; set; }
+            public string ProductName { get; set; }
+            public string CityName { get; set; }
+            public string ProductTag { get; set; }
+            public List<Photo> PhtotList { get; set; }
+            public List<Progarm> progarmList { get; set; }
+            public string ProductText { get; set; }//商品說明
+            public string ProductLocationName { get; set; }//地點名
+            public string ProductLocationAddress { get; set; }//地址
+            public string CancellationPolicy { get; set; }//取消政策
+            public string HowUse { get; set; }//如何使用
+            public string ShoppingNotice { get; set; }//購物須知
+
+        }
         public class Progarm
         {
-            public string porgramname { get; set; }
+            public string PorgramName { get; set; }
             public string PrgarmText { get; set; }//產品說明
             public List<AboutProgram> AboutProgramList { get; set; }
             public List<ProgramInciude> programInciudeList { get; set; }

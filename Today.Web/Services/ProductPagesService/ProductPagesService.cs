@@ -1,83 +1,111 @@
-﻿//using System.Collections.Generic;
-//using Today.Model.Models;
-//using Today.Web.ViewModels;
-//using System.Linq;
-//using Today.Model.Repositories;
-//using System;
-//using System.Linq.Expressions;
-//using System.Text;
-//using System.Threading.Tasks;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.ViewModels;
+using Today.Web.DTOModel;
+using static Today.Web.DTOModel.ProductInfoDTO;
+using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace Today.Web.Services.ProductPagesService
 {
+
     public class ProductPagesService : IProductPagesService
     {
+        private static string _connectionStr = "Data Source=(localdb)\\mssqllocaldb;Database=TodayDB;";
         private readonly IGenericRepository _repo;
         public ProductPagesService(IGenericRepository repo)
         {
             _repo = repo;
         }
-
-        public List<ProductPagesVM> GetProductPages()
+        public ProductInfoResponseDTO GetProduct(ProductInfoRequstDTO requst)
         {
-            var ID = 5;
-            //var ProductID = _repo.GetAll<Product>().Where(p => p.ProductId <= ID).Select(p=>p.ProductId);
-            //var product = (from p in _repo.GetAll<Product>()
-            //               where p.ProductId == ID
-            //               join pc in _repo.GetAll<ProductPhoto>() on p.ProductId equals pc.ProductId
-            //               select p).Select(p => new ProductPagesVM { ProductId = p.ProductId, ProductName = p.ProductName, PotoUrl = p. }).ToList();
-            //var product = (from p in _repo.GetAll<ProductPhoto>()
-            //               where p.ProductId <= 4 && p.Sort == 1
-            //               select p).Select(p => new ProductPagesVM { PotoUrl = p.Path }).ToList();
+            if (requst.ProductId <= 0) return null;
+            // 呼叫 Repository 存取資料
+            var source = _repo.GetAll<Model.Models.Product>().FirstOrDefault(p => p.ProductId == requst.ProductId);
 
-            //var product = new ProductPagesVM
-            //{
-            //    ProductId = ProductID
-            //};
-            var pw = from p in _repo.GetAll<Product>()
-                     where p.ProductId == ID
-                     join pc in _repo.GetAll<ProductPhoto>() on p.ProductId equals pc.ProductId
-                     select new ProductPagesVM { productId = p.ProductId };
+            // 找不到這個商品id要怎麼處理 -> 這邊我也回傳null
+            if (source == null) return null;
 
-            var product = from p in _repo.GetAll<Product>()
-                          where p.ProductId == ID
-                          join ct in _repo.GetAll<City>() on p.CityId equals ct.CityId
-                          join pg in _repo.GetAll<Today.Model.Models.Program>() on p.ProductId  equals pg.ProductId
-                          join apgo in _repo.GetAll<AboutProgramOption>() on p.ProductId equals apgo.ProductId
-                          join apg in _repo.GetAll<AboutProgram>() on pg.ProgramId equals apg.ProgramId
-                          join pgld in _repo.GetAll<ProgramInclude>() on pg.ProgramId equals pgld.ProgramId
-                          join pgsf in _repo.GetAll<ProgramSpecification>() on pg.ProgramId equals pgsf.ProgramId
-                          //join od in _repo.GetAll<OrderDetail>() on pgsf.SpecificationId equals od.SpecificationId
-                          //join o in _repo.GetAll<Order>() on od.OrderId equals o.OrderId
-                          join pc in _repo.GetAll<ProductPhoto>() on p.ProductId equals pc.ProductId
-                          //join lc in _repo.GetAll<Location>() on p.ProductId equals lc.ProductId
-                          //join mess in _repo.GetAll<Message>() on o.OrderId equals mess.OrderId
-                          //join cud in _repo.GetAll<ProgramCantUseDate>() on pg.ProgramId equals cud.ProgramId
-                          //join ptg in _repo.GetAll<ProductTag>() on p.ProductId equals ptg.ProductId
-                          //join pt in _repo.GetAll<Tag>() on p.ProductTags equals pt.ProductTags
-                          //join meb in _repo.GetAll<Member>() on o.MemberId equals meb.MemberId
-                          select new ProductPagesVM { 
-                              productId = p.ProductId, 
-                              productname = p.ProductName ,
-                              //producttag = pt.TagText,
-                              cityname = ct.CityName,
-                              potourl = pc.Path,
-                              porgramname = pg.Title,
-                              porgarmunitprice = pgsf.UnitPrice,
-                              producttext = pg.Context,
-                              aboutprogram = apgo.Context,
-                              programinciudefalse = pgld.Text,
-                          };
+            var result = new ProductInfoResponseDTO { ProductInfo = new ProductInfoDTO.Product { } };
 
-            return product.ToList();
+            using (SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                //抓到唯一Product
+                string SqlProduct = @$"select  *
+                                    from Product p 
+                                    INNER JOIN City  C on p.CityId = c.CityId
+                                    where p.ProductId = {requst.ProductId} ";
+                //抓City
+                string SqlCity = @$"select  c.CityName
+                                    from Product p 
+                                    INNER JOIN City  C on p.CityId = c.CityId
+                                    where p.ProductId = {requst.ProductId} ";
+                //抓City
+                string SqlTag = @$"select  t.TagText
+                                    from Product p 
+                                    INNER JOIN ProductTag  pt on pt.ProductTagId = p.ProductTagId
+                                    INNER JOIN Tag  t on pt.TagId = t.TagId
+                                    where p.ProductId = {requst.ProductId} ";
+                //抓地址
+                string SqlLocation = @$"select L.Title,L.Address
+                                    from Product p 
+                                    INNER JOIN Location L on L.ProductId = p.ProductId
+                                    where p.ProductId = {requst.ProductId} ";
+                //抓圖片
+                string SqlPhoto = @$"select pdp.Path
+                                    from Product p
+                                    INNER JOIN ProductPhoto pdp on pdp.ProductId = p.ProductId
+                                    where p.ProductId = {requst.ProductId} ";
+                //抓Progarm:標題、說明
+                string SqlProgarm = @$"select  pg.ProgramId, pg.Title ,pg.Context
+                                    from Product p 
+                                    INNER JOIN Program  pg on p.ProductId = pg.ProductId
+                                    where p.ProductId = {requst.ProductId} ";
+                var productList = conn.Query<Model.Models.Product>(SqlProduct);
+                var ProgarmList = conn.Query<Model.Models.Program>(SqlProgarm);
+                var CityList = conn.Query<Model.Models.City>(SqlCity);
+                //var TagList = conn.Query<Model.Models.Tag>(SqlTag);
+                var LocationList = conn.Query<Model.Models.Location>(SqlLocation);
+                var PhotoList = conn.Query<Model.Models.ProductPhoto>(SqlPhoto);
+
+                if (productList != null)
+                {
+                    var product = productList.First();
+                    var Location = LocationList.First();
+                    result = new ProductInfoResponseDTO
+                    {
+                        ProductInfo = new ProductInfoDTO.Product
+                        {
+                            ShoppingNotice = product.ShoppingNotice,
+                            ProductId = product.ProductId,
+                            ProductName = product.ProductName,
+                            ProductText = product.Illustrate,
+                            HowUse = product.HowUse,
+                            CancellationPolicy = product.CancellationPolicy,
+                            CityName = CityList.First().CityName,
+                            //ProductTag = TagList.First().TagText,
+                            ProductLocationName = Location.Title,
+                            ProductLocationAddress = Location.Address,
+                            progarmList = ProgarmList.Select(p =>
+                            new ProductInfoDTO.Progarm
+                            {
+                                PorgramName = p.Title,
+                                PrgarmText = p.Context
+                            }).ToList(),
+                            PhtotList = PhotoList.Select(p =>
+                            new ProductInfoDTO.Photo
+                            {
+                                PhotoUrl = p.Path
+                            }).ToList(),
+                        }
+                    };
+                }
+                return result;
+            }
         }
     }
 }

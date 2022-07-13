@@ -15,27 +15,52 @@ namespace Today.Web.Controllers
     public class ProductController : Controller
     {
 
-        //private readonly ICityService _cityServices;
+        private readonly ICityService _cityServices;
         private readonly IProductPagesService _productPagesService;
 
         //public ProductController(ICityService cityServices)
         //{
         //    _cityServices = cityServices;
         //}
-        public ProductController( IProductPagesService productPagesService)
+        public ProductController(IProductPagesService productPagesService, ICityService cityServices)
         {
             _productPagesService = productPagesService;
+            _cityServices = cityServices;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult ProductPages() //商品頁面
+        public IActionResult ProductPages(int id = 4) //商品頁面
         {
-            var productPagesService = _productPagesService.GetProductPages();
-            //return Json(productPagesService);
-            return View(productPagesService);
+            var productPagesServiceDTO = _productPagesService.GetProduct(new DTOModel.ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+            var productinfo = new ProductPagesVM
+            {
+                ShoppingNotice = productPagesServiceDTO.ProductInfo.ShoppingNotice,
+                ProductId = productPagesServiceDTO.ProductInfo.ProductId,
+                CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy ,
+                HowUse = productPagesServiceDTO.ProductInfo.HowUse,
+                ProductName = productPagesServiceDTO.ProductInfo.ProductName,
+                CityName = productPagesServiceDTO.ProductInfo.CityName,
+                Producttag  = productPagesServiceDTO.ProductInfo.ProductTag,
+                ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
+                ProductText = productPagesServiceDTO.ProductInfo.ProductText,
+                ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                PhtotList  = productPagesServiceDTO.ProductInfo.PhtotList.Select(p=>
+                new ProductPagesVM.Photo
+                {
+                    PhotoUrl = p.PhotoUrl
+                }).ToList(),
+                progarmList = productPagesServiceDTO.ProductInfo.progarmList.Select(p =>
+                new ProductPagesVM.Progarm
+                {
+                    porgramname = p.PorgramName,
+                    PrgarmText = p.PrgarmText,
+                }).ToList()
+            };
+            //return Json(productinfo);
+            return View(productinfo);
         }
         public IActionResult Classify() //楊 分類
         {
@@ -51,12 +76,12 @@ namespace Today.Web.Controllers
 
             return View();
         }
-        //public IActionResult CityTour() //各城市導覽頁
-        //{
+        public IActionResult CityTour() //各城市導覽頁
+        {
 
-        //    var CityPages = _cityServices.GetCityPages();
-        //    return View(CityPages);
-        //}
+            var CityPages = _cityServices.GetCityPages();
+            return View(CityPages);
+        }
         public IActionResult CityRaiders() //城市攻略
         {
             return View();
