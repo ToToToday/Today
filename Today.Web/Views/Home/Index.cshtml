@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Today.Web.ViewModels.ProductVM
+@{
     //ViewData["Title"] = "Home Page";
     //Layout = "_Layout_Login";
     ViewData["SearchBox"] = "None";
@@ -53,15 +54,6 @@
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
                     <a href="#" class="text-decoration-none">
-                        <i class="fa-solid fa-bowl-food"></i>
-                        <br>
-                        <p class="mt-2">美食 & 生鮮</p>
-                    </a>
-                </div>
-            </li>
-            <li class="col-3 p-3 col-xl-2">
-                <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
                         <i class="fa-solid fa-volleyball"></i>
                         <br>
                         <p class="mt-2">戶外活動</p>
@@ -110,15 +102,6 @@
                         <i class="fa-solid fa-images"></i>
                         <br>
                         <p class="mt-2">活動 & 展覽</p>
-                    </a>
-                </div>
-            </li>
-            <li class="col-3 p-3 col-xl-2">
-                <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
-                        <i class="fa-solid fa-sim-card"></i>
-                        <br>
-                        <p class="mt-2">WiFi & SIM</p>
                     </a>
                 </div>
             </li>
@@ -430,6 +413,87 @@
         </div>
     </div>
 </section>
+
+<!-- test -->
+@*@foreach(var item in Model)
+{
+    <section class="foryou-limit w-100 py-5 position-relative">
+        <div class="foryou fixed-width m-auto px-sm-2 px-md-3 d-flex flex-wrap">
+            <h3 class="foryou-title w-100 mb-4 mx-2">@item.Name</h3>
+            <div class="forward rounded-circle bg-secondary bg-opacity-50 text-center my-auto d-none position-absolute">
+                <i class="fa-solid fa-angle-left text-black fs-3 lh-1"></i>
+            </div>
+            <div class="group-card d-flex flex-nowrap row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+                @if(item.Name == "最近瀏覽")
+                {
+                    foreach(var m in item.Method)
+                    {
+                        <div class="row-card mb-3 me-2 col-12 col-md-6 col-xl-4 p-0 mx-md-0 p-2">
+                            <div class="row g-0 h-100 overflow-hidden align-items-center">
+                                <div class="col-4 overflow-hidden h-100">
+                                    <img src="@m.ProductPhoto" class="rounded-start align-top w-100 h-100" alt="@m.ProductName">
+                                </div>
+                                <div class="col-8 h-100">
+                                    <div class="card-body h-100 d-flex flex-wrap justify-content-end align-content-between">
+                                        <div class="title-group d-flex justify-content-between">
+                                            <h5 class="card-title align-items-center w-75">
+                                                <i class="fa-solid fa-bolt-lightning"></i>
+                                                @m.ProductName
+                                            </h5>
+                                            <i class="fa-regular fa-heart"></i>
+                                        </div>
+                                        <p class="card-text text-end fs-6"><span>TWD</span>@m.Price</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    foreach(var m in item.Method)
+                    {
+                        <div class="foryou-card fixed-card mx-2 position-relative col">
+                            <a href="#" class="text-decoration-none text-black w-100">
+                                <div class="bundle position-relative overflow-hidden w-100 h-50">
+                                    <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@m.CityName</span>
+                                    <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>
+                                    <img src="@m.ProductPhoto" class="card-img-top rounded w-100 h-100" alt="@m.ProductName">
+                                </div>
+                                <div class="card-body px-0">
+                                    <h4 class="card-text overflow-hidden">@m.ProductName</h4>
+                                    <div class="card-tag mb-2 d-flex">
+                                        @foreach(var t in m.Tags)
+                                        {
+                                            <span title="@t" class="tag px-2 py-1 me-2 rounded">@t</span>
+                                        }
+                                    </div>
+                                    <div class="card-product-review mb-2 d-flex">
+                                        <span class="px-1 border-end border-secondary">
+                                            <i class="fa-solid fa-star"></i>4.8 (2217)
+                                        </span>
+                                        <span class="px-1">
+                                            484K+個已訂購
+                                        </span>
+                                    </div>
+                                    <div class="card-product-price d-flex">
+                                        <span class="text-decoration-line-through p-1 text-black">TWD @m.OriginalPrice</span>
+                                        <span class="p-1 text-black">TWD<span class="fw-bolder">@m.Price</span></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                <partial name="_NewCardPartial"/>
+                <partial name="_CardPartial"/>
+            </div>
+            <div class="afterward rounded-circle bg-secondary bg-opacity-50 text-center my-auto position-absolute">
+                <i class="fa fas fa-angle-right text-black fs-3 lh-1"></i>
+            </div>
+        </div>
+    </section>
+}*@
 
 <!-- Top 10 熱門產品 -->
 <section class="hot-product-limit w-100 py-5 position-relative">

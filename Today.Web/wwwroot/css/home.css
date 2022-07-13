@@ -17,6 +17,14 @@
 .bundle{
     border-radius: 6px;
 }
+.location-tag {
+    top: 10%;
+    left: 5%;
+}
+.heart {
+    top: 10%;
+    right: 5%;
+}
 .fixed-card img{
     transition: transform 1s ease;
 }
@@ -124,14 +132,6 @@
     background-color: #EEF7FE;
     color: #51BAF8;
     font-size: .5rem;
-}
-.location-tag{
-    top: 10px;
-    left: 10px;
-}
-.heart{
-    top: 10px;
-    right: 10px;
 }
 .hot-product-limit .orderby{
     text-shadow: 0 1px 2px #e18d0e;
