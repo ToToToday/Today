@@ -439,7 +439,10 @@
                                     </div>
                                 </div>
                                 <div class="shopping-cart-div col-12 d-flex">
-                                    <button class="shopping-cart-btn ms-auto">加入購物車</button>
+                                    @using(Html.BeginForm("AddToCart","Member")){
+                            
+                                        <button class="shopping-cart-btn ms-auto" >加入購物車</button>
+                                    }
                                     <button>立即訂購</button>
                                 </div>
                             </div>
