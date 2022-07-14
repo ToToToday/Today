@@ -44,24 +44,42 @@ namespace Today.Web.Controllers
            
             return View();
         }
-        public IActionResult CityTour(int id) //各城市導覽頁
+        public IActionResult CityTour(int id) //各城市導覽頁b 
+
         {
             var cityRequest = new CityRequestDTO
             {
                 CityId = id
-            };
+            }; 
             var CityDetail = _cityServices.GetCity(cityRequest);
+            var CityAllCard = _cityServices.GetAllCity();
+            var CityAllRaider = _cityServices.GetRaiderCard();
+            
             var cityTourPage = new CityVM
             {
-                CityPage = new CityVM.CityInfo
+                CurrentCityInfo = new CityVM.CityInfo
                 {
                     Id = CityDetail.CityInfo.Id,
                     CityName = CityDetail.CityInfo.CityName,
                     CityImage = CityDetail.CityInfo.CityImage,
                     CityIntrod = CityDetail.CityInfo.CityIntrod
-                }
+                },
+                
+                cityCardList = CityAllCard.AllCityList.Where(x => x.Id > id).Take(10).Select(cc => new CityVM.CityCardList
+                {
+                    Id=cc.Id,
+                    CityImage = cc.CityImage,
+                    CityName = cc.CityName,
+                }).ToList(),
+                RaiderList = CityAllRaider.RaiderCarList.Where(x => x.CityId == id).Select(rl => new CityVM.CityRaiderList
+                {
+                    CityId = rl.CityId,
+                    Title =rl.Title,
+                    SubTitle = rl.SubTitle
+                }).ToList()
+
             };
-            
+
             return View(cityTourPage);
         }
 

@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.DTOModels;
-using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO;
 using static Today.Web.DTOModels.RaiderDTO;
 using City = Today.Model.Models.City;
@@ -13,9 +11,9 @@ using City = Today.Model.Models.City;
 namespace Today.Web.Services.CityService
 {
 
-    public class CityService:ICityService
+    public class CityService : ICityService
     {
-      
+
         private readonly IGenericRepository _repo;
         public CityService(IGenericRepository repo)
         {
@@ -27,7 +25,7 @@ namespace Today.Web.Services.CityService
             var cinfo = _repo.GetAll<City>();
             var result = new CityResponseDTO { CityInfo = new CityDTO.City() };
 
-           var getCity = cinfo.Where(x => x.CityId == request.CityId).Select(c => new CityDTO.City
+            var getCity = cinfo.Where(x => x.CityId == request.CityId).Select(c => new CityDTO.City
             {
                 Id = c.CityId,
                 CityName = c.CityName,
@@ -41,10 +39,53 @@ namespace Today.Web.Services.CityService
 
             }
 
-            
+
             return result;
-                         
+
         }
+
+
+        public CityDTO GetAllCity()
+        {
+            var cinfos = _repo.GetAll<City>();
+
+            var result = new CityDTO()
+            {
+                AllCityList = cinfos.Select(item =>
+                new CityDTO.City {
+                    Id = item.CityId,
+                    CityImage = item.CityImage,
+                    CityName = item.CityName,
+                }).ToList()
+            };
+
+
+
+            return result;
+        }
+        public CityDTO GetRaiderCard()
+        {
+            var rintfo = _repo.GetAll<CityRaider>();
+            var result = new CityDTO()
+            {
+                RaiderCarList = rintfo.Select(r => new CityDTO.RaiderCard
+                {
+                    CityId = r.CityId,
+                    Title = r.Title,
+                    SubTitle = r.Subtitle
+                }).ToList()
+            };
+            return result;
+        }
+        //public CityDTO GetAllComment()
+        //{
+        //    var commentinfo = _repo.GetAll<Comment>();
+        //    var result = new CityDTO()
+        //    {
+        //        CommentCardList = commentinfo
+        //    }
+        //}
+
         public RaiderResponseDTO GetRaiders(RaiderRequestDTO request)
         {
             var raiderdata = _repo.GetAll<CityRaider>();
@@ -62,11 +103,6 @@ namespace Today.Web.Services.CityService
             {
                 RaiderPages.RaiderInfo = getRaider.First();
             }
-
-
-            //var RaiderPages = (from rp in _repo.GetAll<CityRaider>()
-            //                   where rp.RaidersId == id
-            //                   select rp).Select(r => new RaiderVM { Id = r.RaidersId, CityId = r.CityId, Title = r.Title, Subtitle = r.Subtitle, Text = r.Text, Video = r.Video }).ToList();
             return RaiderPages;
         }
 
