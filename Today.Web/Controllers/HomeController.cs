@@ -32,7 +32,7 @@ namespace Today.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Privacy()
+        public IActionResult Privacy()
         {
             //TodayDBContext context = new TodayDBContext();
             //var result = await context.Categories.ToListAsync();
