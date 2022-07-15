@@ -125,11 +125,16 @@
         bottom: 0;
         right: 0;
     }
+    .star-list, .google-map-card-button {
+        display: none;
+    }
 }
 @media screen and (min-width:768px)
 {
-    .google-local-mark-common
-    {
+    .star-list, .google-map-card-button {
+        display: none;
+    }
+    .google-local-mark-common {
         width: 2rem;
     }
     .map-common-p
@@ -168,6 +173,14 @@
 
 @media screen and (min-width:992px)
 {
+    .star
+    {
+        display:none;
+    }
+    .star-list, .google-map-card-button {
+        display: block;
+    }
+    
     .map-h5
     {
         font-size:0.8rem;

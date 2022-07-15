@@ -1,6 +1,6 @@
 ﻿@using Today.Web.Controllers
 
-@model IEnumerable<LocationVM>
+@model LocationVM
 
 @section topCSS
 {
@@ -743,48 +743,13 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="~/js/homescript.js"></script>
 
-    <script src="~/js/google-map.js"></script>
-    <script>
-let mapmodal = document.querySelector('#map-modal')
-//let modal = bootstrap.Modal.getOrCreateInstance(modalEl)
-//初始化地圖
-let map = L.map('google-big-map',
-    {
-        center: [23.7625225, 121.0302279],
-        zoom: 8,
-        wheelPxPerZoomLevel: 80,
-        tapTolerance: 10
-    })
-// 設定圖資來源
-    var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    var osm = new L.TileLayer(osmUrl, { minZoom: 4, maxZoom: 18 })
-    map.addLayer(osm)
-    
-    mapmodal.addEventListener('shown.bs.modal', function () {
-        map.invalidateSize()
-    })
-    
-    let json_text = @Html.Raw(@ViewData["locationJson"]);
-    console.log(json_text.length)
-    
-    for (let i = 0; i < json_text.length; i++) 
-    {
-        L.marker([json_text[i].latitude, json_text[i].longitude])
-            .addTo(map)
-            .bindPopup("<a class='card flex-row rounded google-map-product-item w-100'>\
-                        <img src='https://picsum.photos/300/200/?random=10' class='rounded-start w-50'>\
-                        <div class='card-body  position-relative p-0 m-2'>\
-                          <h5 class='card-title mb-2 map-h5 '>【2022澎湖花火節】台灣澎湖租機車 | 騎車輕鬆環島遊澎湖</h5>\
-                          <p class='star text-info  m-0'><i class='fa-solid fa-star'></i> <span class='star-amount'>4.75</span></p>\
-                          <p class='card-text bind-map-price '>TWD <span class='text-info'>358</span></p>\
-                        </div></a>"
-                        )
-    }
-    L.marker.on("hover",bounceOnAdd: true,
-            bounceOnAddOptions: { duration: 1500, height: 200, loop: 10 })
-        
+  <script>
+        let json_location= @Html.Raw(@ViewData["locationJson"]);
+        let json_Name = @Html.Raw(@ViewData["PNameJson"]);
+        let json_photo = @Html.Raw(@ViewData["PhotoJson"]);
+   </script>
+   <script src="~/js/google-map.js"></script>
 
-    </script>
 
    <script type="text/javascript">
            $(function () {
