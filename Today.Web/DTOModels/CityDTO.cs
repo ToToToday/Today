@@ -41,12 +41,13 @@ namespace Today.Web.DTOModels
 
         public class CommentCard
         {
-            public int CityId { get; set; }
-            public string Name { get; set; }
+            public int CityId { get; set; }         
+            public string Name { get; set; }       
             public int RatingStar{ get; set; }
             public DateTime CommentDate { get; set; }
+            public DateTime UseDate { get; set; }  
             public string PartnerType { get; set; }
-            public string ProductTitle { get; set; }
+            public string ProductName { get; set; }  
             public string Title { get; set; }
             public string Text { get; set; }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Today.Model.Models;
 
 namespace Today.Web.ViewModels
@@ -36,6 +37,15 @@ namespace Today.Web.ViewModels
 
         public class CityCommentList
         {
+            public int CityId { get; set; }
+            public string Name { get; set; }
+            public int RatingStar { get; set; }
+            public DateTime CommentDate { get; set; }
+            public DateTime UseDate { get; set; }
+            public string PartnerType { get; set; }
+            public string ProductName { get; set; }
+            public string Title { get; set; }
+            public string Text { get; set; }
         }
 
         public class CityCardList

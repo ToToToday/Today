@@ -54,7 +54,8 @@ namespace Today.Web.Controllers
             var CityDetail = _cityServices.GetCity(cityRequest);
             var CityAllCard = _cityServices.GetAllCity();
             var CityAllRaider = _cityServices.GetRaiderCard();
-            
+            var cityAllComment = _cityServices.GetAllComment();
+
             var cityTourPage = new CityVM
             {
                 CurrentCityInfo = new CityVM.CityInfo
@@ -64,19 +65,33 @@ namespace Today.Web.Controllers
                     CityImage = CityDetail.CityInfo.CityImage,
                     CityIntrod = CityDetail.CityInfo.CityIntrod
                 },
-                
-                cityCardList = CityAllCard.AllCityList.Where(x => x.Id > id).Take(10).Select(cc => new CityVM.CityCardList
+
+                cityCardList = CityAllCard.Where(x => x.Id > id).Take(10).Select(cc => new CityVM.CityCardList
                 {
-                    Id=cc.Id,
+                    Id = cc.Id,
                     CityImage = cc.CityImage,
                     CityName = cc.CityName,
                 }).ToList(),
-                RaiderList = CityAllRaider.RaiderCarList.Where(x => x.CityId == id).Select(rl => new CityVM.CityRaiderList
+                RaiderList = CityAllRaider.Where(x => x.CityId == id).Select(rl => new CityVM.CityRaiderList
                 {
                     CityId = rl.CityId,
-                    Title =rl.Title,
+                    Title = rl.Title,
                     SubTitle = rl.SubTitle
+                }).ToList(),
+                commentList = cityAllComment.Where(x => x.CityId == id).Select(cl => new CityVM.CityCommentList
+                {
+                    CityId = cl.CityId,
+                    Name = cl.Name,
+                    RatingStar = cl.RatingStar,
+                    CommentDate = cl.CommentDate,
+                    UseDate = cl.UseDate,
+                    PartnerType = cl.PartnerType,
+                    ProductName = cl.ProductName,
+                    Text = cl.Text,
+                    Title = cl.Title
                 }).ToList()
+                
+
 
             };
 

@@ -9,10 +9,14 @@ namespace Today.Web.Services.CityService
 {
     public interface ICityService
     {
-        //List<CityDTO> GetCity(int id);
+        
         CityResponseDTO GetCity(CityRequestDTO request);
-        CityDTO GetAllCity();
-        CityDTO GetRaiderCard();
+        List<CityDTO.City> GetAllCity();
+        List<RaiderCard> GetRaiderCard();
+        List<CommentCard> GetAllComment();
         RaiderResponseDTO GetRaiders(RaiderRequestDTO request);
+       
+
+       
     }
 }
