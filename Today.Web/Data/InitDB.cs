@@ -733,6 +733,8 @@ namespace Today.Web.Data
             _context.ProgramCantUseDates.AddRange(programCantUseDateList);
             #endregion
             _context.SaveChanges();
+            
+
         }
     }
 }

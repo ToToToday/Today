@@ -1,81 +1,120 @@
+.fa-star {
+    color: #0dcaf0;
+    font-size: 25px;
+}
+
+.btn-outline-info:hover {
+    background-color: #0dcaf0;
+    color: white;
+}
+
+#comment-title {
+    height: 40px;
+    width: 100%;
+}
+.modal-footer p{
+    color:gray;
+    font-weight:bold;
+}
+.modal-body p, .fa-star, .btn-outline-info, #comment-title {
+    margin-bottom: 20px;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
 }
-.aside{
+
+.aside {
     display: none;
 }
-.text .card{
+
+.text .card {
     padding: 20px;
 }
-.page-head{
+
+.page-head {
     margin-bottom: 20px;
     border-bottom: 1px solid #eaeaea;
 }
-.page-head h2{
-    font-weight: bolder;
-    margin-bottom: 20px;
 
-}
-.page-head .nav-item{
-    padding: 15px;
-}
-.page-head .nav-item:hover{
-    border-bottom: 3px solid #138184;
-}
-.page-head .nav-item a{
-    text-decoration: none;
-    color: #000;
-    font-weight: bolder;
-}
-.page-head .nav-item a:hover{
-    color: #138184;
-}
-.page-head .input-group{
-    height: 40px;
-}
-.order-text h4{
+    .page-head h2 {
+        font-weight: bolder;
+        margin-bottom: 20px;
+    }
+
+    .page-head .nav-item {
+        padding: 15px;
+    }
+
+        .page-head .nav-item:hover {
+            border-bottom: 3px solid #138184;
+        }
+
+        .page-head .nav-item a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bolder;
+        }
+
+            .page-head .nav-item a:hover {
+                color: #138184;
+            }
+
+    .page-head .input-group {
+        height: 40px;
+    }
+
+.order-text h4 {
     margin: 15px 0 0;
     color: #aaa;
 }
-.order{
+
+.order {
     text-align: center;
 }
-.page-text{
+
+.page-text {
     padding: 20px;
 }
-.container{
+
+.container {
     padding-top: 78px;
 }
-.container .bigrow{
-    padding-bottom: 20px;
-}
+
+    .container .bigrow {
+        padding-bottom: 20px;
+    }
 
 
 /* 無訂單 */
-.page-text{
+.page-text {
     display: none;
 }
 /* 有訂單 */
 /* .page-text-dynamic{
     display: none;
 } */
-.card_detail .card-title{
+.card_detail .card-title {
     font-size: 1.125rem;
     font-weight: bolder;
     width: 100%;
 }
-.card_detail .card-text{
+
+.card_detail .card-text {
     font-size: 15px;
 }
-.card_detail .card-text i{
-    color: #666;
-}
-.card_detail .TWD{
+
+    .card_detail .card-text i {
+        color: #666;
+    }
+
+.card_detail .TWD {
     justify-content: flex-end;
     text-align: end;
 }
-.order-main-goday{
+
+.order-main-goday {
     position: absolute;
     /* opacity: .4; */
     color: #666;
@@ -84,24 +123,30 @@
     top: 25px;
     z-index: 2;
 }
-.order-main-goday .day{
-    display: inline-block;
-    background-color: #eee;
-    text-align: center;
-}
-.togo{
+
+    .order-main-goday .day {
+        display: inline-block;
+        background-color: #eee;
+        text-align: center;
+    }
+
+.togo {
     padding-bottom: 8px;
 }
-.togo span{
-    padding: 5px;
-    border-radius: 0.25rem;
-    color: #fff;
-}
-.card_detail .col-md-4{
+
+    .togo span {
+        padding: 5px;
+        border-radius: 0.25rem;
+        color: #fff;
+    }
+
+.card_detail .col-md-4 {
     margin-bottom: 15px;
 }
-.comment{
+
+.comment {
     margin-bottom: 10px;
+    text-align: start;
 }
 
 
@@ -110,113 +155,139 @@
     /*.container .bigrow{
         padding-bottom: 90px;
     }*/
-    .container .bigrow{
+    .container .bigrow {
         padding-bottom: 290px;
     }
-    .card_detail .col-md-4{
+
+    .card_detail .col-md-4 {
         margin-bottom: 0px;
     }
-    .order-main-goday{
+
+    .order-main-goday {
         top: 20px;
     }
-    .card_detail .card-title{
+
+    .card_detail .card-title {
         width: 85%;
     }
+
     .comment {
         margin-bottom: 0px;
     }
 }
 
 @media screen and (min-width:992px) {
-    .aside{
+    .aside {
         display: block;
     }
-    .editor-logo img{
+
+    .editor-logo img {
         width: 120px;
-        height: 120px; 
+        height: 120px;
     }
-    .editor-logo{
+
+    .editor-logo {
         margin: auto;
         position: relative;
     }
-    .editor-logo i{
-        font-size: 25px;
-        padding: 3px;
-    }
-    .icon-bg{
+
+        .editor-logo i {
+            font-size: 25px;
+            padding: 3px;
+        }
+
+    .icon-bg {
         background-color: #fff;
         position: absolute;
         right: 0px;
         top: 85px;
     }
-    .aside-box .name{
+
+    .aside-box .name {
         font-weight: bolder;
     }
-    .aside-box .level{
+
+    .aside-box .level {
         font-weight: bolder;
         font-size: 0.875rem;
         color: #666666;
     }
-    .aside-box{
+
+    .aside-box {
         padding: 15px;
         margin-bottom: 15px;
     }
-    body{
+
+    body {
         background-color: #f5f5f5;
     }
-    .page-aside{
+
+    .page-aside {
         background-color: #f5f5f5;
     }
-    .aside-box-text{
+
+    .aside-box-text {
         padding-top: 10px;
         text-align: center;
     }
-    .google-icon{
+
+    .google-icon {
         padding-right: 15px;
     }
-    .account{
+
+    .account {
         align-items: center;
     }
-    .account img{
-        margin-right: 10px;
-    }
-    .page-menu{
+
+        .account img {
+            margin-right: 10px;
+        }
+
+    .page-menu {
         list-style: none;
         padding-left: 0;
     }
-    .list-item{
+
+    .list-item {
         padding: 10px 15px;
     }
-    .list-item i {
-        margin-right: 10px;
-    }
-    .list-item a{
-        text-decoration: none;
-        color: #333333;
-        font-size: 0.875rem;
-    }
+
+        .list-item i {
+            margin-right: 10px;
+        }
+
+        .list-item a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 0.875rem;
+        }
+
     .page-menu .active,
-    .page-menu .active a{
+    .page-menu .active a {
         color: #26bec9;
     }
-    .page-menu .active{
+
+    .page-menu .active {
         border-left: #26bec9 solid 4px;
     }
-    .page-menu .active .list-item-text{
-        margin-left: -4px;
-    }
-    .icofont-check-circled{
+
+        .page-menu .active .list-item-text {
+            margin-left: -4px;
+        }
+
+    .icofont-check-circled {
         font-size: 20px;
     }
-    .list-item-text .text-warning{
+
+    .list-item-text .text-warning {
         font-weight: bolder;
         margin-right: 6px;
     }
-    .container .bigrow{
+
+    .container .bigrow {
         padding-bottom: 20px;
-    }   
+    }
 }
 
 @media screen and (min-width:1200px) {
-
 }
