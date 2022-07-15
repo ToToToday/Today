@@ -87,8 +87,8 @@ namespace Today.Web.Services.CityService
                               p.CityId equals c.CityId
                               select new { c.CityId, m.MemberName, cm.RatingStar, cm.CommentDate, od.DepartureDate, cm.PartnerType, p.ProductName, cm.CommentText, cm.CommentTitle };
 
-            
-           var result = new List<CommentCard>();
+
+            var result = new List<CommentCard>();
             if(CommentData != null)
             {
                 foreach (var cm in CommentData)
