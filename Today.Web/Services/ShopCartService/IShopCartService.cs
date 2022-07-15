@@ -5,6 +5,6 @@ namespace Today.Web.Services.ShopCartService
 {
     public interface IShopCartService
     {
-        List<ShopCartVM> GetCard();
+        List<ShopCartVM> GetShopCartCard();
     }
 }

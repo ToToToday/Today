@@ -52,6 +52,9 @@ h1 {
     padding: 0 5px 0 15px;
     margin-top: 17px;
 }
+.list .item{
+    margin:15px 0;
+}
 .reconfirmation div {
     padding: 0 5px 0 12px;
     margin-top: 17px;
@@ -199,6 +202,7 @@ i{
     padding: 5px 0;
     display: flex;
     align-items: flex-end;
+    /*margin-top:17px;*/
 }
 .checkout .check-control span::before{
     content: "|";

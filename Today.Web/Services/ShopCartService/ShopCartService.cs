@@ -18,11 +18,12 @@ namespace Today.Web.Services.ShopCartService
         {
             _repo = repo;
         }
-        public List<ShopCartVM> GetCard()
+        public List<ShopCartVM> GetShopCartCard()
         {
             //var result = _repo.GetAll<City>;
+
             var card = (from p in _repo.GetAll<Product>()           
-                        where p.ProductId == 12
+                        where p.ProductId <= 2
                              select p).Select(p => new ShopCartVM {Name = p.ProductName }).ToList();
             return card;
         }
