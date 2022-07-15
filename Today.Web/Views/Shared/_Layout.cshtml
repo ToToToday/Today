@@ -66,13 +66,13 @@
                     <ul class="navbar-nav my-2 my-lg-0">
                         <!-- 手機 -->
                         <li class="nav-item d-sm-block d-lg-none m-2">
-                            <a class="nav-link text-secondary text-opacity-75" href="#">
+                            <a class="nav-link text-secondary text-opacity-75" asp-controller="Account" asp-action="Login">
                                 <i class="fa-solid fa-right-to-bracket"></i>
                                 登入
                             </a>
                         </li>
                         <li class="nav-item d-sm-block d-lg-none border-bottom m-2 pb-3">
-                            <a class="nav-link text-secondary text-opacity-75" href="#">
+                            <a class="nav-link text-secondary text-opacity-75" asp-controller="Account" asp-action="SignUp">
                                 <i class="fa-solid fa-user"></i>
                                 註冊
                             </a>
@@ -90,7 +90,7 @@
                             </a>
                         </li>
                         <li class="nav-item d-none d-lg-block">
-                            <a class="nav-link text-secondary text-opacity-75 fs-6" href="#">登入/註冊</a>
+                            <a class="nav-link text-secondary text-opacity-75 fs-6" asp-controller="Account" asp-action="SignUp">登入/註冊</a>
                         </li>
                     </ul>
                 </div>

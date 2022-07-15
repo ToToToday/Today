@@ -1,0 +1,30 @@
+﻿@model Today.Web.ViewModels.Account.LoginVM
+
+<h1 class="pt-5">登入會員</h1>
+
+@*form沒有 actions屬性， 或action="" ，就是post到當前網址*@
+
+<form method="post" class="pb-3">
+    <!-- 前端檢核 -->
+    @*<div asp-validation-summary="All" class="text-danger"></div>*@
+    <div class="form-group">
+        <label asp-for="@Model.EmailXXX"></label>
+        <input asp-for="EmailXXX" class="form-control">
+        <!--前端檢核 -->
+        <span asp-validation-for="EmailXXX" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PasswordXXX"></label>
+        <input asp-for="PasswordXXX" class="form-control">
+        <!-- 前端檢核 -->
+        <span asp-validation-for="PasswordXXX" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">登入</button>
+    </div>
+</form>
+
+ @* endJS*@
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

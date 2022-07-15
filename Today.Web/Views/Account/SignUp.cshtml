@@ -1,0 +1,26 @@
+﻿@using Today.Web.ViewModels.Account
+@model SignUpVM
+
+<h1 class="pt-5">註冊會員</h1>
+
+@*from沒有 action屬性，或action=""，就是post到當前網址*@
+@*action="/Account/Signup"*@
+<form method="post" class="pb-3">
+    <label>Email
+        <input name="Email" value="@Model?.Email"/>
+    </label>
+    <br />
+
+    <label>密碼
+        <input name="Password" value="@Model?.Password"/>
+    </label>
+    <br />
+
+    <label>確認密碼
+        <input name="PasswordCheck" value="@Model?.PasswordCheck"/>
+    </label>
+    <br />
+
+    <button type="submit" @*asp-action=""*@>送出 註冊資料</button>
+    @*<input type="submit"/>*@
+</form>
