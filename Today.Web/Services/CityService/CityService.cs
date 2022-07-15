@@ -48,8 +48,6 @@ namespace Today.Web.Services.CityService
             return result;
 
         }
-
-
         public List<CityDTO.City> GetAllCity()
         {
             var cityResule = _repo.GetAll<City>().Select(c=>new CityDTO.City
@@ -116,14 +114,6 @@ namespace Today.Web.Services.CityService
 
 
         }
-
-        
-
-       
-
-
-
-
 
         public RaiderResponseDTO GetRaiders(RaiderRequestDTO request)
         {
