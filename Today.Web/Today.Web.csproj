@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\NewFolder\**" />
-    <Content Remove="Services\NewFolder\**" />
-    <EmbeddedResource Remove="Services\NewFolder\**" />
-    <None Remove="Services\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.15">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,10 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Today.Model\Today.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTOModels\" />
   </ItemGroup>
 
 </Project>
