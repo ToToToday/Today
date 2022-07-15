@@ -17,27 +17,6 @@ namespace Today.Web.Services.ProductService
         {
             _repo = repo;
         }
-
-        //public List<FilterVM> Filter()
-        //{
-        //    List<FilterVM> filterList = new List<FilterVM>()
-        //    {
-        //        new FilterVM{ Name = "最近瀏覽", Method = this.ViewedLatest()},
-        //        new FilterVM{ Name = "為你精選", Method = this.GetProductCard()}
-        //    };
-        //    return filterList;
-        //}
-
-        //public List<ProductDTO> Card()
-        //{
-        //    List<ProductDTO> cards = new List<ProductDTO>()
-        //    {
-        //        new ProductDTO
-        //        {
-        //            Id = 
-        //        }
-        //    }
-        //}
         public ProductDTO GetProduct()
         {
             var result = new ProductDTO()
@@ -47,29 +26,14 @@ namespace Today.Web.Services.ProductService
                     Id = x.ProductId,
                     ProductName = x.ProductName,
                     ProductPhoto = string.Join("", _repo.GetAll<ProductPhoto>().Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", _repo.GetAll<ProductCategory>().Where(pc => pc.ProductId == x.ProductId).Join(_repo.GetAll<Category>(), pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new {pc.ProductId, c.CategoryName}).Select(c => c.CategoryName)),
+                    ParentCategoryName = string.Join("", _repo.GetAll<ProductCategory>().Where(pc => pc.ProductId == x.ProductId).Join(_repo.GetAll<Category>(), pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.ParentCategoryId }).Join(_repo.GetAll<Category>(), c => c.ParentCategoryId, cc => cc.CategoryId, (c, cc) => new {cc.CategoryName}).Select(cc => cc.CategoryName)),
                     CityName = string.Join("", _repo.GetAll<City>().Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
                     Tags = _repo.GetAll<ProductTag>().Where(pt => pt.ProductId == x.ProductId).Join(_repo.GetAll<Tag>(), pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
-                    OriginalPrice =  _repo.GetAll<Today.Model.Models.Program>().Where(p => p.ProductId == x.ProductId).Join(_repo.GetAll<ProgramSpecification>(), p => p.ProgramId, ps => ps.ProgramId, (p, ps) => new { ps.ProgramId, ps.OriginalUnitPrice, ps.UnitPrice }).Select(ps => ps.OriginalUnitPrice).Min()
-                    //OriginalPrice = _repo.GetAll<Today.Model.Models.Program>().Where(pm => pm.ProductId == x.ProductId).Join(_repo.GetAll<ProgramSpecification>(), pm => pm.ProgramId, ps => ps.ProgramId, (pm, ps) => new { pm.ProductId, ps.OriginalUnitPrice, ps.UnitPrice }).Select(ps => ps.OriginalUnitPrice).Min(),
-                    //Price = _repo.GetAll<Today.Model.Models.Program>().Where(pm => pm.ProductId == x.ProductId).Join(_repo.GetAll<ProgramSpecification>(), pm => pm.ProgramId, ps => ps.ProgramId, (pm, ps) => new { pm.ProductId, ps.OriginalUnitPrice, ps.UnitPrice }).Select(ps => ps.UnitPrice).Min()
+                    OriginalPrice = _repo.GetAll<Today.Model.Models.Program>().Where(pm => pm.ProductId == x.ProductId).Join(_repo.GetAll<ProgramSpecification>(), pm => pm.ProgramId, ps => ps.ProgramId, (pm, ps) => new { pm.ProgramId, ps.OriginalUnitPrice, ps.UnitPrice }).Select(ps => ps.OriginalUnitPrice).Min(),
+                    Price = _repo.GetAll<Today.Model.Models.Program>().Where(pm => pm.ProductId == x.ProductId).Join(_repo.GetAll<ProgramSpecification>(), pm => pm.ProgramId, ps => ps.ProgramId, (pm, ps) => new { pm.ProgramId, ps.OriginalUnitPrice, ps.UnitPrice }).Select(ps => ps.UnitPrice).Min()
                 }).ToList()
             };
-            //var productViews =  _repo.GetAll<Product>().Select(x => new ProductDTO
-            //{
-            //    productList = new List<ProductDTO.ProductInfo>()
-            //    {
-            //        new ProductDTO.ProductInfo()
-            //        {
-            //            Id = x.ProductId,
-            //            ProductName = x.ProductName,
-            //            ProductPhoto = string.Join("", _repo.GetAll<ProductPhoto>().Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
-            //            CityName = string.Join("", _repo.GetAll<City>().Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
-            //            Tags = _repo.GetAll<ProductTag>().Where(pt => pt.ProductId == x.ProductId).Join(_repo.GetAll<Tag>(), pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
-            //            OriginalPrice = _repo.GetAll<Today.Model.Models.Program>().Where(pm => pm.ProductId == x.ProductId).Join(_repo.GetAll<ProgramSpecification>(), pm => pm.ProgramId, ps => ps.ProgramId, (pm, ps) => new { pm.ProductId, ps.OriginalUnitPrice, ps.UnitPrice }).Select(ps => ps.OriginalUnitPrice).Min(),
-            //            Price = _repo.GetAll<Today.Model.Models.Program>().Where(pm => pm.ProductId == x.ProductId).Join(_repo.GetAll<ProgramSpecification>(), pm => pm.ProgramId, ps => ps.ProgramId, (pm, ps) => new { pm.ProductId, ps.OriginalUnitPrice, ps.UnitPrice }).Select(ps => ps.UnitPrice).Min()
-            //        }
-            //    }
-            //}).ToList();
 
             return result;
         }

@@ -32,7 +32,14 @@ namespace Today.Web.Controllers
             var source = _productService.GetProduct();
             var homeshow = new ProductVM()
             {
-                Featured = source.productList.Select(s => new ProductVM.ProductCardInfo
+                RecentlyViewed = source.productList.Select(s => new ProductVM.RecentlyCardInfo
+                {
+                    Id = s.Id,
+                    ProductPhoto = s.ProductPhoto,
+                    ProductName = s.ProductName,
+                    Price = s.Price
+                }).Take(10).ToList(),
+                Featured = source.productList.Where(s => s.CityName.Contains("台北") || s.CityName.Contains("台南")).Select(s => new ProductVM.ProductCardInfo
                 {
                     Id = s.Id,
                     ProductPhoto = s.ProductPhoto,
@@ -41,7 +48,57 @@ namespace Today.Web.Controllers
                     Tags = s.Tags,
                     OriginalPrice = s.OriginalPrice,
                     Price = s.Price
-                }).ToList()
+                }).Take(10).ToList(),
+                Paradise = source.productList.Where(s => s.ChildCategoryName.Contains("樂園")).Select(s => new ProductVM.ProductCardInfo
+                {
+                    Id = s.Id,
+                    ProductPhoto = s.ProductPhoto,
+                    ProductName = s.ProductName,
+                    CityName = s.CityName,
+                    Tags = s.Tags,
+                    OriginalPrice = s.OriginalPrice,
+                    Price = s.Price
+                }).Take(10).ToList(),
+                AttractionTickets = source.productList.Where(s => s.ParentCategoryName.Contains("景點")).Select(s => new ProductVM.ProductCardInfo
+                {
+                    Id = s.Id,
+                    ProductPhoto = s.ProductPhoto,
+                    ProductName = s.ProductName,
+                    CityName = s.CityName,
+                    Tags = s.Tags,
+                    OriginalPrice = s.OriginalPrice,
+                    Price = s.Price
+                }).Take(10).ToList(),
+                Exhibition = source.productList.Where(s => s.ParentCategoryName.Contains("展覽")).Select(s => new ProductVM.ProductCardInfo
+                {
+                    Id = s.Id,
+                    ProductPhoto = s.ProductPhoto,
+                    ProductName = s.ProductName,
+                    CityName = s.CityName,
+                    Tags = s.Tags,
+                    OriginalPrice = s.OriginalPrice,
+                    Price = s.Price
+                }).Take(10).ToList(),
+                Hotel = source.productList.Where(s => s.ParentCategoryName.Contains("住宿")).Select(s => new ProductVM.ProductCardInfo
+                {
+                    Id = s.Id,
+                    ProductPhoto = s.ProductPhoto,
+                    ProductName = s.ProductName,
+                    CityName = s.CityName,
+                    Tags = s.Tags,
+                    OriginalPrice = s.OriginalPrice,
+                    Price = s.Price
+                }).Take(10).ToList(),
+                Taoyuan = source.productList.Where(s => s.CityName.Contains("桃園")).Select(s => new ProductVM.ProductCardInfo
+                {
+                    Id = s.Id,
+                    ProductPhoto = s.ProductPhoto,
+                    ProductName = s.ProductName,
+                    CityName = s.CityName,
+                    Tags = s.Tags,
+                    OriginalPrice = s.OriginalPrice,
+                    Price = s.Price
+                }).Take(10).ToList(),
             };
             
             return View(homeshow);
