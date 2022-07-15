@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
-using Today.Web.Services.OrderService;
 using Today.Web.ViewModels;
 
 
@@ -16,11 +15,9 @@ namespace Today.Web.Controllers
     {
 
         private readonly ICityService _cityServices;
-        private readonly IHSRService _HSRServices;
-        public ProductController(ICityService cityServices, IHSRService HSRServices)
+        public ProductController(ICityService cityServices)
         {
             _cityServices = cityServices;
-            _HSRServices = HSRServices;
         }
 
         public IActionResult Index()
@@ -87,8 +84,7 @@ namespace Today.Web.Controllers
         }
         public IActionResult HSR() //國旅
         {
-            var HSRPages = _HSRServices.GetHSRpages();
-            return Json(HSRPages);
+            return View();
         }
         public IActionResult AboutToday() //公司介紹
         {
