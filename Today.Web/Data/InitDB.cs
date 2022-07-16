@@ -678,7 +678,7 @@ namespace Today.Web.Data
             #endregion
             _context.SaveChanges();
 
-            #region ProgramCantUseDate
+            #region ProgramCantUse
             List<ProgramCantUseDate> programCantUseDateList = new List<ProgramCantUseDate>()
             {
                 new ProgramCantUseDate(){ProgramDateId =1,Date = new DateTime(2022,7,5),ProgramId=1},
@@ -712,6 +712,117 @@ namespace Today.Web.Data
             _context.ProgramCantUseDates.AddRange(programCantUseDateList);
             #endregion
             _context.SaveChanges();
+
+            #region Member
+            List<Member> memberList = new List<Member>()
+            {
+                new Member(){ MemberId = 1, MemberName = "朱彥龍", CityId = 6, Age = 18, Phone = "0981802073", IdentityCard = "K221012213", Gender = false, Password = "miaoli1130", Email = "t410357@gmail.com"},
+                new Member(){ MemberId = 2, MemberName = "江義寬", CityId = 4, Age = 52, Phone = "0964155026", IdentityCard = "H124345366", Gender = true, Password = "Taoyuan1215", Email = "sduh1582@gmail.com"},
+                new Member(){ MemberId = 3, MemberName = "吳胚玟", CityId = 13, Age = 22, Phone = "0937808029", IdentityCard = "S211308457", Gender = false, Password = "kaohsiung0510", Email = "peiwen@gmail.com"},
+                new Member(){ MemberId = 4, MemberName = "李家炫", CityId = 1, Age = 35, Phone = "0930970990", IdentityCard = "C208541123", Gender = false, Password = "Keelungsuan", Email = "gummybear@gmail.com"},
+                new Member(){ MemberId = 5, MemberName = "廖焙余", CityId = 10, Age = 12, Phone = "0981154137", IdentityCard = "P251113204", Gender = false, Password = "yunlin1129", Email = "yoyoball@gmail.com"},
+                new Member(){ MemberId = 6, MemberName = "盧志汶", CityId = 12, Age = 47, Phone = "0934975996", IdentityCard = "D235112078", Gender = false, Password = "Tainan1215", Email = "chiwen1215@gmail.com"},
+                new Member(){ MemberId = 7, MemberName = "戴鉻閮", CityId = 4, Age = 69, Phone = "0917518619", IdentityCard = "H125874111", Gender = true, Password = "Taoyuanhanabi", Email = "hanabi@gmail.com"},
+                new Member(){ MemberId = 8, MemberName = "楊子悔", CityId = 7, Age = 25, Phone = "0935216478", IdentityCard = "B256789114", Gender = false, Password = "Taichunghehe", Email = "hehe001@gmail.com"}
+            };
+            _context.Members.AddRange(memberList);
+            #endregion
+            _context.SaveChanges();
+
+            #region Payment
+            List<Payment> paymentList = new List<Payment>()
+            {
+                new Payment(){ PaymentId = 1, PaymentWay = "信用卡" }
+            };
+            _context.Payments.AddRange(paymentList);
+            #endregion
+            _context.SaveChanges();
+
+            #region Order
+            List<Order> orderList = new List<Order>()
+            {
+                new Order(){OrderId = 1, MemberId = 1, OrderDate = new DateTime(2022, 1, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 2, MemberId = 2, OrderDate = new DateTime(2022, 2, 15), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 3, MemberId = 3, OrderDate = new DateTime(2022, 2, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 4, MemberId = 3, OrderDate = new DateTime(2022, 3, 12), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 5, MemberId = 4, OrderDate = new DateTime(2022, 3, 25), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 6, MemberId = 5, OrderDate = new DateTime(2022, 3, 28), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 7, MemberId = 6, OrderDate = new DateTime(2022, 3, 31), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 8, MemberId = 6, OrderDate = new DateTime(2022, 4, 5), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 9, MemberId = 6, OrderDate = new DateTime(2022, 4, 13), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 10, MemberId = 7, OrderDate = new DateTime(2022, 4, 17), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 11, MemberId = 8, OrderDate = new DateTime(2022, 5, 1), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 12, MemberId = 8, OrderDate = new DateTime(2022, 5, 3), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 13, MemberId = 8, OrderDate = new DateTime(2022, 5, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 14, MemberId = 8, OrderDate = new DateTime(2022, 5, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 15, MemberId = 8, OrderDate = new DateTime(2022, 6, 6), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 16, MemberId = 1, OrderDate = new DateTime(2022, 6, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 17, MemberId = 5, OrderDate = new DateTime(2022, 7, 15), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 18, MemberId = 2, OrderDate = new DateTime(2022, 7, 26), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 19, MemberId = 4, OrderDate = new DateTime(2022, 8, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 20, MemberId = 2, OrderDate = new DateTime(2022, 9, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+
+            };
+            _context.Orders.AddRange(orderList);
+            #endregion
+            _context.SaveChanges();
+
+            #region Ticket
+            List<Ticket> ticketList = new List<Ticket>()
+            {
+                new Ticket(){ TicketsId = 1, TicketQrcode = "zxcvbnm", Status = 1 },
+                new Ticket(){ TicketsId = 2, TicketQrcode = "asdfghjkl", Status = 1 },
+                new Ticket(){ TicketsId = 3, TicketQrcode = "qwertyuiop", Status = 1 },
+                new Ticket(){ TicketsId = 4, TicketQrcode = "qazwsxedc", Status = 1 },
+                new Ticket(){ TicketsId = 5, TicketQrcode = "rfvtgbyhnujm", Status = 1 },
+                new Ticket(){ TicketsId = 6, TicketQrcode = "plmxhxdatj", Status = 1 },
+                new Ticket(){ TicketsId = 7, TicketQrcode = "hhffxserdtgji", Status = 1 },
+                new Ticket(){ TicketsId = 8, TicketQrcode = "vygdtst", Status = 1 },
+                new Ticket(){ TicketsId = 9, TicketQrcode = "chgfeyfdeuw", Status = 1 },
+                new Ticket(){ TicketsId = 10, TicketQrcode = "ascaefesf", Status = 1 },
+                new Ticket(){ TicketsId = 11, TicketQrcode = "scsdvrg", Status = 1 },
+                new Ticket(){ TicketsId = 12, TicketQrcode = "dcsdfef", Status = 1 },
+                new Ticket(){ TicketsId = 13, TicketQrcode = "dcdsfr", Status = 1 },
+                new Ticket(){ TicketsId = 14, TicketQrcode = "ascdsr", Status = 1 },
+                new Ticket(){ TicketsId = 15, TicketQrcode = "fgdj", Status = 1 },
+                new Ticket(){ TicketsId = 16, TicketQrcode = "uyfugfguv", Status = 1 },
+            };
+            _context.Tickets.AddRange(ticketList);
+            #endregion
+            _context.SaveChanges();
+
+            #region OrderDetail
+            List<OrderDetail> orderDetailList = new List<OrderDetail>()
+            {
+                new OrderDetail(){ OrderDetailsId = 1, OrderId = 1, SpecificationId = 1, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 4), TicketsId = 1, UnitPrice = 16000, DepartureDate = new DateTime(2022, 12, 2) },
+                new OrderDetail(){ OrderDetailsId = 2, OrderId = 1, SpecificationId = 2, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 20), TicketsId = 2, UnitPrice = 53400, DepartureDate = new DateTime(2022, 12, 17) },
+                new OrderDetail(){ OrderDetailsId = 3, OrderId = 2, SpecificationId = 3, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 30), TicketsId = 3, UnitPrice = 14800, DepartureDate = new DateTime(2022, 12, 27) },
+                new OrderDetail(){ OrderDetailsId = 4, OrderId = 3, SpecificationId = 4, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 30), TicketsId = 4, UnitPrice = 13800, DepartureDate = new DateTime(2022, 5, 25) },
+                new OrderDetail(){ OrderDetailsId = 5, OrderId = 3, SpecificationId = 5, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 8, 29), TicketsId = 5, UnitPrice = 7744, DepartureDate = new DateTime(2022, 8, 25) },
+                new OrderDetail(){ OrderDetailsId = 6, OrderId = 3, SpecificationId = 6, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 14), TicketsId = 6, UnitPrice = 11120, DepartureDate = new DateTime(2022, 5, 13) },
+                new OrderDetail(){ OrderDetailsId = 7, OrderId = 4, SpecificationId = 7, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 4, 29), TicketsId = 7, UnitPrice = 14278, DepartureDate = new DateTime(2022, 4, 26) },
+                new OrderDetail(){ OrderDetailsId = 8, OrderId = 5, SpecificationId = 8, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 15), TicketsId = 8, UnitPrice = 6534, DepartureDate = new DateTime(2022, 5, 13) },
+                new OrderDetail(){ OrderDetailsId = 9, OrderId = 6, SpecificationId = 9, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 6, 21), TicketsId = 9, UnitPrice = 6180, DepartureDate = new DateTime(2022, 6, 18) },
+                new OrderDetail(){ OrderDetailsId = 10, OrderId = 7, SpecificationId = 10, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 7, 21), TicketsId = 10, UnitPrice = 3900, DepartureDate = new DateTime(2022, 7, 16) },
+                new OrderDetail(){ OrderDetailsId = 11, OrderId = 7, SpecificationId = 11, Quantity = 5, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 5), TicketsId = 11, UnitPrice = 15600, DepartureDate = new DateTime(2022, 12, 1) },
+                new OrderDetail(){ OrderDetailsId = 12, OrderId = 7, SpecificationId = 12, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 25), TicketsId = 12, UnitPrice = 1995, DepartureDate = new DateTime(2022, 12, 20) },
+                new OrderDetail(){ OrderDetailsId = 13, OrderId = 8, SpecificationId = 13, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 15), TicketsId = 13, UnitPrice = 6850, DepartureDate = new DateTime(2022, 5, 13) },
+                new OrderDetail(){ OrderDetailsId = 14, OrderId = 9, SpecificationId = 14, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 13), TicketsId = 14, UnitPrice = 4350, DepartureDate = new DateTime(2022, 5, 12) },
+                new OrderDetail(){ OrderDetailsId = 15, OrderId = 10, SpecificationId = 15, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 7, 25), TicketsId = 15, UnitPrice = 11120, DepartureDate = new DateTime(2022, 7, 23) },
+                new OrderDetail(){ OrderDetailsId = 16, OrderId = 11, SpecificationId = 16, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 8, 8), TicketsId = 16, UnitPrice = 11120, DepartureDate = new DateTime(2022, 8, 5) }
+            };
+            _context.OrderDetails.AddRange(orderDetailList);
+            #endregion
+            _context.SaveChanges();
+
+            //#region Comment
+            //List<Comment> commentList = new List<Comment>()
+            //{
+            //    new Comment(){ CommentId = , OrderDetails = , ProductId = , MemberId = , PartnerType = , CommentDate = new DateTime(, , ), RatingStar = , CommentTitle = "", CommentText = "" }
+            //}
+            //_context.Comments.AddRange(programCantUseDateList);
+            //#endregion
+            //_context.SaveChanges();
         }
     }
 }
