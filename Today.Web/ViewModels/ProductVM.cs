@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using NPOI.SS.Formula.Functions;
+using System.Collections.Generic;
 using System.Linq;
+using static Today.Web.DTO.ProductDTO;
 
 namespace Today.Web.ViewModels
 {
@@ -24,6 +26,13 @@ namespace Today.Web.ViewModels
         //    public List<string> ChildCategory { get; set; }
         //}
 
+        public class RecentlyCardInfo
+        {
+            public int Id { get; set; }
+            public string ProductPhoto { get; set; }
+            public string ProductName { get; set; }
+            public decimal? Price { get; set; }
+        }
         public class ProductCardInfo
         {
             public int Id { get; set; }
@@ -34,13 +43,21 @@ namespace Today.Web.ViewModels
             public decimal? OriginalPrice { get; set; }
             public decimal? Price { get; set; }
         }
-        public class RecentlyCardInfo
+
+        public static List<string> MaybeCategoryList(List<CategoryInfo> source, string target)
         {
-            public int Id { get; set; }
-            public string ProductPhoto { get; set; }
-            public string ProductName { get; set; }
-            public decimal? Price { get; set; }
+            var temp = source.Where(s => s.Name.Contains(target)).Select(s => s.ChildCategoryList.Select(cc => cc.Name).ToList());
+            List<string> result = new List<string>();
+            foreach(var item in temp)
+            {
+                foreach(var i in item)
+                {
+                    result.Add(i);
+                }
+            }
+            return result;
         }
+        
     }
 
 }

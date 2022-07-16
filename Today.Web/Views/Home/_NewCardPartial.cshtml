@@ -26,8 +26,8 @@
                     </span>
                 </div>
                 <div class="card-product-price d-flex">
-                    <span class="text-decoration-line-through p-1 text-black">TWD @item.OriginalPrice</span>
-                    <span class="p-1 text-black">TWD<span class="fw-bolder">@item.Price</span></span>
+                    <span class="text-decoration-line-through p-1 text-black @(item.OriginalPrice == null ? "d-none" : "d-flex flex-nowrap")">TWD @item.OriginalPrice</span>
+                    <span class="p-1 text-black @(item.Price == null ? "d-none" : "d-flex flex-nowrap")">TWD<span class="fw-bolder">@item.Price</span></span>
                 </div>
             </div>
         </a>

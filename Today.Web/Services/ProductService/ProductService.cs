@@ -7,6 +7,7 @@ using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.DTO;
 using Today.Web.ViewModels;
+using static Today.Web.DTO.ProductDTO;
 
 namespace Today.Web.Services.ProductService
 {
@@ -17,71 +18,72 @@ namespace Today.Web.Services.ProductService
         {
             _repo = repo;
         }
-        public class CategoryDto
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public List<CategoryDto> ChildCategoryList { get; set; }
-        }
+        
         public ProductDTO GetProduct()
         {
-            var result = new ProductDTO { productList = new List<ProductDTO.ProductInfo> { } };
+            var result = new ProductDTO { productList = new List<ProductDTO.ProductInfo> { }, cateoryList = new List<ProductDTO.CategoryInfo> { } };
             var productList = _repo.GetAll<Product>().ToList();
             var productPhotoList = _repo.GetAll<ProductPhoto>().ToList();
             var productCategoryList = _repo.GetAll<ProductCategory>().ToList();
-            var CategoryList = _repo.GetAll<Category>().ToList();
+            var categoryList = _repo.GetAll<Category>().ToList();
             var cityList = _repo.GetAll<City>().ToList();
-            var TagList = _repo.GetAll<ProductTag>().ToList();
+            var productTagList = _repo.GetAll<ProductTag>().ToList();
+            var tagList = _repo.GetAll<Tag>().ToList();
             var programList = _repo.GetAll<Model.Models.Program>().ToList();
             var specificationList = _repo.GetAll<ProgramSpecification>().ToList();
-            var mainCategoryList = CategoryList.Where(category => category.ParentCategoryId == null);
-            var CategoryListGroup = CategoryList.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
+            var mainCategoryList = categoryList.Where(category => category.ParentCategoryId == null);
+            var categoryListGroup = categoryList.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
 
-            var CategoryDtoList = new List<CategoryDto>();
-            #region 組合Category
+            result.cateoryList = new List<CategoryInfo>();
+
+            #region categoryList
             foreach (var category in mainCategoryList)
             {
-                var mainTemp = new CategoryDto
+                var mainTemp = new CategoryInfo
                 {
                     Id = category.CategoryId,
                     Name = category.CategoryName,
-                    ChildCategoryList = new List<CategoryDto>()
-
+                    ChildCategoryList = new List<CategoryInfo>()
                 };
 
-                foreach (var group in CategoryListGroup)
+                foreach (var group in categoryListGroup)
                 {
                     if (mainTemp.Id == group.Key)
                     {
                         foreach (var item in group)
                         {
-                            var temp = new CategoryDto
+                            var temp = new CategoryInfo
                             {
                                 Id = item.CategoryId,
                                 Name = item.CategoryName
                             };
                             mainTemp.ChildCategoryList.Add(temp);
                         }
-
                     }
-
                 }
-                CategoryDtoList.Add(mainTemp);
+                result.cateoryList.Add(mainTemp);
             }
             #endregion
 
+            #region productList
             foreach (var product in productList)
             {
                 var tempCategoryList = productCategoryList.Where(productCategory => productCategory.ProductId == product.ProductId);
+                var tempProductTagList = productTagList.Where(productTag => productTag.ProductId == product.ProductId);
 
                 var productTemp = new ProductDTO.ProductInfo
                 {
                     Id = product.ProductId,
-                    ProductName = product.ProductName,
                     ProductPhoto = productPhotoList.Where(photo => photo.ProductId == product.ProductId).Select(x => x.Path).First(),
-                    ChildCategoryName = tempCategoryList.Select(productCategory => CategoryList.Where(category => category.CategoryId == productCategory.CategoryId).Select(category => category.CategoryName).First()).First()
-
+                    ProductName = product.ProductName,
+                    ChildCategoryName = tempCategoryList.Select(productCategory => categoryList.Where(category => category.CategoryId == productCategory.CategoryId).Select(category => category.CategoryName).First()).First(),
+                    CityName = string.Join("", cityList.Where(city => city.CityId == product.CityId).Select(city => city.CityName)),
+                    Tags = tempProductTagList.Join(tagList, productTag => productTag.TagId, tag => tag.TagId, (productTag, tag) => new { tag.TagText }).Select(tag => tag.TagText).ToList(),
+                    Prices = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
                 };
+
+                result.productList.Add(productTemp);
+                #endregion
 
                 //}
                 //var result = new ProductDTO()
@@ -100,7 +102,8 @@ namespace Today.Web.Services.ProductService
                 //    }).ToList()
                 //};
 
-                return result;
+            }
+            return result;
         }
     }
 }
