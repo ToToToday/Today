@@ -1,0 +1,53 @@
+.rent-search
+{
+    width: 80%;
+    margin: auto;   
+}
+.rent-type-button
+{
+    margin-top: 0.938rem;
+    margin-bottom: 0.938rem;
+}
+
+@media screen and (max-width:768px)
+{
+    .rent-search
+    {
+        display: none;
+    }
+}
+@media screen and (min-width:768px)
+{
+    .rent-search
+    {
+        display: none;
+    }
+    .rent-search
+    {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width:992px)
+{
+    .rent-collapse-search
+    {
+        display: none;
+    }
+    .rent-search
+    {
+        display: block;
+        width: 65%;
+    }
+    .rent-type-button-collapse
+    {
+        display: none;
+    }
+}
+@media screen and(min-width:1200px)
+{
+    .rent-search
+    {
+        width: 55%;
+    }
+}   
