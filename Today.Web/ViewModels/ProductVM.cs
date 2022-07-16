@@ -1,7 +1,7 @@
 ﻿using NPOI.SS.Formula.Functions;
 using System.Collections.Generic;
 using System.Linq;
-using static Today.Web.DTO.ProductDTO;
+using static Today.Web.DTOModels.ProductDTO.ProductDTO;
 
 namespace Today.Web.ViewModels
 {

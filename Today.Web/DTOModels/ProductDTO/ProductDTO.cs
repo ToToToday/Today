@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Today.Web.DTO
+namespace Today.Web.DTOModels.ProductDTO
 {
     public class ProductDTO
     {

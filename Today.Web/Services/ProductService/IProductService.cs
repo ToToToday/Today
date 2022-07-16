@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Today.Web.DTO;
+using Today.Web.DTOModels.ProductDTO;
 
 namespace Today.Web.Services.ProductService
 {

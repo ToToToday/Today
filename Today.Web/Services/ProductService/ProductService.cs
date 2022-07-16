@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
-using Today.Web.DTO;
+using Today.Web.DTOModels.ProductDTO;
 using Today.Web.ViewModels;
-using static Today.Web.DTO.ProductDTO;
+using static Today.Web.DTOModels.ProductDTO.ProductDTO;
 
 namespace Today.Web.Services.ProductService
 {
