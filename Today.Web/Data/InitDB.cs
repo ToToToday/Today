@@ -741,26 +741,26 @@ namespace Today.Web.Data
             #region Order
             List<Order> orderList = new List<Order>()
             {
-                new Order(){OrderId = 1, MemberId = 1, OrderDate = new DateTime(2022, 1, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 2, MemberId = 2, OrderDate = new DateTime(2022, 2, 15), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 3, MemberId = 3, OrderDate = new DateTime(2022, 2, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 4, MemberId = 3, OrderDate = new DateTime(2022, 3, 12), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 5, MemberId = 4, OrderDate = new DateTime(2022, 3, 25), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 6, MemberId = 5, OrderDate = new DateTime(2022, 3, 28), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 7, MemberId = 6, OrderDate = new DateTime(2022, 3, 31), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 8, MemberId = 6, OrderDate = new DateTime(2022, 4, 5), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 9, MemberId = 6, OrderDate = new DateTime(2022, 4, 13), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 10, MemberId = 7, OrderDate = new DateTime(2022, 4, 17), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 11, MemberId = 8, OrderDate = new DateTime(2022, 5, 1), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 12, MemberId = 8, OrderDate = new DateTime(2022, 5, 3), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 13, MemberId = 8, OrderDate = new DateTime(2022, 5, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 14, MemberId = 8, OrderDate = new DateTime(2022, 5, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 15, MemberId = 8, OrderDate = new DateTime(2022, 6, 6), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 16, MemberId = 1, OrderDate = new DateTime(2022, 6, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 17, MemberId = 5, OrderDate = new DateTime(2022, 7, 15), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 18, MemberId = 2, OrderDate = new DateTime(2022, 7, 26), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 19, MemberId = 4, OrderDate = new DateTime(2022, 8, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
-                new Order(){OrderId = 20, MemberId = 2, OrderDate = new DateTime(2022, 9, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 1, MemberId = 1, OrderDate = new DateTime(2022, 01, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 2, MemberId = 2, OrderDate = new DateTime(2022, 02, 15), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 3, MemberId = 3, OrderDate = new DateTime(2022, 02, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 4, MemberId = 3, OrderDate = new DateTime(2022, 03, 12), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 5, MemberId = 4, OrderDate = new DateTime(2022, 03, 25), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 6, MemberId = 5, OrderDate = new DateTime(2022, 03, 28), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 7, MemberId = 6, OrderDate = new DateTime(2022, 03, 31), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 8, MemberId = 6, OrderDate = new DateTime(2022, 04, 05), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 9, MemberId = 6, OrderDate = new DateTime(2022, 04, 13), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 10, MemberId = 7, OrderDate = new DateTime(2022, 04, 17), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 11, MemberId = 8, OrderDate = new DateTime(2022, 05, 01), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 12, MemberId = 8, OrderDate = new DateTime(2022, 05, 03), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 13, MemberId = 8, OrderDate = new DateTime(2022, 05, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 14, MemberId = 8, OrderDate = new DateTime(2022, 05, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 15, MemberId = 8, OrderDate = new DateTime(2022, 06, 06), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 16, MemberId = 1, OrderDate = new DateTime(2022, 06, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 17, MemberId = 5, OrderDate = new DateTime(2022, 07, 15), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 18, MemberId = 2, OrderDate = new DateTime(2022, 07, 26), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 19, MemberId = 4, OrderDate = new DateTime(2022, 08, 10), PaymentId = 1, Status = 1, StatusUpdate = 1},
+                new Order(){OrderId = 20, MemberId = 2, OrderDate = new DateTime(2022, 09, 30), PaymentId = 1, Status = 1, StatusUpdate = 1},
 
             };
             _context.Orders.AddRange(orderList);
@@ -794,22 +794,22 @@ namespace Today.Web.Data
             #region OrderDetail
             List<OrderDetail> orderDetailList = new List<OrderDetail>()
             {
-                new OrderDetail(){ OrderDetailsId = 1, OrderId = 1, SpecificationId = 1, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 4), TicketsId = 1, UnitPrice = 16000, DepartureDate = new DateTime(2022, 12, 2) },
+                new OrderDetail(){ OrderDetailsId = 1, OrderId = 1, SpecificationId = 1, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 04), TicketsId = 1, UnitPrice = 16000, DepartureDate = new DateTime(2022, 12, 02) },
                 new OrderDetail(){ OrderDetailsId = 2, OrderId = 1, SpecificationId = 2, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 20), TicketsId = 2, UnitPrice = 53400, DepartureDate = new DateTime(2022, 12, 17) },
                 new OrderDetail(){ OrderDetailsId = 3, OrderId = 2, SpecificationId = 3, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 30), TicketsId = 3, UnitPrice = 14800, DepartureDate = new DateTime(2022, 12, 27) },
-                new OrderDetail(){ OrderDetailsId = 4, OrderId = 3, SpecificationId = 4, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 30), TicketsId = 4, UnitPrice = 13800, DepartureDate = new DateTime(2022, 5, 25) },
-                new OrderDetail(){ OrderDetailsId = 5, OrderId = 3, SpecificationId = 5, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 8, 29), TicketsId = 5, UnitPrice = 7744, DepartureDate = new DateTime(2022, 8, 25) },
-                new OrderDetail(){ OrderDetailsId = 6, OrderId = 3, SpecificationId = 6, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 14), TicketsId = 6, UnitPrice = 11120, DepartureDate = new DateTime(2022, 5, 13) },
-                new OrderDetail(){ OrderDetailsId = 7, OrderId = 4, SpecificationId = 7, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 4, 29), TicketsId = 7, UnitPrice = 14278, DepartureDate = new DateTime(2022, 4, 26) },
-                new OrderDetail(){ OrderDetailsId = 8, OrderId = 5, SpecificationId = 8, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 15), TicketsId = 8, UnitPrice = 6534, DepartureDate = new DateTime(2022, 5, 13) },
-                new OrderDetail(){ OrderDetailsId = 9, OrderId = 6, SpecificationId = 9, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 6, 21), TicketsId = 9, UnitPrice = 6180, DepartureDate = new DateTime(2022, 6, 18) },
-                new OrderDetail(){ OrderDetailsId = 10, OrderId = 7, SpecificationId = 10, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 7, 21), TicketsId = 10, UnitPrice = 3900, DepartureDate = new DateTime(2022, 7, 16) },
-                new OrderDetail(){ OrderDetailsId = 11, OrderId = 7, SpecificationId = 11, Quantity = 5, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 5), TicketsId = 11, UnitPrice = 15600, DepartureDate = new DateTime(2022, 12, 1) },
+                new OrderDetail(){ OrderDetailsId = 4, OrderId = 3, SpecificationId = 4, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 05, 30), TicketsId = 4, UnitPrice = 13800, DepartureDate = new DateTime(2022, 05, 25) },
+                new OrderDetail(){ OrderDetailsId = 5, OrderId = 3, SpecificationId = 5, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 08, 29), TicketsId = 5, UnitPrice = 7744, DepartureDate = new DateTime(2022, 08, 25) },
+                new OrderDetail(){ OrderDetailsId = 6, OrderId = 3, SpecificationId = 6, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 05, 14), TicketsId = 6, UnitPrice = 11120, DepartureDate = new DateTime(2022, 05, 13) },
+                new OrderDetail(){ OrderDetailsId = 7, OrderId = 4, SpecificationId = 7, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 04, 29), TicketsId = 7, UnitPrice = 14278, DepartureDate = new DateTime(2022, 04, 26) },
+                new OrderDetail(){ OrderDetailsId = 8, OrderId = 5, SpecificationId = 8, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 05, 15), TicketsId = 8, UnitPrice = 6534, DepartureDate = new DateTime(2022, 05, 13) },
+                new OrderDetail(){ OrderDetailsId = 9, OrderId = 6, SpecificationId = 9, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 06, 21), TicketsId = 9, UnitPrice = 6180, DepartureDate = new DateTime(2022, 06, 18) },
+                new OrderDetail(){ OrderDetailsId = 10, OrderId = 7, SpecificationId = 10, Quantity = 2, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 07, 21), TicketsId = 10, UnitPrice = 3900, DepartureDate = new DateTime(2022, 07, 16) },
+                new OrderDetail(){ OrderDetailsId = 11, OrderId = 7, SpecificationId = 11, Quantity = 5, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 05), TicketsId = 11, UnitPrice = 15600, DepartureDate = new DateTime(2022, 12, 01) },
                 new OrderDetail(){ OrderDetailsId = 12, OrderId = 7, SpecificationId = 12, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 12, 25), TicketsId = 12, UnitPrice = 1995, DepartureDate = new DateTime(2022, 12, 20) },
-                new OrderDetail(){ OrderDetailsId = 13, OrderId = 8, SpecificationId = 13, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 15), TicketsId = 13, UnitPrice = 6850, DepartureDate = new DateTime(2022, 5, 13) },
-                new OrderDetail(){ OrderDetailsId = 14, OrderId = 9, SpecificationId = 14, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 5, 13), TicketsId = 14, UnitPrice = 4350, DepartureDate = new DateTime(2022, 5, 12) },
-                new OrderDetail(){ OrderDetailsId = 15, OrderId = 10, SpecificationId = 15, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 7, 25), TicketsId = 15, UnitPrice = 11120, DepartureDate = new DateTime(2022, 7, 23) },
-                new OrderDetail(){ OrderDetailsId = 16, OrderId = 11, SpecificationId = 16, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 8, 8), TicketsId = 16, UnitPrice = 11120, DepartureDate = new DateTime(2022, 8, 5) }
+                new OrderDetail(){ OrderDetailsId = 13, OrderId = 8, SpecificationId = 13, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 05, 15), TicketsId = 13, UnitPrice = 6850, DepartureDate = new DateTime(2022, 05, 13) },
+                new OrderDetail(){ OrderDetailsId = 14, OrderId = 9, SpecificationId = 14, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 05, 13), TicketsId = 14, UnitPrice = 4350, DepartureDate = new DateTime(2022, 05, 12) },
+                new OrderDetail(){ OrderDetailsId = 15, OrderId = 10, SpecificationId = 15, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 07, 25), TicketsId = 15, UnitPrice = 11120, DepartureDate = new DateTime(2022, 07, 23) },
+                new OrderDetail(){ OrderDetailsId = 16, OrderId = 11, SpecificationId = 16, Quantity = 1, Discount = 1, Itemtext = "成人", LeaseTime = new DateTime(2022, 08, 08), TicketsId = 16, UnitPrice = 11120, DepartureDate = new DateTime(2022, 08, 05) }
             };
             _context.OrderDetails.AddRange(orderDetailList);
             #endregion
@@ -820,20 +820,20 @@ namespace Today.Web.Data
             {
                 new Comment(){ CommentId = 1, OrderDetailsId = 1, ProductId = 1, MemberId = 1, PartnerType = 1, CommentDate = new DateTime(2022, 12, 15), RatingStar = 5, CommentTitle = "超好玩", CommentText = "剛好碰到水樂園暑假開幕，非常好玩，樂園遊 行也很好看，住六福莊生態渡假園區，雖然餐點不ok但是 房間很大、乾淨，窗外又有動物出沒，值得 推薦家庭旅遊。" },
                 new Comment(){ CommentId = 2, OrderDetailsId = 2, ProductId = 1, MemberId = 5, PartnerType = 1, CommentDate = new DateTime(2022, 12, 25), RatingStar = 3, CommentTitle = "環境有點舊了", CommentText = "很放鬆，環境有點舊了，但園區很大，維護需要非常多人力，所以整體來說還可以，飼養員很專業，很願意講解專業知識讓房客知道" },
-                new Comment(){ CommentId = 3, OrderDetailsId = 3, ProductId = 1, MemberId = 8, PartnerType = 2, CommentDate = new DateTime(2023, 1, 5), RatingStar = 5, CommentTitle = "親子水陸兩玩好去處", CommentText = "小朋友很喜歡，可以玩水、看動物、還有遊樂設施，另外又附兩張xpark門票。 此次行程唯一可惜之處，就是兩天下午都下大雨，要不然行程就更完美了" },
-                new Comment(){ CommentId = 4, OrderDetailsId = 4, ProductId = 1, MemberId = 2, PartnerType = 1, CommentDate = new DateTime(2022, 6, 3), RatingStar = 4, CommentTitle = "住宿費用優惠滿划算的", CommentText = "除了住宿距離動物很近，小孩子非常開心，另外還有包含兩天的六福村門票，再加上X Park的門票，實在蠻划算的。" },
-                new Comment(){ CommentId = 5, OrderDetailsId = 5, ProductId = 2, MemberId = 1, PartnerType = 1, CommentDate = new DateTime(2022, 9, 6), RatingStar = 5, CommentTitle = "很棒的防疫旅館", CommentText = "從入住就可以感受到飯店的用心，不僅三點前入住不多收錢還幫我準備了午餐 房間非常寬敞，床也很舒服，住起來相當舒適，小缺點是餐點有點油膩，毛巾有點難用，但瑕不掩瑜，下次還是會選這家～" },
-                new Comment(){ CommentId = 6, OrderDetailsId = 6, ProductId = 2, MemberId = 3, PartnerType = 1, CommentDate = new DateTime(2022, 5, 17), RatingStar = 5, CommentTitle = "很滿意的服務", CommentText = "TOday很快速確認訂房、改期、發票開立。飯店很乾淨舒適、三餐都很滿意，離機場很近，長途飛行後可以很快速入住梳洗" },
-                new Comment(){ CommentId = 7, OrderDetailsId = 7, ProductId = 2, MemberId = 5, PartnerType = 2, CommentDate = new DateTime(2022, 5, 7), RatingStar = 5, CommentTitle = "環境很好很大吃得很好很飽", CommentText = "床很好睡還可以在裡面自己踢足球" },
-                new Comment(){ CommentId = 8, OrderDetailsId = 8, ProductId = 3, MemberId = 6, PartnerType = 2, CommentDate = new DateTime(2022, 5, 25), RatingStar = 4, CommentTitle = "與好友出遊，舒適的飯店住宿體驗", CommentText = "一天接駁車班次有點少，非度假高峰期間似乎只有一個班次，對於沒開車的旅客而言有些不方便" },
-                new Comment(){ CommentId = 9, OrderDetailsId = 9, ProductId = 4, MemberId = 6, PartnerType = 2, CommentDate = new DateTime(2022, 6, 28), RatingStar = 5, CommentTitle = "乾淨、平價、安靜", CommentText = "幫媽媽訂的防疫旅館，她說雖然房間比較小，但都很乾淨，周遭也很安靜，房間有浴缸也有窗戶，餐食好吃而且每餐都有附水果，就是網路比較弱一點，不過她自己有網路所以也還行，整體來說她很滿意！" },
-                new Comment(){ CommentId = 10, OrderDetailsId = 10, ProductId = 4, MemberId = 7, PartnerType = 1, CommentDate = new DateTime(2022, 7, 30), RatingStar = 5, CommentTitle = "3+4隔離", CommentText = "只能說這個價位真的很划算 重點是便當真的蠻好吃的" },
+                new Comment(){ CommentId = 3, OrderDetailsId = 3, ProductId = 1, MemberId = 8, PartnerType = 2, CommentDate = new DateTime(2023, 01, 05), RatingStar = 5, CommentTitle = "親子水陸兩玩好去處", CommentText = "小朋友很喜歡，可以玩水、看動物、還有遊樂設施，另外又附兩張xpark門票。 此次行程唯一可惜之處，就是兩天下午都下大雨，要不然行程就更完美了" },
+                new Comment(){ CommentId = 4, OrderDetailsId = 4, ProductId = 1, MemberId = 2, PartnerType = 1, CommentDate = new DateTime(2022, 06, 03), RatingStar = 4, CommentTitle = "住宿費用優惠滿划算的", CommentText = "除了住宿距離動物很近，小孩子非常開心，另外還有包含兩天的六福村門票，再加上X Park的門票，實在蠻划算的。" },
+                new Comment(){ CommentId = 5, OrderDetailsId = 5, ProductId = 2, MemberId = 1, PartnerType = 1, CommentDate = new DateTime(2022, 09, 06), RatingStar = 5, CommentTitle = "很棒的防疫旅館", CommentText = "從入住就可以感受到飯店的用心，不僅三點前入住不多收錢還幫我準備了午餐 房間非常寬敞，床也很舒服，住起來相當舒適，小缺點是餐點有點油膩，毛巾有點難用，但瑕不掩瑜，下次還是會選這家～" },
+                new Comment(){ CommentId = 6, OrderDetailsId = 6, ProductId = 2, MemberId = 3, PartnerType = 1, CommentDate = new DateTime(2022, 05, 17), RatingStar = 5, CommentTitle = "很滿意的服務", CommentText = "TOday很快速確認訂房、改期、發票開立。飯店很乾淨舒適、三餐都很滿意，離機場很近，長途飛行後可以很快速入住梳洗" },
+                new Comment(){ CommentId = 7, OrderDetailsId = 7, ProductId = 2, MemberId = 5, PartnerType = 2, CommentDate = new DateTime(2022, 05, 07), RatingStar = 5, CommentTitle = "環境很好很大吃得很好很飽", CommentText = "床很好睡還可以在裡面自己踢足球" },
+                new Comment(){ CommentId = 8, OrderDetailsId = 8, ProductId = 3, MemberId = 6, PartnerType = 2, CommentDate = new DateTime(2022, 05, 25), RatingStar = 4, CommentTitle = "與好友出遊，舒適的飯店住宿體驗", CommentText = "一天接駁車班次有點少，非度假高峰期間似乎只有一個班次，對於沒開車的旅客而言有些不方便" },
+                new Comment(){ CommentId = 9, OrderDetailsId = 9, ProductId = 4, MemberId = 6, PartnerType = 2, CommentDate = new DateTime(2022, 06, 28), RatingStar = 5, CommentTitle = "乾淨、平價、安靜", CommentText = "幫媽媽訂的防疫旅館，她說雖然房間比較小，但都很乾淨，周遭也很安靜，房間有浴缸也有窗戶，餐食好吃而且每餐都有附水果，就是網路比較弱一點，不過她自己有網路所以也還行，整體來說她很滿意！" },
+                new Comment(){ CommentId = 10, OrderDetailsId = 10, ProductId = 4, MemberId = 7, PartnerType = 1, CommentDate = new DateTime(2022, 07, 30), RatingStar = 5, CommentTitle = "3+4隔離", CommentText = "只能說這個價位真的很划算 重點是便當真的蠻好吃的" },
                 new Comment(){ CommentId = 11, OrderDetailsId = 11, ProductId = 4, MemberId = 4, PartnerType = 1, CommentDate = new DateTime(2022, 12, 17), RatingStar = 5, CommentTitle = "房間很棒，東西齊全", CommentText = "從國外返台，到旅店後櫃檯人員服務態度很好，仔細說明注意事項，還貼心消毒，房間冷氣已先提早開啟，乾淨整齊，防疫餐點的對於久久沒吃到台灣味道的人來說非常棒。" },
                 new Comment(){ CommentId = 12, OrderDetailsId = 12, ProductId = 4, MemberId = 7, PartnerType = 1, CommentDate = new DateTime(2022, 12, 28), RatingStar = 5, CommentTitle = "非常好", CommentText = "房間整齊，床非常大、電視也大、有浴缸，員工也非常貼心，每一餐隔離餐都有水果飲料，剛好入住是我生日月份，員工還精心準備蛋糕卡片" },
-                new Comment(){ CommentId = 13, OrderDetailsId = 13, ProductId = 5, MemberId = 4, PartnerType = 1, CommentDate = new DateTime(2022, 5, 18), RatingStar = 5, CommentTitle = "舒適床具好棒棒", CommentText = "雖然不是親子也不是家庭旅遊 但整體的床具與枕頭還有空間整潔非常舒適 一覺好眠" },
-                new Comment(){ CommentId = 14, OrderDetailsId = 14, ProductId = 5, MemberId = 1, PartnerType = 1, CommentDate = new DateTime(2022, 5, 23), RatingStar = 5, CommentTitle = "很好", CommentText = "整個服務都很不錯，下次會帶小孩一起同行，還會在這裡使用定車票及飯店，很方便。飯店品質也很好，服務很親切" },
-                new Comment(){ CommentId = 15, OrderDetailsId = 15, ProductId = 5, MemberId = 2, PartnerType = 1, CommentDate = new DateTime(2022, 7, 30), RatingStar = 5, CommentTitle = "環境乾淨舒服，房間也很大", CommentText = "接待人員都很客氣，環境也很感覺住的很舒服，小朋友設施都很適合放電，地理位置也很好去哪都方便，附近吃的也很多，還有t-bike 可以借，公車站牌也很近" },
-                new Comment(){ CommentId = 16, OrderDetailsId = 16, ProductId = 5, MemberId = 8, PartnerType = 2, CommentDate = new DateTime(2022, 8, 20), RatingStar = 5, CommentTitle = "住宿舒適", CommentText = "主題特殊，定位明確，地點方便，挺不錯的住宿體驗" }
+                new Comment(){ CommentId = 13, OrderDetailsId = 13, ProductId = 5, MemberId = 4, PartnerType = 1, CommentDate = new DateTime(2022, 05, 18), RatingStar = 5, CommentTitle = "舒適床具好棒棒", CommentText = "雖然不是親子也不是家庭旅遊 但整體的床具與枕頭還有空間整潔非常舒適 一覺好眠" },
+                new Comment(){ CommentId = 14, OrderDetailsId = 14, ProductId = 5, MemberId = 1, PartnerType = 1, CommentDate = new DateTime(2022, 05, 23), RatingStar = 5, CommentTitle = "很好", CommentText = "整個服務都很不錯，下次會帶小孩一起同行，還會在這裡使用定車票及飯店，很方便。飯店品質也很好，服務很親切" },
+                new Comment(){ CommentId = 15, OrderDetailsId = 15, ProductId = 5, MemberId = 2, PartnerType = 1, CommentDate = new DateTime(2022, 07, 30), RatingStar = 5, CommentTitle = "環境乾淨舒服，房間也很大", CommentText = "接待人員都很客氣，環境也很感覺住的很舒服，小朋友設施都很適合放電，地理位置也很好去哪都方便，附近吃的也很多，還有t-bike 可以借，公車站牌也很近" },
+                new Comment(){ CommentId = 16, OrderDetailsId = 16, ProductId = 5, MemberId = 8, PartnerType = 2, CommentDate = new DateTime(2022, 08, 20), RatingStar = 5, CommentTitle = "住宿舒適", CommentText = "主題特殊，定位明確，地點方便，挺不錯的住宿體驗" }
             };
             _context.Comments.AddRange(commentList);
             #endregion
