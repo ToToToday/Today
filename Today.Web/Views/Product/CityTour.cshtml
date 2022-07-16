@@ -1,18 +1,18 @@
-﻿@model IEnumerable<CityVM>
+﻿
+@model Today.Web.ViewModels.CityVM
+
 
 <!-- 導覽列 -->
-@foreach (var item in Model)
-{
-    
+  
     <div class="city-group">
         <div class="city-banner">
-            <img src="@item.CityImage " class="city-img">
+            <img src="@Model.CurrentCityInfo.CityImage " class="city-img">
 
         </div>
         <div class="city-body container row d-flex position-relative m-auto px-0 ">
             <div class="city-title col-12 px-4 text-xl-center mb-xl-5">
-                <h2 class="text-light">@item.CityName</h2>
-                <p class="text-light ">2022@(item.CityName)熱門自由行推薦景點行程</p>
+                <h2 class="text-light">@Model.CurrentCityInfo.CityName</h2>
+                <p class="text-light ">2022@(Model.CurrentCityInfo.CityName)熱門自由行推薦景點行程</p>
             </div>
             <!-- 分類按鈕 -->
             <div class="city-type-wrap  justify-content-evenly ">
@@ -128,7 +128,7 @@
                         <a herf="#">台灣 </a>
                     </li>
                     <li class="me-2">
-                        <a herf="#">@(item.CityName) </a>
+                        <a herf="#">@(Model.CurrentCityInfo.CityName) </a>
                     </li>
                 </ul>
             </div>
@@ -310,7 +310,7 @@
 
                 </div>
                 <!-- 為你精選台北相關行程 -->
-                <h3 class="mx-4 my-3 fw-bolder ">為你精選@(item.CityName)相關行程</h3>
+                <h3 class="mx-4 my-3 fw-bolder ">為你精選@(Model.CurrentCityInfo.CityName)相關行程</h3>
                 <div class="city-Featured-silder d-flex mt-4">
                     <div class="city-Featured-card ms-4">
                         <div class="card me-3">
@@ -625,111 +625,37 @@
                     </div>
                 </div>
                 <div class="city-btn-wrap d-flex justify-content-center">
-                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有台北體驗活動</a>
+                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有@(Model.CurrentCityInfo.CityName)體驗活動</a>
                 </div>
                 <!-- 旅遊攻略 -->
-                <h3 class="mx-4 my-3 fw-bolder ">@(item.CityName)旅遊攻略</h3>
+                <h3 class="mx-4 my-3 fw-bolder ">@(Model.CurrentCityInfo.CityName)旅遊攻略</h3>
                 <div class="city-Raiders-silder d-flex mt-4">
                     <div class="city-Raiders-card ms-4 ">
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative ">
-                                <span class="Raiders-imgtitle ">台北展覽推薦</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
-                                <h4 class="card-text overflow-hidden">企鵝家族的誕生！40 週年巡迴特展
-                                </h4>
+                        @foreach(var raider in @Model.RaiderList)
+                        {
+                            <a href="#" class="text-decoration-none">
+                                <div class="card me-3">
+                                    <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="@raider.Title">
+                                    <div class="city-Raiders-card-span d-flex position-relative ">
+                                        <span class="Raiders-imgtitle ">@raider.SubTitle</span>
+                                    </div>
+                                    <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
+                                        <h4 class="card-text overflow-hidden">@raider.Title</h4>
 
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=89" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative">
-                                <span class="Raiders-imgtitle ">天冷泡湯趣!</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative ">
-                                <h4 class="card-text overflow-hidden">北投溫泉六大湯屋推薦
-                                </h4>
-
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=88" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative">
-                                <span class="Raiders-imgtitle ">跟著小小兵盡情玩耍</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative ">
-                                <h4 class="card-text overflow-hidden">小小兵神偷奶爸大視界特展
-                                </h4>
-
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative ">
-                                <span class="Raiders-imgtitle ">【小王子75周年特展】</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
-                                <h4 class="card-text overflow-hidden">【小王子75周年特展開箱】優惠門票、情境互動展間，立即登機與小王子來場星際之旅
-                                </h4>
-
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative ">
-                                <span class="Raiders-imgtitle ">台北展覽推薦</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
-                                <h4 class="card-text overflow-hidden">企鵝家族的誕生！40 週年巡迴特展
-                                </h4>
-
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=89" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative">
-                                <span class="Raiders-imgtitle ">天冷泡湯趣!</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative ">
-                                <h4 class="card-text overflow-hidden">北投溫泉六大湯屋推薦
-                                </h4>
-
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=88" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative">
-                                <span class="Raiders-imgtitle ">跟著小小兵盡情玩耍</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative ">
-                                <h4 class="card-text overflow-hidden">小小兵神偷奶爸大視界特展
-                                </h4>
-
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="...">
-                            <div class="city-Raiders-card-span d-flex position-relative ">
-                                <span class="Raiders-imgtitle ">【小王子75周年特展】</span>
-                            </div>
-                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
-                                <h4 class="card-text overflow-hidden">【小王子75周年特展開箱】優惠門票、情境互動展間，立即登機與小王子來場星際之旅
-                                </h4>
-
-                            </div>
-                        </div>
-
-                    </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                </div>
                 </div>
                 <!-- map -->
                 <div class="city-about-title ms-4">
-                    <h3 class="fw-bolder">認識 @(item.CityName)</h3>
+                    <h3 class="fw-bolder">認識 @(Model.CurrentCityInfo.CityName)</h3>
                 </div>
                 <div class="city-map-about-group d-flex flex-wrap flex-lg-nowrap mb-5">
                     <div class="city-aboutcity-wrap col-12 col-md-8 m-3">
                         <div class="city-about-text bg-white p-3 rounded-3">
-                            <p>@item.CityIntrod</p>
+                            <p>@Model.CurrentCityInfo.CityIntrod</p>
                             <hr>
                             <p><i class="icofont-clock-time"></i> 時區 : GMT+8</p>
                             <p><i class="icofont-money"></i> 貨幣：台幣 NTD</p>
@@ -741,7 +667,7 @@
                             <img src="https://picsum.photos/1200/850/?random=50"
                                 class="card-img rounded-3 align-top w-100 h-100 " alt="...">
                             <div class="city-whach-map position-absolute">
-                                <p class="city-whach-map-title">看地圖搜尋@(item.CityName)體驗活動</p>
+                                <p class="city-whach-map-title">看地圖搜尋@(Model.CurrentCityInfo.CityName)體驗活動</p>
                                 <p class="city-whach-map-text">點擊前往 ></p>
 
                             </div>
@@ -752,144 +678,53 @@
             <section>
                 <!-- 留言區 -->
                 <div class="city-Evaluation-wrap mx-2 d-flex flex-wrap">
+                    @foreach(var comment in @Model.commentList)
+                {
                     <div class="city-card-eva col-md-6 px-md-2">
                         <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
                             <div class="card-people-info d-flex p-2">
                                 <img src="https://picsum.photos/30/30/?random=60" class="people-img rounded-circle">
-                                <p class="align-items-center my-auto mx-2">name</p>
+                                <p class="align-items-center my-auto mx-2">@comment.Name</p>
                             </div>
                             <div class="city-evaluation-star my-3 px-2">
-                                <i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i> 單人旅遊
+                                <i class="icofont-favourite"></i>@(comment.RatingStar) · 體驗日期@(comment.UseDate) @(comment.PartnerType)
                             </div>
                             <div class="city-evaluaation-a mb-3 px-2">
-                                <a href="#">Today耶誕城雙層露天聖誕巴士車票｜冰雪奇緣夢幻特展&新北爺但承</a>
+                                <a href="#">@comment.ProductName</a>
                             </div>
                             <img src="https://picsum.photos/300/200/?random=10" class="card-img-top rounded-0 px-2" alt="...">
                             <div class="card-body">
-                                <p class="card-title fw-bolder">很棒的體驗</p>
-                                <p class="card-text">導遊小姐很親切，車上又有準備雪寶娃娃讓遊客拍照，坐在雙層巴士上用不同角度來看台北，很棒的體驗！</p>
-                                <p class="card-text"><small class="text-muted">於 2020/12/25 評價</small></p>
+                                <p class="card-title fw-bolder">@comment.Title</p>
+                                <p class="card-text">@comment.Text</p>
+                                <p class="card-text"><small class="text-muted">於@(comment.CommentDate) 評價</small></p>
                             </div>
                         </div>
                     </div>
-                    <div class="city-card-eva col-md-6 px-md-2">
-                        <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
-                            <div class="card-people-info d-flex p-2">
-                                <img src="https://picsum.photos/30/30/?random=60" class="people-img rounded-circle">
-                                <p class="align-items-center my-auto mx-2">name</p>
-                            </div>
-                            <div class="city-evaluation-star my-3 px-2">
-                                <i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i> 單人旅遊
-                            </div>
-                            <div class="city-evaluaation-a mb-3 px-2">
-                                <a href="#">Today耶誕城雙層露天聖誕巴士車票｜冰雪奇緣夢幻特展&新北爺但承</a>
-                            </div>
-                            <img src="https://picsum.photos/300/200/?random=10" class="card-img-top rounded-0 px-2" alt="...">
-                            <div class="card-body">
-                                <p class="card-title fw-bolder">很棒的體驗</p>
-                                <p class="card-text">導遊小姐很親切，車上又有準備雪寶娃娃讓遊客拍照，坐在雙層巴士上用不同角度來看台北，很棒的體驗！</p>
-                                <p class="card-text"><small class="text-muted">於 2020/12/25 評價</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="city-card-eva col-md-6 px-md-2">
-                        <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
-                            <div class="card-people-info d-flex p-2">
-                                <img src="https://picsum.photos/30/30/?random=60" class="people-img rounded-circle">
-                                <p class="align-items-center my-auto mx-2 fw-bolder">name</p>
-                            </div>
-                            <div class="city-evaluation-star my-3 px-2">
-                                <i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i> 單人旅遊
-                            </div>
-                            <div class="city-evaluaation-a mb-3 px-2">
-                                <a href="#">Today耶誕城雙層露天聖誕巴士車票｜冰雪奇緣夢幻特展&新北爺但承</a>
-                            </div>
-                            <img src="https://picsum.photos/300/200/?random=10" class="card-img-top rounded-0 px-2" alt="...">
-                            <div class="card-body">
-                                <p class="card-title fw-bolder">很棒的體驗</p>
-                                <p class="card-text">導遊小姐很親切，車上又有準備雪寶娃娃讓遊客拍照，坐在雙層巴士上用不同角度來看台北，很棒的體驗！</p>
-                                <p class="card-text"><small class="text-muted">於 2020/12/25 評價</small></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="city-card-eva col-md-6 px-md-2">
-                        <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
-                            <div class="card-people-info d-flex p-2">
-                                <img src="https://picsum.photos/30/30/?random=60" class="people-img rounded-circle">
-                                <p class="align-items-center my-auto mx-2">name</p>
-                            </div>
-                            <div class="city-evaluation-star my-3 px-2">
-                                <i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i><i class="icofont-favourite"></i> 單人旅遊
-                            </div>
-                            <div class="city-evaluaation-a mb-3 px-2">
-                                <a href="#">Today耶誕城雙層露天聖誕巴士車票｜冰雪奇緣夢幻特展&新北爺但承</a>
-                            </div>
-                            <img src="https://picsum.photos/300/200/?random=10" class="card-img-top rounded-0 px-2" alt="...">
-                            <div class="card-body">
-                                <p class="card-title fw-bolder">很棒的體驗</p>
-                                <p class="card-text">導遊小姐很親切，車上又有準備雪寶娃娃讓遊客拍照，坐在雙層巴士上用不同角度來看台北，很棒的體驗！</p>
-                                <p class="card-text"><small class="text-muted">於 2020/12/25 評價</small></p>
-                            </div>
-                        </div>
-                    </div>
+                }
+                
                 </div>
             </section>
             <!-- 探索周邊城市 -->
             <section class="px-0">
                 <div class="city-explore-wrap">
-                    <h3 class="mx-4 my-3 fw-bolder ">探索@(item.CityName)周邊城市</h3>
+                    <h3 class="mx-4 my-3 fw-bolder ">探索@(Model.CurrentCityInfo.CityName)周邊城市</h3>
                     <div class="city-explore-silder d-flex mt-4">
                         <div class="city-explore-card ms-4 ">
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">新北市</span>
-                                </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=89" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative">
-                                    <span class="explore-imgtitle ">台中</span>
-                                </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=88" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative">
-                                    <span class="explore-imgtitle ">彰化</span>
-                                </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">雲林</span>
-                                </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=99" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">宜蘭</span>
-                                </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=89" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative">
-                                    <span class="explore-imgtitle ">花蓮!</span>
-                                </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=88" class="card-img-top" alt="...">
-                                <div class="city-Raiders-card-span d-flex position-relative">
-                                    <span class="Raiders-imgtitle ">桃園</span>
-                                </div>
-                            </div>
-                            <div class="card me-3">
-                                <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="...">
-                                <div class="city-explore-card-span d-flex position-relative ">
-                                    <span class="explore-imgtitle ">高雄</span>
-                                </div>
-                            </div>
+                            
+                            @foreach(var citycard in @Model.cityCardList)
+                            {
+                                <a href="https://localhost:44338/Product/CityTour/@citycard.Id" class="text-decoration-none">
+                                    <div class="card me-3">
+                                        <img src="@citycard.CityImage" class="card-img-top" alt="@citycard.CityName">
+                                        <div class="city-explore-card-span d-flex position-relative ">
+                                            <span class="explore-imgtitle ">@citycard.CityName</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+
                         </div>
-                </div>
+                    </div>
                     <div class="city-keyword-wrap ">
                         <h3 class="mx-4 my-3 fw-bolder ">其他人也搜尋了</h3>
                         <div class="city-keyword-group d-flex flex-wrap mx-4">
@@ -915,11 +750,12 @@
                         </div>
                         
                     </div>
+                </div>
             </section>
             
         </div>
     </div>
-}
+
 
    @section topCSS{
        <link rel="stylesheet" href="~/css/CityTour.css" />
@@ -931,6 +767,9 @@
            }
            footer ul{
                padding-left: 0px;
+           }
+           .city-Raiders-card-body h4{
+               color: #000;
            }
            @@media screen and (min-width: 360px){
    
