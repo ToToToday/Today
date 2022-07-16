@@ -14,17 +14,18 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-       
+
         private readonly ICityService _cityServices;
         public ProductController(ICityService cityServices)
         {
             _cityServices = cityServices;
         }
+
         public IActionResult Index()
         {
             return View();
         }
-        
+
         public IActionResult ProductPages() //商品頁面
         {
             return View();
@@ -33,15 +34,15 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-       
+
         public IActionResult Souvenir() //伴手禮
         {
-            
+
             return View();
         }
         public IActionResult CityClassify() //城市 分類
         {
-           
+
             return View();
         }
         public IActionResult CityTour(int id) //各城市導覽頁b 
