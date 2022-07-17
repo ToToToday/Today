@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -101,10 +102,21 @@ namespace Today.Web.Controllers
                     ProductPhoto = newp.ProductPhoto,
                     ProductName = newp.ProductName,
                     Tags = newp.Tags,
+                    CityName = newp.CityName,
                     OriginalPrice =( newp.Prices ==null || newp.Prices.OriginalPrice ==newp.Prices.Price)?null:newp.Prices.OriginalPrice,
                     Price =(newp.Prices == null)? null :newp.Prices.Price
                 }).Take(10).ToList(),
-                
+                AboultActiviyList = productcard.productList.OrderBy(x => Guid.NewGuid()).Where(c => c.CityId==id).Select(aboutp => new CityVM.ProductCardVM
+                {
+                    Id = aboutp.Id,
+                    ProductPhoto = aboutp.ProductPhoto,
+                    ProductName = aboutp.ProductName,
+                    Tags = aboutp.Tags,
+                    CityName = aboutp.CityName,
+                    OriginalPrice = (aboutp.Prices == null || aboutp.Prices.OriginalPrice == aboutp.Prices.Price) ? null : aboutp.Prices.OriginalPrice,
+                    Price = (aboutp.Prices == null) ? null : aboutp.Prices.Price
+                }).Take(10).ToList(),
+
 
 
             };
