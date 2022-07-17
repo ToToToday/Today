@@ -1,0 +1,88 @@
+.Parent-child-banner-h2
+{
+    line-height:1.5;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 0.625rem;
+    font-weight: 700;
+}
+
+.Parent-child-hotel-banner 
+{
+    height:18.5rem;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Parent-child-banner-p
+{
+    width: 80%;
+    margin: auto;  
+    margin-bottom: 0.938rem;
+    line-height: 1.6rem;
+}
+.Parent-child-search {
+    width: 90%;
+    margin: auto;
+}
+.offIsland-type-button-collapse {
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+}
+.hotel_banner_city
+{
+    z-index:1;
+}
+@media screen and (max-width:768px) {
+    .Parent-child-search 
+    {
+        display: none;
+    }
+}
+@media screen and (min-width:768px)
+{
+    .Parent-child-search
+    {
+        display: none;
+    }
+    .Parent-child-search
+    {
+        width: 60%;
+    }
+    .Parent-child-banner-p
+    {
+        font-size:0.9rem;
+    }
+}
+@media screen and (min-width:992px)
+{
+    .offIsland-type-button-collapse {
+        margin-top: 0;
+        margin-bottom: 0;
+        display: none;
+    }
+    .Parent-child-collapse-search {
+        display: none;
+    }
+    .Parent-child-banner-p
+    {
+        width: 55%;
+    }
+    .Parent-child-search
+    {
+        margin:auto;
+        display: block;
+        width: 65%;
+    }
+}
+@media screen and (min-width:1200px)
+{
+    .Parent-child-search
+    {
+        width: 55%;
+    }
+}   

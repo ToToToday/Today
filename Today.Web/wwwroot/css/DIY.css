@@ -1,0 +1,123 @@
+
+.card-p {
+    bottom: 0;
+    z-index: 5;
+    background-color: transparent
+}
+
+.model-map-dialog {
+    z-index: 3;
+}
+
+.DIY-card, .DIY-card-food, .DIY-card-command, .DIY-card-Customization {
+    height: 100%;
+}
+
+.DIY-main-card {
+    margin-top: 0.938rem;
+    margin-bottom: 0.938rem;
+}
+.DIY-card {
+    background-image: linear-gradient(to bottom,transparent 70%, rgb(19, 19, 19) 100%), url("https://image.kkday.com/v2/image/get/w_400.0000059604645%2Ch_250.0000037252903%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/campaign_1670/20210520063345_D0fan/jpg");
+}
+
+.DIY-card-food {
+    background-image: linear-gradient(to bottom,transparent 70%, rgb(19, 19, 19) 100%), url("https://image.kkday.com/v2/image/get/w_400.0000059604645%2Ch_250.0000037252903%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/campaign_1670/20210519101507_XO31p/jpg");
+}
+
+.DIY-card-command {
+    background-image: linear-gradient(to bottom,transparent 70%, rgb(19, 19, 19) 100%), url("https://image.kkday.com/v2/image/get/w_400.0000059604645%2Ch_250.0000037252903%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/campaign_1670/20210519101533_egIN0/jpg");
+}
+
+.DIY-card-Customization {
+    background-image: linear-gradient(to bottom,transparent 70%, rgb(19, 19, 19) 100%), url("https://image.kkday.com/v2/image/get/w_400.0000059604645%2Ch_250.0000037252903%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/campaign_1670/20210519101518_RUVZ7/jpg");
+}
+
+@media screen and (max-width:768px) {
+
+
+    .owl-theme .owl-item {
+        margin: auto;
+        width: 80%;
+        height: 8rem;
+    }
+
+    .rent-type-button {
+        width: 80%;
+        margin: auto;
+        margin-top: 0.938rem;
+        margin-bottom: 0.938rem;
+    }
+
+    .DIY-card-h5 {
+        font-size: 1rem;
+        top: calc(100% - 2rem);
+        left: 0.8rem;
+    }
+
+    .rent-search {
+        display: none;
+    }
+}
+
+@media screen and (min-width:768px) {
+
+    .DIY-card-h5 
+    {
+        top: calc(100% - 2rem);
+        left: 0.8rem;
+    }
+
+
+    .rent-type-button {
+        margin-bottom: 0.938rem;
+    }
+
+    .rent-search {
+        width: 60%;
+    }
+
+    .rent-hotel-banner {
+        margin-bottom: 2.5rem;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .DIY-card-h5 {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+
+    .owl-theme .owl-item {
+        height: 10rem;
+    }
+
+    .rent-collapse-search, .rent-type-button-collapse {
+        display: none;
+    }
+
+    .rent-search, .google-mapCard {
+        display: block;
+    }
+
+    .rent-type-button {
+        display: none;
+    }
+
+    .productList {
+        margin-top: 1.563rem;
+    }
+}
+
+@media screen and (min-width:1200px) 
+{
+    .rent-type-button 
+    {
+        display: none;
+    }
+
+
+}
