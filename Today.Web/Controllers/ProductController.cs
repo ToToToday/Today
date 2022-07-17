@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
+using Today.Web.Services.ProductService;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO;
 using static Today.Web.DTOModels.RaiderDTO;
@@ -16,9 +17,12 @@ namespace Today.Web.Controllers
     {
 
         private readonly ICityService _cityServices;
-        public ProductController(ICityService cityServices)
+        private readonly IProductService _productServices;
+        public ProductController(ICityService cityServices, IProductService productService)
         {
             _cityServices = cityServices;
+            _productServices = productService;
+
         }
 
         public IActionResult Index()
@@ -56,7 +60,7 @@ namespace Today.Web.Controllers
             var CityAllCard = _cityServices.GetAllCity();
             var CityAllRaider = _cityServices.GetRaiderCard();
             var cityAllComment = _cityServices.GetAllComment();
-
+            var productcard = _productServices.GetProduct();
             var cityTourPage = new CityVM
             {
                 CurrentCityInfo = new CityVM.CityInfo
@@ -90,7 +94,16 @@ namespace Today.Web.Controllers
                     ProductName = cl.ProductName,
                     Text = cl.Text,
                     Title = cl.Title
-                }).ToList()
+                }).ToList(),
+                NewActiviyList = productcard.productList.OrderByDescending(p=> p.Id).Where(c => c.CityId == id).Select(newp => new CityVM.ProductCardVM
+                {
+                    Id = newp.Id,
+                    ProductPhoto = newp.ProductPhoto,
+                    ProductName = newp.ProductName,
+                    Tags = newp.Tags,
+                    OriginalPrice =( newp.Prices ==null || newp.Prices.OriginalPrice ==newp.Prices.Price)?null:newp.Prices.OriginalPrice,
+                    Price =(newp.Prices == null)? null :newp.Prices.Price
+                }).Take(10).ToList(),
                 
 
 
