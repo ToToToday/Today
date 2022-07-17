@@ -266,6 +266,9 @@ i{
     display: block;
     padding: 20px 0;
 }
+.reconfirmation .sold-out {
+    margin-top: 0;
+}
 .cart-recommend{
     padding: 80px 0 30px;
 }
@@ -355,7 +358,22 @@ i{
     font-weight: 900;
     font-size: 1rem;
 }
-.row::-webkit-scrollbar{
+#exampleModal .modal-dialog {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+.modal-footer button:first-child{
+    background-color:white;
+    box-shadow:none;
+    border:none;
+}
+.modal-footer button:last-child {
+    background-color: #ef7a70;
+    box-shadow: none;
+    border: none;
+}
+.row::-webkit-scrollbar {
     display: none;
 }
 .footer-limit{
@@ -480,6 +498,9 @@ i{
         width: 90px;
         height: 40px;
         padding: 15px;
+    }
+    .reconfirmation .sold-out {
+        margin-top: 0;
     }
     .cart-recommend button:first-of-type{
         display: block;

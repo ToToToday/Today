@@ -1,5 +1,4 @@
-﻿@model IEnumerable<ShopCartVM>
-
+﻿@model ShopCartVM
 <div class="shopping-cart">
     <div class="shopping-group">
         <div style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="d-inline-block">
@@ -9,7 +8,6 @@
                  <li class="breadcrumb-item active" aria-current="page">訂購完成</li>
             </ol>
         </div>
-
         <div class="list">
              <h3 class="fw-bolder">購物車</h3>
             @*<div class="empty-cart justify-content-center d-flex flex-column p-5 align-items-center">
@@ -19,7 +17,7 @@
             </div>*@
              <div class="container">
                 @*@if(Model.Select(x=> x.Id) != null && Model.Select(x=> x.Id).Count() < 0){*@
-                    @foreach(var cart in Model)
+                    @foreach(var cart in Model.ShopCartCardList)
                 {
                     <div class="item d-flex flex-row">
                         <div class="check-control m-0 ps-0">
@@ -35,9 +33,9 @@
                                 <div class="row">
                                     <div class="col-lg-6 m-0">
                                         <a href="#">
-                                            <h4 class="card-title fw-bolder">@cart.Name</h4>
+                                            <h4 class="card-title fw-bolder">@cart.ProductName</h4>
                                         </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
+                                        <p class="card-text p-0">@cart.ProgramTitle</p>
                                     </div>
                                     <div class="col-lg-3 ">
                                         <span class="d-inline-block">2022-06-23</span>
@@ -211,13 +209,32 @@
                     </div>*@
              </div>
 
+
+             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog px-3">
+                    <div class="modal-content px-2 pb-3">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title fw-bolder fs-4" id="exampleModalLabel">刪除商品</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start py-3 border-bottom-0">
+                              您確定要刪除所選商品嗎？
+                        </div>
+                        <div class="modal-footer border-top-0">
+                        <button type="button" class="btn btn btn-light" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary">刪除</button>
+                        </div>
+                   </div>
+                  </div>
+             </div>
+
             <div class="checkout">
                 <div class="check-control">
                     <input class="form-check-input input" type="checkbox" id="checkout-control" value=""
                             aria-label="...">
                     <label class="form-check-label " for="checkout-control">全選 (1)</label>
                     <span>
-                           <a href="#" class="text-dark text-decoration-none">刪除已選項目</a>
+                           <button type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除已選項目</button>
                     </span>
                 </div>
                 <div class="caculate m-0">
@@ -225,7 +242,7 @@
                         <span class="text-end">1件商品合計</span>
                         <span class=" fw-bolder mt-2">TWD 3,120</span>
                     </div>
-                    <a href="#" class="fw-bolder mb-3 mx-3">前往結帳</a>
+                    <a class="fw-bolder mb-3 mx-3" asp-action="Checkout">前往結帳</a>
                 </div>
             </div>
         </div>
@@ -262,13 +279,20 @@
                                             <span class="mt-2 text-lg-start d-block text-start ">請重新選擇商品</span>
                                         </div>
                                         <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
+                                        
+
+                                        <button type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                          <i class="fa-regular fa-trash-can ms-2"></i>
+                                        </button>
+
+
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="item d-flex flex-row">
+                    @*<div class="item d-flex flex-row">
                         <div class="card">
                             <a href="#">
                                 <img src="https://picsum.photos/650/400/?random=13">
@@ -299,7 +323,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
 
             <div class="remove">
