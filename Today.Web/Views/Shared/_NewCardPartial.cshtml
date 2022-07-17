@@ -2,7 +2,7 @@
 
 @foreach(var item in Model)
 {
-    <div class="foryou-card fixed-card mx-2 position-relative col">
+    <div class="fixed-card mx-2 position-relative col">
         <a href="#" class="text-decoration-none text-black w-100">
             <div class="bundle position-relative overflow-hidden w-100 h-50">
                 <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
@@ -32,4 +32,7 @@
             </div>
         </a>
     </div>
+}
+@section topCSS{
+    <link rel="stylesheet" href="~/css/newcard.css"/>
 }
