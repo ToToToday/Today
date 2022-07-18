@@ -114,7 +114,6 @@ namespace Today.Web.Services.CityService
 
 
         }
-
         public RaiderResponseDTO GetRaiders(RaiderRequestDTO request)
         {
             var raiderdata = _repo.GetAll<CityRaider>();
@@ -134,6 +133,5 @@ namespace Today.Web.Services.CityService
             }
             return RaiderPages;
         }
-
     }
 }

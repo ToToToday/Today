@@ -13,6 +13,7 @@ using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.Services.CityService;
 using Today.Web.Services.locationService;
+using Today.Web.Services.MemberCommentService;
 
 namespace Today.Web
 {
@@ -36,6 +37,7 @@ namespace Today.Web
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IMemberCommentService, MemberCommentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

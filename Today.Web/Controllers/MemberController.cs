@@ -1,9 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using Today.Web.Services.MemberCommentService;
+using Today.Web.ViewModels;
+
 
 namespace Today.Web.Controllers
 {
+    
     public class MemberController : Controller
     {
+        private readonly IMemberCommentService _membercommentservic;
+        public MemberController(IMemberCommentService membercommentservic)
+        {
+            _membercommentservic = membercommentservic;
+        }
         public IActionResult CountSetting()
         {
             return View();
@@ -12,9 +22,23 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        public IActionResult OrderManage()
+        
+        public IActionResult OrderManage(int ID =3 )
         {
-            return View();
+            var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
+            var MemberCommentInfo = new MemberCommentVM
+            {
+                OrderDtailList = DTO.OrderInfo.OrderDtailList.Select(d => new OrderDetailCard
+                {
+                    Path = d.Path,
+                    DepartureDate = d.DepartureDate,
+                    OrderId = d.OrderId,
+                    ProductName=d.ProductName,
+                    UnitPrice=d.UnitPrice,
+                    Title=d.Title
+                }).ToList()
+            };
+            return View(MemberCommentInfo);
         }
         public IActionResult MessageManage()
         {

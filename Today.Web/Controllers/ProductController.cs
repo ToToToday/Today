@@ -14,13 +14,11 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-
         private readonly ICityService _cityServices;
         public ProductController(ICityService cityServices)
         {
             _cityServices = cityServices;
         }
-
         public IActionResult Index()
         {
             return View();
