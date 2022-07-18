@@ -46,7 +46,7 @@
 .map-card-p
 {
     bottom: 0;
-    z-index: 5;
+    z-index: 2;
     background-color: transparent
 }
 .map-common-p

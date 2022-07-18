@@ -79,13 +79,13 @@
       </a>
     </div>
   </div>
-<partial name="hotelFiliterPartial" />
+<partial name="_HotelFiliterPartial" />
 
  <div class="container-fluid-ProductList ">
     <section class="container m-auto">
       <div class="container row p-0 m-0">
         <div class="col-lg-3 product-filter px-3 pt-3">
-            <partial name="mapPartial" />
+            <partial name="_MapPartial" />
           <div class="filter-group rounded py-2 mb-1">
             <div class="filter-block py-3 ps-3">
               <h4>所有商品類別</h4>
@@ -729,7 +729,7 @@
       </div>
     </section>
   </div>
- <partial name ="mapModalPartial" />
+ <partial name ="_MapModalPartial" />
 
 
 @section endJs
@@ -742,9 +742,8 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="~/js/homescript.js"></script>
-
   <script>
-        let json_location= @Html.Raw(@ViewData["locationJson"]);
+        let json_location = @Html.Raw(@ViewData["locationJson"]); //將 json純文字 解碼 成 js的json
         let json_Name = @Html.Raw(@ViewData["PNameJson"]);
         let json_photo = @Html.Raw(@ViewData["PhotoJson"]);
    </script>

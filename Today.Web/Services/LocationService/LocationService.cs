@@ -18,7 +18,6 @@ namespace Today.Web.Services.locationService
 
         public List<LocationDTO.ProductLocationDTO> GetLocations()
         {
-            //if (id <= 0) return null;
 
             var productLocation = _repo.GetAll<Location>();
             if (productLocation == null) return null; //防呆
@@ -32,7 +31,6 @@ namespace Today.Web.Services.locationService
         }
         public List<LocationDTO.ProductNameDTO> GetProducts()
         {
-           // if (id <= 0) return null;
 
             var products = _repo.GetAll<Product>();
             if(products == null) return null;
@@ -58,5 +56,6 @@ namespace Today.Web.Services.locationService
             }).ToList();
             return result;
         }
+
     }
 }
