@@ -9,11 +9,11 @@ namespace Today.Web.Helper
     {
         public static string GetTypeDescription(int type)
         {
-            var enumType = Enum.Parse(typeof(CityEnum.PartnerType), type.ToString());
-            var result = GetDescription((Enum)enumType);
+            var enumType = System.Enum.Parse(typeof(Services.CommonEnum.Enum.PartnerType), type.ToString());
+            var result = GetDescription((System.Enum)enumType);
             return result;
         }
-        public static string GetDescription(Enum value)
+        public static string GetDescription(System.Enum value)
         {
             Type type = value.GetType();
 

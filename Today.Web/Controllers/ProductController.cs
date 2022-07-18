@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
+using Today.Web.Services.locationService;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO;
 using static Today.Web.DTOModels.RaiderDTO;
@@ -15,9 +16,11 @@ namespace Today.Web.Controllers
     public class ProductController : Controller
     {
         private readonly ICityService _cityServices;
-        public ProductController(ICityService cityServices)
+        private readonly ILocationService _locationServices;
+        public ProductController(ICityService cityServices, ILocationService locationServices)
         {
             _cityServices = cityServices;
+            _locationServices = locationServices;
         }
         public IActionResult Index()
         {
@@ -121,23 +124,211 @@ namespace Today.Web.Controllers
         }
         public IActionResult OffIsland() //離島 分類
         {
-            return View();
+            var getLocation = _locationServices.GetLocations();
+            var getProduct = _locationServices.GetProducts();
+            var getPhoto = _locationServices.GetPhoto();
+            var result = new LocationVM
+            {
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                {
+                    Id = lo.locationID,
+                    latitude = lo.Latitude,
+                    longitude = lo.Longitude
+                }).ToList(),
+                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                {
+                    ProductId = p.ProductId, 
+                    ProductName = p.ProductName,
+                }).ToList()
+                ,
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                {
+                    PhotoId = p.PhotoId,
+                    PhotoPath = p.Path,
+                    ProductId = p.ProductId,
+                    Sort = p.Sort
+                }).ToList(),
+            };
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.GetLocation); //把資料編碼 
+            string ProductNamedJson = System.Text.Json.JsonSerializer.Serialize(result.GetProdocutName);
+            string GetPhotoJson = System.Text.Json.JsonSerializer.Serialize(result.GetProductPhoto);
+            ViewData["locationJson"] = locationJson;
+            ViewData["PNameJson"] = ProductNamedJson;
+            ViewData["PhotoJson"] = GetPhotoJson;
+            return View(result);
         }
         public IActionResult ParentChild() //親子 分類
         {
-            return View();
+            ViewData["banner-h2"] = "特搜親子體驗！親子餐廳・親子旅遊・親子住宿";
+            ViewData["banner-p"] = "Today 親子旅遊特搜200+項親子體驗活動！不可錯過親子餐廳、親子住宿以及全台灣各縣市親子景點！小朋友參加營隊放電、科學課程輕鬆學習，大人無憂度假";
+            ViewData["banner-img"] = "https://cdn.kkday.com/m-web/assets/img/family/family-banner.jpg";
+            ViewData["banner-location-word"] = "目的地";
+            ViewData["banner-date-word"] = "日期";
+            ViewData["collapse-search"] = "請選擇取車地點及日期";
+
+
+            var getLocation = _locationServices.GetLocations();
+            var getProduct = _locationServices.GetProducts();
+            var getPhoto = _locationServices.GetPhoto();
+            var result = new LocationVM
+            {
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                {
+                    Id = lo.locationID,
+                    latitude = lo.Latitude,
+                    longitude = lo.Longitude
+                }).ToList(),
+                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                }).ToList()
+                ,
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                {
+                    PhotoId = p.PhotoId,
+                    PhotoPath = p.Path,
+                    ProductId = p.ProductId,
+                    Sort = p.Sort
+                }).ToList()
+            };
+
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.GetLocation); //把資料編碼 
+            string ProductNamedJson = System.Text.Json.JsonSerializer.Serialize(result.GetProdocutName);
+            string GetPhotoJson = System.Text.Json.JsonSerializer.Serialize(result.GetProductPhoto);
+            ViewData["locationJson"] = locationJson;
+            ViewData["PNameJson"] = ProductNamedJson;
+            ViewData["PhotoJson"] = GetPhotoJson;
+            return View(result);
         }
         public IActionResult DIY() //DIY 分類
         {
-            return View();
+            ViewData["banner-h2"] = "手作課程一次看！蛋糕甜點・蠟燭香氛・花藝植栽";
+            ViewData["banner-p"] = "風格手作體驗活動，讓你輕鬆將儀式感帶入日常生活";
+            ViewData["banner-img"] = "https://image.kkday.com/v2/image/get/w_1920%2Cc_fit%2Cq_75%2Ct_webp/s1.kkday.com/campaign_1670/20210519100328_WsPdN/jpg";
+            ViewData["banner-location-word"] = "目的地";
+            ViewData["banner-date-word"] = "出發日期";
+            ViewData["collapse-search"] = "請選擇目的地與日期";
+
+            var getLocation = _locationServices.GetLocations();
+            var getProduct = _locationServices.GetProducts();
+            var getPhoto = _locationServices.GetPhoto();
+            var result = new LocationVM
+            {
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                {
+                    Id = lo.locationID,
+                    latitude = lo.Latitude,
+                    longitude = lo.Longitude
+                }).ToList(),
+                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                }).ToList()
+                ,
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                {
+                    PhotoId = p.PhotoId,
+                    PhotoPath = p.Path,
+                    ProductId = p.ProductId,
+                    Sort = p.Sort
+                }).ToList()
+            };
+
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.GetLocation);
+            string ProductNamedJson = System.Text.Json.JsonSerializer.Serialize(result.GetProdocutName);
+            string GetPhotoJson = System.Text.Json.JsonSerializer.Serialize(result.GetProductPhoto);
+            ViewData["locationJson"] = locationJson;
+            ViewData["PNameJson"] = ProductNamedJson;
+            ViewData["PhotoJson"] = GetPhotoJson;
+            return View(result);
         }
         public IActionResult HSRClassify() //高鐵 分類
         {
-            return View();
+            ViewData["banner-h2"] = "台灣高鐵國旅聯票";
+            ViewData["banner-p"] = "【台灣高鐵國旅聯票85折】租車・樂園門票及更多高鐵優惠組合，從租車、樂園門票到在地體驗，一指下訂擁有台灣高鐵85折優惠！取票零接觸，高鐵「T-EX行動購票」App直接兌換車票！輕鬆抵達高鐵沿線城市、盡情體驗屬於你的愉快假期";
+            ViewData["banner-img"] = "https://cdn.kkday.com/pc-web/assets/img/thsr/thsr-banner.jpeg";
+            ViewData["banner-location-word"] = "你要去哪裡玩?";
+            ViewData["banner-date-word"] = "出發日期";
+            ViewData["collapse-search"] = "你要去哪裡玩?";
+
+            var getLocation = _locationServices.GetLocations();
+            var getProduct = _locationServices.GetProducts();
+            var getPhoto = _locationServices.GetPhoto();
+            var result = new LocationVM
+            {
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                {
+                    Id = lo.locationID,
+                    latitude = lo.Latitude,
+                    longitude = lo.Longitude
+                }).ToList(),
+                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                }).ToList()
+                ,
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                {
+                    PhotoId = p.PhotoId,
+                    PhotoPath = p.Path,
+                    ProductId = p.ProductId,
+                    Sort = p.Sort
+                }).ToList()
+            };
+
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.GetLocation);
+            string ProductNamedJson = System.Text.Json.JsonSerializer.Serialize(result.GetProdocutName);
+            string GetPhotoJson = System.Text.Json.JsonSerializer.Serialize(result.GetProductPhoto);
+            ViewData["locationJson"] = locationJson;
+            ViewData["PNameJson"] = ProductNamedJson;
+            ViewData["PhotoJson"] = GetPhotoJson;
+            return View(result);
         }
         public IActionResult Rent() //租車 分類
         {
-            return View();
+            ViewData["banner-h2"] = "租車推薦 即刻預訂享折扣・輕鬆享受自駕遊";
+            ViewData["banner-p"] = "多元的租車商品與Today獨家優惠，讓你的自駕遊，安全輕鬆沒煩惱！";
+            ViewData["banner-img"] = "https://cdn.kkday.com/pc-web/assets/img/car_rentals/car-rentals-banner.jpg";
+            ViewData["banner-location-word"] = "取車地點";
+            ViewData["banner-date-word"] = "取車日期";
+            ViewData["collapse-search"] = "請選擇取車地點及日期";
+
+            var getLocation = _locationServices.GetLocations();
+            var getProduct = _locationServices.GetProducts();
+            var getPhoto = _locationServices.GetPhoto();
+            var result = new LocationVM
+            {
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                {
+                    Id = lo.locationID,
+                    latitude = lo.Latitude,
+                    longitude = lo.Longitude
+                }).ToList(),
+                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                }).ToList()
+                ,
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                {
+                    PhotoId = p.PhotoId,
+                    PhotoPath = p.Path,
+                    ProductId = p.ProductId,
+                    Sort = p.Sort
+                }).ToList()
+            };
+
+            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.GetLocation);
+            string ProductNamedJson = System.Text.Json.JsonSerializer.Serialize(result.GetProdocutName);
+            string GetPhotoJson = System.Text.Json.JsonSerializer.Serialize(result.GetProductPhoto);
+            ViewData["locationJson"] = locationJson;
+            ViewData["PNameJson"] = ProductNamedJson;
+            ViewData["PhotoJson"] = GetPhotoJson;
+            return View(result);
         }
         public IActionResult Camping() //露營頁面
         {

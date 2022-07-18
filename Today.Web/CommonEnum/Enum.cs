@@ -2,7 +2,7 @@
 
 namespace Today.Web.Services.CommonEnum
 {
-    public class CityEnum
+    public class Enum
     {
         public enum PartnerType
         {

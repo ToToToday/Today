@@ -11,12 +11,12 @@ body{
 
 /* 導覽列 */
 header{
-    z-index: 10;
+    z-index: 50;
 }
 .nav-limit .container-fluid, .fixed-width{
     box-sizing: border-box;
 }
-h1{
+h1 {
     width: 20%;
     max-width: 80px;
 }
@@ -25,6 +25,12 @@ h1{
     left: 0;
 }
 .nav-limit .navbar-nav a:hover, .category-limit a:hover, header .search-keywords a:hover {
+    color: #26bec9 !important;
+}
+.nav-limit .search-box a{
+    cursor: pointer;
+}
+.nav-limit .search-box a:hover {
     color: #26bec9 !important;
 }
 /* 多加 */
