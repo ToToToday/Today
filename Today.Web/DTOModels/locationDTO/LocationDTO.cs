@@ -4,7 +4,6 @@
     {
         public class ProductLocationDTO
         {
-
             public int locationID { get; set; }
             public string Latitude { get; set; }
             public string Longitude { get; set; }
