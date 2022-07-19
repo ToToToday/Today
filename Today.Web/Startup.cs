@@ -14,6 +14,7 @@ using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.Services.AccountService;
 using Today.Web.Services.CityService;
+using Today.Web.Services.locationService;
 using Today.Web.Services.ProductService;
 
 namespace Today.Web
@@ -38,6 +39,7 @@ namespace Today.Web
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
+<<<<<<< HEAD
             // µù¥UDI
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<GenericRepository>();
@@ -62,6 +64,9 @@ namespace Today.Web
                     ////­YÅv­­¤£¨¬¡A·|¾É¦VªºActionªº¸ô®|
                     //options.AccessDeniedPath = new PathString("/Account/AccessDenied");
                 });
+=======
+            services.AddTransient<ILocationService, LocationService>();
+>>>>>>> ??Ž¥DB
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
