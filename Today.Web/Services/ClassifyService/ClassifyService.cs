@@ -6,98 +6,72 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.ViewModels;
-
+using Today.Web.DTOModels.ClassifyDTO;
+using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 
 namespace Today.Web.Services.ClassifyService
 {
     public class ClassifyService : IClassifyService
     {
-        private readonly IGenericRepository _repository;
+        private readonly IGenericRepository _repo;
 
-        public ClassifyService(IGenericRepository repository)
+        public ClassifyService(IGenericRepository repo)
         {
-            _repository = repository;
+            _repo = repo;
         }
 
-        public List<ClassifyVM> GetClassifyPages()
+        public ClassifyDTO GetClassifyPages()
         {
-            //var product = _repository.GetAll<Product>().OrderBy(x => x.ProductId);
-            //var pic = _repository.GetAll<ProductPhoto>().Where(y => /*x.ProductId <= 10 &&*/ y.Sort == 1);
-            //var newpro = product.Join(pic, x => x.ProductId, y => y.ProductId, (x, y) => new { x.ProductId, x.ProductName, x.ProductTags, y.Path });
+            var result = new ClassifyDTO() { ClassifyCardList = new List<ClassifyDTO.ClassifyCardInfo>(), CategoryList = new List<CategoryDestinations>() };
+
+            var product = _repo.GetAll<Product>().ToList();
+            var productPhoto = _repo.GetAll<ProductPhoto>().ToList();
+            var city = _repo.GetAll<City>().ToList();
+
+            var tem = (from p in product
+                       join y in productPhoto on p.ProductId equals y.ProductId
+                       where y.ProductId <= 10 && y.Sort == 1
+                       join c in city on p.CityId equals c.CityId
+                       select new { ProductName = p.ProductName, CityName = c.CityName, Path = y.Path })
+                        .ToList();
+            foreach (var item in tem)
+            {
+                result.ClassifyCardList.Add(new ClassifyDTO.ClassifyCardInfo() {CityName = item.CityName, Path = item.Path, ProductName = item.ProductName });
+            }
 
 
-            //var tag = _repository.GetAll<ProductTag>();
-            //var tagList = _repository.GetAll<Tag>();
-            //var tagDetails = tag.Join(tagList, c => c.TagId, b => b.TagId, (c, b) => new { c.ProductId, b.TagText });
+            var category = _repo.GetAll<Category>().ToList();
+            var city1 = _repo.GetAll<City>().ToList();
+            var maincategory = category.Where(category => category.ParentCategoryId == null);
+            var categoryGroup = category.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
+            foreach (var cy in maincategory)
+            {
+                var mainTemp = new ClassifyDTO.CategoryDestinations()
+                {
+                    Id = cy.CategoryId,
+                    CategoryName = cy.CategoryName,
+                    ChildCategory = new List<CategoryDestinations>()
 
-            //var pic = _repository.GetAll<ProductPhoto>().Where(x=>x.Sort == 1).Take(8);
+                };
 
-            //var p1 = _repository.GetAll<Product>().Where(p => p.ProductId <= 8);
-            //var p2 = _repository.GetAll<ProductPhoto>().Where(pp => pp.Sort == 1);
-            //var p3 = _repository.GetAll<Tag>().Where(pp => pp.ProductId == 9);
-            //var p4 = _repository.GetAll<City>().Where(cn => cn.CityId <= 8);
-            //var p5 = _repository.GetAll<ProgramSpecification>().Where(cn => cn.CityId <= 8);
-
-            //var PN = (from x in _repository.GetAll<ProductPhoto>().Where(x => /*x.ProductId <= 10 &&*/ x.Sort == 1)
-            //          join p in _repository.GetAll<Product>().OrderBy(x => x.ProductName) on x.ProductId equals p.ProductId
-            //          join pt in _repository.GetAll<ProductTag>() on p.ProductId equals pt.ProductId
-            //          //join pp in pic on y.Path equals
-            //          //join t in _repository.GetAll<Tag>().Where(pt => pt.TagId <= 8) on pt.TagId equals t.TagId
-            //          //() on pt.TagId equals t.TagId.Where (t => t.TagText <= 8)
-            //          join c in _repository.GetAll<City>() on p.CityId equals c.CityId
-
-
-            //          //join t in _repository.GetAll<Tag>() on p.ProductId equals t.Tag
-            //          //where pp.Sort == 1
-
-            //          select new ClassifyVM { ProductName = p.ProductName, Path = x.Path, CityName = c.CityName,/* TagText = t.TagText*/ })
-            //                     .ToList();
-
-
-            //var cat in _repository.GetAll<Category>().Where(cat =>cat.CategoryName)
-
-            var CN = (from p in _repository.GetAll<Product>()
-                      join y in _repository.GetAll<ProductPhoto>() on p.ProductId equals y.ProductId
-                      where y.ProductId <= 10 && y.Sort == 1
-                      join c in _repository.GetAll<City>() on p.CityId equals c.CityId
-                      where p.ProductId <= 8
-                      select new ClassifyVM { ProductName = p.ProductName, CityName = c.CityName, Path = y.Path })
-                                 .ToList();
-            return CN;
+                foreach (var group in categoryGroup)
+                {
+                    if (mainTemp.Id == group.Key)
+                    {
+                        foreach (var item in group)
+                        {
+                            var x = new CategoryDestinations()
+                            {
+                                Id = item.CategoryId,
+                                CategoryName = item.CategoryName,
+                            };
+                            mainTemp.ChildCategory.Add(x);
+                        }
+                    }
+                }
+                result.CategoryList.Add(mainTemp);
+            }
+            return result;
         }
-
-        public List<ClassifyVM> GetClassifydestination()
-        {
-            var des = (from p in _repository.GetAll<Product>()
-                       join pc in _repository.GetAll<ProductCategory>() on p.ProductId equals pc.CategoryId
-                       join c in _repository.GetAll<Category>() on pc.CategoryId equals c.CategoryId
-                       where c.ParentCategoryId >= 13
-                       select new ClassifyVM { CategoryName = c.CategoryName/*, ParentCategoryId = c.ParentCategoryId*/ })
-                                 .ToList();
-            var query = des.Skip(10)/*.Take(10)*/.ToList();
-            return query;
-
-        }
-        //public async Task<IActionResult> GetClassifyPages()
-        //{
-        //    var classifypages = await (from pro in _repository.GetAll<ClassifyService>()
-        //                         select new ClassifyVM
-        //                         {
-        //                             ProductName = pro.ProductName,
-        //                             Path = pro.Path,
-        //                             TagText = pro.TagText,
-        //                             CityName = pro.CityName,
-        //                             UnitPrice = pro.UnitPrice
-        //                         }).ToListAsync();
-        //    return classifypages;
-        //}
-
-
-
-
-
-
-
     }
-
 }

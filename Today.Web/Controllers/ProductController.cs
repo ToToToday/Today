@@ -35,18 +35,42 @@ namespace Today.Web.Controllers
 
         public IActionResult Classify() //楊 分類
         {
-            var ClassPages = _classifyService.GetClassifyPages();
-            return View(ClassPages);
+            var classPages = _classifyService.GetClassifyPages();
+            var cardsource = classPages.ClassifyCardList.ToList();
+            var Categorysource = classPages.CategoryList.ToList();
+            var result = new ClassifyVM()
+            {
+                ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
+                {
+                    ProductName = c.ProductName,
+                    CityName = c.CityName,
+                    Path = c.Path,
+                    TagText = c.TagText,
+                    UnitPrice = c.UnitPrice,
+                    Evaluation = c.Evaluation
+                }).ToList(),
+                CategoryList = Categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                {
+                    Id = x.Id,
+                    CategoryName = x.CategoryName,
+                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
+                    {
+                        Id = y.Id,
+                        CategoryName = y.CategoryName
+                    }).ToList()
+                }).ToList()
+            };
+            return View(result);
         }
 
         public IActionResult Souvenir() //伴手禮
         {
-            
+
             return View();
         }
         public IActionResult CityClassify() //城市 分類
         {
-           
+
             return View();
         }
         public IActionResult CityTour() //各城市導覽頁
