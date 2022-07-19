@@ -1,0 +1,30 @@
+.bundle{
+    border-radius: 6px;
+}
+.bundle span{
+    z-index: 10;
+}
+.location-tag {
+    top: 10%;
+    left: 5%;
+}
+.heart {
+    top: 10%;
+    right: 5%;
+}
+.fixed-card img{
+    transition: transform 1s ease;
+}
+.fixed-card img:hover{
+    transform: scale(1.3);
+}
+.card-tag span{
+    white-space: nowrap;
+    box-sizing: border-box;
+    background-color: #EEF7FE;
+    color: #51BAF8;
+    font-size: .5rem;
+}
+[class*="fa-solid fa-star"]{
+    color: #26bec9;
+}
