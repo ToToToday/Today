@@ -200,7 +200,7 @@ namespace Today.Web.Services.ProductService
                     TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
                     Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
                 }).Take(8).ToList(),
-                Paradise = productList.Where(x => )
+                //Paradise = productList.Where(x => )
             };
 
             return result;
