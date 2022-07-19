@@ -31,7 +31,7 @@ namespace Today.Web.Services.ProductService
             var tagList = _repo.GetAll<Tag>().ToList();
             var programList = _repo.GetAll<Model.Models.Program>().ToList();
             var specificationList = _repo.GetAll<ProgramSpecification>().ToList();
-            var commentList = _repo.GetAll<Comment>().ToList();
+            var commentList = _repo.GetAll<Model.Models.Comment>().ToList();
             var orderDetailList = _repo.GetAll<OrderDetail>().ToList();
             var mainCategoryList = categoryList.Where(category => category.ParentCategoryId == null);
             var categoryListGroup = categoryList.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
