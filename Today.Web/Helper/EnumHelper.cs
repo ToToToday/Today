@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
-using Today.Web.Services.CommonEnum;
+using Today.Web.CommonEnum;
 
 namespace Today.Web.Helper
 {
