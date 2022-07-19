@@ -30,6 +30,8 @@ namespace Today.Web.DTOModels.ProductDTO
             public string ChildCategoryName { get; set; }
             public string CityName { get; set; }
             public List<string> Tags { get; set; }
+            public RatingInfo Rating { get; set; }
+            public int TotalOrder { get; set; }
             public PriceInfo Prices { get; set; }
 
         }
@@ -38,5 +40,11 @@ namespace Today.Web.DTOModels.ProductDTO
             public decimal? OriginalPrice { get; set; }
             public decimal? Price { get; set; }
         }
+        public class RatingInfo
+        {
+            public float RatingStar { get; set; }
+            public int TotalGiveComment { get; set; }
+        }
     }
+
 }

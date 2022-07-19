@@ -7,11 +7,12 @@ using System.Reflection;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.DTOModels;
-using Today.Web.Services.CommonEnum;
+
 using Today.Web.Helper;
 using static Today.Web.DTOModels.CityDTO;
 using static Today.Web.DTOModels.RaiderDTO;
 using City = Today.Model.Models.City;
+using Today.Web.Services.CommonEnum;
 
 namespace Today.Web.Services.CityService
 {
@@ -74,7 +75,7 @@ namespace Today.Web.Services.CityService
         }
         public List<CommentCard> GetAllComment()
         {
-            Type type = typeof(CityEnum);
+            Type type = typeof(CommonEnum.Enum);
 
             var CommentData = from cm in _repo.GetAll<Comment>()
                               join od in _repo.GetAll<OrderDetail>() on
