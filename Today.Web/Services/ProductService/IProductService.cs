@@ -9,6 +9,8 @@ namespace Today.Web.Services.ProductService
     {
         //List<FilterVM> Filter();
         ProductDTO GetProduct();
+        ProductDTO test1();
+
         //List<ProductDTO> GetProduct();
     }
 }

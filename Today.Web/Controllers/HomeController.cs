@@ -33,9 +33,9 @@ namespace Today.Web.Controllers
         public IActionResult Index()
         {
             var citysource = _cityService.GetAllCity();
-            var homeproductsource = _productService.GetProduct();
-            var productSource = homeproductsource.productList;
-            var categorySource = homeproductsource.cateoryList;
+            var homeproductsource = _productService.test1();
+            var productSource = homeproductsource.ProductList;
+            var categorySource = homeproductsource.CateoryList;
 
             var homeshow = new ProductVM()
             {
