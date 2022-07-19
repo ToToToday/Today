@@ -6,8 +6,9 @@ namespace Today.Web.ViewModels
     public class LocationVM
     {
         public List<ProductPhoto> GetProductPhoto{ get; set; }
-        public List<GetProduct> GetprodocutName { get; set; }
+        public List<GetProduct> GetProdocutName { get; set; }
         public List<ProductLocation> GetLocation { get; set; }
+
         public class ProductLocation
         {
             public int Id { get; set; }

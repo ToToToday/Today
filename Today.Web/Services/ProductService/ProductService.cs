@@ -31,10 +31,12 @@ namespace Today.Web.Services.ProductService
             var tagList = _repo.GetAll<Tag>().ToList();
             var programList = _repo.GetAll<Model.Models.Program>().ToList();
             var specificationList = _repo.GetAll<ProgramSpecification>().ToList();
+            var commentList = _repo.GetAll<Comment>().ToList();
+            var orderDetailList = _repo.GetAll<OrderDetail>().ToList();
             var mainCategoryList = categoryList.Where(category => category.ParentCategoryId == null);
             var categoryListGroup = categoryList.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
 
-            result.cateoryList = new List<CategoryInfo>();
+            //result.cateoryList = new List<CategoryInfo>();
 
             #region categoryList
             foreach (var category in mainCategoryList)
@@ -70,6 +72,8 @@ namespace Today.Web.Services.ProductService
             {
                 var tempCategoryList = productCategoryList.Where(productCategory => productCategory.ProductId == product.ProductId);
                 var tempProductTagList = productTagList.Where(productTag => productTag.ProductId == product.ProductId);
+                var totalComment = commentList.Where(comment => comment.ProductId == product.ProductId).Count();
+                var sumRating = commentList.Where(comment => comment.ProductId == product.ProductId).Sum(comment => comment.RatingStar);
 
                 var productTemp = new ProductDTO.ProductInfo
                 {
@@ -79,6 +83,8 @@ namespace Today.Web.Services.ProductService
                     ChildCategoryName = tempCategoryList.Select(productCategory => categoryList.Where(category => category.CategoryId == productCategory.CategoryId).Select(category => category.CategoryName).First()).First(),
                     CityName = string.Join("", cityList.Where(city => city.CityId == product.CityId).Select(city => city.CityName)),
                     Tags = tempProductTagList.Join(tagList, productTag => productTag.TagId, tag => tag.TagId, (productTag, tag) => new { tag.TagText }).Select(tag => tag.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (totalComment != 0) ? (float)sumRating / totalComment : 0, TotalGiveComment = totalComment},
+                    TotalOrder = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
                     Prices = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
                 };
 
