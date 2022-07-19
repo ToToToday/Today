@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Data;
+using Today.Web.DTOModels.AccountDTO;
 using Today.Web.Models;
 using Today.Web.Services.ProductService;
 using Today.Web.ViewModels;
@@ -17,7 +19,7 @@ namespace Today.Web.Controllers
 {
     public class HomeController : Controller
     {
-        
+
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
 
@@ -102,14 +104,16 @@ namespace Today.Web.Controllers
                     Price = s.Prices.Price
                 }).Take(10).ToList(),
             };
-            
+
             return View(homeshow);
         }
 
+        
         public IActionResult Privacy()
         {
             return View();
         }
+
         public IActionResult Data()
         {
             InitDB data = new InitDB();
