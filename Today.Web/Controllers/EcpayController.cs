@@ -35,7 +35,7 @@ namespace Today.Web.Controllers
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
                 ServerUrl = "https://c764-220-141-64-19.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://c764-220-141-64-19.jp.ngrok.io/"
+                ClientUrl = "https://c764-220-141-64-19.jp.ngrok.io/Ecpay/success" //之後改主頁網址
             };
             var transaction = new
             {
