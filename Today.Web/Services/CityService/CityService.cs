@@ -93,7 +93,7 @@ namespace Today.Web.Services.CityService
             {
                 foreach (var cm in CommentData)
                 {
-                    var typeDesc = EnumHelper.GetTypeDescription(cm.PartnerType);
+                    var typeDesc = cm.PartnerType.ToDescription<CityEnum.PartnerType>();
                     var temp = new CityDTO.CommentCard
                     {
                         CityId = cm.CityId,
