@@ -1,0 +1,414 @@
+﻿@{
+}
+
+<header class="nav-limit w-100 position-fixed border-bottom border-secondary">
+    <nav class="navbar navbar-expand-lg fixed-width m-auto px-1 py-2">
+        <div class="container-fluid px-2 px-md-4">
+            <div class="inputlogo-group d-flex justify-content-start col-7 align-items-center">
+                <h1 class="w-25 me-3">
+                    <a href="#" class="align-top">
+                        <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
+                    </a>
+                </h1>
+                <div class="add-height" style="height: 48px;"></div>
+                <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")">
+                    <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
+                            aria-label="Recipient's username" aria-describedby="search" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <button class="btn" type="button" id="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <div class="search-box px-2 py-3 border rounded w-120 dropdown-menu dropdown-menu-start mt-2">
+                        <span class="title w-100 d-block mb-2">熱門目的地</span>
+                        <div class="seacrch-keywords d-flex flex-wrap flex-column" style="height: 200px;">
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台南</a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">高雄</a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">桃園</a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">平溪</a>
+                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">彰化</a>
+                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">苗栗</a>
+                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">雲林</a>
+                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">台中</a>
+                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">嘉義</a>
+                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">南投</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon bg-black">
+                    </span> -->
+                <span class="bg-black"></span>
+                <span class="bg-black"></span>
+                <span class="bg-black"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav my-2 my-lg-0">
+                    <form method="get" asp-action="/Account/Login">
+                        @if (true)
+                        {
+                            @*<div>成功</div>*@
+                            <!--手機(已登入)-->
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="big-headimg col-3">
+                                        <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle">
+                                    </span>
+                                    <p class="flex-grow-1">蝦毀</p>
+                                    <span class="setting-icon col-3 text-end">
+                                        <i class="fa-solid fa-gear"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex" href="#">
+                                    <span class="member-icon col-3">
+                                        <i class="fa-regular fa-gem"></i>
+                                    </span>
+                                    <span class="member-details col-9">
+                                        <p class="member-level-title mb-1">我的會員禮遇</p>
+                                        <p class="member-level-display">白銀會員</p>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="ticket-icon col-3">
+                                        <i class="fa-solid fa-ticket-simple"></i>
+                                    </span>
+                                    <p class="coupon-title flex-grow-1">Today 折扣券</p>
+                                    <p class="coupon-display col-3 text-end">0</p>
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="task-icon col-3">
+                                        <i class="fa-solid fa-list-ul"></i>
+                                    </span>
+                                    <p class="task-title flex-grow-1">解任務，賺獎勵</p>
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="message-icon col-3">
+                                        <i class="fa-regular fa-comment-dots"></i>
+                                    </span>
+                                    <p class="message-title flex-grow-1">訊息管理</p>
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="collect-icon col-3">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </span>
+                                    <p class="collect-title flex-grow-1">我的收藏</p>
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="order-icon col-3">
+                                        <i class="fa-regular fa-rectangle-list"></i>
+                                    </span>
+                                    <p class="order-title flex-grow-1">訂單管理</p>
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <span class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="order-icon col-3">
+                                        <i class="fa-solid fa-right-to-bracket"></i>
+                                    </span>
+                                    <a class="order-title flex-grow-1 text-secondary" asp-action="Logout" asp-controller="Account">登出</a>
+                                </span>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                    <span class="order-icon col-3">
+                                        <i class="fa-regular fa-circle-question"></i>
+                                    </span>
+                                    <p class="order-title flex-grow-1">常見問題與幫助</p>
+                                </a>
+                            </li>
+                            <!--中型裝置(以登入)-->
+                            <li class="nav-item d-none d-lg-block">
+                                <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <div class="user-info border rounded dropdown-menu py-0 dropdown-menu-end mt-0">
+                                    <a class="top-info text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        <span class="big-headimg col-3">
+                                            <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle">
+                                        </span>
+                                        <p class="flex-grow-1">蝦毀</p>
+                                        <span class="setting-icon col-3 text-end">
+                                            <i class="fa-solid fa-gear"></i>
+                                        </span>
+                                    </a>
+                                    <hr class="dropdown-divider mx-0">
+                                    <span class="body-info border-bottom border-secondary">
+                                        <a class="member-level text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                            <span class="member-icon col-3">
+                                                <i class="fa-regular fa-gem"></i>
+                                            </span>
+                                            <span class="member-details col-9">
+                                                <p class="member-level-title mb-1">我的會員禮遇</p>
+                                                <p class="member-level-display">白銀會員</p>
+                                            </span>
+                                        </a>
+                                        <a class="discount-coupon text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                            <span class="ticket-icon col-3">
+                                                <i class="fa-solid fa-ticket-simple"></i>
+                                            </span>
+                                            <p class="coupon-title flex-grow-1">Today 折扣券</p>
+                                            <p class="coupon-display col-3 text-end">0</p>
+                                        </a>
+                                        <a class="task text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                            <span class="task-icon col-3">
+                                                <i class="fa-solid fa-list-ul"></i>
+                                            </span>
+                                            <p class="task-title flex-grow-1">解任務，賺獎勵</p>
+                                        </a>
+                                    </span>
+                                    <hr class="dropdown-divider mx-0">
+                                    <span class="middle-info">
+                                        <a class="order text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                            <span class="order-icon col-3">
+                                                <i class="fa-regular fa-rectangle-list"></i>
+                                            </span>
+                                            <p class="order-title flex-grow-1">訂單管理</p>
+                                        </a>
+                                        <a class="message text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                            <span class="message-icon col-3">
+                                                <i class="fa-regular fa-comment-dots"></i>
+                                            </span>
+                                            <p class="message-title flex-grow-1">訊息管理</p>
+                                        </a>
+                                        <a class="collect text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                            <span class="collect-icon col-3">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </span>
+                                            <p class="collect-title flex-grow-1">我的收藏</p>
+                                        </a>
+                                    </span>
+                                    <hr class="dropdown-divider mx-0">
+                                    <a class="middle-info text-black text-decoration-none text-center d-block px-3 py-2" asp-action="Logout" asp-controller="Account">
+                                        登出
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            @*<div>失敗</div>*@
+                            <!-- 手機(未登入) -->
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                    登入
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none border-bottom m-2 pb-3">
+                                <a class="nav-link text-secondary text-opacity-75" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                    <i class="fa-solid fa-user"></i>
+                                    註冊
+                                </a>
+                            </li>
+                            <li class="nav-item d-sm-block d-lg-none m-2">
+                                <a class="nav-link text-secondary text-opacity-75" href="#">
+                                    <i class="fa-regular fa-circle-question"></i>
+                                    常見問題與幫助
+                                </a>
+                            </li>
+                            <!-- 中型裝置(都存在) -->
+                            <li class="nav-item d-none d-lg-block m-auto me-2">
+                                <a class="nav-link text-secondary text-opacity-75" href="#">
+                                    <i class="fa-solid fa-cart-shopping fs-6"></i>
+                                </a>
+                            </li>
+                            <!--中型裝置(未登入)-->
+                            <li class="nav-item d-none d-lg-block">
+                                <a class="nav-link text-secondary text-opacity-75 fs-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop">登入/註冊</a>
+                            </li>
+                        }
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <partial name="Layout/_NavBottomPartial"/>
+</header>
+
+<!-- 登入Model -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-lg-down">
+        <div class="modal-content position-relative">
+            <div class="modal-header login-modal position-relative">
+                <div class="left-icon position-absolute" data-bs-dismiss="modal">
+                    <i class="icofont-rounded-left"></i>
+                </div>
+            </div>
+            <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body login-modal">
+                <div class="header">
+                    <h4>使用社交平台帳戶登入</h4>
+                    <h5 class="mb-2">立即登入，隨時收到獨家優惠</h5>
+                </div>
+                <p class="mb-3">使用社交平台帳戶登入</p>
+                <div class="All-icon">
+                    <a class="btn btn-circle" id="fb" href="#">
+                        <img src="https://cdn.kkday.com/m-web/assets/img/sns/facebook_white.svg" alt="fb">
+                    </a>
+                    <a class="btn btn-circle" id="line" href="#">
+                        <img src="https://cdn.kkday.com/m-web/assets/img/sns/line_white.svg" alt="line">
+                    </a>
+                    <a class="btn btn-circle" id="google" href="#">
+                        <img class="" src="https://cdn.kkday.com/m-web/assets/img/sns/google.svg" alt="google">
+                    </a>
+                </div>
+                <div class="or-set position-relative">
+                    <hr>
+                    <span class="or d-inline-block">或</span>
+                </div>
+                @*加 method="post" action="/Account/Login"*@
+                <form class="login-form form-horizontal" role="form" method="post" action="/Account/Login">
+                    <p>Today會員帳號登入</p>
+                    <div class="input-box d-flex">
+                        <div class="icon-set">
+                            <i class="icofont-envelope text-black-50"></i>
+                        </div>
+                        <div class="input-set flex-grow-1">
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email">
+                        </div>
+                    </div>
+                    <div class="input-box d-flex">
+                        <div class="icon-set">
+                            <i class="icofont-lock text-black-50"></i>
+                        </div>
+                        <div class="input-set flex-grow-1">
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="password" name="Password">
+                        </div>
+                    </div>
+                    <a class="forgot-password text-black-50" href="#">忘記密碼</a>
+                    <p class="google-recaptcha">
+                        This site is protected by reCAPTCHA and the Google
+                        <a href="https://policies.google.com/privacy" class="" target="_blank"
+                            rel="noopener">Privacy Policy</a>
+                        and
+                        <a href="https://policies.google.com/terms" class="" target="_blank" rel="noopener">
+                            Terms of
+                            Service
+                        </a>
+                        apply.
+                    </p>
+                    <div class="btn-box">
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
+                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
+                                data-bs-dismiss="modal">
+                            登入
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-10 text-center password-register">
+                    <a href="#" class="forget-password router-link-active"
+                        id="modal-login-link-forget-password"
+                        data-bs-dismiss="modal">
+                        忘記密碼
+                    </a>
+                    <span class="gap">|</span>
+                    <a href="#" class="router-link-active" id="modal-login-link-register" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                        免費註冊
+                    </a>
+                </div>
+                <div id="dont-add" class="dont-add text-black-50">
+                    還未加入KKday嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">立即註冊！</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 註冊Model -->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-lg-down">
+        <div class="modal-content position-relative">
+            <div class="modal-header login-modal position-relative">
+                <div class="left-icon position-absolute" data-bs-dismiss="modal">
+                    <i class="icofont-rounded-left"></i>
+                </div>
+                <h5 class="modal-title" id="exampleModalLabel2">免費註冊</h5>
+            </div>
+            <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body login-modal">
+                <div class="header">
+                    <h4>使用社交平台帳戶登入</h4>
+                    <h5 class="mb-2">立即登入，隨時收到獨家優惠</h5>
+                </div>
+                <p class="mb-3">使用社交平台帳戶登入</p>
+                <div class="All-icon">
+                    <a class="btn btn-circle" id="fb" href="#">
+                        <img src="https://cdn.kkday.com/m-web/assets/img/sns/facebook_white.svg" alt="fb">
+                    </a>
+                    <a class="btn btn-circle" id="line" href="#">
+                        <img src="https://cdn.kkday.com/m-web/assets/img/sns/line_white.svg" alt="line">
+                    </a>
+                    <a class="btn btn-circle" id="google" href="#">
+                        <img class="" src="https://cdn.kkday.com/m-web/assets/img/sns/google.svg" alt="google">
+                    </a>
+                </div>
+                <div class="or-set position-relative">
+                    <hr>
+                    <span class="or d-inline-block">或</span>
+                </div>
+                @*加 method="post" action="/Account/SignUp"*@
+                <form class="login-form" method="post" action="/Account/SignUp">
+                    <p>免費註冊 KKday 會員帳號</p>
+                    <!-- 電子郵件 -->
+                    <div class="input-box d-flex">
+                        <div class="icon-set">
+                            <i class="icofont-envelope"></i>
+                        </div>
+                        <div class="input-set flex-grow-1">
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email">
+                        </div>
+                    </div>
+                    <!-- 密碼 -->
+                    <div class="input-box d-flex">
+                        <div class="icon-set">
+                            <i class="icofont-lock"></i>
+                        </div>
+                        <div class="input-set flex-grow-1">
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="password" name="Password">
+                        </div>
+                    </div>
+                    <label class="d-flex">
+                        <input type="checkbox" class="me-2">
+                        <p>我已詳閱並同意<a class="text-color" href="#"> 使用者條款 </a>&<a class="text-color" href="#"> 隱私權保護政策 </a><span class="text-danger"> *</span></p>
+                    </label>
+                    <p class="google-recaptcha">
+                        This site is protected by reCAPTCHA and the Google
+                        <a href="https://policies.google.com/privacy" class="" target="_blank"
+                            rel="noopener">Privacy Policy</a>
+                        and
+                        <a href="https://policies.google.com/terms" class="" target="_blank" rel="noopener">
+                            Terms of
+                            Service
+                        </a>
+                        apply.
+                    </p>
+                    <div class="btn-box">
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
+                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
+                                data-bs-dismiss="modal">
+                            註冊
+                        </button>
+                    </div>
+                </form>
+
+                <div class="footer login-modal text-color" data-bs-toggle="modal" data-bs-target="#staticBackdrop">登入KKday</div>
+            </div>
+        </div>
+    </div>
+</div>
