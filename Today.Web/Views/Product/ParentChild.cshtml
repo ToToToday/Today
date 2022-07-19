@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="~/css/google-map.css">
 
 }
-<partial name="hotel_bannerPartial" />
+<partial name="_Hotel_bannerPartial" />
 
   <div class="container">
     <div class="Parent-child-carousel">
@@ -129,12 +129,12 @@
       </div>  
     </div>
   </div>
-<partial name="hotelFiliterPartial" />
+<partial name="_HotelFiliterPartial" />
   <div class="container-fluid-ProductList ">
     <section class="container m-auto">
       <div class="container row p-0 m-0">
         <div class="col-lg-3 product-filter px-3 pt-3">
-             <partial name ="mapPartial" />
+             <partial name ="_MapPartial" />
           <div class="filter-group rounded py-2 mb-1">
             <div class="filter-block py-3 ps-3">
               <h4>所有商品類別</h4>
@@ -1151,7 +1151,7 @@
       </div>
     </section>
   </div>
-  <partial name ="mapModalPartial" />
+  <partial name ="_MapModalPartial" />
 
   @section endJS
   {
@@ -1165,12 +1165,14 @@
   <script src="~/js/homescript.js"></script>
 
   <script>
-      let json_text= @Html.Raw(@ViewData["locationJson"]);
+        let json_location =@Html.Raw(@ViewData["locationJson"]);
+        let json_Name = @Html.Raw(@ViewData["PNameJson"]);
+        let json_photo = @Html.Raw(@ViewData["PhotoJson"]);
    </script>
    <script src="~/js/google-map.js"></script>
 
     <script src="~/js/show_city.js"></script>
-    <script>
+    <script>    
     $(".Parent-child-carousel .owl-carousel").owlCarousel({
       loop: false, 
       margin: 10, 

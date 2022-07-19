@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace Today.Web.Services.CommonEnum
+namespace Today.Web.CommonEnum
 {
-    public class CityEnum
+    public class AllEnum
     {
         public enum PartnerType
         {

@@ -9,6 +9,7 @@ namespace Today.Web.ViewModels
     {
         //public int CityName { get; set; }
         //public List<CategoryShow> Category { get; set; }
+        public List<City> RecommendedCity { get; set; }
         public List<RecentlyCardInfo> RecentlyViewed { get; set; }
         public List<ProductCardInfo> TopProduct { get; set; }
         public List<ProductCardInfo> Featured { get; set; }
@@ -40,8 +41,17 @@ namespace Today.Web.ViewModels
             public string ProductName { get; set; }
             public string CityName { get; set; }
             public List<string> Tags { get; set; }
+            public float Rating { get; set; }
+            public int TotalGiveComment { get; set; }
+            public int TotalOrder { get; set; }
             public decimal? OriginalPrice { get; set; }
             public decimal? Price { get; set; }
+        }
+        public class City
+        {
+            public int Id { get; set; }
+            public string CityName { get; set; }
+            public string CityImage { get; set; }
         }
 
         public static List<string> MaybeCategoryList(List<CategoryInfo> source, string target)
@@ -57,6 +67,7 @@ namespace Today.Web.ViewModels
             }
             return result;
         }
+
         
     }
 
