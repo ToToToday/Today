@@ -2,9 +2,9 @@
 using Today.Web.ViewModels;
 using static Today.Web.DTOModel.ProductInfoDTO;
 
-namespace Today.Web.Services.ProductPagesService
+namespace Today.Web.Services.ProductInfoService
 {
-    public interface IProductPagesService
+    public interface IProductInfoService
     {
         ProductInfoResponseDTO GetProduct(ProductInfoRequstDTO requst);
         //List<ProductPagesVM> GetProductPages();

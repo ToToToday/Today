@@ -21,14 +21,13 @@ namespace Today.Web.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             //ViewData["SearchBox"] = "None";
             return View();
         }
 
-        public async Task<IActionResult> Privacy()
+        public  IActionResult Privacy()
         {            //TodayDBContext context = new TodayDBContext();
             //var result = await context.Categories.ToListAsync();
 

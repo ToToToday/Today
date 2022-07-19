@@ -1,4 +1,6 @@
-﻿@model ProductPagesVM
+﻿@using Newtonsoft.Json
+@model ProductInfoVM
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 <div class="initial-nav bg-white w-100 position-fixed border-botto border-secondary d-lg-none">
     <nav class=" nav nav-pills text-center px-2 py-2 align-items-center navbar navbar-expand-lg fixed-width">
@@ -7,7 +9,7 @@
                 8月29號
             </p>
             <p class="selected-Program col-6">
-                精緻客房｜一泊三食｜8 晚防疫旅館專案
+                @Model.ProductName
             </p>
         </div>
         <ul>
@@ -87,22 +89,18 @@
                     aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            @{
-                var i = 0;
-            }
-            @foreach (var potourl in Model.PhtotList)
+            @for (var potourl = 0; potourl < Model.PhtotList.Count(); potourl++)
             {
-                if (i == 0)
+                if (potourl == 0)
                 {
                     <div class="carousel-item active">
-                        <img src="@potourl.PhotoUrl">
+                        <img src="@Model.PhtotList[potourl]">
                     </div>
-                    i = 1;
                 }
                 else
                 {
                     <div class="carousel-item">
-                        <img src="@potourl.PhotoUrl">
+                        <img src="@Model.PhtotList[potourl]">
                     </div>
                 }
             }
@@ -183,30 +181,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            @*            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-            </div>
-            <div class="carousel-inner">
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-            </button>
-            </div>*@
         </div>
-
-
-
-
-
-
-
-
-
         <div class="product d-flex">
             <div class="prodInfo p-0 m-0 col-12 col-lg-8">
                 <div class=" product-name d-flex flex-wrap">
@@ -232,14 +207,22 @@
                              alt="">
                     </div>
                     <ul class="col-12 d-flex flex-wrap">
+                        @foreach (var ap in Model.ProgarmList[0].AboutProgramList)
+                        {
+                            <li class=" prodInfo-item me-2">
+                                @Html.Raw(@ap.IconClass)
+                                @ap.AboutProgramName
+                            </li>
+                        }
+                        @*
                         <li class="col-12 col-lg-6 prodInfo-item ">
-                            <i class="fa-solid fa-mobile-screen"></i>
-                            現場請出示電子憑證
+                        <i class="fa-solid fa-mobile-screen"></i>
+                        現場請出示電子憑證
                         </li>
                         <li class="col-12 col-lg-6 prodInfo-item">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
-                            3天前可免費取消
-                        </li>
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                        3天前可免費取消
+                        </li>*@
                     </ul>
                     <ul class="Company-Culture col-12">
                         <li>
@@ -313,13 +296,13 @@
                 <h3 class="product-initial-btn col-12">
                     選擇方案
                 </h3>
-                @foreach (var pg in @Model.progarmList)
+                @foreach (var pg in @Model.ProgarmList)
                 {
                     <div class="initial col-12 ">
                         <div class="initial-container  col-12 d-flex flex-wrap text-r">
                             <div class="col-8 mb-2">
                                 <h4>
-                                    @pg.porgramname
+                                    @pg.PrgramName
                                 </h4>
                                 <div class="remind d-inline-block ">
                                     3天前可以免費取消
@@ -331,42 +314,57 @@
                                     起
                                 </span>
                             </p>
-                            <button id="initial-btn-true" class="d-none col-2 mb-2">
-                                <i class="fa-solid fa-circle-check "></i>
-                                己選擇
-                            </button>
-                            <button id="initial-btn-fles" class="col-2 mb-2">
-                                選擇
-                            </button>
+                            @if (pg.ProgarmIsdeleted == true)
+                            {
+                                <button id="initial-btn-true" class="d-none col-2 mb-2">
+                                    <i class="fa-solid fa-circle-check "></i>
+                                    己選擇
+                                </button>
+                                <button id="initial-btn-fles" class="col-2 mb-2">
+                                    選擇
+                                </button>
+                            };
+                            @if (pg.ProgarmIsdeleted == false)
+                            {
+                                <button id="initial-btn-fles" class="col-2 mb-2">
+                                    不可購買
+                                </button>
+                            }
                             @Html.Raw(@pg.PrgarmText)
-                            @*                            <ul class="col-12 initial-Remark">
-                        <li>每天皆提供三餐（依飯店提供為主，如有特殊需求，請自行處理）；餐點有提供全素食，不含牛；若有個人因素不用餐，恕不另行退費</li>
-                        <li>若班機超過 18:00 降落，將不提供當日的晚餐</li>
-                        <li>一人一室隔離；最多 1 位共同照顧不加床同住（需要立即提交符合政府規定之資料）</li>
-                        </ul>*@
                         </div>
                         <div class="flex-wrap d-none d-lg-flex">
                             <div class="col-12  AboutProgram-ProgramInclude-div">
                                 <div class="col-12 d-flex AboutProgram-div">
                                     <h5 class="col-3 AboutProgram-h5 ">關於此方案</h5>
-                                    <ul class="col-9">
-                                        <li><i class="fa-solid fa-calendar"></i>7天前可免費取消</li>
+                                    <ul class="col-9 d-flex flex-wrap">
+                                        @foreach (var ap in pg.AboutProgramList)
+                                        {
+                                            <li class="d-flex">
+                                                @Html.Raw(@ap.IconClass)
+                                                @ap.AboutProgramName
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
                                 <div class="col-12  ProgramInclude-div d-flex ">
                                     <h5 class="col-3 ProgramInclude-h5">費用包含與不包含</h5>
                                     <ul class="col-5 ProgramInclude-true-ul">
-                                        <li>住宿</li>
-                                        <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
-                                        <li>劍湖山主題樂園門票／依照入住人數提供</li>
+                                        @foreach (var li in pg.ProgramIncludeList)
+                                        {
+                                            if (li.IsInclude == true)
+                                            {
+                                                <li>@li.Inciudetext</li>
+                                            }
+                                        }
                                     </ul>
                                     <ul class="col-4 ProgramInclude-fals-ul">
-                                        <li>
-                                            個人消費
-                                        </li>
-                                        <li>
-                                            以上未提及消費
-                                        </li>
+                                        @foreach (var li in pg.ProgramIncludeList)
+                                        {
+                                            if (li.IsInclude == false)
+                                            {
+                                                <li>@li.Inciudetext</li>
+                                            }
+                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -385,18 +383,21 @@
                                         選擇數量
                                     </h6>
                                     <div class="select-quantity-aldult col-12 d-flex flex-wrap">
-                                        <div class="col-12 d-flex flex-wrap  mb-2">
-                                            <p class="col-8 mt-auto">
-                                                成人
-                                                <span class="">TWD 400/每人</span>
-                                            </p>
-                                            <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                                                <button class="select-quantity-btn-reduce">-</button>
-                                                <p class="">0</p>
-                                                <button class="select-quantity-btn-add">+</button>
+                                        @foreach (var sp in pg.ProgramSpecificationList)
+                                        {
+                                            <div class="col-12 d-flex flex-wrap  mb-2">
+                                                <p class="col-8 mt-auto">
+                                                    @sp.UnitText
+                                                    <span class="">TWD @sp.PorgarmUnitPrice/每人</span>
+                                                </p>
+                                                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                                                    <button class="select-quantity-btn-reduce">-</button>
+                                                    <p class="">0</p>
+                                                    <button class="select-quantity-btn-add">+</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 d-flex flex-wrap mb-2">
+                                        }
+@*                                        <div class="col-12 d-flex flex-wrap mb-2">
                                             <p class="col-8 mt-auto">
                                                 兒童
                                                 <span class="">TWD 100/每人</span>
@@ -406,8 +407,7 @@
                                                 <p class="">0</p>
                                                 <button class="select-quantity-btn-add">+</button>
                                             </div>
-                                        </div>
-
+                                        </div>*@
                                         <div class="d-flex justify-content-between col-12 select-total-div ">
                                             <span>總金額</span>
                                             <p>TWD 1234</p>
@@ -444,17 +444,31 @@
                                     <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
                                         <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
                                         <ul class="col-md-4 iph-ProgramInclude-true-ul">
-                                            <li>住宿</li>
-                                            <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
-                                            <li>劍湖山主題樂園門票／依照入住人數提供</li>
+                                            @foreach (var li in pg.ProgramIncludeList)
+                                            {
+                                                if (li.IsInclude == true)
+                                                {
+                                                    <li>@li.Inciudetext</li>
+                                                }
+                                            }
+                                            @*                                            <li>住宿</li>
+                                        <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
+                                        <li>劍湖山主題樂園門票／依照入住人數提供</li>*@
                                         </ul>
                                         <ul class="col-md-12 iph-ProgramInclude-fals-ul">
-                                            <li>
+                                            @foreach (var li in pg.ProgramIncludeList)
+                                            {
+                                                if (li.IsInclude == false)
+                                                {
+                                                    <li>@li.Inciudetext</li>
+                                                }
+                                            }
+@*                                            <li>
                                                 個人消費
                                             </li>
                                             <li>
                                                 以上未提及消費
-                                            </li>
+                                            </li>*@
                                         </ul>
                                     </div>
                                 </div>
@@ -462,149 +476,6 @@
                         </div>
                     </div>
                 }
-                @*                <div class="initial col-12 ">
-                <div class="initial-container  col-12 d-flex flex-wrap text-r">
-                <h4 class="col-8">
-                精緻客房｜一泊三食｜8 晚防疫旅館專案
-                </h4>
-                <button id="initial-btn-true" class="d-none col-4 ">
-                <i class="fa-solid fa-circle-check "></i>
-                己選擇
-                </button>
-                <button id="initial-btn-fles" class="col-4">
-                選擇
-                </button>
-                <div class="initial-money col-12 d-block">
-                TWD 24,000
-                <span>
-                起
-                </span>
-                </div>
-                <div class="remind d-inline-block">
-                3天前可以免費取消
-                </div>
-                <ul class="col-12 initial-Remark">
-                <li>每天皆提供三餐（依飯店提供為主，如有特殊需求，請自行處理）；餐點有提供全素食，不含牛；若有個人因素不用餐，恕不另行退費</li>
-                <li>若班機超過 18:00 降落，將不提供當日的晚餐</li>
-                <li>一人一室隔離；最多 1 位共同照顧不加床同住（需要立即提交符合政府規定之資料）</li>
-                </ul>
-                </div>
-                <div class="flex-wrap d-none d-lg-flex">
-                <div class="col-12  AboutProgram-ProgramInclude-div">
-                <div class="col-12 d-flex AboutProgram-div">
-                <h5 class="col-3 AboutProgram-h5 ">關於此方案</h5>
-                <ul class="col-9">
-                <li><i class="fa-solid fa-calendar"></i>7天前可免費取消</li>
-                </ul>
-                </div>
-                <div class="col-12  ProgramInclude-div d-flex ">
-                <h5 class="col-3 ProgramInclude-h5">費用包含與不包含</h5>
-                <ul class="col-5 ProgramInclude-true-ul">
-                <li>住宿</li>
-                <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
-                <li>劍湖山主題樂園門票／依照入住人數提供</li>
-                </ul>
-                <ul class="col-4 ProgramInclude-fals-ul">
-                <li>
-                個人消費
-                </li>
-                <li>
-                以上未提及消費
-                </li>
-                </ul>
-                </div>
-                </div>
-                <div class="col-12 d-flex flex-wrap ">
-                <h5 class="col-12 my-2 ps-3">
-                選擇日期、數量
-                </h5>
-                <div class="col-6 product-initial-div">
-                <h6 class="product-initial-title col-12">
-                選擇日期
-                </h6>
-                <input id="myID" type="text" class="d-none">
-                </div>
-                <div class="lg-select-quantity-div col-6">
-                <h6 class="select-quantity-title">
-                選擇數量
-                </h6>
-                <div class="select-quantity-aldult col-12 d-flex flex-wrap">
-                <div class="col-12 d-flex flex-wrap  mb-2">
-                <p class="col-8 mt-auto">
-                成人
-                <span class="">TWD 400/每人</span>
-                </p>
-                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                <button class="select-quantity-btn-reduce">-</button>
-                <p class="">0</p>
-                <button class="select-quantity-btn-add">+</button>
-                </div>
-                </div>
-                <div class="col-12 d-flex flex-wrap mb-2">
-                <p class="col-8 mt-auto">
-                兒童
-                <span class="">TWD 100/每人</span>
-                </p>
-                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                <button class="select-quantity-btn-reduce">-</button>
-                <p class="">0</p>
-                <button class="select-quantity-btn-add">+</button>
-                </div>
-                </div>
-
-                <div class="d-flex justify-content-between col-12 select-total-div ">
-                <span>總金額</span>
-                <p>TWD 1234</p>
-                </div>
-                </div>
-                </div>
-                <div class="shopping-cart-div col-12 d-flex">
-                <button class="shopping-cart-btn ms-auto">加入購物車</button>
-                <button>立即訂購</button>
-                </div>
-                </div>
-                </div>
-                <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
-                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
-                aria-controls="offcanvasBottom">
-                查看方案詳情
-                </button>
-                <div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1"
-                id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
-                <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close">
-                </button>
-                </div>
-                <div class="offcanvas-body small d-flex flex-wrap p-3">
-                <div class="col-md-12 iph-AboutProgram-ProgramInclude-div">
-                <div class=" d-flex iph-AboutProgram-div">
-                <ul class="iph-AboutProgram-ul">
-                <li><i class="fa-solid fa-calendar"></i>最早預定時間8/15 12:00</li>
-                <li><i class="fa-brands fa-bitcoin"></i>7天前可免費取消</li>
-                </ul>
-                </div>
-                <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
-                <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
-                <ul class="col-md-4 iph-ProgramInclude-true-ul">
-                <li>住宿</li>
-                <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
-                <li>劍湖山主題樂園門票／依照入住人數提供</li>
-                </ul>
-                <ul class="col-md-12 iph-ProgramInclude-fals-ul">
-                <li>
-                個人消費
-                </li>
-                <li>
-                以上未提及消費
-                </li>
-                </ul>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>*@
             </div>
         </div>
     </div>
@@ -612,149 +483,6 @@
 <div class="Details">
     <div class="container d-flex flex-wrap">
         <div class="product-infon col-12 col-md-12 col-lg-8 col-xl-8">
-            @*                <div id="product-initial" class="product product-initial d-md-flex d-lg-none flex-wrap">
-            <h3 class="product-initial-btn col-12">
-            選擇日期
-            </h3>
-            <form>
-            <label>
-            <input type="date" name="bday" required pattern="\d{4}-\d{2}-\d{2}">
-            <span class="validity"></span>
-            </label>
-            </form>
-            </div>
-            <div id="product-initial" class="product product-initial d-flex flex-wrap">
-            <h3 class="product-initial-btn col-12">
-            選擇方案
-            </h3>
-            <div class="initial col-12 ">
-            <div class="initial-container  col-12 d-flex flex-wrap text-r">
-            <h4 class="col-8">
-            精緻客房｜一泊三食｜8 晚防疫旅館專案
-            </h4>
-            <button id="initial-btn-true" class="d-none col-4 ">
-            <i class="fa-solid fa-circle-check "></i>
-            己選擇
-            </button>
-            <button id="initial-btn-fles" class="col-4">
-            選擇
-            </button>
-            <div class="initial-money col-12 d-block">
-            TWD 24,000
-            <span>
-            起
-            </span>
-            </div>
-            <div class="remind d-inline-block">
-            3天前可以免費取消
-            </div>
-            <ul class="col-12 initial-Remark">
-            <li>每天皆提供三餐（依飯店提供為主，如有特殊需求，請自行處理）；餐點有提供全素食，不含牛；若有個人因素不用餐，恕不另行退費</li>
-            <li>若班機超過 18:00 降落，將不提供當日的晚餐</li>
-            <li>一人一室隔離；最多 1 位共同照顧不加床同住（需要立即提交符合政府規定之資料）</li>
-            </ul>
-            </div>
-            <div class="flex-wrap d-none d-lg-flex">
-            <div class="col-12  AboutProgram-ProgramInclude-div">
-            <div class="col-12 d-flex AboutProgram-div">
-            <h5 class="col-3 AboutProgram-h5 ">關於此方案</h5>
-            <ul class="col-9">
-            <li><i class="fa-solid fa-calendar"></i>7天前可免費取消</li>
-            </ul>
-            </div>
-            <div class="col-12  ProgramInclude-div d-flex ">
-            <h5 class="col-3 ProgramInclude-h5">費用包含與不包含</h5>
-            <ul class="col-5 ProgramInclude-true-ul">
-            <li>住宿</li>
-            <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
-            <li>劍湖山主題樂園門票／依照入住人數提供</li>
-            </ul>
-            <ul class="col-4 ProgramInclude-fals-ul">
-            <li>
-            個人消費
-            </li>
-            <li>
-            以上未提及消費
-            </li>
-            </ul>
-            </div>
-            </div>
-            <div class="col-12 d-flex flex-wrap ">
-            <h5 class="col-12 my-2 ps-3">
-            選擇日期、數量
-            </h5>
-            <div  class="col-6 product-initial-div">
-            <h6 class="product-initial-title col-12">
-            選擇日期
-            </h6>
-            <input id="myID" type="text" class="d-none">
-            </div>
-            <div class="lg-select-quantity-div col-6">
-            <h6 class="select-quantity-title">
-            選擇數量
-            </h6>
-            <div class="select-quantity-aldult col-12 d-flex flex-wrap ">
-            <p class="col-8 justify-content-between">人數
-            <span>12歲以上(含)</span>
-            <span>TWD 600/每人</span>
-            </p>
-            <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-            <button class="select-quantity-btn-reduce">-</button>
-            <p class="">0</p>
-            <button class="select-quantity-btn-add">+</button>
-            </div>
-            <div class="d-flex justify-content-between col-12 select-total-div">
-            <span>總金額</span>
-            <p>TWD 1234</p>
-            </div>
-            </div>
-            </div>
-            <div class="shopping-cart-div col-12 d-flex">
-            <button class="shopping-cart-btn ms-auto">加入購物車</button>
-            <button>立即訂購</button>
-            </div>
-            </div>
-            </div>
-            <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
-            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
-            aria-controls="offcanvasBottom">查看方案詳情</button>
-            <div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1" id="offcanvasBottom2"
-            aria-labelledby="offcanvasBottomLabel">
-            <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-            aria-label="Close">
-            </button>
-            </div>
-            <div class="offcanvas-body small d-flex flex-wrap p-3">
-            <div class="col-md-12 iph-AboutProgram-ProgramInclude-div">
-            <div class=" d-flex iph-AboutProgram-div">
-            <ul class="iph-AboutProgram-ul">
-            <li><i class="fa-solid fa-calendar"></i>最早預定時間8/15 12:00</li>
-            <li><i class="fa-brands fa-bitcoin"></i>7天前可免費取消</li>
-            </ul>
-            </div>
-            <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
-            <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
-            <ul class="col-md-4 iph-ProgramInclude-true-ul">
-            <li>住宿</li>
-            <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
-            <li>劍湖山主題樂園門票／依照入住人數提供</li>
-            </ul>
-            <ul class="col-md-12 iph-ProgramInclude-fals-ul">
-            <li>
-            個人消費
-            </li>
-            <li>
-            以上未提及消費
-            </li>
-            </ul>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>*@
             <div id="product-Description" class="product product-Description">
                 <h3 class="col-12">
                     商品說明
@@ -762,116 +490,7 @@
                 <div class="Description">
                     @Html.Raw(@Model.ProductText)
                 </div>
-                @*                <div class="Description">
-                <p class="Description-title">
-                － 行程特色 －
-                </p>
-                <p>
-                Xpark
-                為台灣首座新都會型水生公園。將生活在地球上各種地域的生物們的環境，透過空間演出與科技的融合，加以忠實的重現。在連氣溫、濕度、味道及聲音都經過縝密計算的空間裡，從天花板到地坪、延伸至水槽的影像演出呈現出
-                360°
-                具魄力的沉浸式空間。來訪旅客彷彿真的身歷其境，使用五感體驗各真實場景。主角，是生活在那裡的生物們，隨環境變遷而演變進化的生物們的不思議，從各種角度將其魅力性襯托出來的環境演出也是一大特徵。Xpark
-                是一個滿足人們無止盡的「對於求知的慾望和獲知的喜悅」，並在世界上也是獨一無二的寓教於樂設施。
-                </p>
-                <p class="Description-title">
-                — 檔期企劃 —
-                </p>
-                <ul>
-                <li>
-                KKday獨家『Xpark童樂套票』
-                - 開賣日期：2022/03/23(三) 13:00
-                - 活動期間：2022/04/01 ~ 2022/05/31
-                Xpark為和所有大小朋友歡度兒童節，共同創造獨一無二的美好回憶，推出春天限定的兒童節優惠套票組，以館內充滿冒險家精神第一隻環游Xpark一周的麥哲倫企鵝「勇氣」作為靈感，製作而成為大家加油打氣補充滿滿能量的氣泡飲，搭配想像力無限的創造禮包，替今年的兒童節更添活力及創造力！
-                </li>
-                <li>
-                沈浸式繪本『Xbook～流向我們的物語～』
-                - 活動期間：2022/01/15 ~ 2022/06/30
-                - 票價資訊：Xpark 門票（不需另收費）
-                </li>
-                </ul>
-                <p>
-                很久很久以前，地球是被岩漿所包圍的星球。
-                不論是動物、植物或是大海，就連一滴水都不存在。
-                然而天空被雲給覆蓋，下了將近千年的雨。
-                最後，誕生了大海。
 
-                接著物語就開始了。
-                物種的起源、進化、多樣性，孕育生命的海所見證的歷史。
-                從生物上所聽見關於大海的各種傳說與寓言。
-
-                那便是，流向我們的物語。
-                是否從何處聽見時空鯨魚的呼喚？
-                走吧！一起踏上未知的旅程。
-                </p>
-                <p class="Description-title">
-                － 入館資訊 －
-                </p>
-                <ul>
-                <li>
-                使用期限：限於票券指定當日及有效時間內使用
-                </li>
-                <li>
-                入場時間：旅客所選該場次一小時內，建議參觀時間為兩小時。
-                ex：場次 10:00（入場時間 10:00 - 11:00）
-                </li>
-                <li>
-                特殊節日營業時間：無
-                </li>
-                <li>
-                停車折抵：請持票券中的 QRcode 至桃園置地廣場停車場繳費處掃描折抵
-                ＊一台車可持一張成人門票折抵停車，折抵上限為 1 小時（僅限成人票）
-                </li>
-                </ul>
-                <p class="Description-title">
-                － Xpark AR －
-                </p>
-                <p>
-                Xpark 結合影像創意與數位技術的嶄新水族館活動。來到 Xpark 的客人須先下載專屬 APP，在館內的 AR 拍照處開啟 APP 及相機功能，即可開展出獨創角色的 AR
-                短篇動畫。此外、Xfun 販售之系列商品，也內藏了獨創角色會出現的動畫影片，在家就能體驗擴充實境，將在 Xpark 的美好回憶帶回家。這前所未有的水族館玩法是 Xpark 與
-                ROBOT
-                帶給台灣民眾的嶄新體驗。這是一群可愛的獨創角色在「Xpark＝有一點不可思議的另一個地球」探險的全新平行時空冒險故事，歡迎大家來體驗另一個平行時空。
-                </p>
-                <p class="Description-title">
-                － 展區特色 －
-                </p>
-                <ul>
-                <li>
-                1 樓展區：Xcafe、漫步叢林、潮間戲灘、世外桃源
-                </li>
-                <li>
-                2 樓展區：福爾摩沙、癒見水母、企鵝奇遇
-                </li>
-                <li>
-                3 樓展區：珊瑚潛行、暖海生機、雨林探險、寒帶行凍、深海尋秘
-                </li>
-                </ul>
-                <div class="Description-pic col-12">
-                <img src="https://picsum.photos/300/200/?random=10">
-                </div>
-                <p>
-                ➤ 無限想像力的創造禮包，增添兒童節樂趣！（禮包內容為隨機提供，恕不接受更換）
-                </p>
-                <div class="Description-pic col-12">
-                <img src="https://picsum.photos/300/200/?random=10">
-                </div>
-                <p>
-                ➤ 以館內第一隻環遊 Xpark 的麥哲倫企鵝「勇氣」作為靈感，製成為大家加油打氣、補充滿滿能量的 First Penguin 漂浮氣泡飲！（圖片僅供參考，請依實際為主）
-                </p>
-                <div class="Description-pic col-12">
-                <img src="https://picsum.photos/300/200/?random=10">
-                </div>
-                <p>
-                ➤ 「Xcafe by PRONTO」為 Xpark 與日本知名咖啡連鎖店「PRONTO corporation」攜手合作的台灣一號咖啡店，滿足味蕾享受的各種餐點，充分發揮 Xpark
-                獨特性的餐點！
-                </p>
-                <div class="Description-pic col-12">
-                <img src="https://picsum.photos/300/200/?random=10">
-                </div>
-                <p>
-                ➤ ZONE 1 ｜福爾摩沙 Formosa ｜
-                台灣被海洋擁抱著，有著豐富多樣的魚種生態、變化萬千的海底地形，福爾摩沙完整呈現了這樣美麗的海洋環境，宛若走進海中，一覽海洋世界的壯闊之美
-                </p>
-                </div>*@
             </div>
             <div id="purchase-Notes" class="product purchase-Notes">
                 <h3>
@@ -972,7 +591,11 @@
     <link rel="stylesheet" href="~/css/commodity.css" />
     <link rel="stylesheet" href="~/css/reset.css" />
 }
+
+@{
+}
     @section endJS{
+
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         const fp = flatpickr("#myID", {
@@ -982,5 +605,6 @@
             mode: "range",
             dateFormat: "Y-m-d H:i",
         });
+
     </script>
 }

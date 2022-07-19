@@ -2,27 +2,31 @@
 using System.Collections.Generic;
 namespace Today.Web.ViewModels
 {
-    public class ProductPagesVM
+    public class ProductInfoVM
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string CityName { get; set; }
         public string Producttag { get; set; }
-        public List<Photo> PhtotList { get; set; }
-        public List<Progarm> progarmList { get; set; }
         public string ProductText { get; set; }//商品說明
         public string ProductlocationName { get; set; }//地點名
         public string ProductLocationAddress { get; set; }//地址
         public string CancellationPolicy { get; set; }//取消政策
         public string HowUse { get; set; }//如何使用
         public string ShoppingNotice { get; set; }//購物須知
-
+        public List<Photo> PhtotList { get; set; }
+        public List<Progarm> ProgarmList { get; set; }
+        public List<Member> MemberList { get; set; }//會員
+        public bool ProductIsdeleted { get; set; }//商品狀態
+        
+        //public JSON
         public class Progarm
         {
-            public string porgramname { get; set; }
+            public bool ProgarmIsdeleted { get; set; }//商品狀態
+            public string PrgramName { get; set; }
             public string PrgarmText { get; set; }//產品說明
             public List<AboutProgram> AboutProgramList { get; set; }
-            public List<ProgramInciude> programInciudeList { get; set; }
+            public List<ProgramInclude> ProgramIncludeList { get; set; }
             public List<ProgramSpecification> ProgramSpecificationList { get; set; }
             public List<Date> DateList { get; set; }
         }
@@ -41,7 +45,7 @@ namespace Today.Web.ViewModels
             public string IconClass { get; set; }
             public string AboutProgramName { get; set; }//產品關於項目
         }
-        public class ProgramInciude
+        public class ProgramInclude
         {
             public string Inciudetext { get; set; }//方案包含項目
             public bool IsInclude { get; set; }//狀態

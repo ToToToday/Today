@@ -1,0 +1,216 @@
+﻿@{
+    ViewData["Title"] = "ProductInfo2";
+}
+
+<h1>ProductInfo2</h1>
+
+@*                @foreach (var pg in @Model.ProgarmList)
+                {*@
+<body>
+
+
+</body>
+<template id="PrgramNameModel">
+    <div class="initial col-12 ">
+        <div class="initial-container  col-12 d-flex flex-wrap text-r">
+            <div class="col-8 mb-2">
+                <h4>
+                    @*@pg.PrgramName*@
+                </h4>
+                <div class="remind d-inline-block ">
+                    3天前可以免費取消
+                </div>
+            </div>
+            <p class="initial-money col-2 d-block mb-2">
+                TWD 24,000
+                <span>
+                    起
+                </span>
+            </p>
+            @*            @if (pg.ProgarmIsdeleted == true)
+            {
+            <button id="initial-btn-true" class="d-none col-2 mb-2">
+            <i class="fa-solid fa-circle-check "></i>
+            己選擇
+            </button>
+            <button id="initial-btn-fles" class="col-2 mb-2">
+            選擇
+            </button>
+            };
+            @if (pg.ProgarmIsdeleted == false)
+            {
+            <button id="initial-btn-fles" class="col-2 mb-2">
+            不可購買
+            </button>
+            }
+            @Html.Raw(@pg.PrgarmText)*@
+        </div>
+        <div class="flex-wrap d-none d-lg-flex">
+            <div class="col-12  AboutProgram-ProgramInclude-div">
+                <div class="col-12 d-flex AboutProgram-div">
+                    <h5 class="col-3 AboutProgram-h5 ">關於此方案</h5>
+                    <ul class="col-9 d-flex flex-wrap">
+                        @*                        @foreach (var ap in pg.AboutProgramList)
+                        {
+                        <li class="d-flex">
+                        @Html.Raw(@ap.IconClass)
+                        @ap.AboutProgramName
+                        </li>
+                        }*@
+                    </ul>
+                </div>
+                <div class="col-12  ProgramInclude-div d-flex ">
+                    <h5 class="col-3 ProgramInclude-h5">費用包含與不包含</h5>
+                    <ul class="col-5 ProgramInclude-true-ul">
+                        @*                        @foreach (var li in pg.ProgramIncludeList)
+                        {
+                        if (li.IsInclude == true)
+                        {
+                        <li>@li.Inciudetext</li>
+                        }
+                        }*@
+                    </ul>
+                    <ul class="col-4 ProgramInclude-fals-ul">
+                        @*                        @foreach (var li in pg.ProgramIncludeList)
+                        {
+                        if (li.IsInclude == false)
+                        {
+                        <li>@li.Inciudetext</li>
+                        }
+                        }*@
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 d-flex flex-wrap ">
+                <h5 class="col-12 my-2 ps-3">
+                    選擇日期、數量
+                </h5>
+                <div class="col-6 product-initial-div">
+                    <h6 class="product-initial-title col-12">
+                        選擇日期
+                    </h6>
+                    <input id="myID" type="text" class="d-none">
+                </div>
+                <div class="lg-select-quantity-div col-6">
+                    <h6 class="select-quantity-title">
+                        選擇數量
+                    </h6>
+                    <div class="select-quantity-aldult col-12 d-flex flex-wrap">
+                        @*                        @foreach (var sp in pg.ProgramSpecificationList)
+                        {*@
+                        <template id="ProgramSpecificationModel">
+                            <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                                <p class="col-8 mt-auto UnitText">
+                                    @*                                    @sp.UnitText*@
+                                    <span class="">TWD/每人</span>
+                                </p>
+                                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                                    <button class="select-quantity-btn-reduce">-</button>
+                                    <p class="">0</p>
+                                    <button class="select-quantity-btn-add">+</button>
+                                </div>
+                            </div>
+                        </template>
+                        @*}*@
+                        <div class="d-flex justify-content-between col-12 select-total-div ">
+                            <span>總金額</span>
+                            <p>TWD 1234</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-cart-div col-12 d-flex">
+                    <button class="shopping-cart-btn ms-auto">加入購物車</button>
+                    <button>立即訂購</button>
+                </div>
+            </div>
+        </div>
+        <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
+                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
+                aria-controls="offcanvasBottom">
+            查看方案詳情
+        </button>
+        <div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1"
+             id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close">
+                </button>
+            </div>
+            <div class="offcanvas-body small d-flex flex-wrap p-3">
+                <div class="col-md-12 iph-AboutProgram-ProgramInclude-div">
+                    <div class=" d-flex iph-AboutProgram-div">
+                        <ul class="iph-AboutProgram-ul">
+                            <li><i class="fa-solid fa-calendar"></i>最早預定時間8/15 12:00</li>
+                            <li><i class="fa-brands fa-bitcoin"></i>7天前可免費取消</li>
+                        </ul>
+                    </div>
+                    <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
+                        <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
+                        <ul class="col-md-4 iph-ProgramInclude-true-ul">
+                            @*                            @foreach (var li in pg.ProgramIncludeList)
+                            {
+                            if (li.IsInclude == true)
+                            {
+                            <li>@li.Inciudetext</li>
+                            }
+                            }*@
+                            @*                                            <li>住宿</li>
+                            <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
+                            <li>劍湖山主題樂園門票／依照入住人數提供</li>*@
+                        </ul>
+                        <ul class="col-md-12 iph-ProgramInclude-fals-ul">
+                            @*                            @foreach (var li in pg.ProgramIncludeList)
+                            {
+                            if (li.IsInclude == false)
+                            {
+                            <li>@li.Inciudetext</li>
+                            }
+                            }*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+@*}*@
+<script>
+    let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
+    //console.log(json)
+    //let xhr = new XMLHttpRequest();
+    //let programList = [];
+    //xhr.onload() = function() {
+    //    programList = xhr.response
+    //    console.log(programList)
+    //}
+    //xhr.open("post",json)
+    //xhr.responseType = 'json'
+    //xhr.send()
+    let body = document.querySelector("body")
+    let PrgramNameModel = document.querySelector("#PrgramNameModel")
+    let ProgramSpecificationModel = document.querySelector("#PrgramNameModel>#ProgramSpecificationModel")
+    console.log(ProgramSpecificationModel)
+    pglist.forEach((pg, index) => {
+        console.log(pg.PrgramName)
+        console.log(pg.ProgramSpecificationList)
+        body.append(Addcard(pg.PrgramName, pg.ProgramSpecificationList))
+    })
+    //pglist.forEach((pg ,index)=> {
+    //    body.appendChild(pg.PrgramName)
+    //})
+    function Addcard(name, ProgramSpecificationList) {
+        let programcard = PrgramNameModel.content.cloneNode(true);
+        programcard.querySelector("h4").innerText = name
+        programcard.querySelector(".UnitText-div").innerHtml =  addprogramspecificationlist(ProgramSpecificationList)
+        return programcard
+    }
+function addprogramspecificationlist(SpecificationList) {
+        SpecificationList.forEach(ps => {
+        let clonProgramSpecification = ProgramSpecificationModel.content.cloneNode(true)
+            clonProgramSpecification.querySelector(".UnitText").innerText = ps.Itemtext
+        })
+        return clonProgramSpecification
+}
+</script>
+

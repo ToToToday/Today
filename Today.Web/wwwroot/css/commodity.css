@@ -258,6 +258,15 @@ HTML img{
     padding: 0;
 }
 
+
+li img {
+    width: 20px;
+    margin: -5px 0;
+}
+
+.AboutProgram-div>ul>li{
+    margin:0 20px 0 0 ;
+}
     .container .slideshow img {
         width: 100%;
     }

@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
-using Today.Web.Services.ProductPagesService;
+using Today.Web.Services.ProductInfoService;
 using Today.Web.ViewModels;
-
+using static Today.Web.ViewModels.ProductInfoVM;
 
 namespace Today.Web.Controllers
 {
@@ -16,51 +17,85 @@ namespace Today.Web.Controllers
     {
 
         private readonly ICityService _cityServices;
-        private readonly IProductPagesService _productPagesService;
+        private readonly IProductInfoService _productInfoService;
 
         //public ProductController(ICityService cityServices)
         //{
         //    _cityServices = cityServices;
         //}
-        public ProductController(IProductPagesService productPagesService, ICityService cityServices)
+        public ProductController(IProductInfoService productInfoService, ICityService cityServices)
         {
-            _productPagesService = productPagesService;
+            _productInfoService = productInfoService;
             _cityServices = cityServices;
         }
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult ProductPages(int id = 4) //商品頁面
+        public IActionResult ProductInfo(int id ) //商品頁面
         {
-            var productPagesServiceDTO = _productPagesService.GetProduct(new DTOModel.ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
-            var productinfo = new ProductPagesVM
+            if (id <= 0)
             {
-                ShoppingNotice = productPagesServiceDTO.ProductInfo.ShoppingNotice,
-                ProductId = productPagesServiceDTO.ProductInfo.ProductId,
-                CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy ,
-                HowUse = productPagesServiceDTO.ProductInfo.HowUse,
-                ProductName = productPagesServiceDTO.ProductInfo.ProductName,
-                CityName = productPagesServiceDTO.ProductInfo.CityName,
-                Producttag  = productPagesServiceDTO.ProductInfo.ProductTag,
-                ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
-                ProductText = productPagesServiceDTO.ProductInfo.ProductText,
-                ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
-                PhtotList  = productPagesServiceDTO.ProductInfo.PhtotList.Select(p=>
-                new ProductPagesVM.Photo
+                return Content("找不到商品");
+            }
+            else
+            {
+                var productPagesServiceDTO = _productInfoService.GetProduct(new DTOModel.ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                var productinfo = new ProductInfoVM
                 {
-                    PhotoUrl = p.PhotoUrl
-                }).ToList(),
-                progarmList = productPagesServiceDTO.ProductInfo.progarmList.Select(p =>
-                new ProductPagesVM.Progarm
-                {
-                    porgramname = p.PorgramName,
-                    PrgarmText = p.PrgarmText,
-                }).ToList()
-            };
-            //return Json(productinfo);
-            return View(productinfo);
+                    ProductIsdeleted = productPagesServiceDTO.ProductInfo.ProductIsdeleted,
+                    ShoppingNotice = productPagesServiceDTO.ProductInfo.ShoppingNotice,
+                    ProductId = productPagesServiceDTO.ProductInfo.ProductId,
+                    CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy,
+                    HowUse = productPagesServiceDTO.ProductInfo.HowUse,
+                    ProductName = productPagesServiceDTO.ProductInfo.ProductName,
+                    CityName = productPagesServiceDTO.ProductInfo.CityName,
+                    Producttag = productPagesServiceDTO.ProductInfo.ProductTag,
+                    ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
+                    ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
+                    ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
+                    new ProductInfoVM.Photo
+                    {
+                        PhotoUrl = p.PhotoUrl
+                    }).ToList(),
+                    ProgarmList = productPagesServiceDTO.ProductInfo.ProgarmList.Select(p =>
+                    new ProductInfoVM.Progarm
+                    {
+                        ProgarmIsdeleted = p.ProgarmIsdeleted,
+                        PrgramName = p.PorgramName,
+                        PrgarmText = p.PrgarmText,
+                        DateList = p.DateList.Select(d =>
+                        new Date
+                        {
+                            CantuseDate = d.CantuseDate
+                        }).ToList(),
+                        AboutProgramList = p.AboutProgramList.Select(ap => new ProductInfoVM.AboutProgram
+                        {
+                            AboutProgramName = ap.AboutProgramName,
+                            IconClass = ap.IconClass,
+                        }).ToList(),
+                        ProgramIncludeList = p.programInciudeList.Select(pi =>
+                        new ProductInfoVM.ProgramInclude
+                        {
+                            Inciudetext = pi.Inciudetext,
+                            IsInclude = pi.IsInclude,
+                        }).ToList(),
+                        ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
+                            new ProductInfoVM.ProgramSpecification
+                            {
+                                PorgarmUnitPrice = pgsc.PorgarmUnitPrice,
+                                Itemtext = pgsc.Itemtext,
+                                UnitText = pgsc.UnitText,
+                            }).ToList()
+                    }).ToList()
+                };
+                ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
+
+                
+                return View(productinfo);
+            }
+
         }
         public IActionResult Classify() //楊 分類
         {
