@@ -23,7 +23,7 @@ namespace Today.Web.Services.locationService
             if (productLocation == null) return null; //防呆
             var result = productLocation.Select( lo => new LocationDTO.ProductLocationDTO
             {
-                 locationID = lo.LocationId ,
+                 LocationID = lo.LocationId ,
                  Latitude =lo.Latitude ,
                  Longitude =lo.Longitude ,
             }).ToList();

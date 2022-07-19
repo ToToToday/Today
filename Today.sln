@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Today.Web", "Today.Web\Today.Web.csproj", "{9AFC5923-58C5-45FA-B573-A49F5AA759EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodayMVC.Admin", "TodayMVC.Admin\TodayMVC.Admin.csproj", "{F87DD023-0592-4480-A627-949D9FDE05B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodayMVC.Admin", "TodayMVC.Admin\TodayMVC.Admin.csproj", "{F87DD023-0592-4480-A627-949D9FDE05B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Today.Model", "Today.Model\Today.Model.csproj", "{46D667BF-96E6-4D31-BDC1-54E29278DFCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Today.Model", "Today.Model\Today.Model.csproj", "{46D667BF-96E6-4D31-BDC1-54E29278DFCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

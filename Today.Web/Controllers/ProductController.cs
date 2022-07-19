@@ -133,7 +133,7 @@ namespace Today.Web.Controllers
             {
                 GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
                 {
-                    Id = lo.locationID,
+                    Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
@@ -159,6 +159,23 @@ namespace Today.Web.Controllers
             ViewData["PhotoJson"] = GetPhotoJson;
             return View(result);
         }
+        //測試用的!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public IActionResult Drag_test()
+        {
+            var getPhoto = _locationServices.GetPhoto();
+            var result = new LocationVM
+            {
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                {
+                    PhotoId = p.PhotoId,
+                    PhotoPath = p.Path,
+                    ProductId = p.ProductId,
+                    Sort = p.Sort
+                }).ToList(),
+            };
+            return View(result);
+        }
+
         public IActionResult ParentChild() //親子 分類
         {
             ViewData["banner-h2"] = "特搜親子體驗！親子餐廳・親子旅遊・親子住宿";
@@ -176,7 +193,7 @@ namespace Today.Web.Controllers
             {
                 GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
                 {
-                    Id = lo.locationID,
+                    Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
@@ -219,7 +236,7 @@ namespace Today.Web.Controllers
             {
                 GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
                 {
-                    Id = lo.locationID,
+                    Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
@@ -262,7 +279,7 @@ namespace Today.Web.Controllers
             {
                 GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
                 {
-                    Id = lo.locationID,
+                    Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
@@ -305,7 +322,7 @@ namespace Today.Web.Controllers
             {
                 GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
                 {
-                    Id = lo.locationID,
+                    Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),

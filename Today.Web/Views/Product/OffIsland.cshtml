@@ -20,7 +20,21 @@
   <link rel="stylesheet" href="~/css/homestyle.css">
   <link rel="stylesheet" href="~/css/offIsland.css">
   <link rel="stylesheet" href="~/css/google-map.css">
-
+  <style>
+      	.img-div img {
+		width:200px;
+		height:200px;
+		float: left;
+	}
+	.img-div {
+		float: left;
+	}
+	.drop-left,.drop-right {
+		width: 50px;
+		height: 200px;
+		float: left;
+	}
+  </style>
 }
 
 <div class="offIsland-hotel-banner">
@@ -732,8 +746,43 @@
  <partial name ="_MapModalPartial" />
 
 
+@*
+   <ul id="sortable">
+        @foreach(var item in Model.GetProductPhoto)
+        {
+            <li id="@item.PhotoId">
+                <img src="@item.PhotoPath" draggable="true" style="max-width:200px" >
+            </li>
+        }
+    </ul>*@
+ 
+
 @section endJs
-{
+{                                                                                                                  
+      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+@*<script>
+
+    $( "#sortable" ).sortable(
+    {
+        items:"li",
+        opacity:0.6,
+        cursor:"move",
+
+    })
+    var Sortable_arr = $("#sortable").sortable('toArray');                                                                                                                                                              
+
+    $( "#sortable" ).sortable({stop:function()
+    {
+        var Sortable_arr = $("#sortable").sortable('toArray');
+        console.log(Sortable_arr);
+        
+    }})
+    //當sortable改變的時候 --> 更新 sortable_arr 值
+
+  </script>
+*@
+
+
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
   crossorigin=""></script>

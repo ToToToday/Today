@@ -60,7 +60,7 @@ var orangeIcon = new LeafIcon({ iconUrl: 'https://upload.wikimedia.org/wikipedia
 
 
 for (let i = 0; i < json_location.length; i++) { 
-    L.marker([json_location[i].latitude, json_location[i].longitude], { icon: orangeIcon, draggable: true ,title:`${json_Name[i].ProductName}`} )
+    L.marker([json_location[i].latitude, json_location[i].longitude], { icon: orangeIcon, title: `${json_Name[i].ProductName}`} )
         .addTo(map)
         .bindPopup(`<a class='card flex-row rounded google-map-product-item w-100'>\
                         <img src='${json_photo[i].PhotoPath}' class='rounded-start w-50'>\
@@ -141,11 +141,11 @@ map.addEventListener("moveend", function()
     $owl.trigger('refresh.owl.carousel'); //重整owl-carousel 避免 當地圖重整的時候 ,會跑版
 
 })
-let map_product_item = document.querySelectorAll(".google-map-product-item");
-map_product_item.forEach((Card,index) =>
-{
-    Card.addEventListener('click', function () {
-        map.flyTo(
-        [json_location[index].latitude, json_location[index].longtitude], 17)
-    });
-})
+//let map_product_item = document.querySelectorAll(".google-map-product-item");
+//map_product_item.forEach((Card,index) =>
+//{
+//    Card.addEventListener('click', function () {
+//        map.flyTo(
+//        [json_location[index].latitude, json_location[index].longtitude], 17)
+//    });
+//})

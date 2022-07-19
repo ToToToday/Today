@@ -92,11 +92,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.bind-map-price
-{
-    position:absolute;
-    right:0;
-    bottom:5px;
+.star-list{
+    text-align:left;
+}
+.bind-map-price {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    text-align: left;
 }
 @media screen and (max-width:768px)
 {
@@ -164,6 +167,7 @@
         display: inline;
     }
     .map-price {
+        text-align: left;
         font-size: 1rem;
         position: absolute;
         bottom: 0;
