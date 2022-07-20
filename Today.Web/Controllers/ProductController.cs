@@ -25,8 +25,8 @@ namespace Today.Web.Controllers
        
         private readonly IClassifyService _classifyService;
         
-        public ProductController(ICityService cityServices, ILocationService locationServices, IClassifyService classifyService)
-        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService)
+        
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService)
         {
             _cityServices = cityServices;
             _productServices = productService;
