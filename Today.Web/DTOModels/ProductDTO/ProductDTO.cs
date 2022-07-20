@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Today.Web.DTOModels.ProductDTO
 {
@@ -12,9 +13,8 @@ namespace Today.Web.DTOModels.ProductDTO
         //{
         //    public ProductInfo ProductInfo { get; set; }
         //}
-        //public List<CategoryInfo> categoryList { get; set; }
         public List<ProductInfo> ProductList { get; set; }
-        public List<CategoryInfo> CateoryList { get; set; }
+        public List<CategoryInfo> CategoryList { get; set; }
 
         #region 測試
         //public List<City> RecommendedCity { get; set; }

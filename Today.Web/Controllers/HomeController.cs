@@ -12,7 +12,6 @@ using Today.Web.Models;
 using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
 using Today.Web.ViewModels;
-using static Today.Web.ViewModels.ProductVM;
 
 namespace Today.Web.Controllers
 {
@@ -33,115 +32,122 @@ namespace Today.Web.Controllers
         public IActionResult Index()
         {
             var citysource = _cityService.GetAllCity();
-            var homeproductsource = _productService.test1();
-            var productSource = homeproductsource.ProductList;
-            var categorySource = homeproductsource.CateoryList;
+            var homeproductsource = _productService.GetAllProductCard();
+            var categorySource = homeproductsource.CategoryList;
 
-            var homeshow = new ProductVM()
+            var homeshow = new ProductVM
             {
-                RecommendedCity = citysource.Take(5).Select(c => new ProductVM.City
+                RecentlyViewed = homeproductsource.RecentlyViewed.Select(h => new ProductVM.RecentlyCardInfo()
                 {
-                    Id = c.Id,
-                    CityImage = c.CityImage,
-                    CityName = c.CityName
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    Price = (h.Price == null) ? null : h.Price
                 }).ToList(),
-                RecentlyViewed = productSource.Select(s => new ProductVM.RecentlyCardInfo
+                TopProduct = homeproductsource.TopProduct.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    Price = (s.Prices == null) ? null : s.Prices.Price
-                }).Take(10).ToList(),
-                TopProduct = productSource.OrderByDescending(s => s.Rating.RatingStar).ThenByDescending(s => s.Rating.TotalGiveComment).Select(s => new ProductVM.ProductCardInfo
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
+                Featured = homeproductsource.Featured.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    CityName = s.CityName,
-                    Tags = s.Tags,
-                    Rating = s.Rating.RatingStar,
-                    TotalGiveComment = s.Rating.TotalGiveComment,
-                    TotalOrder = s.TotalOrder,
-                    OriginalPrice = (s.Prices == null || s.Prices.OriginalPrice == s.Prices.Price) ? null : s.Prices.OriginalPrice,
-                    Price = (s.Prices == null) ? null : s.Prices.Price
-                }).Take(10).ToList(),
-                Featured = productSource.Where(s => s.CityName.Contains("台北") || s.CityName.Contains("台南")).Select(s => new ProductVM.ProductCardInfo
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
+                Paradise = homeproductsource.Paradise.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    CityName = s.CityName,
-                    Tags = s.Tags,
-                    Rating = s.Rating.RatingStar,
-                    TotalGiveComment = s.Rating.TotalGiveComment,
-                    TotalOrder = s.TotalOrder,
-                    OriginalPrice = (s.Prices == null || s.Prices.OriginalPrice == s.Prices.Price) ? null : s.Prices.OriginalPrice,
-                    Price = (s.Prices == null) ? null : s.Prices.Price
-                }).Take(10).ToList(),
-                Paradise = productSource.Where(s => s.ChildCategoryName.Contains("樂園")).Select(s => new ProductVM.ProductCardInfo
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
+                AttractionTickets = homeproductsource.AttractionTickets.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    CityName = s.CityName,
-                    Tags = s.Tags,
-                    Rating = s.Rating.RatingStar,
-                    TotalGiveComment = s.Rating.TotalGiveComment,
-                    TotalOrder = s.TotalOrder,
-                    OriginalPrice = (s.Prices == null || s.Prices.OriginalPrice == s.Prices.Price) ? null : s.Prices.OriginalPrice,
-                }).Take(10).ToList(),
-                AttractionTickets = productSource.Where(s => MaybeCategoryList(categorySource, "景點").Contains(s.ChildCategoryName)).Select(s => new ProductVM.ProductCardInfo
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
+                Exhibition = homeproductsource.Exhibition.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    CityName = s.CityName,
-                    Tags = s.Tags,
-                    Rating = s.Rating.RatingStar,
-                    TotalGiveComment = s.Rating.TotalGiveComment,
-                    TotalOrder = s.TotalOrder,
-                    OriginalPrice = (s.Prices == null || s.Prices.OriginalPrice == s.Prices.Price) ? null : s.Prices.OriginalPrice,
-                    Price = (s.Prices == null) ? null : s.Prices.Price
-                }).Take(10).ToList(),
-                Exhibition = productSource.Where(s => MaybeCategoryList(categorySource, "展覽").Contains(s.ChildCategoryName)).Select(s => new ProductVM.ProductCardInfo
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
+                Hotel = homeproductsource.Hotel.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    CityName = s.CityName,
-                    Tags = s.Tags,
-                    Rating = s.Rating.RatingStar,
-                    TotalGiveComment = s.Rating.TotalGiveComment,
-                    TotalOrder = s.TotalOrder,
-                    OriginalPrice = (s.Prices == null || s.Prices.OriginalPrice == s.Prices.Price) ? null : s.Prices.OriginalPrice,
-                    Price = (s.Prices == null) ? null : s.Prices.Price
-                }).Take(10).ToList(),
-                Hotel = productSource.Where(s => MaybeCategoryList(categorySource, "住宿").Contains(s.ChildCategoryName)).Select(s => new ProductVM.ProductCardInfo
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
+                Taoyuan = homeproductsource.Taoyuan.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    CityName = s.CityName,
-                    Tags = s.Tags,
-                    Rating = s.Rating.RatingStar,
-                    TotalGiveComment = s.Rating.TotalGiveComment,
-                    TotalOrder = s.TotalOrder,
-                    OriginalPrice = (s.Prices == null || s.Prices.OriginalPrice == s.Prices.Price) ? null : s.Prices.OriginalPrice,
-                    Price = (s.Prices == null) ? null : s.Prices.Price
-                }).Take(10).ToList(),
-                Taoyuan = productSource.Where(s => s.CityName.Contains("桃園")).Select(s => new ProductVM.ProductCardInfo
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
+                Evaluation = homeproductsource.Evaluation.Select(h => new ProductVM.ProductCardInfo()
                 {
-                    Id = s.Id,
-                    ProductPhoto = s.ProductPhoto,
-                    ProductName = s.ProductName,
-                    CityName = s.CityName,
-                    Tags = s.Tags,
-                    Rating = s.Rating.RatingStar,
-                    TotalGiveComment = s.Rating.TotalGiveComment,
-                    TotalOrder = s.TotalOrder,
-                    OriginalPrice = (s.Prices == null || s.Prices.OriginalPrice == s.Prices.Price) ? null : s.Prices.OriginalPrice,
-                    Price = (s.Prices == null) ? null : s.Prices.Price
-                }).Take(10).ToList(),
+                    Id = h.Id,
+                    ProductPhoto = h.ProductPhoto,
+                    ProductName = h.ProductName,
+                    CityName = h.CityName,
+                    Tags = h.Tags,
+                    Rating = h.Rating.RatingStar,
+                    TotalGiveComment = h.Rating.TotalGiveComment,
+                    TotalOrder = h.TotalOrder,
+                    OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
+                    Price = (h.Prices == null) ? null : h.Prices.Price
+                }).ToList(),
             };
             
             return View(homeshow);

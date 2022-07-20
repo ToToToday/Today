@@ -53,22 +53,6 @@ namespace Today.Web.ViewModels
             public string CityName { get; set; }
             public string CityImage { get; set; }
         }
-
-        public static List<string> MaybeCategoryList(List<CategoryInfo> source, string target)
-        {
-            var temp = source.Where(s => s.Name.Contains(target)).Select(s => s.ChildCategoryList.Select(cc => cc.Name).ToList());
-            List<string> result = new List<string>();
-            foreach(var item in temp)
-            {
-                foreach(var i in item)
-                {
-                    result.Add(i);
-                }
-            }
-            return result;
-        }
-
-        
     }
 
 }

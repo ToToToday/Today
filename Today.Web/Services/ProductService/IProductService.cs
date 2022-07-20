@@ -2,15 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Web.DTOModels.ProductDTO;
+using static Today.Web.DTOModels.ProductDTO.ProductDTO;
 
 namespace Today.Web.Services.ProductService
 {
     public interface IProductService
     {
-        //List<FilterVM> Filter();
         ProductDTO GetProduct();
-        ProductDTO test1();
-
-        //List<ProductDTO> GetProduct();
+        ProductDTO GetAllProductCard();
+        abstract List<int> MaybeCategoryList(List<CategoryInfo> source, string target);
     }
 }

@@ -21,7 +21,7 @@ namespace Today.Web.Services.ProductService
         
         public ProductDTO GetProduct()
         {
-            var result = new ProductDTO { ProductList = new List<ProductDTO.ProductInfo> { }, CateoryList = new List<ProductDTO.CategoryInfo> { } };
+            var result = new ProductDTO { ProductList = new List<ProductDTO.ProductInfo> { }, CategoryList = new List<ProductDTO.CategoryInfo> { } };
             var productList = _repo.GetAll<Product>().ToList();
             var productPhotoList = _repo.GetAll<ProductPhoto>().ToList();
             var productCategoryList = _repo.GetAll<ProductCategory>().ToList();
@@ -63,7 +63,7 @@ namespace Today.Web.Services.ProductService
                         }
                     }
                 }
-                result.CateoryList.Add(mainTemp);
+                result.CategoryList.Add(mainTemp);
             }
             #endregion
 
@@ -113,9 +113,9 @@ namespace Today.Web.Services.ProductService
             return result;
         }
 
-        public ProductDTO test1()
+        public ProductDTO GetAllProductCard()
         {
-            //var result = new ProductDTO { Featured = new List<ProductInfo>(),  };
+            var result = new ProductDTO { CategoryList = new List<CategoryInfo>() };
             var productList = _repo.GetAll<Product>();
             var productPhotoList = _repo.GetAll<ProductPhoto>();
             var productCategoryList = _repo.GetAll<ProductCategory>();
@@ -130,64 +130,56 @@ namespace Today.Web.Services.ProductService
             var mainCategoryList = categoryList.Where(category => category.ParentCategoryId == null);
             var categoryListGroup = categoryList.Where(category => category.ParentCategoryId != null).ToList().GroupBy(category => category.ParentCategoryId);
 
-            //result.cateoryList = new List<CategoryInfo>();
-
-            //#region categoryList
-            //foreach (var category in mainCategoryList.AsEnumerable())
-            //{
-            //    var mainTemp = new CategoryInfo
-            //    {
-            //        Id = category.CategoryId,
-            //        Name = category.CategoryName,
-            //        ChildCategoryList = new List<CategoryInfo>()
-            //    };
-
-            //    foreach (var group in categoryListGroup)
-            //    {
-            //        if (mainTemp.Id == group.Key)
-            //        {
-            //            foreach (var item in group)
-            //            {
-            //                var temp = new CategoryInfo
-            //                {
-            //                    Id = item.CategoryId,
-            //                    Name = item.CategoryName
-            //                };
-            //                mainTemp.ChildCategoryList.Add(temp);
-            //            }
-            //        }
-            //    }
-            //    result.CateoryList.Add(mainTemp);
-            //}
-            //#endregion
-
-            //#region productList
-            //foreach (var product in productList.AsEnumerable())
-            //{
-            //    var tempCategoryList = productCategoryList.Where(productCategory => productCategory.ProductId == product.ProductId);
-            //    var tempProductTagList = productTagList.Where(productTag => productTag.ProductId == product.ProductId);
-            //    var totalComment = commentList.Where(comment => comment.ProductId == product.ProductId).Count();
-            //    var sumRating = commentList.Where(comment => comment.ProductId == product.ProductId).Sum(comment => comment.RatingStar);
-
-            //    var productTemp = new ProductDTO.ProductInfo
-            //    {
-            //        Id = product.ProductId,
-            //        ProductPhoto = productPhotoList.Where(photo => photo.ProductId == product.ProductId).Select(x => x.Path).First(),
-            //        ProductName = product.ProductName,
-            //        ChildCategoryName = tempCategoryList.Select(productCategory => categoryList.Where(category => category.CategoryId == productCategory.CategoryId).Select(category => category.CategoryName).First()).First(),
-            //        CityName = string.Join("", cityList.Where(city => city.CityId == product.CityId).Where(city => city.CityName.Contains("台北") || city.CityName.Contains("台南")).Select(city => city.CityName)),
-            //        Tags = tempProductTagList.Join(tagList, productTag => productTag.TagId, tag => tag.TagId, (productTag, tag) => new { tag.TagText }).Select(tag => tag.TagText).ToList(),
-            //        Rating = new RatingInfo() { RatingStar = (totalComment != 0) ? (float)sumRating / totalComment : 0, TotalGiveComment = totalComment },
-            //        TotalOrder = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
-            //        Prices = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
-            //    };
-
-            //    result.Featured.Add(productTemp);
-            //}
-            //#endregion
-
-            var result = new ProductDTO()
+            #region categoryList
+            foreach (var category in mainCategoryList.AsEnumerable())
             {
+                var mainTemp = new CategoryInfo
+                {
+                    Id = category.CategoryId,
+                    Name = category.CategoryName,
+                    ChildCategoryList = new List<CategoryInfo>()
+                };
+
+                foreach (var group in categoryListGroup)
+                {
+                    if (mainTemp.Id == group.Key)
+                    {
+                        foreach (var item in group)
+                        {
+                            var temp = new CategoryInfo
+                            {
+                                Id = item.CategoryId,
+                                Name = item.CategoryName
+                            };
+                            mainTemp.ChildCategoryList.Add(temp);
+                        }
+                    }
+                }
+                result.CategoryList.Add(mainTemp);
+            }
+            #endregion
+
+            result = new ProductDTO
+            {
+                RecentlyViewed = productList.Take(3).Select(x => new ProductDTO.RecentlyInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    Price = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).Select(specification => specification.Price).FirstOrDefault()
+                }).ToList(),
+                TopProduct =productList.Select(x => new ProductDTO.ProductInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName)),
+                    CityName = string.Join("", cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
+                    Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
+                }).OrderByDescending(x => x.TotalOrder).Take(10).ToList(),
                 Featured = productList.Where(x => cityList.Where(c => c.CityName.Contains("台北") || c.CityName.Contains("台南")).Select(c => c.CityId).Contains(x.CityId)).Select(x => new ProductDTO.ProductInfo
                 {
                     Id = x.ProductId,
@@ -200,9 +192,95 @@ namespace Today.Web.Services.ProductService
                     TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
                     Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
                 }).Take(8).ToList(),
-                //Paradise = productList.Where(x => )
+                Paradise = productList.Where(p => productCategoryList.Where(pc => categoryList.Where(c => c.CategoryName.Contains("樂園")).Select(c => c.CategoryId).Contains(pc.CategoryId)).Select(pc => pc.ProductId).Contains(p.ProductId)).Select(x => new ProductDTO.ProductInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName)),
+                    CityName = string.Join("", cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
+                    Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
+                }).Take(8).ToList(),
+                AttractionTickets = productList.Where(x => productCategoryList.Where(pc => MaybeCategoryList(result.CategoryList, "景點").Contains(pc.CategoryId)).Select(pc => pc.ProductId).Contains(x.ProductId)).Select(x => new ProductInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName)),
+                    CityName = string.Join("", cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
+                    Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
+                }).Take(8).ToList(),
+                Exhibition = productList.Where(x => productCategoryList.Where(pc => MaybeCategoryList(result.CategoryList, "展覽").Contains(x.ProductId)).Select(pc => pc.ProductId).Contains(x.ProductId)).Select(x => new ProductInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName)),
+                    CityName = string.Join("", cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
+                    Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
+                }).Take(8).ToList(),
+                Hotel = productList.Where(x => productCategoryList.Where(pc => MaybeCategoryList(result.CategoryList, "住宿").Contains(x.ProductId)).Select(pc => pc.ProductId).Contains(x.ProductId)).Select(x => new ProductInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName)),
+                    CityName = string.Join("", cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
+                    Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
+                }).Take(8).ToList(),
+                Taoyuan = productList.Where(x => cityList.Where(c => c.CityName.Contains("桃園")).Select(c => c.CityId).Contains(x.CityId)).Select(x => new ProductInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName)),
+                    CityName = string.Join("", cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
+                    Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
+                }).Take(8).ToList(),
+                //TimeLimit =
+                Evaluation = productList.Select(x => new ProductInfo
+                {
+                    Id = x.ProductId,
+                    ProductName = x.ProductName,
+                    ProductPhoto = string.Join("", productPhotoList.Where(pp => pp.ProductId == x.ProductId).Take(1).Select(x => x.Path)),
+                    ChildCategoryName = string.Join("", productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName)),
+                    CityName = string.Join("", cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName)),
+                    Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
+                    Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
+                }).OrderByDescending(x => x.Rating.RatingStar).ThenByDescending(x => x.Rating.TotalGiveComment).Take(8).ToList()
             };
 
+            return result;
+        }
+
+        public List<int> MaybeCategoryList(List<CategoryInfo> source, string target)
+        {
+            var temp = source.Where(s => s.Name.Contains(target)).Select(s => s.ChildCategoryList.Select(cc => cc.Id).ToList());
+            List<int> result = new List<int>();
+            foreach (var item in temp)
+            {
+                foreach (var i in item)
+                {
+                    result.Add(i);
+                }
+            }
             return result;
         }
     }
