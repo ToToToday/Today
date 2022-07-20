@@ -19,9 +19,10 @@ namespace Today.Web.Controllers
 
         private readonly ICityService _cityServices;
         private readonly ILocationService _locationServices;
-        public ProductController(ICityService cityServices, ILocationService locationServices)
+       
         private readonly IClassifyService _classifyService;
-        public ProductController(ICityService cityServices, IClassifyService classifyService)
+        
+        public ProductController(ICityService cityServices, ILocationService locationServices, IClassifyService classifyService)
         {
             _cityServices = cityServices;
             _locationServices = locationServices;
@@ -66,6 +67,7 @@ namespace Today.Web.Controllers
                     }).ToList()
                 }).ToList()
             };
+            
             return View(result);
         }
 
@@ -125,9 +127,6 @@ namespace Today.Web.Controllers
                     Text = cl.Text,
                     Title = cl.Title
                 }).ToList()
-                
-
-
             };
 
             return View(cityTourPage);
