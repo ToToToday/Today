@@ -81,6 +81,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = productPhotoList.Where(photo => photo.ProductId == product.ProductId).Select(x => x.Path).First(),
                     ProductName = product.ProductName,
                     ChildCategoryName = tempCategoryList.Select(productCategory => categoryList.Where(category => category.CategoryId == productCategory.CategoryId).Select(category => category.CategoryName).First()).First(),
+                    CityId = product.CityId,
                     CityName = string.Join("", cityList.Where(city => city.CityId == product.CityId).Select(city => city.CityName)),
                     Tags = tempProductTagList.Join(tagList, productTag => productTag.TagId, tag => tag.TagId, (productTag, tag) => new { tag.TagText }).Select(tag => tag.TagText).ToList(),
                     Rating = new RatingInfo() { RatingStar = (totalComment != 0) ? (float)sumRating / totalComment : 0, TotalGiveComment = totalComment},
