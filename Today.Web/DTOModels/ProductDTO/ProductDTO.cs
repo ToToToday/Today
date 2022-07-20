@@ -28,6 +28,7 @@ namespace Today.Web.DTOModels.ProductDTO
             public string ProductPhoto { get; set; }
             public string ProductName { get; set; }
             public string ChildCategoryName { get; set; }
+            public int CityId { get; set; }
             public string CityName { get; set; }
             public List<string> Tags { get; set; }
             public RatingInfo Rating { get; set; }
