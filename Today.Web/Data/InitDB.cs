@@ -15,6 +15,7 @@ namespace Today.Web.Data
         public InitDB(TodayDBContext context)
         {
             _context = context;
+            
         }
         public void CreateBaseData()
         {
