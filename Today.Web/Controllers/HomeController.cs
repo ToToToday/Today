@@ -32,19 +32,19 @@ namespace Today.Web.Controllers
 
         public IActionResult Index()
         {
-            var citysource = _cityService.GetAllCity();
+            //var citysource = _cityService.GetAllCity();
             var homeproductsource = _productService.GetProduct();
             var productSource = homeproductsource.productList;
             var categorySource = homeproductsource.cateoryList;
 
             var homeshow = new ProductVM()
             {
-                RecommendedCity = citysource.Take(5).Select(c => new ProductVM.City
-                {
-                    Id = c.Id,
-                    CityImage = c.CityImage,
-                    CityName = c.CityName
-                }).ToList(),
+                //RecommendedCity = citysource.Take(5).Select(c => new ProductVM.City
+                //{
+                //    Id = c.Id,
+                //    CityImage = c.CityImage,
+                //    CityName = c.CityName
+                //}).ToList(),
                 RecentlyViewed = productSource.Select(s => new ProductVM.RecentlyCardInfo
                 {
                     Id = s.Id,

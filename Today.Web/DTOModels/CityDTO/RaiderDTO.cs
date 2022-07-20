@@ -1,4 +1,4 @@
-﻿namespace Today.Web.DTOModels
+﻿namespace Today.Web.DTOModels.CityDTO
 {
     public class RaiderDTO
     {

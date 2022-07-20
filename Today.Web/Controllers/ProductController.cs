@@ -10,8 +10,8 @@ using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
 using Today.Web.Services.locationService;
 using Today.Web.ViewModels;
-using static Today.Web.DTOModels.CityDTO;
-using static Today.Web.DTOModels.RaiderDTO;
+using static Today.Web.DTOModels.CityDTO.CityDTO;
+using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 
 namespace Today.Web.Controllers
 {
@@ -20,13 +20,11 @@ namespace Today.Web.Controllers
 
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
-       
         private readonly ILocationService _locationServices;
         public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService)
         {
             _cityServices = cityServices;
             _productServices = productService;
-
             _locationServices = locationServices;
         }
 
@@ -62,10 +60,12 @@ namespace Today.Web.Controllers
                 CityId = id
             }; 
             var CityDetail = _cityServices.GetCity(cityRequest);
-            var CityAllCard = _cityServices.GetAllCity();
-            var CityAllRaider = _cityServices.GetRaiderCard();
-            var cityAllComment = _cityServices.GetAllComment();
-            var productcard = _productServices.GetProduct();
+            var CityAllCard = _cityServices.GetAllCity(cityRequest);
+            var CityAllRaider = _cityServices.GetRaiderCard(cityRequest);
+            var CityAllComment = _cityServices.GetAllComment(cityRequest);
+            var NewActiviy = _cityServices.GetNewActiviy(cityRequest);
+            var AboutProduct = _cityServices.GetAboutProduct(cityRequest);
+            var TopTen = _cityServices.GetTopTen(cityRequest);
             var cityTourPage = new CityVM
             {
                 CurrentCityInfo = new CityVM.CityInfo
@@ -76,19 +76,19 @@ namespace Today.Web.Controllers
                     CityIntrod = CityDetail.CityInfo.CityIntrod
                 },
 
-                cityCardList = CityAllCard.Where(x => x.Id > id).Take(10).Select(cc => new CityVM.CityCardList
+                CityCardsList = CityAllCard.Select(cc => new CityVM.CityCardList
                 {
                     Id = cc.Id,
                     CityImage = cc.CityImage,
                     CityName = cc.CityName,
                 }).ToList(),
-                RaiderList = CityAllRaider.Where(x => x.CityId == id).Select(rl => new CityVM.CityRaiderList
+                RaiderList = CityAllRaider.Select(rl => new CityVM.CityRaiderList
                 {
                     CityId = rl.CityId,
                     Title = rl.Title,
                     SubTitle = rl.SubTitle
                 }).ToList(),
-                commentList = cityAllComment.Where(x => x.CityId == id).Select(cl => new CityVM.CityCommentList
+                CommentList = CityAllComment.Select(cl => new CityVM.CityCommentList
                 {
                     CityId = cl.CityId,
                     Name = cl.Name,
@@ -100,26 +100,41 @@ namespace Today.Web.Controllers
                     Text = cl.Text,
                     Title = cl.Title
                 }).ToList(),
-                NewActiviyList = productcard.productList.OrderByDescending(p=> p.Id).Where(c => c.CityId == id).Select(newp => new CityVM.ProductCardVM
+                NewActiviyList = NewActiviy.Select(newp => new CityVM.ProductCardVM
                 {
                     Id = newp.Id,
                     ProductPhoto = newp.ProductPhoto,
                     ProductName = newp.ProductName,
                     Tags = newp.Tags,
                     CityName = newp.CityName,
-                    OriginalPrice =( newp.Prices ==null || newp.Prices.OriginalPrice ==newp.Prices.Price)?null:newp.Prices.OriginalPrice,
-                    Price =(newp.Prices == null)? null :newp.Prices.Price
-                }).Take(10).ToList(),
-                AboultActiviyList = productcard.productList.OrderBy(x => Guid.NewGuid()).Where(c => c.CityId==id).Select(aboutp => new CityVM.ProductCardVM
+                    OriginalPrice = newp.OriginalPrice,
+                    Price =newp.Price,
+                    Rating = newp.Rating,
+                    TotalGiveComment = newp.TotalComment,
+                    TotalOrder = newp.Quantity
+
+
+                }).ToList(),
+                AboutActiviyList = AboutProduct.Select(aboutp => new CityVM.ProductCardVM
                 {
                     Id = aboutp.Id,
                     ProductPhoto = aboutp.ProductPhoto,
                     ProductName = aboutp.ProductName,
                     Tags = aboutp.Tags,
                     CityName = aboutp.CityName,
-                    OriginalPrice = (aboutp.Prices == null || aboutp.Prices.OriginalPrice == aboutp.Prices.Price) ? null : aboutp.Prices.OriginalPrice,
-                    Price = (aboutp.Prices == null) ? null : aboutp.Prices.Price
-                }).Take(10).ToList(),
+                    OriginalPrice = aboutp.OriginalPrice,
+                    Price = aboutp.Price
+                }).ToList(),
+                TopActiviyList = TopTen.Select(top => new CityVM.ProductCardVM
+                {
+                    Id = top.Id,
+                    ProductPhoto = top.ProductPhoto,
+                    ProductName = top.ProductName,
+                    Tags = top.Tags,
+                    CityName = top.CityName,
+                    OriginalPrice = top.OriginalPrice,
+                    Price = top.Price
+                }).ToList()
 
 
 
