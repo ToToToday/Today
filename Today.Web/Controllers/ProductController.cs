@@ -22,7 +22,7 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-       
+
         private readonly IClassifyService _classifyService;
         
         

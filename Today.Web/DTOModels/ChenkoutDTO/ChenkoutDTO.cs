@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Today.Web.DTOModels.ChenkoutDTO
+{
+    public class ChenkoutDTO
+    {
+        public class ChenkoutRequestDTO
+        {
+            public int OrderId { get; set; }
+        }
+        public class ChenkoutResponseDTO
+        {
+            public MemberInfo MemberDetail { get; set; }
+
+        }
+
+        public class MemberInfo
+        {
+            public string Name { get; set; }
+            public string CityName { get; set; }
+            public string PhoneNumber { get; set; }
+            public string Email { get; set; }
+        }
+        public OrderInfo OrderProductDetail { get; set; }
+
+        public class OrderInfo
+        {
+            public string ProductName { get; set; }
+            public string ProgramTitle { get; set; }
+            public string Photo { get; set; }
+            public DateTime DepartureDate { get; set; }
+            public TimeSpan Screen { get; set; }
+            public string Itemtext { get; set; }
+            public int Quantity { get; set; }
+            public decimal UnitPrice { get; set; }
+            public string UnitText { get; set; }
+
+
+        }
+    }
+}
