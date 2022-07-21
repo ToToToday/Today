@@ -129,27 +129,47 @@ namespace Today.Web.Controllers
             var getLocation = _locationServices.GetLocations();
             var getProduct = _locationServices.GetProducts();
             var getPhoto = _locationServices.GetPhoto();
+            var getProductCard = _locationServices.ProductCards();
+            //var getCity = _locationServices.GetCity();
+            //var getProgram =_locationServices.GetPrograms();
+            //var getProgramSpecification = _locationServices.GetProgramSpecifications();
+            //var getProgramCantUseDate = _locationServices.GetProgramCantUseDates();
+
+
             var result = new LocationVM
             {
-                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocationVM
                 {
                     Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
-                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                GetProdocutName = getProduct.Select(p => new LocationVM.ProductVM
                 {
-                    ProductId = p.ProductId, 
+                    ProductId = p.ProductId,
                     ProductName = p.ProductName,
-                }).ToList()
-                ,
-                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                    CityId =p.CityId
+                }).ToList(),
+                GetProductPhoto = getPhoto.Where(s=>s.Sort==1).Select(p => new LocationVM.ProductPhotoVM
                 {
                     PhotoId = p.PhotoId,
                     PhotoPath = p.Path,
                     ProductId = p.ProductId,
                     Sort = p.Sort
                 }).ToList(),
+                GetProductCards = getProductCard.Select(gpc=>new LocationVM.ProductCard
+                {
+                    ProductId=gpc.ProductId,
+                    ProductName=gpc.ProductName,
+                    CityId=gpc.CityId,
+                    //CityVM=getCity.Select(x=> new LocationVM.CityVM { CityId=x.CityId , CityName=x.CityName}),
+                    //ProgramVM=getProgram.Select(x=>new LocationVM.ProgramVM { ProductId=x.ProductId,ProgramId=x.ProgramId}),
+                    //ProgramSpecificationVM = getProgramSpecification.Select(x=> new LocationVM.ProgramSpecificationVM 
+                    //{ ProgramId = x.ProgramId,SpecificationId=x.SpecificationId,OriginalUnitPrice=x.OriginalUnitPrice,UnitPrice=x.UnitPrice} ),
+                    //CantUseDateVM =getProgramCantUseDate.Select(x=>new LocationVM.ProgramCantUseDateVM {ProgramId=x.ProgramId,ProgramDateId=x.ProgramDateId,Date=x.Date }), 
+                    //ProductPictureVM= getPhoto.Select(x=>new LocationVM.ProductPhotoVM { PhotoId=x.ProductId,ProductId=x.ProductId,PhotoPath=x.Path,Sort=x.Sort})
+                }).ToList()
+
             };
             string locationJson = System.Text.Json.JsonSerializer.Serialize(result.GetLocation); //把資料編碼 
             string ProductNamedJson = System.Text.Json.JsonSerializer.Serialize(result.GetProdocutName);
@@ -157,24 +177,9 @@ namespace Today.Web.Controllers
             ViewData["locationJson"] = locationJson;
             ViewData["PNameJson"] = ProductNamedJson;
             ViewData["PhotoJson"] = GetPhotoJson;
-            return View(result);
+            return Json(result);
         }
-        //測試用的!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        public IActionResult Drag_test()
-        {
-            var getPhoto = _locationServices.GetPhoto();
-            var result = new LocationVM
-            {
-                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
-                {
-                    PhotoId = p.PhotoId,
-                    PhotoPath = p.Path,
-                    ProductId = p.ProductId,
-                    Sort = p.Sort
-                }).ToList(),
-            };
-            return View(result);
-        }
+
 
         public IActionResult ParentChild() //親子 分類
         {
@@ -191,19 +196,19 @@ namespace Today.Web.Controllers
             var getPhoto = _locationServices.GetPhoto();
             var result = new LocationVM
             {
-                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocationVM
                 {
                     Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
-                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                GetProdocutName = getProduct.Select(p => new LocationVM.ProductVM
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                 }).ToList()
                 ,
-                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhotoVM
                 {
                     PhotoId = p.PhotoId,
                     PhotoPath = p.Path,
@@ -234,19 +239,19 @@ namespace Today.Web.Controllers
             var getPhoto = _locationServices.GetPhoto();
             var result = new LocationVM
             {
-                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocationVM
                 {
                     Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
-                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                GetProdocutName = getProduct.Select(p => new LocationVM.ProductVM
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                 }).ToList()
                 ,
-                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhotoVM
                 {
                     PhotoId = p.PhotoId,
                     PhotoPath = p.Path,
@@ -277,19 +282,19 @@ namespace Today.Web.Controllers
             var getPhoto = _locationServices.GetPhoto();
             var result = new LocationVM
             {
-                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocationVM
                 {
                     Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
-                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                GetProdocutName = getProduct.Select(p => new LocationVM.ProductVM
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                 }).ToList()
                 ,
-                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhotoVM
                 {
                     PhotoId = p.PhotoId,
                     PhotoPath = p.Path,
@@ -320,19 +325,19 @@ namespace Today.Web.Controllers
             var getPhoto = _locationServices.GetPhoto();
             var result = new LocationVM
             {
-                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocation
+                GetLocation = getLocation.Select(lo => new LocationVM.ProductLocationVM
                 {
                     Id = lo.LocationID,
                     latitude = lo.Latitude,
                     longitude = lo.Longitude
                 }).ToList(),
-                GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
+                GetProdocutName = getProduct.Select(p => new LocationVM.ProductVM
                 {
                     ProductId = p.ProductId,
                     ProductName = p.ProductName,
                 }).ToList()
                 ,
-                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhoto
+                GetProductPhoto = getPhoto.Select(p => new LocationVM.ProductPhotoVM
                 {
                     PhotoId = p.PhotoId,
                     PhotoPath = p.Path,
