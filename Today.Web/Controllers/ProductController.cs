@@ -8,6 +8,7 @@ using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
+using Today.Web.Services.ClassifyService;
 using Today.Web.Services.locationService;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO.CityDTO;
@@ -21,11 +22,17 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService)
+       
+        private readonly IClassifyService _classifyService;
+        
+        
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService)
         {
             _cityServices = cityServices;
             _productServices = productService;
             _locationServices = locationServices;
+            _classifyService = classifyService;
+
         }
 
         public IActionResult Index()
@@ -37,9 +44,36 @@ namespace Today.Web.Controllers
         {
             return View();
         }
+
         public IActionResult Classify() //楊 分類
         {
-            return View();
+            var classPages = _classifyService.GetClassifyPages();
+            var cardsource = classPages.ClassifyCardList.ToList();
+            var Categorysource = classPages.CategoryList.ToList();
+            var result = new ClassifyVM()
+            {
+                ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
+                {
+                    ProductName = c.ProductName,
+                    CityName = c.CityName,
+                    Path = c.Path,
+                    TagText = c.TagText,
+                    UnitPrice = c.UnitPrice,
+                    Evaluation = c.Evaluation
+                }).ToList(),
+                CategoryList = Categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                {
+                    Id = x.Id,
+                    CategoryName = x.CategoryName,
+                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
+                    {
+                        Id = y.Id,
+                        CategoryName = y.CategoryName
+                    }).ToList()
+                }).ToList()
+            };
+            
+            return View(result);
         }
 
         public IActionResult Souvenir() //伴手禮

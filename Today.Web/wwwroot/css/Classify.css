@@ -1,8 +1,12 @@
+.navbar-toggler bg-white {
+    box-shadow: none;
+}
+
 body {
     font-family: 'Noto Sans TC', '微软雅黑', sans-serif;
     background-color: #f5f5f5;
     font-weight: 500;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 .container-fluid button .navbar-toggler {
@@ -20,14 +24,10 @@ body {
     margin: auto;
 }
 
-input.search {
-    padding: 0;
-
-}
 
 .form-check {
-    margin: 0 20px;
-    padding: 10px 20px;
+    /* margin: 0 20px;
+    padding: 10px 20px; */
     border-bottom: 1px solid #eee;
 }
 
@@ -62,16 +62,32 @@ h2 {
 }
 
 .chip {
-    padding: 10px;
-    margin: 0px 5px 15px;
+    padding: 3px 10px;
+    margin: 5px 5px;
 }
+
+.accordion-button:not(.collapsed)::after {
+    background-image: none;
+}
+
+.btn-white {
+    color: dimgray;
+}
+
+    .btn-white:hover {
+        color: #26bec9;
+        border: 1px solid #26bec9;
+    }
 
 .chip-clear {
     background-color: #999;
     border: 1px solid #999;
     padding: 10px;
-    margin: 0px 5px 15px;
+    margin: 5px 5px;
+}
 
+.fa-check {
+    color: #0dcaf0;
 }
 
 .chip-clear:hover {
@@ -91,18 +107,15 @@ span.sort:hover {
     border-top: 1px solid #D6D6D6;
 }
 
-.city-filter-btn button {
-    border: 1px solid #ccc;
-}
+/* #offcanvas-bottom {
+    height: 18rem;
+} */
 
-
-@media screen and (min-width: 576px) {
-    #sort {
-        height: 18vh;
-    }
-}
 
 @media screen and (max-width: 991px) {
+    .col-lg-9 {
+        margin-top: 50px;
+    }
 
     .product-filter,
     .card-board {
@@ -118,14 +131,33 @@ span.sort:hover {
         margin-top: 55px;
     }
 
-    /* #sort {
-        height: 30vh;
-    } */
+    #offcanvasBottom {
+        height: 38rem;
+    }
+
+/*    #moreconditions {
+        height: 38rem;
+    }*/
+    #moreconditions {
+        height: 38rem!important;
+    }
+
+}
+
+@media screen and (min-width: 576px) {
+    #sort {
+        height: 18rem;
+    }
+
+    #offcanvasBottom {
+        height: 38rem;
+    }
 
     #moreconditions {
-        height: 86vh;
+        height: 38rem;
     }
 }
+
 
 @media screen and (min-width: 992px) {
     .product-filter {
@@ -142,7 +174,7 @@ span.sort:hover {
     }
 
     .container-fluid-ProductList {
-        margin-top: 25px;
+        margin-top: 57px;
     }
 
     .card-footer,
@@ -150,7 +182,13 @@ span.sort:hover {
         color: #999;
     }
 
+    #offcanvasBottom {
+        height: 35rem;
+    }
 
+    #moreconditions {
+        height: 52rem;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -161,10 +199,6 @@ span.sort:hover {
 
 .card-point {
     color: #333;
-}
-
-.offcanvas-bottom {
-    height: 70vh;
 }
 
 .label-addational {
@@ -217,19 +251,12 @@ p .card-text {
     color: #ffc612;
 }
 
-/* .card-footer,
-.sort {
-    color: #999;
-} */
-
-
-
 .fa-dollar-sign {
     color: #000;
 }
 
-.sort:hover {
-    /* color: #26bec9; */
+.fa-calendar:hover {
+    background: #eff9fa;
 }
 
 .fa-calendar,
@@ -237,10 +264,10 @@ p .card-text {
     color: #cccccc;
 }
 
-.accordion-item .fa-calendar {
+/*.accordion-item .fa-calendar {
     box-shadow: none;
 }
-
+*/
 .card_detail {
     position: relative;
     opacity: 1.0;
@@ -248,16 +275,15 @@ p .card-text {
     background-color: #fff;
 }
 
-.card_detail:hover {
-    opacity: 0.5;
-    filter: alpha(opacity=50);
-}
+    .card_detail:hover {
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+    }
 
 
 h5 .card-title_group {
     font-weight: 400;
 }
-
 
 .number,
 .subscription,
@@ -279,7 +305,6 @@ h5 .card-title_group {
 }
 
 .fa-heart:hover {
-
     transform: scale(1.5);
     color: red;
     -webkit-text-stroke: 1px red;
@@ -305,22 +330,45 @@ h5 .card-title_group {
     border-radius: 4px;
 }
 
+.scroll-to-top,
+.container::-webkit-scrollbar {
+    display: none;
+}
 
-.scroll-top {
-    text-decoration: none;
-    width: 35px;
-    height: 35px;
-    background: rgba(0, 0, 0, .4);
-    color: #f1f1f1;
-    font-size: 1em;
-    text-align: center;
-    line-height: 40px;
+.scroll-to-top {
     position: fixed;
-    bottom: 10px;
-    right: 10px;
-    right: 25px;
-    bottom: 50px;
-    padding-top: 2px;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(0, 0, 0, .4);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    opacity: .8;
     border-radius: 2px;
-    border: none;
+    z-index: 10;
+}
+
+.fa-angle-up {
+    margin-top: 13px;
+    color: white;
+}
+
+/* 平板直向、橫向、桌機 */
+@media screen and (min-width:768px) {
+    .scroll-to-top {
+        display: block;
+    }
+
+    #offcanvasBottom {
+        height: 38rem;
+    }
+
+    #moreconditions {
+        height: 38rem;
+    }
+
+    .scroll-to-top:hover {
+        background-color: #333333;
+        transition: 1s;
+    }
 }
