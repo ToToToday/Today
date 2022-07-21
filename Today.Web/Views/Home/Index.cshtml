@@ -18,7 +18,7 @@
     </div>
 </section>
 
-<!-- 分類 -->
+<!-- 分類 --><!--尚未-->
 <section class="category-limit w-100 py-3">
     <div class="category fixed-width m-auto position-relative rounded">
         <ul class="list-unstyled bg-light rounded-3 d-flex flex-wrap">
@@ -125,7 +125,7 @@
     </div>
 </section>
 
-<!-- 熱門活動分類 -->
+<!-- 熱門活動分類 --><!--尚未-->
 <section class="action-limit w-100 py-5 position-relative">
     <div class="action fixed-width m-auto px-sm-2 px-md-3 d-flex flex-wrap">
         <h3 class="hot-action w-100 mb-4 mx-2">熱門活動分類</h3>
@@ -204,7 +204,7 @@
     </div>
 </section>
 
-<!-- 最新旅遊優惠 -->
+<!-- 最新旅遊優惠 --><!--尚未-->
 <section class="new-limit w-100 py-5 position-relative">
     <div class="discount fixed-width m-auto px-sm-2 px-md-3 d-flex flex-wrap">
         <h3 class="new-discount d-block w-100 mb-4 ms-2">最新旅遊優惠</h3>
@@ -259,61 +259,7 @@
             <i class="fa-solid fa-angle-left text-black fs-3 lh-1"></i>
         </div>
         <div class="group-card w-100 d-flex">
-            <div class="taipei col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1 flex-lg-grow-1">
-                <a href="#" class="text-decoration-none text-black">
-                    <img src="https://picsum.photos/300/200/?random=10" alt="台北 Taipei" class="w-100 h-100 rounded">
-                    <div class="city-details position-absolute text-white d-flex flex-wrap">
-                        <h4 class="mb-2 ms-2 w-100 fs-5">台北</h4>
-                        <span class="px-2 py-1 mb-1">交通 & 旅遊必備</span>
-                        <span class="px-2 py-1 mb-1">熱門票卷</span>
-                        <span class="px-2 py-1 mb-1">更多在地體驗</span>
-                    </div>
-                </a>
-            </div>
-            <div class="new-taipei col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1">
-                <a href="#" class="text-decoration-none text-black">
-                    <img src="https://picsum.photos/300/200/?random=11" alt="新北 New Taipei" class="w-100 h-100 rounded">
-                    <div class="city-details position-absolute text-white d-flex flex-wrap">
-                        <h4 class="mb-2 ms-2 w-100 fs-5">新北</h4>
-                        <span class="px-2 py-1 d-lg-none mb-1">交通 & 旅遊必備</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">熱門票卷</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">更多在地體驗</span>
-                    </div>
-                </a>
-            </div>
-            <div class="keelung col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1">
-                <a href="#" class="text-decoration-none text-black">
-                    <img src="https://picsum.photos/300/200/?random=12" alt="基隆 Keelung" class="w-100 h-100 rounded">
-                    <div class="city-details position-absolute text-white d-flex flex-wrap">
-                        <h4 class="mb-2 ms-2 w-100 fs-5">基隆</h4>
-                        <span class="px-2 py-1 d-lg-none mb-1">交通 & 旅遊必備</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">熱門票卷</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">更多在地體驗</span>
-                    </div>
-                </a>
-            </div>
-            <div class="taoyuan col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1">
-                <a href="#" class="text-decoration-none text-black">
-                    <img src="https://picsum.photos/300/200/?random=13" alt="桃園 Taoyuan" class="w-100 h-100 rounded">
-                    <div class="city-details position-absolute text-white d-flex flex-wrap">
-                        <h4 class="mb-2 ms-2 w-100 fs-5">桃園</h4>
-                        <span class="px-2 py-1 d-lg-none mb-1">交通 & 旅遊必備</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">熱門票卷</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">更多在地體驗</span>
-                    </div>
-                </a>
-            </div>
-            <div class="yilan col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1">
-                <a href="#" class="text-decoration-none text-black">
-                    <img src="https://picsum.photos/300/200/?random=14" alt="宜蘭 yilan" class="w-100 h-100 rounded" >
-                    <div class="city-details position-absolute text-white d-flex flex-wrap">
-                        <h4 class="mb-2 ms-2 w-100 fs-5">宜蘭</h4>
-                        <span class="px-2 py-1 d-lg-none mb-1">交通 & 旅遊必備</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">熱門票卷</span>
-                        <span class="px-2 py-1 d-lg-none mb-1">更多在地體驗</span>
-                    </div>
-                </a>
-            </div>
+            <partial name="CardPartial/_CityCardPartial" for="PopularCity"/>
         </div>
         <div class="afterward rounded-circle bg-secondary bg-opacity-50 text-center my-auto d-xl-none position-absolute">
             <i class="fa fas fa-angle-right text-black fs-3 lh-1"></i>

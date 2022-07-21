@@ -8,8 +8,9 @@ namespace Today.Web.Services.ProductService
 {
     public interface IProductService
     {
-        ProductDTO GetProduct();
+        ProductDTO AllProduct();
         ProductDTO GetAllProductCard();
-        abstract List<int> MaybeCategoryList(List<CategoryInfo> source, string target);
+        ProductDTO PopularCityCard();
+        abstract List<string> MaybeCategoryList(List<CategoryInfo> source, string target);
     }
 }

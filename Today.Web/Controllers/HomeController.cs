@@ -31,20 +31,26 @@ namespace Today.Web.Controllers
 
         public IActionResult Index()
         {
-            var citysource = _cityService.GetAllCity();
-            var homeproductsource = _productService.GetAllProductCard();
-            var categorySource = homeproductsource.CategoryList;
+            var homeproductSource = _productService.GetAllProductCard();
+            var citySource = _productService.PopularCityCard().CityList;
+            var categorySource = homeproductSource.CategoryList;
 
             var homeshow = new ProductVM
             {
-                RecentlyViewed = homeproductsource.RecentlyViewed.Select(h => new ProductVM.RecentlyCardInfo()
+                PopularCity = citySource.Select(c => new ProductVM.City
+                {
+                    Id = c.Id,
+                    CityName = c.CityName,
+                    CityImage = c.CityImage
+                }).ToList(),
+                RecentlyViewed = homeproductSource.RecentlyViewed.Select(h => new ProductVM.RecentlyCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     Price = (h.Price == null) ? null : h.Price
                 }).ToList(),
-                TopProduct = homeproductsource.TopProduct.Select(h => new ProductVM.ProductCardInfo()
+                TopProduct = homeproductSource.TopProduct.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
@@ -57,7 +63,7 @@ namespace Today.Web.Controllers
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
-                Featured = homeproductsource.Featured.Select(h => new ProductVM.ProductCardInfo()
+                Featured = homeproductSource.Featured.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
@@ -70,7 +76,7 @@ namespace Today.Web.Controllers
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
-                Paradise = homeproductsource.Paradise.Select(h => new ProductVM.ProductCardInfo()
+                Paradise = homeproductSource.Paradise.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
@@ -83,7 +89,7 @@ namespace Today.Web.Controllers
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
-                AttractionTickets = homeproductsource.AttractionTickets.Select(h => new ProductVM.ProductCardInfo()
+                AttractionTickets = homeproductSource.AttractionTickets.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
@@ -96,7 +102,7 @@ namespace Today.Web.Controllers
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
-                Exhibition = homeproductsource.Exhibition.Select(h => new ProductVM.ProductCardInfo()
+                Exhibition = homeproductSource.Exhibition.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
@@ -109,7 +115,7 @@ namespace Today.Web.Controllers
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
-                Hotel = homeproductsource.Hotel.Select(h => new ProductVM.ProductCardInfo()
+                Hotel = homeproductSource.Hotel.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
@@ -122,7 +128,7 @@ namespace Today.Web.Controllers
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
-                Taoyuan = homeproductsource.Taoyuan.Select(h => new ProductVM.ProductCardInfo()
+                Taoyuan = homeproductSource.Taoyuan.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
@@ -135,7 +141,7 @@ namespace Today.Web.Controllers
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
-                Evaluation = homeproductsource.Evaluation.Select(h => new ProductVM.ProductCardInfo()
+                Evaluation = homeproductSource.Evaluation.Select(h => new ProductVM.ProductCardInfo()
                 {
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,

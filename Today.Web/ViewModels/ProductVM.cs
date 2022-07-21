@@ -9,7 +9,7 @@ namespace Today.Web.ViewModels
     {
         //public int CityName { get; set; }
         //public List<CategoryShow> Category { get; set; }
-        public List<City> RecommendedCity { get; set; }
+        public List<City> PopularCity { get; set; }
         public List<RecentlyCardInfo> RecentlyViewed { get; set; }
         public List<ProductCardInfo> TopProduct { get; set; }
         public List<ProductCardInfo> Featured { get; set; }

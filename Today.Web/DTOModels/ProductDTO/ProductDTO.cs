@@ -13,11 +13,15 @@ namespace Today.Web.DTOModels.ProductDTO
         //{
         //    public ProductInfo ProductInfo { get; set; }
         //}
-        public List<ProductInfo> ProductList { get; set; }
+        #region 所需資料欄位
+        public IQueryable<ProductInfo> QueryProduct { get; set; }
         public List<CategoryInfo> CategoryList { get; set; }
+        public List<ProductInfo> ProductList { get; set; }
+        #endregion
 
-        #region 測試
-        //public List<City> RecommendedCity { get; set; }
+        #region 首頁所需欄位
+        public List<CityInfo> CityList { get; set; }
+
         public List<RecentlyInfo> RecentlyViewed { get; set; }
         public List<ProductInfo> TopProduct { get; set; }
         public List<ProductInfo> Featured { get; set; }
@@ -67,6 +71,13 @@ namespace Today.Web.DTOModels.ProductDTO
             public string ProductPhoto { get; set; }
             public string ProductName { get; set; }
             public decimal? Price { get; set; }
+        }
+
+        public class CityInfo
+        {
+            public int Id { get; set; }
+            public string CityName { get; set; }
+            public string CityImage { get; set; }
         }
     }
 
