@@ -296,13 +296,11 @@
                 <h3 class="product-initial-btn col-12">
                     選擇方案
                 </h3>
-                @foreach (var pg in @Model.ProgarmList)
-                {
+                <template id="PrgramNameModel">
                     <div class="initial col-12 ">
                         <div class="initial-container  col-12 d-flex flex-wrap text-r">
                             <div class="col-8 mb-2">
                                 <h4>
-                                    @pg.PrgramName
                                 </h4>
                                 <div class="remind d-inline-block ">
                                     3天前可以免費取消
@@ -314,57 +312,19 @@
                                     起
                                 </span>
                             </p>
-                            @if (pg.ProgarmIsdeleted == true)
-                            {
-                                <button id="initial-btn-true" class="d-none col-2 mb-2">
-                                    <i class="fa-solid fa-circle-check "></i>
-                                    己選擇
-                                </button>
-                                <button id="initial-btn-fles" class="col-2 mb-2">
-                                    選擇
-                                </button>
-                            };
-                            @if (pg.ProgarmIsdeleted == false)
-                            {
-                                <button id="initial-btn-fles" class="col-2 mb-2">
-                                    不可購買
-                                </button>
-                            }
-                            @Html.Raw(@pg.PrgarmText)
                         </div>
                         <div class="flex-wrap d-none d-lg-flex">
                             <div class="col-12  AboutProgram-ProgramInclude-div">
                                 <div class="col-12 d-flex AboutProgram-div">
                                     <h5 class="col-3 AboutProgram-h5 ">關於此方案</h5>
                                     <ul class="col-9 d-flex flex-wrap">
-                                        @foreach (var ap in pg.AboutProgramList)
-                                        {
-                                            <li class="d-flex">
-                                                @Html.Raw(@ap.IconClass)
-                                                @ap.AboutProgramName
-                                            </li>
-                                        }
                                     </ul>
                                 </div>
                                 <div class="col-12  ProgramInclude-div d-flex ">
                                     <h5 class="col-3 ProgramInclude-h5">費用包含與不包含</h5>
                                     <ul class="col-5 ProgramInclude-true-ul">
-                                        @foreach (var li in pg.ProgramIncludeList)
-                                        {
-                                            if (li.IsInclude == true)
-                                            {
-                                                <li>@li.Inciudetext</li>
-                                            }
-                                        }
                                     </ul>
                                     <ul class="col-4 ProgramInclude-fals-ul">
-                                        @foreach (var li in pg.ProgramIncludeList)
-                                        {
-                                            if (li.IsInclude == false)
-                                            {
-                                                <li>@li.Inciudetext</li>
-                                            }
-                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -383,54 +343,40 @@
                                         選擇數量
                                     </h6>
                                     <div class="select-quantity-aldult col-12 d-flex flex-wrap">
-                                        @foreach (var sp in pg.ProgramSpecificationList)
-                                        {
-                                            <div class="col-12 d-flex flex-wrap  mb-2">
-                                                <p class="col-8 mt-auto">
-                                                    @sp.UnitText
-                                                    <span class="">TWD @sp.PorgarmUnitPrice/每人</span>
-                                                </p>
-                                                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                                                    <button class="select-quantity-btn-reduce">-</button>
-                                                    <p class="">0</p>
-                                                    <button class="select-quantity-btn-add">+</button>
-                                                </div>
-                                            </div>
-                                        }
-@*                                        <div class="col-12 d-flex flex-wrap mb-2">
-                                            <p class="col-8 mt-auto">
-                                                兒童
-                                                <span class="">TWD 100/每人</span>
+                                        <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                                            <p class="col-8 mt-auto UnitText">
                                             </p>
                                             <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                                                <button class="select-quantity-btn-reduce">-</button>
-                                                <p class="">0</p>
-                                                <button class="select-quantity-btn-add">+</button>
+                                                <button class="select-quantity-btn-reduce reduce">-</button>
+                                                <p class="count">0</p>
+                                                <button class="select-quantity-btn-add plus">+</button>
                                             </div>
-                                        </div>*@
+                                        </div>
                                         <div class="d-flex justify-content-between col-12 select-total-div ">
                                             <span>總金額</span>
-                                            <p>TWD 1234</p>
+                                            <p class="price"></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="shopping-cart-div col-12 d-flex">
-                                    <button class="shopping-cart-btn ms-auto">加入購物車</button>
+                                    <input type="submit" class="shopping-cart-btn ms-auto" value="加入購物車" />
+                                    <input type="submit" class="asd-btn ms-auto" value="立即訂購" />
+
                                     <button>立即訂購</button>
                                 </div>
                             </div>
                         </div>
                         <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
-                            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
-                            aria-controls="offcanvasBottom">
+                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
+                                aria-controls="offcanvasBottom">
                             查看方案詳情
                         </button>
                         <div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1"
-                         id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
+                             id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                    aria-label="Close">
+                                        aria-label="Close">
                                 </button>
                             </div>
                             <div class="offcanvas-body small d-flex flex-wrap p-3">
@@ -444,38 +390,15 @@
                                     <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
                                         <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
                                         <ul class="col-md-4 iph-ProgramInclude-true-ul">
-                                            @foreach (var li in pg.ProgramIncludeList)
-                                            {
-                                                if (li.IsInclude == true)
-                                                {
-                                                    <li>@li.Inciudetext</li>
-                                                }
-                                            }
-                                            @*                                            <li>住宿</li>
-                                        <li>蔚藍西餐廳自助早餐／依照入住人數提供</li>
-                                        <li>劍湖山主題樂園門票／依照入住人數提供</li>*@
                                         </ul>
                                         <ul class="col-md-12 iph-ProgramInclude-fals-ul">
-                                            @foreach (var li in pg.ProgramIncludeList)
-                                            {
-                                                if (li.IsInclude == false)
-                                                {
-                                                    <li>@li.Inciudetext</li>
-                                                }
-                                            }
-@*                                            <li>
-                                                個人消費
-                                            </li>
-                                            <li>
-                                                以上未提及消費
-                                            </li>*@
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
+                </template>
             </div>
         </div>
     </div>
@@ -497,7 +420,344 @@
                     購買須知
                 </h3>
                 @Html.Raw(@Model.ShoppingNotice)
-                @*                <div class="Notes">
+
+            </div>
+            <div id="how-use" class="product how-use">
+                <h3>
+                    如何使用方式
+                </h3>
+                @Html.Raw(@Model.HowUse)
+            </div>
+            <div id="Experience-location" class="product Experience-location">
+                <h3>
+                    體驗地點
+                </h3>
+                <h4>
+                    @Model.ProductlocationName
+                </h4>
+                <p class="address">
+                    地址:@Model.ProductLocationAddress
+                </p>
+
+            </div>
+            <div id="Cancellation-Policy" class="product Cancellation-Policy">
+                <h3>
+                    取消政策
+                </h3>
+                @Html.Raw(@Model.CancellationPolicy)
+            </div>
+        </div>
+        <div class="product-infon-a d-lg-flex col-lg-4 flex-wrap h-100 ">
+            <a class="col-lg-12" href="#product-initial">選擇方案</a>
+            <a class="col-lg-12" href="#product-Description">商品說明</a>
+            <a class="col-lg-12" href="#purchase-Notes">購買須知</a>
+            <a class="col-lg-12" href="#how-use">憑證使用</a>
+            <a class="col-lg-12" href="#Experience-location">體驗地點</a>
+            <a class="col-lg-12" href="#Cancellation-Policy">取消政策</a>
+        </div>
+    </div>
+</div>
+@section topCSS{
+    <link rel="stylesheet" href="~/css/commodity.css" />
+    <link rel="stylesheet" href="~/css/reset.css" />
+}
+    @section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+
+    </script>
+    <script>
+        let product_initial = document.querySelector("#product-initial")
+        let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
+        //let body = document.querySelector("body")
+        let PrgramNameModel = document.querySelector("#PrgramNameModel")
+        pglist.forEach((pg, index) => {
+            console.log(pg.PrgramName)
+            console.log(pg.ProgramSpecificationList)
+            product_initial.append(Addcard(pg.PrgramName, pg.ProgramSpecificationList))
+        })
+        function Addcard(name, ProgramSpecificationList) {
+            let programcard = PrgramNameModel.content.cloneNode(true);
+            programcard.querySelector("h4").innerText = name
+
+            const fp = flatpickr( programcard.querySelector("#myID"), {
+                disable: ["2022-08-30", "2022-08-21", "2025-03-08"],
+                dateFormat: "Y-m-d",
+                inline: true,
+                mode: "range",
+                dateFormat: "Y-m-d H:i",
+            });
+            ProgramSpecificationList.forEach(ps => {
+                console.log(ps.Itemtext)
+
+                programcard.querySelector(".UnitText-div>p").innerText = ps.Itemtext + ps.PorgarmUnitPrice + "/" + ps.UnitText
+                console.log(programcard.querySelector(".UnitText-div>p").innerText)
+
+                let count = programcard.querySelector(".count")
+
+                let sum_price = programcard.querySelector(".price")
+
+                programcard.querySelector(".plus").addEventListener("click", function() {
+                    num = parseInt(count.innerHTML, 10) + 1
+                    count.innerHTML = num
+                    sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
+                })
+
+                programcard.querySelector(".reduce").addEventListener("click", function() {
+                    if (count.innerHTML > 0) {
+                        num = parseInt(count.innerHTML, 10) - 1
+                        count.innerHTML = num
+                        sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
+                    }
+                })
+
+                let num2;
+                programcard.querySelector(".shopping-cart-btn").addEventListener("click", function() {
+
+
+                    //SpecificationId規格ID    ViewModel未抓
+                    //MemberId會員ID           目前沒有
+                    //DepartureDate出發日期
+                    //Quantity數量
+                    num2 = count.innerText
+                    console.log(num2)
+                    //ScreeningId場次         目前沒有  需要可為Null
+                    //JoinTime加入購物車的時間
+
+                    let url = "/api/apiProductinfo/CreateProductinfo"
+                    fetch(url, {
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        method: 'post',
+                        body: JSON.stringify({
+                            //加入產品詳細資訊
+                            Quantity: num2,
+                        }),
+                    })
+                    //.then(resp => {
+                    //    if (resp.ok) {
+                    //        return resp.text()
+                    //    }
+                    //}).then(text => {
+                    //    alert(text);
+                    //})
+                });
+            });
+            return programcard
+        }
+    </script>
+    <script>
+
+    </script>
+}
+
+
+
+
+
+
+
+    @*
+                @foreach (var pg in @Model.ProgarmList)
+                {
+                <div class="initial col-12 ">
+                <div class="initial-container  col-12 d-flex flex-wrap text-r">
+                <div class="col-8 mb-2">
+                <h4>
+                @pg.PrgramName
+                </h4>
+                <div class="remind d-inline-block ">
+                3天前可以免費取消
+                </div>
+                </div>
+                <p class="initial-money col-2 d-block mb-2">
+                TWD 24,000
+                <span>
+                起
+                </span>
+                </p>
+                @if (pg.ProgarmIsdeleted == true)
+                {
+                <button id="initial-btn-true" class="d-none col-2 mb-2">
+                <i class="fa-solid fa-circle-check "></i>
+                己選擇
+                </button>
+                <button id="initial-btn-fles" class="col-2 mb-2">
+                選擇
+                </button>
+                }
+                @if (pg.ProgarmIsdeleted == false)
+                {
+                <button id="initial-btn-fles" class="btn btn-secondary col-2 mb-2">
+                不可購買
+                </button>
+                }
+                @Html.Raw(@pg.PrgarmText)
+                </div>
+                <div class="flex-wrap d-none d-lg-flex">
+                <div class="col-12  AboutProgram-ProgramInclude-div">
+                <div class="col-12 d-flex AboutProgram-div">
+                <h5 class="col-3 AboutProgram-h5 ">關於此方案</h5>
+                <ul class="col-9 d-flex flex-wrap">
+                @foreach (var ap in pg.AboutProgramList)
+                {
+                <li class="d-flex">
+                @Html.Raw(@ap.IconClass)
+                @ap.AboutProgramName
+                </li>
+                }
+                </ul>
+                </div>
+                <div class="col-12  ProgramInclude-div d-flex ">
+                <h5 class="col-3 ProgramInclude-h5">費用包含與不包含</h5>
+                <ul class="col-5 ProgramInclude-true-ul">
+                @foreach (var li in pg.ProgramIncludeList)
+                {
+                if (li.IsInclude == true)
+                {
+                <li>@li.Inciudetext</li>
+                }
+                }
+                </ul>
+                <ul class="col-4 ProgramInclude-fals-ul">
+                @foreach (var li in pg.ProgramIncludeList)
+                {
+                if (li.IsInclude == false)
+                {
+                <li>@li.Inciudetext</li>
+                }
+                }
+                </ul>
+                </div>
+                </div>
+                <div class="col-12 d-flex flex-wrap ">
+                <h5 class="col-12 my-2 ps-3">
+                選擇日期、數量
+                </h5>
+                <div class="col-6 product-initial-div">
+                <h6 class="product-initial-title col-12">
+                選擇日期
+                </h6>
+                <input id="myID" type="text" class="d-none">
+                </div>
+                <div class="lg-select-quantity-div col-6">
+                <h6 class="select-quantity-title">
+                選擇數量
+                </h6>
+                <div class="select-quantity-aldult col-12 d-flex flex-wrap">
+                @foreach (var sp in pg.ProgramSpecificationList)
+                {
+                <div class="col-12 d-flex flex-wrap  mb-2">
+                <p class="col-8 mt-auto">
+                兩人房
+                <span class="">TWD <span class="price">@sp.PorgarmUnitPrice</span>/@sp.UnitText</span>
+                </p>
+                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                <button class="select-quantity-btn-reduce reduce">-</button>
+                <p class="count">0</p>
+                <button class="select-quantity-btn-add plus">+</button>
+                </div>
+                </div>
+                }
+                @foreach (var sp in pg.ProgramSpecificationList)
+                {
+                <div class="col-12 d-flex flex-wrap  mb-2">
+                <p class="col-8 mt-auto">
+                兩人房
+                <span class="">TWD <span class="price">@sp.PorgarmUnitPrice</span>/@sp.UnitText</span>
+                </p>
+                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                <button class="select-quantity-btn-reduce reduce">-</button>
+                <p class="count">0</p>
+                <button class="select-quantity-btn-add plus">+</button>
+                </div>
+                </div>
+                }
+                <div class="d-flex justify-content-between col-12 select-total-div ">
+                <span>總金額</span>
+                <p>TWD <p class="sum-price">0</p></p>
+                </div>
+                </div>
+                </div>
+                <div class="shopping-cart-div col-12 d-flex">
+                <input type="submit" class="shopping-cart-btn ms-auto" value="加入購物車">
+                <input type="submit" value="立即訂購">
+                </div>
+                </div>
+                </div>
+                <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
+                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
+                aria-controls="offcanvasBottom">
+                查看方案詳情
+                </button>
+                <div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1"
+                id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close">
+                </button>
+                </div>
+                <div class="offcanvas-body small d-flex flex-wrap p-3">
+                <div class="col-md-12 iph-AboutProgram-ProgramInclude-div">
+                <div class=" d-flex iph-AboutProgram-div">
+                <ul class="iph-AboutProgram-ul">
+                <li><i class="fa-solid fa-calendar"></i>最早預定時間8/15 12:00</li>
+                <li><i class="fa-brands fa-bitcoin"></i>7天前可免費取消</li>
+                </ul>
+                </div>
+                <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
+                <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
+                <ul class="col-md-4 iph-ProgramInclude-true-ul">
+                @foreach (var li in pg.ProgramIncludeList)
+                {
+                if (li.IsInclude == true)
+                {
+                <li>@li.Inciudetext</li>
+                }
+                }
+                </ul>
+                <ul class="col-md-12 iph-ProgramInclude-fals-ul">
+                @foreach (var li in pg.ProgramIncludeList)
+                {
+                if (li.IsInclude == false)
+                {
+                <li>@li.Inciudetext</li>
+                }
+                }
+                </ul>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                }
+                *@
+
+
+
+
+    @*                <h4>
+                如何抵達
+                </h4>
+                <div class="How-get-there">
+                ►桃園捷運：A18站下車，徒步約8分鐘<br>
+                ►高鐵：桃園站6號出口，徒步約9分鐘<br>
+                ►公車：高鐵桃園站下車，徒步約10分鐘<br>
+                ►自行開車（假日車潮眾多易塞車，建議搭乘大眾交通工具前往）
+                </div>
+                <h4>
+                開放說明時間
+                </h4>
+                <ul>
+                <li>週一至週日：10:00 - 18:00<br>（最後預約場次為16:00，閉館時間為18:00）</li>
+                <li>特殊節日營業時間：無<br></li>
+                </ul>*@
+
+
+
+    @*                <div class="Notes">
                 <ul>
                 <li>
                 未滿 4 歲的兒童可免費入場，需有家長陪同入場。
@@ -536,75 +796,3 @@
                 </div>
                 </div>
                 *@
-            </div>
-            <div id="how-use" class="product how-use">
-                <h3>
-                    如何使用方式
-                </h3>
-                @Html.Raw(@Model.HowUse)
-            </div>
-            <div id="Experience-location" class="product Experience-location">
-                <h3>
-                    體驗地點
-                </h3>
-                <h4>
-                    @Model.ProductlocationName
-                </h4>
-                <p class="address">
-                    地址:@Model.ProductLocationAddress
-                </p>
-                @*                <h4>
-                如何抵達
-                </h4>
-                <div class="How-get-there">
-                ►桃園捷運：A18站下車，徒步約8分鐘<br>
-                ►高鐵：桃園站6號出口，徒步約9分鐘<br>
-                ►公車：高鐵桃園站下車，徒步約10分鐘<br>
-                ►自行開車（假日車潮眾多易塞車，建議搭乘大眾交通工具前往）
-                </div>
-                <h4>
-                開放說明時間
-                </h4>
-                <ul>
-                <li>週一至週日：10:00 - 18:00<br>（最後預約場次為16:00，閉館時間為18:00）</li>
-                <li>特殊節日營業時間：無<br></li>
-                </ul>*@
-            </div>
-            <div id="Cancellation-Policy" class="product Cancellation-Policy">
-                <h3>
-                    取消政策
-                </h3>
-                @Html.Raw(@Model.CancellationPolicy)
-            </div>
-        </div>
-        <div class="product-infon-a d-lg-flex col-lg-4 flex-wrap h-100 ">
-            <a class="col-lg-12" href="#product-initial">選擇方案</a>
-            <a class="col-lg-12" href="#product-Description">商品說明</a>
-            <a class="col-lg-12" href="#purchase-Notes">購買須知</a>
-            <a class="col-lg-12" href="#how-use">憑證使用</a>
-            <a class="col-lg-12" href="#Experience-location">體驗地點</a>
-            <a class="col-lg-12" href="#Cancellation-Policy">取消政策</a>
-        </div>
-    </div>
-</div>
-@section topCSS{
-    <link rel="stylesheet" href="~/css/commodity.css" />
-    <link rel="stylesheet" href="~/css/reset.css" />
-}
-
-@{
-}
-    @section endJS{
-
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-        const fp = flatpickr("#myID", {
-            disable: ["2022-08-30", "2022-08-21", "2025-03-08", new Date(2025, 4, 9)],
-            dateFormat: "Y-m-d",
-            inline: true,
-            mode: "range",
-            dateFormat: "Y-m-d H:i",
-        });
-
-    </script>
-}

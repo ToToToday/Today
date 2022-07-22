@@ -98,23 +98,24 @@
                     <div class="select-quantity-aldult col-12 d-flex flex-wrap">
                         @*                        @foreach (var sp in pg.ProgramSpecificationList)
                         {*@
-                        <template id="ProgramSpecificationModel">
-                            <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
-                                <p class="col-8 mt-auto UnitText">
-                                    @*                                    @sp.UnitText*@
-                                    <span class="">TWD/每人</span>
-                                </p>
-                                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                                    <button class="select-quantity-btn-reduce">-</button>
-                                    <p class="">0</p>
-                                    <button class="select-quantity-btn-add">+</button>
-                                </div>
+                        @*<template id="ProgramSpecificationModel">*@
+                        <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                            <p class="col-8 mt-auto UnitText">
+
+                                @*                                    @sp.UnitText*@
+                                @*<span class="">TWD/每人</span>*@
+                            </p>
+                            <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                                <button class="select-quantity-btn-reduce reduce">-</button>
+                                <p class="count">0</p>
+                                <button class="select-quantity-btn-add plus">+</button>
                             </div>
-                        </template>
+                        </div>
+                        @*</template>*@
                         @*}*@
                         <div class="d-flex justify-content-between col-12 select-total-div ">
                             <span>總金額</span>
-                            <p>TWD 1234</p>
+                            <p class="price"></p>
                         </div>
                     </div>
                 </div>
@@ -177,40 +178,40 @@
 @*}*@
 <script>
     let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
-    //console.log(json)
-    //let xhr = new XMLHttpRequest();
-    //let programList = [];
-    //xhr.onload() = function() {
-    //    programList = xhr.response
-    //    console.log(programList)
-    //}
-    //xhr.open("post",json)
-    //xhr.responseType = 'json'
-    //xhr.send()
     let body = document.querySelector("body")
     let PrgramNameModel = document.querySelector("#PrgramNameModel")
-    let ProgramSpecificationModel = document.querySelector("#PrgramNameModel>#ProgramSpecificationModel")
     console.log(ProgramSpecificationModel)
     pglist.forEach((pg, index) => {
         console.log(pg.PrgramName)
         console.log(pg.ProgramSpecificationList)
         body.append(Addcard(pg.PrgramName, pg.ProgramSpecificationList))
     })
-    //pglist.forEach((pg ,index)=> {
-    //    body.appendChild(pg.PrgramName)
-    //})
     function Addcard(name, ProgramSpecificationList) {
         let programcard = PrgramNameModel.content.cloneNode(true);
         programcard.querySelector("h4").innerText = name
-        programcard.querySelector(".UnitText-div").innerHtml =  addprogramspecificationlist(ProgramSpecificationList)
+        ProgramSpecificationList.forEach(ps => {
+            console.log(ps.Itemtext)
+            programcard.querySelector(".UnitText-div>p").innerText = ps.Itemtext + ps.PorgarmUnitPrice + "/" + ps.UnitText
+            
+            let  count =  programcard.querySelector(".count")
+
+            let sum_price =  programcard.querySelector(".price")
+
+            programcard.querySelector(".plus").addEventListener("click", function() {
+            num = parseInt(count.innerHTML, 10) + 1
+            count.innerHTML = num
+            sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
+        })
+
+            programcard.querySelector(".reduce").addEventListener("click", function() {
+                if (count.innerHTML > 0) {
+                    num = parseInt(count.innerHTML, 10) - 1
+                    count.innerHTML = num
+                    sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
+                }
+            })
+        });
         return programcard
     }
-function addprogramspecificationlist(SpecificationList) {
-        SpecificationList.forEach(ps => {
-        let clonProgramSpecification = ProgramSpecificationModel.content.cloneNode(true)
-            clonProgramSpecification.querySelector(".UnitText").innerText = ps.Itemtext
-        })
-        return clonProgramSpecification
-}
-</script>
 
+</script>
