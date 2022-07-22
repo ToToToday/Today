@@ -32,7 +32,7 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        public IActionResult ProductInfo(int id ) //商品頁面
+        public IActionResult ProductInfo(int id) //商品頁面
         {
             if (id <= 0)
             {
@@ -41,6 +41,7 @@ namespace Today.Web.Controllers
             else
             {
                 var productPagesServiceDTO = _productInfoService.GetProduct(new DTOModel.ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                ;
                 var productinfo = new ProductInfoVM
                 {
                     ProductIsdeleted = productPagesServiceDTO.ProductInfo.ProductIsdeleted,
@@ -92,8 +93,9 @@ namespace Today.Web.Controllers
                 };
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
 
-                
+
                 return View(productinfo);
+                //return View();
             }
 
         }
