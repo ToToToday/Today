@@ -464,9 +464,6 @@
     @section endJS{
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-
-    </script>
-    <script>
         let product_initial = document.querySelector("#product-initial")
         let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
         //let body = document.querySelector("body")
@@ -481,7 +478,7 @@
             programcard.querySelector("h4").innerText = name
 
             const fp = flatpickr( programcard.querySelector("#myID"), {
-                disable: ["2022-08-30", "2022-08-21", "2025-03-08"],
+                disable: pg.DateList ,
                 dateFormat: "Y-m-d",
                 inline: true,
                 mode: "range",
@@ -546,9 +543,6 @@
             });
             return programcard
         }
-    </script>
-    <script>
-
     </script>
 }
 

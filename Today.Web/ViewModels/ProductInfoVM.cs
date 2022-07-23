@@ -29,6 +29,16 @@ namespace Today.Web.ViewModels
             public List<ProgramInclude> ProgramIncludeList { get; set; }
             public List<ProgramSpecification> ProgramSpecificationList { get; set; }
             public List<Date> DateList { get; set; }
+
+            public List<Screening> ScreeningList { get; set; }
+        }
+        public class Screening
+        {
+            public int ScreenId { get; set; }
+            public TimeSpan Date { get; set; }
+            public int SpecificationId { get; set; }
+            public int Status { get; set; }
+
         }
         public class ProgramSpecification
         {
@@ -52,6 +62,7 @@ namespace Today.Web.ViewModels
         }
         public class Date
         {
+            public int ProgramDateId { get; set; }
             public DateTime CantuseDate { get; set; } //方案不行的日期
         }
         public class Member

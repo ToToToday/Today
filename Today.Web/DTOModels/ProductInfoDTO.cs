@@ -35,12 +35,21 @@ namespace Today.Web.DTOModel
             public string PorgramName { get; set; }
             public string PrgarmText { get; set; }//產品說明
             public List<AboutProgram> AboutProgramList { get; set; }
-            public List<ProgramInciude> programInciudeList { get; set; }
+            public List<ProgramInciude> ProgramInciudeList { get; set; }
             public List<ProgramSpecification> ProgramSpecificationList { get; set; }
             public List<Date> DateList { get; set; }
+            public List<Screening> ScreeningList { get; set; }
             public bool ProgarmIsdeleted { get; set; }//商品狀態
 
             //progarm狀態
+        }
+        public class Screening//場次
+        {
+            public int ScreenId { get; set; }
+            public TimeSpan Date { get; set; }
+            public int SpecificationId { get; set; }
+            public  int Status { get; set; }
+
         }
         public class ProgramSpecification
         {
@@ -65,6 +74,8 @@ namespace Today.Web.DTOModel
         }
         public class Date
         {
+
+             public int ProgramDateId { get; set; }
             public DateTime CantuseDate { get; set; } //方案不行的日期
         }
         public class Member

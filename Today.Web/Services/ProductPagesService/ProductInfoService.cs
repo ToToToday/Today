@@ -35,7 +35,7 @@ namespace Today.Web.Services.ProductInfoService
             var locationSource = _repo.GetAll<Location>().First(loc => loc.ProductId == source.ProductId);
             var productPhotoSource = _repo.GetAll<ProductPhoto>().Where(p => p.ProductId == source.ProductId).ToList();
             var programSource = _repo.GetAll<Model.Models.Program>().Where(p => p.ProductId == source.ProductId).ToList();
-            ;
+            
             var result = new ProductInfoResponseDTO
             {
                 ProductInfo = new ProductInfoDTO.Product
@@ -59,7 +59,7 @@ namespace Today.Web.Services.ProductInfoService
                         PrgarmText = p.Context,
                         ProgarmIsdeleted = p.Isdeleted,
                         AboutProgramList = new List<ProductInfoDTO.AboutProgram>(),
-                        programInciudeList = new List<ProgramInciude>(),
+                        ProgramInciudeList = new List<ProgramInciude>(),
                         ProgramSpecificationList =new List<ProductInfoDTO.ProgramSpecification>(),
                         DateList = new List<ProductInfoDTO.Date>(),
                     }).ToList(),
@@ -76,8 +76,11 @@ namespace Today.Web.Services.ProductInfoService
 
             result.ProductInfo.ProgarmList.ForEach(p =>
             {
-                //AboutProgramList = ,
-                //p.AboutProgramList = new List<ProductInfoDTO.AboutProgram>();
+                //DateList
+                p.DateList = _repo.GetAll<Model.Models.ProgramCantUseDate>()
+                    .Where(pcud => pcud.ProgramId == p.ProgarmId)
+                    .Select(pcud => new Date { CantuseDate = pcud.Date, ProgramDateId = pcud.ProgramDateId }).ToList();
+
                 _repo.GetAll<Model.Models.AboutProgram>()
                     .Where(ap => p.ProgarmId == ap.ProgramId)
                     .ToList()
@@ -98,7 +101,7 @@ namespace Today.Web.Services.ProductInfoService
                     .ToList()
                     .ForEach(pgid =>
                     {
-                        p.programInciudeList.Add(
+                        p.ProgramInciudeList.Add(
                             new ProgramInciude
                             {
                                 Inciudetext = pgid.Text,
@@ -111,6 +114,16 @@ namespace Today.Web.Services.ProductInfoService
                 .ToList()
                 .ForEach(pgsc =>
                 {
+                    p.ScreeningList = _repo.GetAll<Model.Models.Screening>()
+                    .Where(sc => sc.SpecificationId == pgsc.SpecificationId)
+                    .Select(pss =>
+                        new ProductInfoDTO.Screening
+                        {
+                            ScreenId = pss.ScreeningId,
+                            Date = pss.Time,
+                            Status = pss.Status,
+                            SpecificationId = pss.SpecificationId
+                        }).ToList();
                     p.ProgramSpecificationList.Add(
                         new ProductInfoDTO.ProgramSpecification
                         {
@@ -118,16 +131,16 @@ namespace Today.Web.Services.ProductInfoService
                             UnitText = pgsc.UnitText,
                             Itemtext = pgsc.Itemtext,
                         });
+
                 });
-                //DateList
-                _repo.GetAll<Model.Models.ProgramCantUseDate>().Where(pgcud =>
-                p.ProgarmId == pgcud.ProgramId)
-                .ToList()
-                .ForEach(pgcud=>
-                        new ProductInfoDTO.Date
-                        {
-                            CantuseDate= pgcud.Date
-                        });
+                //_repo.GetAll<Model.Models.ProgramCantUseDate>().Where(pgcud =>
+                //p.ProgarmId == pgcud.ProgramId)
+                //.ToList()
+                //.ForEach(pgcud=>
+                //        new ProductInfoDTO.Date
+                //        {
+                //            CantuseDate= pgcud.Date
+                //        });
             });
 
 

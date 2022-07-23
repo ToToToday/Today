@@ -76,12 +76,20 @@ namespace Today.Web.Controllers
                             AboutProgramName = ap.AboutProgramName,
                             IconClass = ap.IconClass,
                         }).ToList(),
-                        ProgramIncludeList = p.programInciudeList.Select(pi =>
+                        ProgramIncludeList = p.ProgramInciudeList.Select(pi =>
                         new ProductInfoVM.ProgramInclude
                         {
                             Inciudetext = pi.Inciudetext,
                             IsInclude = pi.IsInclude,
                         }).ToList(),
+                        ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
+                        {
+                            Date = p.Date,
+                            ScreenId = p.ScreenId,
+                            SpecificationId = p.SpecificationId,
+                            Status =p.Status
+                        }).ToList()
+                        ,
                         ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
                             new ProductInfoVM.ProgramSpecification
                             {
@@ -92,8 +100,6 @@ namespace Today.Web.Controllers
                     }).ToList()
                 };
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
-
-
                 return View(productinfo);
                 //return View();
             }
