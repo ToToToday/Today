@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.Services.CityService;
+using Today.Web.Services.locationService;
+using Today.Web.Services.ProductService;
+using Today.Web.Services.ClassifyService;
 using Today.Web.Services.ProductInfoService;
 
 namespace Today.Web
@@ -35,6 +38,9 @@ namespace Today.Web
             });
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IClassifyService, ClassifyService>();
             services.AddTransient<IProductInfoService, ProductInfoService>();
         }
 
@@ -62,7 +68,7 @@ namespace Today.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Product}/{action=City}/{id?}");
             });
         }
     }

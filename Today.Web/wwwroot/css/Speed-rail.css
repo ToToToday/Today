@@ -1,0 +1,59 @@
+.Speed-rail-type-button
+{
+    margin-top: 0.938rem;
+    margin-bottom: 0.938rem;
+}
+.productList
+{
+    margin-top: 0.938rem;
+}
+@media screen and (max-width:768px)
+{
+    .Speed-rail-search
+    {
+        display: none;
+    }
+    .google-mapCard 
+    {
+        display: none;
+    }
+}
+@media screen and (min-width:768px)
+{
+    .Speed-rail-search
+    {
+        display: none;
+    }
+    .Speed-rail-search
+    {
+        width: 60%;
+    }
+    .google-mapCard 
+    {
+        display: none;
+    }
+}
+
+@media screen and (min-width:992px)
+{
+    .Speed-rail-collapse-search,.Speed-rail-type-button-collapse
+    {
+        display: none;
+    }
+    .Speed-rail-search
+    {
+        display: block;
+        width: 65%;
+    }
+    .google-mapCard 
+    {   
+        display: block;
+    }
+}
+@media screen and(min-width:1200px )
+{
+    .Speed-rail-search
+    {
+        width: 55%;
+    }
+}   

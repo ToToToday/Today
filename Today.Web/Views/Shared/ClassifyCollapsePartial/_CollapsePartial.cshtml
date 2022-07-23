@@ -1,0 +1,39 @@
+﻿@{
+    int index = 2;
+}
+
+@foreach (var item in Model)
+{
+    <div class="accordion-item ">
+        <div class="accordion-header " id="Attractions">
+            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+            data-bs-target="#collapseAttractiontickets@(index)" aria-expanded="false">
+                @*景點門票*@
+
+                @item.CategoryName
+            </h2>
+        </div>
+        <div id="collapseAttractiontickets@(index)" class="accordion-collapse collapse"
+        @* data-bs-parent="#accordionExample"*@>
+            <div class="accordion-body">
+                <div class="form-check pb-2">
+                    <input class="form-check-input mt-1" type="checkbox" value="" id="all">
+                    <label class="form-check-label ms-1 mt-1" for="all">全部</label>
+                </div>
+                @foreach (var item1 in item.ChildCategory)
+                {
+                    <div class="form-check pb-2">
+                        <input class="form-check-input mt-1" type="checkbox" value=""
+                       id="Attractiontickets">
+                        <label class="form-check-label ms-1 mt-1" for="Attractiontickets">
+                            @item1.CategoryName
+                            @*景點門票
+                    (3210)*@
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    index++;
+}
