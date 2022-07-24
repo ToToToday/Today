@@ -10,7 +10,7 @@ using Today.Model.Models;
 namespace Today.Model.Migrations
 {
     [DbContext(typeof(TodayDBContext))]
-    [Migration("20220708162846_InitDb")]
+    [Migration("20220723092117_InitDb")]
     partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace Today.Model.Migrations
             modelBuilder
                 .HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.15")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Today.Model.Models.AboutProgram", b =>
@@ -574,7 +574,7 @@ namespace Today.Model.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasComment("票種（成人/兒童/車)");
 
-                    b.Property<DateTime>("LeaseTime")
+                    b.Property<DateTime?>("LeaseTime")
                         .HasColumnType("datetime")
                         .HasComment("租賃時間");
 
@@ -590,7 +590,7 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasComment("規格ID");
 
-                    b.Property<int>("TicketsId")
+                    b.Property<int?>("TicketsId")
                         .HasColumnType("int")
                         .HasComment("電子憑證ID");
 
@@ -868,15 +868,16 @@ namespace Today.Model.Migrations
                         .HasColumnType("int")
                         .HasComment("場次ID");
 
-                    b.Property<int>("SpecificationId")
+                    b.Property<int?>("SpecificationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("Status")
                         .HasColumnType("int")
                         .HasComment("狀態(上下架)");
 
-                    b.Property<TimeSpan>("Time")
-                        .HasColumnType("time")
+                    b.Property<string>("Time")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("時間");
 
                     b.HasKey("ScreeningId");
@@ -1290,8 +1291,7 @@ namespace Today.Model.Migrations
                     b.HasOne("Today.Model.Models.Ticket", "Tickets")
                         .WithMany("OrderDetails")
                         .HasForeignKey("TicketsId")
-                        .HasConstraintName("FK_OrderDetail_Ticket")
-                        .IsRequired();
+                        .HasConstraintName("FK_OrderDetail_Ticket");
 
                     b.Navigation("Order");
 
@@ -1417,8 +1417,7 @@ namespace Today.Model.Migrations
                     b.HasOne("Today.Model.Models.ProgramSpecification", "Specification")
                         .WithMany("Screenings")
                         .HasForeignKey("SpecificationId")
-                        .HasConstraintName("FK_Screening_ProgramSpecification")
-                        .IsRequired();
+                        .HasConstraintName("FK_Screening_ProgramSpecification");
 
                     b.Navigation("Specification");
                 });

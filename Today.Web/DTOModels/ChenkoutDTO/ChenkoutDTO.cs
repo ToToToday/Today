@@ -30,13 +30,19 @@ namespace Today.Web.DTOModels.ChenkoutDTO
             public string ProgramTitle { get; set; }
             public string Photo { get; set; }
             public DateTime DepartureDate { get; set; }
-            public TimeSpan Screen { get; set; }
+            //public string Screen { get; set; }
             public string Itemtext { get; set; }
             public int Quantity { get; set; }
             public decimal UnitPrice { get; set; }
             public string UnitText { get; set; }
 
 
+        }
+        public OrderScreen SceenDetail { get; set; }
+
+        public class OrderScreen
+        {
+            public string Screen { get; set; }
         }
     }
 }

@@ -46,7 +46,24 @@ namespace Today.Web.Controllers
             };
             var memberinfo = _chenkoutService.GetOrderMember(orderRequet);
             var orderinfo = _chenkoutService.GetOrderProduct(orderRequet);
-
+            var screeninfo = _chenkoutService.GetOrderSceen(orderRequet);
+            string s;
+            if (screeninfo == null)
+            {
+                s = screeninfo == null ? "": screeninfo.ToString();
+               
+            }
+            else
+            {
+                s = $"場次:{screeninfo.Screen}";
+            }
+            var OrderProduct = orderinfo.ProductName;
+            var OrderQuantity = orderinfo.Quantity;
+            var OrderPrice = (int)orderinfo.UnitPrice;
+            TempData["OrderProduct"] = OrderProduct;
+            TempData["OrderQuantity"] = OrderQuantity;
+            TempData["OrderPrice"] = OrderPrice;
+            //TempData["a"] = "a";
             var orderPage = new ChenkoutVM
             {
                 OrderMember = new ChenkoutVM.MemberInfo
@@ -62,7 +79,7 @@ namespace Today.Web.Controllers
                     ProgramTitle = orderinfo.ProgramTitle,
                     Photo = orderinfo.Photo,
                     DepartureDate = orderinfo.DepartureDate,
-                    Screen = $"場次:{orderinfo.Screen}".ToString(),
+                    Screen = s,
                     Itemtext = orderinfo.Itemtext,
                     Quantity = orderinfo.Quantity,
                     UnitPrice = orderinfo.UnitPrice,

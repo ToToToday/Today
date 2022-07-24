@@ -45,37 +45,67 @@ namespace Today.Web.Services.CheenkoutService
             var SpecificationData = _repo.GetAll<ProgramSpecification>();
             var screnningData = _repo.GetAll<Screening>();
             var photoData = _repo.GetAll<ProductPhoto>();
-
+            if (orderData == null) return null;
+            if (orderDetailData == null) return null;
+            if (productData == null) return null;
+            if (programData == null) return null;
+            if (SpecificationData == null) return null;
+            if (screnningData == null) return null;
             var orderInfo = from o in orderData
                             join od in orderDetailData on
                             o.OrderId equals od.OrderId
                             join sp in SpecificationData on
                             od.SpecificationId equals sp.SpecificationId
-                            join s in screnningData on
-                            sp.SpecificationId equals s.SpecificationId
+                            //join s in screnningData on
+                            //sp.SpecificationId equals s.SpecificationId
                             join pg in programData on
                             sp.ProgramId equals pg.ProgramId
                             join p in productData on
                             pg.ProductId equals p.ProductId
                             join pp in photoData on
                             p.ProductId equals pp.ProductId
-                            select new { p.ProductName, p.ProductId, pp.Path, pg.Title, sp.UnitPrice, sp.Itemtext, sp.UnitText, od.DepartureDate, od.Quantity, od.Discount, s.Time, o.OrderId };
-
+                            
+                            select new { p.ProductName, p.ProductId, pp.Path, pg.Title, sp.UnitPrice, sp.Itemtext, sp.UnitText, od.DepartureDate, od.Quantity, od.Discount, o.OrderId };
             var orderResult = orderInfo.Where(or => or.OrderId == request.OrderId).Select(order => new OrderInfo
             {
                 ProductName = order.ProductName,
                 ProgramTitle = order.Title,
-                // Photo = order.Path.Take(1).ToString(),
-                //DepartureDate = order.DepartureDate,
-                //Screen = order.Time,
-                //UnitPrice = order.UnitPrice,
-                //Itemtext = order.Itemtext,
-                //Quantity = order.Quantity,
+                Photo = order.Path,
+                DepartureDate = order.DepartureDate,
+                //Screen = order.Time ,
+                UnitPrice = order.UnitPrice,
+                Itemtext = order.Itemtext,
+                UnitText = order.UnitText,
+                Quantity = order.Quantity,
 
 
             }).First();
+
             return orderResult;
-            
+        }
+        public OrderScreen GetOrderSceen(ChenkoutRequestDTO request)
+        {
+            var orderDetailData = _repo.GetAll<OrderDetail>();
+            var SpecificationData = _repo.GetAll<ProgramSpecification>();
+            var screenData = _repo.GetAll<Screening>();
+            var sData = from od in orderDetailData
+                        join sp in SpecificationData on od.SpecificationId equals sp.SpecificationId
+                        join s in screenData on
+                        sp.SpecificationId equals s.SpecificationId
+                        select new { od.OrderId, s.ScreeningId, s.Time };
+            try
+            {
+                var screenResult = sData.Where(s => s.OrderId == request.OrderId).Select(s => new OrderScreen
+                {
+                    Screen = s.Time
+                }).First();
+
+                return screenResult;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
     }

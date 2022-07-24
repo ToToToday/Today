@@ -28,14 +28,15 @@ namespace Today.Web.Controllers
         [HttpGet("checkout")]
         public IActionResult CheckOut()
         {
+            //var s = TempData["OrderProduct"];
             var service = new
             {
                 Url = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5",
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = "https://c764-220-141-64-19.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://c764-220-141-64-19.jp.ngrok.io/Ecpay/success" //之後改主頁網址
+                ServerUrl = " https://073a-2001-b400-e300-8ed3-d90c-184f-3261-feb9.jp.ngrok.io/Ecpay/callback",
+                ClientUrl = "https://073a-2001-b400-e300-8ed3-d90c-184f-3261-feb9.jp.ngrok.io/Ecpay/success" //之後改主頁網址
             };
             var transaction = new
             {
@@ -43,16 +44,25 @@ namespace Today.Web.Controllers
                 Description = "測試購物系統",
                 Date = DateTime.Now,
                 Method = EPaymentMethod.Credit,
-                Items = new List<Item>{
-                    new Item{
-                        Name = "手機",
-                        Price = 14000,
-                        Quantity = 2
-                    },
-                    new Item{
-                        Name = "隨身碟",
-                        Price = 900,
-                        Quantity = 10
+                //Items = new List<Item>{
+                //    new Item{
+                //        Name = "手機",
+                //        Price = 14000,
+                //        Quantity = 2
+                //    },
+                //    new Item{
+                //        Name = "隨身碟",
+                //        Price = 900,
+                //        Quantity = 10
+                //    }
+                //}
+                Item = new List<Item>
+                {
+                    new Item
+                    {
+                        Name = TempData["OrderProduct"].ToString(),
+                        Price = (int)TempData["OrderPrice"],
+                        Quantity = (int)TempData ["OrderQuantity"]
                     }
                 }
             };
@@ -75,7 +85,7 @@ namespace Today.Web.Controllers
                 .Transaction.UseMethod(
                     method: transaction.Method)
                 .Transaction.WithItems(
-                    items: transaction.Items)
+                    items: transaction.Item)
                 .Generate();
 
             return View(payment);

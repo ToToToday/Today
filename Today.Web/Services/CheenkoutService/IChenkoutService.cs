@@ -7,5 +7,6 @@ namespace Today.Web.Services.CheenkoutService
     {
        MemberInfo GetOrderMember(ChenkoutRequestDTO request);
        OrderInfo GetOrderProduct(ChenkoutRequestDTO request);
+       OrderScreen GetOrderSceen(ChenkoutRequestDTO request);
     }
 }
