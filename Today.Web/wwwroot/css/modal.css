@@ -162,13 +162,13 @@ a{
         margin-top: 10px;
         font-size: 0.9rem;
     }
-    .modal-content:before {
+/*    .modal-content:before {
         content: "";
         display: block;
         height: 8px;
         border-radius: 4px 4px 0 0;
         background: linear-gradient(65deg,#64b3f4,#26bec9 60%);
-    }
+    }*/
     .btn-close{
         display: block;
         right: 50px;

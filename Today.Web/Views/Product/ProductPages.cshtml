@@ -1,4 +1,6 @@
-﻿<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+﻿@model Today.Web.ViewModels.ShopCartVM
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @*    <div class="initial-nav bg-white w-100 position-fixed border-botto border-secondary d-lg-none">
         <nav class=" nav nav-pills text-center px-2 py-2 align-items-center navbar navbar-expand-lg fixed-width">
@@ -165,6 +167,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="https://picsum.photos/500/200/?random=10">
+                    <input type="hidden" name="Path" value="@TempData["Path"]"/>
                 </div>
                 <div class="carousel-item">
                     <img src="https://picsum.photos/500/200/?random=11">
@@ -243,6 +246,7 @@
                     <div class=" product-name d-flex flex-wrap">
                         <h3 class="col-12  col-lg-10">
                             新北防疫旅館｜瓏山林台北中和飯店｜一泊三食｜8 晚居家檢疫專案
+                            <input type="hidden" name="ProductName" value="@TempData["ProductName"]"/>
                         </h3>
                         <div class="col-lg-2 product-heart m-auto text-center">
                             <i class="fa-solid fa-heart"></i>
@@ -344,12 +348,12 @@
                     <h3 class="product-initial-btn col-12">
                         選擇日期
                     </h3>
-                    <form>
+                    @*<form>*@
                         <label>
                             <input type="date" name="bday" required pattern="\d{4}-\d{2}-\d{2}">
                             <span class="validity"></span>
                         </label>
-                    </form>
+                    @*</form>*@
                 </div>
 @*                <template id="Template">*@
                     <div id="product-initial" class="product product-initial d-flex flex-wrap">
@@ -361,6 +365,7 @@
                             <h4 class="col-8">
                                 精緻客房｜一泊三食｜8 晚防疫旅館專案
                             </h4>
+                            <input type="hidden" name="ProgramTitle" value="@TempData["ProgramTitle"]"/>
                             <button id="initial-btn-true" class="d-none col-4 ">
                                 <i class="fa-solid fa-circle-check "></i>
                                 己選擇
@@ -408,7 +413,8 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex flex-wrap ">
+                            <form action="~/Member/ShopCart/@TempData["MemberId"]/@TempData["SpecificationId"]/@TempData["Quantity"]"  method="post">
+                                <div class="col-12 d-flex flex-wrap "> 
                                     <h5 class="col-12 my-2 ps-3">
                                         選擇日期、數量
                                     </h5>
@@ -416,7 +422,8 @@
                                     <h6 class="product-initial-title col-12">
                                         選擇日期
                                     </h6>
-                                    <input id="myID" type="text" class="d-none">
+@*                                    <input id="myID" type="text" class="d-none" name="id" value="@ViewData["id"]">
+                                    <input id="myID" type="text" class="d-none" name="StartDate" value="@ViewData["SDate"]">*@
                                 </div>
                                 <div class="lg-select-quantity-div col-6">
                                     <h6 class="select-quantity-title">
@@ -429,7 +436,8 @@
                                             </p>
                                             <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
                                                 <button class="select-quantity-btn-reduce">-</button>
-                                                <p class="">0</p>
+                                                <p class="">0</p>                                                
+                                                <input type="hidden" name="Quantity" value="@TempData["Quantity"]" />
                                                 <button class="select-quantity-btn-add">+</button>
                                             </div>
                                         <div class="d-flex justify-content-between col-12 select-total-div">
@@ -439,15 +447,15 @@
                                     </div>
                                 </div>
                                 <div class="shopping-cart-div col-12 d-flex">
-                                    @using(Html.BeginForm("AddToCart","Member")){
-                            
-                                        
-                                        <input class="shopping-cart-btn ms-auto" value="加入購物車" type="submit" />
-                                    }
+                                    @*@using(Html.BeginForm("AddToCart","Member")){*@
+                                   <button class="shopping-cart-btn ms-auto" type="submit">加入購物車</button>
+
                                     <button>立即訂購</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
+                        
                         <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
                             type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
                             aria-controls="offcanvasBottom">查看方案詳情</button>

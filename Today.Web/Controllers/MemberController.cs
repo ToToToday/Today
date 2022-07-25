@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
+using Today.Web.DTOModels.ShopCartDTO;
 using Today.Web.Models;
 using Today.Web.Services.ShopCartService;
 using Today.Web.ViewModels;
@@ -14,14 +16,13 @@ namespace Today.Web.Controllers
 {
     public class MemberController : Controller
     {
-        private readonly TodayDBContext _context;
-        private readonly IGenericRepository _cart;
+
+        //private readonly IGenericRepository _cart;
         private readonly IShopCartService _shopCartService;
-        public MemberController(TodayDBContext context, IGenericRepository cart, IShopCartService shopCartService)
+        public MemberController(/*IGenericRepository cart,*/ IShopCartService shopCartService)
         {
-            _cart = cart;
+            //_cart = cart;
             _shopCartService = shopCartService;
-            _context = context;
         }
         public IActionResult CountSetting()
         {
@@ -43,32 +44,87 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        public IActionResult ShopCart(int Id = 2)
+        [HttpGet]//請求
+        public IActionResult ShopCart(/*ShopCartCardVM vm,*/ int Id = 2)
         {
-
-            //return View(new CartIndex
-            //{
-            //    Cart = cart,
-            //    ReturnUrl = returnUrl
-            //});
-            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });
-
+            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
             var ShopCartVMs = new ShopCartVM
             {
-                ShopCartCardList = ShopCartCardDTO.CartCard.ShopCartCards
+                //ShopCartCardList = ShopCartCardDTO.ShopCartCards.Select(s => new ShopCartCardVM { DepartureDate = vm.DepartureDate }).ToList(),
+                ShopCartCardList = ShopCartCardDTO
                 .Select(s => new ShopCartCardVM
                 {
                     ProductName = s.ProductName,
                     ProgramTitle = s.ProgramTitle,
-                    ProductPhoto = s.ProductPhoto,
+                    Path = s.ProductPhoto,
                     DepartureDate = s.DepartureDate,
                     Quantity = s.Quantity,
                     ScreenTime = s.ScreenTime,
+                    UnitPrice = s.UnitPrice,
+                    UnitText = s.UnitText,
 
                 }).ToList()
             };
             return View(ShopCartVMs);
         }
+        //[HttpPost]//提交
+        [HttpPost("~/[controller]/[action]/{memberId}/{SpecificationId}/{Quantity}")]
+        public IActionResult ShopCart([FromRoute] string memberId, string specificationId, string quantity)     //CreateShopCartInputDTO input /*, string ProgramTitle*/
+        {
+            //var userId = User.Identity.Name;
+
+            
+            var input = new CreateShopCartInputDTO
+            {
+                MemberId = int.Parse(memberId),
+                SpecificationId = int.Parse(specificationId),
+                DepartureDate = DateTime.Now.AddDays(-1),
+                Quantity = int.Parse(quantity),
+                ProgramTitle = TempData["ProgramTitle"] as string,
+                Path = TempData["Path"] as string,
+                ProductName = TempData["ProductName"] as string
+            };
+            var ShopCartCardDTO = _shopCartService.CreateShopCart(input);
+
+            if(ShopCartCardDTO.IsSuccess == false)
+            {
+                return Content(ShopCartCardDTO.Message);
+            }
+            //var ShopCartVMs = new ShopCartVM
+            //{
+
+            //    ShopCartCardList = ShopCartCardDTO.ShopCartCards
+            //    .Select(s => new ShopCartCardVM
+            //    {
+            //        ProductName = s.ProductName,
+            //        ProgramTitle = s.ProgramTitle,
+            //        Path = s.ProductPhoto,
+            //        DepartureDate = s.DepartureDate,
+            //        Quantity = s.Quantity,
+            //        ScreenTime = s.ScreenTime,
+            //        UnitPrice = s.UnitPrice,
+            //        UnitText = s.UnitText,
+
+            //    }).ToList()
+            //};
+            //User.Identity.Name;
+
+            var s = new ShopCartVM();
+            s.ShopCartCardList = new List<ShopCartCardVM>()
+            { new ShopCartCardVM { Quantity = input.Quantity,ProgramTitle = input.ProgramTitle , Path = input.Path, ProductName = input.ProductName} };
+            //ViewData["id"] = id;
+            //ViewData["SDate"] = StartDate;
+            //ViewData["PersonCount"] = Person;
+            //return Content("success");  //ShopCartVMs
+            return View(s);
+        }
+
+        //public async Task<IActionResult> AddToCart()
+        //{
+
+        //    var add = await _shopCartService.AddItem(6, 7);
+        //    return RedirectToAction("ShopCart", add);
+        //}
         public IActionResult Checkout()
         {
             return View();
