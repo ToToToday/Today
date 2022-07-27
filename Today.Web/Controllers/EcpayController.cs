@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Today.Web.Services.EcpayService;
+using static Today.Web.DTOModels.EcpayDTO.EcpayDTO;
 
 namespace Today.Web.Controllers
 {
@@ -9,12 +11,10 @@ namespace Today.Web.Controllers
     [ApiController]
     public class EcpayController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-        public EcpayController()
+        private readonly IEcpayService _ecpayService;
+        public EcpayController(IEcpayService ecpayService)
         {
+            _ecpayService = ecpayService;
         }
 
         // POST api/payment
@@ -28,6 +28,8 @@ namespace Today.Web.Controllers
         [HttpGet("checkout")]
         public IActionResult CheckOut()
         {
+            var id = (int)TempData["OrderId"];
+            //TempData["id"] = id;
             //var s = TempData["OrderProduct"];
             var service = new
             {
@@ -35,31 +37,21 @@ namespace Today.Web.Controllers
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = " https://073a-2001-b400-e300-8ed3-d90c-184f-3261-feb9.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://073a-2001-b400-e300-8ed3-d90c-184f-3261-feb9.jp.ngrok.io/Ecpay/success" //之後改主頁網址
+                ServerUrl = "https://2fc0-220-141-63-190.jp.ngrok.io/Ecpay/callback",
+                ClientUrl = "https://2fc0-220-141-63-190.jp.ngrok.io/Ecpay/success" //之後改主頁網址
             };
             var transaction = new
             {
-                No = "test00003",
+                No = id.ToString(),//"test00003"
                 Description = "測試購物系統",
                 Date = DateTime.Now,
                 Method = EPaymentMethod.Credit,
-                //Items = new List<Item>{
-                //    new Item{
-                //        Name = "手機",
-                //        Price = 14000,
-                //        Quantity = 2
-                //    },
-                //    new Item{
-                //        Name = "隨身碟",
-                //        Price = 900,
-                //        Quantity = 10
-                //    }
-                //}
+                
                 Item = new List<Item>
                 {
                     new Item
                     {
+                        //OrderId =  (int)TempData["OrderId"],
                         Name = TempData["OrderProduct"].ToString(),
                         Price = (int)TempData["OrderPrice"],
                         Quantity = (int)TempData ["OrderQuantity"]
@@ -87,7 +79,7 @@ namespace Today.Web.Controllers
                 .Transaction.WithItems(
                     items: transaction.Item)
                 .Generate();
-
+            
             return View(payment);
         }
 
@@ -95,6 +87,7 @@ namespace Today.Web.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         public IActionResult Callback([FromForm] PaymentResult result)
         {
+
             HttpContext.Request.Headers.ContainsKey("Content-Type");
 
             var hashKey = "5294y06JbISpM5x9";
@@ -104,7 +97,12 @@ namespace Today.Web.Controllers
             if (!CheckMac.PaymentResultIsValid(result, hashKey, hashIV)) return BadRequest();
 
             // 處理後續訂單狀態的更動等等...。
+            
+            var updateOrder = _ecpayService.UpdateStatus(result.MerchantTradeNo);
+            if(updateOrder.IsSuccess != true)
+            {
 
+            }
             return Ok("1|OK");
         }
     }

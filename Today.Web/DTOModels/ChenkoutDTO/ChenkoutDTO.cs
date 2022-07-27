@@ -26,11 +26,11 @@ namespace Today.Web.DTOModels.ChenkoutDTO
 
         public class OrderInfo
         {
+            public int OrderId { get; set; }
             public string ProductName { get; set; }
             public string ProgramTitle { get; set; }
             public string Photo { get; set; }
             public DateTime DepartureDate { get; set; }
-            //public string Screen { get; set; }
             public string Itemtext { get; set; }
             public int Quantity { get; set; }
             public decimal UnitPrice { get; set; }

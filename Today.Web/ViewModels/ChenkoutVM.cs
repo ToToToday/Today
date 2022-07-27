@@ -21,7 +21,7 @@ namespace Today.Web.ViewModels
             public string ProductName { get; set; }
             public string ProgramTitle { get; set; }
             public string Photo { get; set; }
-            public DateTime DepartureDate { get; set; }
+            public string DepartureDate { get; set; }
             public string Screen { get; set; }
             public string Itemtext { get; set; }
             public int Quantity { get; set; }

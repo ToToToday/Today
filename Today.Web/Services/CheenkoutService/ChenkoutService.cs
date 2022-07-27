@@ -68,6 +68,7 @@ namespace Today.Web.Services.CheenkoutService
                             select new { p.ProductName, p.ProductId, pp.Path, pg.Title, sp.UnitPrice, sp.Itemtext, sp.UnitText, od.DepartureDate, od.Quantity, od.Discount, o.OrderId };
             var orderResult = orderInfo.Where(or => or.OrderId == request.OrderId).Select(order => new OrderInfo
             {
+                OrderId = order.OrderId,
                 ProductName = order.ProductName,
                 ProgramTitle = order.Title,
                 Photo = order.Path,

@@ -56,14 +56,17 @@ namespace Today.Web.Controllers
             else
             {
                 s = $"場次:{screeninfo.Screen}";
+                //s = "場次:" + string.Format("{0:yyyy/MM/dd}", screeninfo.Screen);
             }
             var OrderProduct = orderinfo.ProductName;
             var OrderQuantity = orderinfo.Quantity;
             var OrderPrice = (int)orderinfo.UnitPrice;
+            var OrderId = orderinfo.OrderId;
             TempData["OrderProduct"] = OrderProduct;
             TempData["OrderQuantity"] = OrderQuantity;
             TempData["OrderPrice"] = OrderPrice;
-            //TempData["a"] = "a";
+            TempData["OrderId"] = OrderId;
+            
             var orderPage = new ChenkoutVM
             {
                 OrderMember = new ChenkoutVM.MemberInfo
@@ -78,7 +81,7 @@ namespace Today.Web.Controllers
                     ProductName = orderinfo.ProductName,
                     ProgramTitle = orderinfo.ProgramTitle,
                     Photo = orderinfo.Photo,
-                    DepartureDate = orderinfo.DepartureDate,
+                    DepartureDate = string.Format("{0:yyyy/MM/dd}",orderinfo.DepartureDate),
                     Screen = s,
                     Itemtext = orderinfo.Itemtext,
                     Quantity = orderinfo.Quantity,
