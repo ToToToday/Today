@@ -67,6 +67,7 @@ namespace Today.Web.Controllers
             TempData["Path"] = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_115724/20220118142045_OJ8R7/jpg";
             TempData["ScreeningId"] = "4";
             TempData["UnitText"] = "間";
+            //TempData["ScreenTime"] = "11:00";
             TempData.Keep();
 
 

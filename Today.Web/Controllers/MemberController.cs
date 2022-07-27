@@ -70,7 +70,7 @@ namespace Today.Web.Controllers
         {
             //var userId = User.Identity.Name;
 
-            
+
             var input = new CreateShopCartInputDTO
             {
                 MemberId = int.Parse(memberId),
@@ -84,7 +84,10 @@ namespace Today.Web.Controllers
                 UnitText = TempData["UnitText"] as string,
                 ScreeningId = int.Parse(screeningId),
                 UnitPrice = int.Parse(unitPrice),
+                //ScreenTime = (TimeSpan)TempData["ScreenTime"]
             };
+            
+            
             var ShopCartCardDTO = _shopCartService.CreateShopCart(input);
 
             if(ShopCartCardDTO.IsSuccess == false)
@@ -113,7 +116,7 @@ namespace Today.Web.Controllers
             var result = new ShopCartVM();
             result.ShopCartCardList = new List<ShopCartCardVM>()
             { new ShopCartCardVM
-            { Quantity = input.Quantity,ProgramTitle = input.ProgramTitle , Path = input.Path, ProductName = input.ProductName, UnitText = input.UnitText, DepartureDate = input.DepartureDate, UnitPrice = input.UnitPrice,ScreeningId = input.ScreeningId} };
+            { Quantity = input.Quantity,ProgramTitle = input.ProgramTitle , Path = input.Path, ProductName = input.ProductName, UnitText = input.UnitText, DepartureDate = input.DepartureDate, UnitPrice = input.UnitPrice,ScreeningId = input.ScreeningId/*ScreenTime = input.ScreenTime*/} };
             //ViewData["id"] = id;
             //ViewData["SDate"] = StartDate;
             //ViewData["PersonCount"] = Person;
