@@ -56,9 +56,6 @@ namespace Today.Web.Controllers
                 }).ToList()
             };
 
-            //ViewData["id"] = 2;
-            //ViewData["SDate"] = "2022-07-19";
-            //ViewData["PersonCount"] = 3;
             TempData["ProductName"] = ShopCartVMs.ShopCartCardList.Select(x => x.ProductName);
             TempData["MemberId"] = "2";
             TempData["SpecificationId"] = "5";
@@ -68,8 +65,8 @@ namespace Today.Web.Controllers
             TempData["UnitPrice"] = "28000";
             TempData["ProgramTitle"] = "KKday專屬優惠｜頑皮世界野生動物園門票（獨家長頸鹿手繪門票)";
             TempData["Path"] = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_115724/20220118142045_OJ8R7/jpg";
+            TempData["ScreeningId"] = "4";
             TempData["UnitText"] = "間";
-            //TempData["ScreeningId"] = "4";
             TempData.Keep();
 
 

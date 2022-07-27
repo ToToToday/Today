@@ -66,7 +66,7 @@ namespace Today.Web.Controllers
         }
         //[HttpPost]//提交
         [HttpPost("~/[controller]/[action]/{memberId}/{SpecificationId}/{Quantity}")]
-        public IActionResult ShopCart([FromRoute] string memberId, string specificationId, string quantity,string unitPrice/*, string screen*/)     //CreateShopCartInputDTO input /*, string ProgramTitle*/
+        public IActionResult ShopCart([FromRoute] string memberId, string specificationId, string quantity,string unitPrice, string screeningId)     //CreateShopCartInputDTO input /*, string ProgramTitle*/
         {
             //var userId = User.Identity.Name;
 
@@ -82,8 +82,8 @@ namespace Today.Web.Controllers
                 Path = TempData["Path"] as string,
                 ProductName = TempData["ProductName"] as string,
                 UnitText = TempData["UnitText"] as string,
+                ScreeningId = int.Parse(screeningId),
                 UnitPrice = int.Parse(unitPrice),
-                //ScreeningId = int.Parse(screen)
             };
             var ShopCartCardDTO = _shopCartService.CreateShopCart(input);
 
@@ -112,7 +112,8 @@ namespace Today.Web.Controllers
 
             var result = new ShopCartVM();
             result.ShopCartCardList = new List<ShopCartCardVM>()
-            { new ShopCartCardVM { Quantity = input.Quantity,ProgramTitle = input.ProgramTitle , Path = input.Path, ProductName = input.ProductName, UnitText = input.UnitText, DepartureDate = input.DepartureDate, UnitPrice = input.UnitPrice,ScreeningId = input.ScreeningId} };
+            { new ShopCartCardVM
+            { Quantity = input.Quantity,ProgramTitle = input.ProgramTitle , Path = input.Path, ProductName = input.ProductName, UnitText = input.UnitText, DepartureDate = input.DepartureDate, UnitPrice = input.UnitPrice,ScreeningId = input.ScreeningId} };
             //ViewData["id"] = id;
             //ViewData["SDate"] = StartDate;
             //ViewData["PersonCount"] = Person;
