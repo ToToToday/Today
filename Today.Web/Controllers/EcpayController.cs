@@ -29,16 +29,14 @@ namespace Today.Web.Controllers
         public IActionResult CheckOut()
         {
             var id = (int)TempData["OrderId"];
-            //TempData["id"] = id;
-            //var s = TempData["OrderProduct"];
             var service = new
             {
                 Url = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5",
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = "https://2fc0-220-141-63-190.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://2fc0-220-141-63-190.jp.ngrok.io/Ecpay/success" //之後改主頁網址
+                ServerUrl = "https://ef9a-220-141-63-234.jp.ngrok.io/Ecpay/callback",
+                ClientUrl = "https://ef9a-220-141-63-234.jp.ngrok.io/Ecpay/success" //之後改主頁網址
             };
             var transaction = new
             {
@@ -51,7 +49,7 @@ namespace Today.Web.Controllers
                 {
                     new Item
                     {
-                        //OrderId =  (int)TempData["OrderId"],
+                        
                         Name = TempData["OrderProduct"].ToString(),
                         Price = (int)TempData["OrderPrice"],
                         Quantity = (int)TempData ["OrderQuantity"]
