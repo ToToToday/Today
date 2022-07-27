@@ -20,7 +20,7 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-
+        
         private readonly ICityService _cityServices;
         private readonly IShopCartService _shopCartService;
         public ProductController(ICityService cityServices,IShopCartService shopCartService)
@@ -34,21 +34,42 @@ namespace Today.Web.Controllers
             return View();
         }
 
-        public IActionResult ProductPages() //商品頁面
+        public IActionResult ProductPages(int Id = 2) //商品頁面
         {
 
 
+            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
+            var ShopCartVMs = new ShopCartVM
+            {
+                ShopCartCardList = ShopCartCardDTO
+                .Select(s => new ShopCartCardVM
+                {
+                    ProductName = s.ProductName,
+                    ProgramTitle = s.ProgramTitle,
+                    Path = s.ProductPhoto,
+                    DepartureDate = s.DepartureDate,
+                    Quantity = s.Quantity,
+                    ScreenTime = s.ScreenTime,
+                    UnitPrice = s.UnitPrice,
+                    UnitText = s.UnitText,
+
+                }).ToList()
+            };
 
             //ViewData["id"] = 2;
             //ViewData["SDate"] = "2022-07-19";
             //ViewData["PersonCount"] = 3;
-            TempData["ProductName"] = "【KKday限時快閃29折】雲林劍湖山渡假大飯店｜住宿贈送遊樂園";
-            TempData["MemberId"] = "7";
+            TempData["ProductName"] = ShopCartVMs.ShopCartCardList.Select(x => x.ProductName);
+            TempData["MemberId"] = "2";
             TempData["SpecificationId"] = "5";
+            TempData["DepartureDate"] = "2022-07-29";
             //TempData["DepartureDate"] = DateTime.Now.AddDays(-1);
             TempData["Quantity"] = "28";
+            TempData["UnitPrice"] = "28000";
             TempData["ProgramTitle"] = "KKday專屬優惠｜頑皮世界野生動物園門票（獨家長頸鹿手繪門票)";
             TempData["Path"] = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_115724/20220118142045_OJ8R7/jpg";
+            TempData["UnitText"] = "間";
+            //TempData["ScreeningId"] = "4";
             TempData.Keep();
 
 

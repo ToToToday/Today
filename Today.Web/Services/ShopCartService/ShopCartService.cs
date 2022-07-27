@@ -26,7 +26,6 @@ namespace Today.Web.Services.ShopCartService
         
         public List<ShopCartCard> GetShopCartCard(ShopCartMemberRequestDTO Id)
         {
-            
 
             var shoppingCart =  _repo.GetAll<ShoppingCart>().Where(m => m.MemberId == Id.MemberId).ToList();
             if(shoppingCart == null) return null;
@@ -79,7 +78,7 @@ namespace Today.Web.Services.ShopCartService
                 p.ProductName
             }).ToList();
 
-            var photo = _repo.GetAll<ProductPhoto>();
+            var photo = _repo.GetAll<ProductPhoto>().Where(p => p.Sort == 1);
 
       
             var cartPhoto = newProduct.Join(photo, pd => pd.ProductId, pp => pp.ProductId, (pd, pp) => new
@@ -117,6 +116,7 @@ namespace Today.Web.Services.ShopCartService
             }).ToList();
 
 
+       
             //var result = new ShopCartMemberResponseDTO
             //{
             //    //ShopCartCards = new List<ShopCartCard> {
@@ -206,10 +206,6 @@ namespace Today.Web.Services.ShopCartService
 
 
 
-
-
-
-
         //    //var joinTime = await _repo.GetAll<ShopCartCard>().OrderBy(m => m.JoinTime).FirstOrDefaultAsync();
 
         //    //var isNull = await _repo.GetAll<ShopCartCard>()
@@ -238,8 +234,8 @@ namespace Today.Web.Services.ShopCartService
                 SpecificationId = input.SpecificationId,
                 DepartureDate = input.DepartureDate,
                 Quantity = input.Quantity,
-                ScreeningId = 2,
-                JoinTime = DateTime.Now,
+                ScreeningId = input.ScreeningId,
+                JoinTime = DateTime.UtcNow.AddHours(8),
                 
             };
 
@@ -271,7 +267,8 @@ namespace Today.Web.Services.ShopCartService
                 result.IsSuccess = false;
                 result.Message = ex.Message;
             }
-            
+
+
 
 
             return result;

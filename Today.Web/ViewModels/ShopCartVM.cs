@@ -16,6 +16,7 @@ namespace Today.Web.ViewModels
             public DateTime DepartureDate { get; set; }
             public int Quantity { get; set; }
 
+            public int ScreeningId { get; set; }
             public TimeSpan ScreenTime { get; set; }
 
             public string Path { get; set; }

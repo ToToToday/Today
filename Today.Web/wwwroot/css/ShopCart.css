@@ -244,8 +244,8 @@ i{
     color: white;
     text-decoration: none;
     display: inline-block;
-    width: 75px;
-    height: 40px;
+/*    width: 75px;
+    height: 40px;*/
     padding: 14px 13px;
     border-radius: 5px;
 }
@@ -420,8 +420,8 @@ i{
         padding: 0 5px;
     }
     .caculate a{
-        width: 80px;
-        height: 40px;
+        /*width: 80px;
+        height: 40px;*/
         padding: 14px;
     }
     .cart-recommend .card{
@@ -481,7 +481,7 @@ i{
     .list .card-body .row div:first-of-type + div span:last-of-type{
         margin-left: 28px;
         display: inline-block;
-         margin-top: 0; 
+        margin-top: 2px; 
     }
     .reconfirmation .card-body .row div:first-of-type + div span:last-of-type{
         margin-left: 35px;

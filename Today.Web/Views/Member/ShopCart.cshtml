@@ -26,7 +26,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body text-start py-3 border-bottom-0">
-                              您確定要刪除所選商品嗎？
+                            您確定要刪除所選商品嗎？
                         </div>
                         <div class="modal-footer border-top-0">
                         <button type="button" class="btn btn btn-light" data-bs-dismiss="modal">取消</button>
@@ -58,9 +58,12 @@
                                         </a>
                                         <p class="card-text p-0">@cart.ProgramTitle</p>
                                     </div>
-                                    <div class="col-lg-3 ">
-                                        <span class="d-inline-block">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
-                                        <span>@(cart.UnitText)x@(cart.Quantity)</span>
+                                    <div class="col-lg-3 d-flex flex-column flex-lg-row">
+                                        <div class="time">
+                                            <span class="d-lg-inline-block">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
+                                            <span class=" mt-1 m-0 p-0">時間: @cart.ScreenTime</span>
+                                        </div>
+                                        <span class="text-nowrap d-inline-block">@(cart.UnitText)x@(cart.Quantity)</span>
                                     </div>
                                     <div class="col-lg-3 text-end">
                                         <span class=" fw-bold text-nowrap">TWD @cart.UnitPrice</span>
@@ -187,7 +190,7 @@
                 <div class="caculate m-0">
                     <div class="total mb-3">
                         <span class="text-end">1件商品合計</span>
-                        <span class=" fw-bolder mt-2">TWD 3,120</span>
+                        <span class=" fw-bolder mt-2">TWD 28000</span>
                     </div>
                     <a class="fw-bolder mb-3 mx-3" asp-action="Checkout">前往結帳</a>
                 </div>

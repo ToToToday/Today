@@ -4,7 +4,7 @@ namespace Today.Web.DTOModels.ShopCartDTO
 {
     public class CreateShopCartInputDTO
     {
-        //public int ShoppingCartId { get; set; }
+        public int ShoppingCartId { get; set; }
         public int MemberId { get; set; }
         public int SpecificationId { get; set; }
         public DateTime DepartureDate { get; set; }
@@ -13,6 +13,9 @@ namespace Today.Web.DTOModels.ShopCartDTO
         public string ProgramTitle { get; set; }
         public string Path { get; set; }
         public string ProductName { get; set; }
+        public string UnitText { get; set; }
+        public decimal UnitPrice { get; set; }
+        public TimeSpan ScreenTime { get; set; }
         //public DateTime JoinTime { get; set; }
     }
     public class CreateShopCartOutputDTO

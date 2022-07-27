@@ -422,6 +422,8 @@
                                     <h6 class="product-initial-title col-12">
                                         選擇日期
                                     </h6>
+                                    <input type="hidden" name="DepartureDate" value="@TempData["DepartureDate"]"/>
+                                    @*<input type="hidden" name="ScreenTime" value="@TempData["ScreenTime"]"/>*@
 @*                                    <input id="myID" type="text" class="d-none" name="id" value="@ViewData["id"]">
                                     <input id="myID" type="text" class="d-none" name="StartDate" value="@ViewData["SDate"]">*@
                                 </div>
@@ -431,8 +433,10 @@
                                     </h6>
                                     <div class="select-quantity-aldult col-12 d-flex flex-wrap ">
                                             <p class="col-8 justify-content-between">人數
+                                                <input type="hidden" name="ScreeningId" value="@TempData["ScreeningId"]"/>
                                                 <span>12歲以上(含)</span>
                                                 <span>TWD 600/每人</span>
+                                                <input type="hidden" name="UnitPrice" value="@TempData["UnitPrice"]" />
                                             </p>
                                             <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
                                                 <button class="select-quantity-btn-reduce">-</button>
@@ -442,7 +446,7 @@
                                             </div>
                                         <div class="d-flex justify-content-between col-12 select-total-div">
                                             <span>總金額</span>
-                                            <p>TWD 1234</p>
+                                            <p>TWD 28000</p>
                                         </div>
                                     </div>
                                 </div>
