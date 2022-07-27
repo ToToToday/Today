@@ -35,14 +35,14 @@ namespace Today.Web.Controllers
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = "https://ef9a-220-141-63-234.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://ef9a-220-141-63-234.jp.ngrok.io/Ecpay/success" //之後改主頁網址
+                ServerUrl = "https://05eb-220-141-63-234.jp.ngrok.io/Ecpay/callback",
+                ClientUrl = "https://05eb-220-141-63-234.jp.ngrok.io/Home/Index" //之後改主頁網址
             };
             var transaction = new
             {
                 No = id.ToString(),//"test00003"
                 Description = "測試購物系統",
-                Date = DateTime.Now,
+                Date = DateTime.UtcNow.AddHours(8), //DateTime.Now
                 Method = EPaymentMethod.Credit,
                 
                 Item = new List<Item>

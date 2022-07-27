@@ -40,6 +40,7 @@ namespace Today.Web.ViewModels
         }
         public class CityRaiderList
         {
+            public int RaiderId { get; set; }
             public int CityId { get; set; }
             public string Title { get; set; }
             public string SubTitle { get; set; }

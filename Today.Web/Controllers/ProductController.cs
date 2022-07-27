@@ -118,6 +118,7 @@ namespace Today.Web.Controllers
                 }).ToList(),
                 RaiderList = CityAllRaider.Select(rl => new CityVM.CityRaiderList
                 {
+                    RaiderId = rl.RaiderId,
                     CityId = rl.CityId,
                     Title = rl.Title,
                     SubTitle = rl.SubTitle

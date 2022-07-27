@@ -67,6 +67,7 @@ namespace Today.Web.Services.CityService
         {
             var raiderResult = _repo.GetAll<CityRaider>().Where(x => x.CityId == request.CityId).Select(r =>new CityDTO.RaiderCard
             {
+                RaiderId = r.RaidersId,
                 CityId = r.CityId,
                 Title = r.Title,
                 SubTitle = r.Subtitle
