@@ -12,7 +12,11 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.Services.CityService;
+using Today.Web.Services.locationService;
 using Today.Web.Services.ProductService;
+using Today.Web.Services.ClassifyService;
+using Today.Web.Services.CheenkoutService;
+using Today.Web.Services.EcpayService;
 using Today.Web.Services.ShopCartService;
 
 namespace Today.Web
@@ -37,6 +41,10 @@ namespace Today.Web
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IClassifyService, ClassifyService>();
+            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IEcpayService, EcpayService>();
             services.AddTransient<IShopCartService, ShopCartService>();
         }
 

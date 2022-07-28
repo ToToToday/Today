@@ -22,14 +22,14 @@
 }
 
 
-<partial name="hotel_bannerPartial" />
+<partial name="_Hotel_bannerPartial" />
 
-<partial name="hotelFiliterPartial" />
+<partial name="_HotelFiliterPartial" />
   <div class="container-fluid-ProductList ">
     <section class="container m-auto">
       <div class="container row p-0 m-0">
         <div class="col-lg-3 product-filter px-3 pt-3">
-             <partial name ="mapPartial" />
+             <partial name ="_MapPartial" />
           <div class="filter-group rounded py-2 mb-1">
             <div class="filter-block py-3 ps-3">
               <h4>所有商品類別</h4>
@@ -691,7 +691,7 @@
       </div>
     </section>
   </div>
- <partial name ="mapModalPartial" />
+ <partial name ="_MapModalPartial" />
   @section endJS
   {
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
@@ -703,8 +703,11 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="~/js/homescript.js"></script>
 
-  <script>
-      let json_text= @Html.Raw(@ViewData["locationJson"]);
+
+     <script>
+        let json_location= @Html.Raw(@ViewData["locationJson"]);
+        let json_Name = @Html.Raw(@ViewData["PNameJson"]);
+        let json_photo = @Html.Raw(@ViewData["PhotoJson"]);
    </script>
    <script src="~/js/google-map.js"></script>
 
