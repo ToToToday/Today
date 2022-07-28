@@ -29,19 +29,14 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-
         private readonly IClassifyService _classifyService;
-        
-        
-        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService)
         private readonly IShopCartService _shopCartService;
-        public ProductController(ICityService cityServices,IShopCartService shopCartService)
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IShopCartService shopCartService)
         {
             _cityServices = cityServices;
             _productServices = productService;
             _locationServices = locationServices;
             _classifyService = classifyService;
-
             _shopCartService = shopCartService;
         }
 

@@ -21,17 +21,16 @@ namespace Today.Web.Controllers
     public class MemberController : Controller
     {
         private readonly IChenkoutService _chenkoutService;
-        public MemberController(IChenkoutService chenkoutService)
+        private readonly IShopCartService _shopCartService;
+
+        public MemberController(IChenkoutService chenkoutService, IShopCartService shopCartService)
         {
             _chenkoutService = chenkoutService;
-        }
-
-
-        private readonly IShopCartService _shopCartService;
-        public MemberController(IShopCartService shopCartService)
-        {
             _shopCartService = shopCartService;
         }
+
+
+        
         public IActionResult CountSetting()
         {
             return View();
