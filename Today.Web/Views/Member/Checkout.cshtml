@@ -1,4 +1,5 @@
-﻿@section topCSS{
+﻿@model Today.Web.ViewModels.ChenkoutVM
+@section topCSS{
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/Checkout.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -27,18 +28,15 @@
         })
     </script>
 }
-
-
+    
+    
     <div class="container-fluid">
         <div class="Orderinformation mw-100 pt-5">
             <div class="container row m-auto pt-4">
-                <!-- <div class="Paytoorder-fliud">
-                    <div class="Paytoorder my-4 ms-2">
-                        <h3 class=""> 付款 <i class="fa-solid fa-greater-than me-1"></i> 訂購完成</h3>
-                    </div>
-                </div> -->
+               
 
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        @*@TempData["OrderProduct"].ToString();*@
                     <ol class="breadcrumb ms-2">
                         <li class="breadcrumb-item fw-bolder">付款</li>
                         <li class="breadcrumb-item active" aria-current="page">訂購完成</li>
@@ -47,14 +45,14 @@
 
                 <div class="accordion mb-3" id="accordionExample">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
+                        <div class="accordion-header" id="headingOne">
                             <div class="a bg-white d-flex align-items-center my-4 " data-bs-toggle="collapse"
                                 data-bs-target="#Ordererinformation">
                                 <i class="fa-solid fa-chevron-down mx-3"></i>
                                 <h4 class="page-head ">訂購人資料
                                 </h4>
                             </div>
-                        </h2>
+                        </div>
                         <div id="Ordererinformation" class="accordion-collapse collapse show border-top"
                             aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
@@ -65,67 +63,32 @@
                                                 <label for="validationCustom01" class="form-label">名字
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input type="text" class="form-control" id="validationCustom01"
-                                                    placeholder="品叡" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
+                                                <input class="form-control" id="validationCustom01" type="text" value="@Model.OrderMember.Name" aria-label="Disabled input example" disabled readonly>
                                             </div>
 
-                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                                <label for="validationCustom02" class="form-label">姓氏
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="text" class="form-control" id="validationCustom02"
-                                                    placeholder="陳" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                                <label for="validationCustom08" class="form-label ">國家/地區
+                                                <label for="validationCustom08" class="form-label ">地區
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <select class="form-select" id="validationCustom08" required>
-                                                    <option selected disabled placeholder="">Choose...</option>
-                                                    <option>台灣</option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    此欄位必填
-                                                </div>
+                                                <input class="form-control" id="validationCustom08" type="text" value="@Model.OrderMember.CityName" aria-label="Disabled input example" disabled readonly>
                                             </div>
                                             <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
                                                 <label for="validationCustom09" class="form-label">電話號碼
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input type="tel" class="form-control" id="validationCustom09" required>
-                                                <div class="invalid-feedback">
-                                                    此欄位必填
-                                                </div>
+                                                 <input class="form-control" id="validationCustom09" type="text" value="@Model.OrderMember.PhoneNumber" aria-label="Disabled input example" disabled readonly>
+                                               
                                             </div>
                                             <div class="col-md-8 col-xs-12 mt-4 mx-4">
                                                 <label for="validationCustom10" class="form-label">聯絡 E-mail
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input type="email" class="form-control" id="validationCustom10"
-                                                    required>
-                                                <div class="invalid-feedback">
-                                                    此欄位必填
-                                                </div>
+                                                <input class="form-control" id="validationCustom10" type="text" value="@Model.OrderMember.Email" aria-label="Disabled input example" disabled readonly>
                                             </div>
-                                            <div class="form-check mt-4 mx-4">
-                                                <input class="form-check-input" type="checkbox" placeholder=""
-                                                    id="flexCheckDefault">
-                                                <label class="form-check-label mt-1" for="flexCheckDefault">
-                                                    同時更新會員資料
-                                                </label>
-                                            </div>
-                                            <div class="col-12 mt-3 mx-4">
-                                                <button class="btn btn-info text-light" type="submit">繼續</button>
-                                            </div>
+                                           
                                         </div>
                                     </form>
                                 </div>
@@ -137,261 +100,66 @@
 
                 <div class="Passengerinformation-fliud">
                     <div class="Passengerinformation mt-3 mb-2 ms-2 ">
-                        <h3 class=""> 旅客資料</h3>
+                        <h3 class=""> 選擇折扣</h3>
                     </div>
                 </div>
                 <!-- 旅客資料info -->
                 <div class="accordion mt-2 " id="accordionExample">
                     <div class="accordion-item">
-                        <h2 class="accordion-header " id="headingtwo">
+                        <div class="accordion-header " id="headingtwo">
                             <div class="bg-white d-flex align-items-center collapsed" data-bs-toggle="collapse"
                                 data-bs-target="#Passengerinformation" aria-expanded="false">
                                 <i class="fa-solid fa-chevron-down mx-2"></i>
                                 <!-- 旅客資料 title -->
-                                <div
-                                    class="cart-item d-flex flex-wrap align-items-center justify-content-evenly py-3 border-bottom">
-                                    <a href="https://www.kkday.com/zh-tw/product/101369" class=" rounded-3 img-fluid">
-                                        <img class="product-img img-bg w-100 col-sm-4"
-                                            src="https://image.kkday.com/v2/image/get/w_140%2Ch_105%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_101369/20200715095654_5Ze05/jpg">
+                                <div class="cart-item d-flex flex-wrap align-items-center justify-content-evenly py-3 border-bottom">
+                                    <a href="#" class=" rounded-3 img-fluid col-md-3">
+                                        <img class="product-img img-bg w-100 col-sm-4" src="@Model.OrderProduct.Photo">
                                     </a>
-                                    <div class="car-detail col-sm-8 ms-1">
+                                    <div class="car-detail col-sm-8 ms-1 col-md-8">
                                         <div class="product-detail">
                                             <h3 class="title my-2 me-2">
-                                                <a href="https://www.kkday.com/zh-tw/product/101369" class="product_detail_text text-dark
+                                                <a href="#" class="product_detail_text text-dark
                                                 " target="_blank" onclick="event.stopPropagation()">
-                                                    <span style="
-                                                    font-size: smaller">
-                                                        2022澎湖花火節】限時折50｜澎湖吉貝一日遊｜暢玩水上活動｜來回船票
-                                                        &amp; 島上機車 &amp; 目斗嶼登島｜赤崁碼頭出發</span>
+                                                    <span style="font-size: smaller">
+                                                        @Model.OrderProduct.ProductName
+                                                    </span>
                                                 </a>
                                             </h3>
-                                            <div class="product-option text-dark my-3">方案 A：租借吉貝島摩托車一部（2 人 1 部）</div>
-                                            <div class="product-option mb-3">用車時間 : 隔天還車
-                                            </div>
+                                            <div class="product-option text-dark my-3">@Model.OrderProduct.ProgramTitle</div>
+                                          
                                             <div class="mix d-flex">
-                                                <div class="product-option mb-3 me-3 flex-wrap">去程船班 : 09:30
+                                                <div class="product-option mb-3 me-3 flex-wrap">@Model.OrderProduct.Screen
                                                 </div>
-                                                <div class="product-option mb-3 ">回程船班 : 16:00
-                                                </div>
+                                                
                                             </div>
 
                                         </div>
 
                                         <div class="critical-info d-inline-block ">
                                             <i class="fa-solid fa-calendar-days me-2"></i>
-                                            <span>2022-06-23</span>
+                                            <span>@Model.OrderProduct.DepartureDate</span>
                                         </div>
-                                        <!-- <div class="critical-info d-inline-block ">
-                                            <i class="fa-regular fa-clock mx-2"></i>
-                                            <span>09 : 30</span>
-                                        </div> -->
+                                        
                                         <div class="critical-info d-inline-block ms-2">
                                             <i class="fa-solid fa-person mx-2"></i>
-                                            <span>人數 x 1</span>
+                                            <span>@(Model.OrderProduct.Itemtext) x @(Model.OrderProduct.Quantity)  @(Model.OrderProduct.UnitText)</span>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </h2>
+                        </div>
                         <div id="Passengerinformation" class="accordion-collapse collapse" aria-labelledby="headingtwo"
                             data-bs-parent="#accordionExample" style="">
                             <div class="accordion-body">
 
 
 
-                                <!-- 旅客代表人 -->
-                                <div class="Passenger p-3 mx-2 mb-2 bg-body rounded ">
-                                    <div class="btn-group-title mb-2">
-                                        <div
-                                            class="btn input-dropdown Passenger-title d-flex justify-content-between fw-bold">
-                                            旅客 1
-                                            <a href="javascript:;"
-                                                class="Passenger-clean link-secondary text-sm pull-right text-decoration-none ">
-                                                清空
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="form-group"> -->
-                                    <div class="btn-group">
-                                        <button class="Passenger-btn  rounded-3 p-3 ms-2 border-0" type="button"
-                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            請選擇旅客 1
-                                            <i class="fa-solid fa-chevron-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pe-5 ">
-                                            <li class="active ">
-                                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                                    <div class="name-logo bg-secondary-light  p-2 me-2">s</div>
-                                                    同訂購人資料
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4" style="
-                                    width: 80%;">
-                                        <label for="validationCustom08" class="form-label ">國家/地區
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-select " id="validationCustom08" required="">
-                                            <option selected="" disabled="" placeholder="">Choose...</option>
-                                            <option>台灣</option>
-                                        </select>
-                                        <div class="invalid-feedback">
-                                            此欄位必填
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                        <label for="validationCustom011" class="form-label">出生日期
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="date" class="form-control" id="validationCustom011" required="">
-                                        <div class="invalid-feedback">
-                                            此欄位必填
-                                        </div>
-                                    </div>
-                                    <!-- <div class="name_group">
-                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                            <label for="validationCustom02" class="form-label">中文姓
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="validationCustom02"
-                                                placeholder="例 : 陳" required="">
-                                            <div class="invalid-feedback">
-                                                此欄位必填
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                            <label for="validationCustom011" class="form-label">中文名
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="validationCustom011"
-                                                placeholder="例 : 品叡" required="">
-                                            <div class="invalid-feedback">
-                                                此欄位必填
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                            <label for="validationCustom01" class="form-label">名字
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="validationCustom01"
-                                                placeholder="品叡" required="">
-                                            <div class="valid-feedback">
-                                                Looks good!
-                                            </div>
-                                        </div>
+                                
+                                   
 
-                                        <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                            <label for="validationCustom02" class="form-label">姓氏
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="validationCustom02"
-                                                placeholder="陳" required="">
-                                            <div class="valid-feedback">
-                                                Looks good!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-4">
-                                        <label for="validationCustom02" class="form-label">台灣身份證字號
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="validationCustom02"
-                                            placeholder="請輸入台灣身分證字號" required="">
-                                        <div class="invalid-feedback">
-                                            此欄位必填
-                                        </div>
-                                    </div>
-                                    <a class="Add-travelers btn btn-default btn-xs  mt-4 mx-2"><i class="fa fa-plus"
-                                            aria-hidden="true"></i>
-                                        新增常用旅客
-                                    </a>
-                                </div>
-
-                                <!-- 旅遊期間聯絡方式 -->
-                                <div class="traveler-con">
-                                    <div class="sub-title my-3">
-                                        <i class="fa-solid fa-minus"></i>
-                                        <span class="fw-bolder">旅遊期間聯絡方式</span>
-                                    </div>
-                                    <div class="board p-3 mx-2 mb-2 bg-body rounded ">
-                                        <div class="btn-group">
-                                            <button class="Passenger-btn  rounded-3 p-3 ms-2 border-0" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                請選擇旅遊期間聯絡方式
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pe-5 ">
-                                                <li class="active ">
-                                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                                        <div class="name-logo bg-secondary-light  p-2 me-2">s</div>
-                                                        同訂購人資料
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="row ms-1">
-                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-2">
-                                                <div class="form-group mb-2">
-                                                    <label class="my-2">聯絡人名
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <input id="booking-contact-firstname" placeholder="例：Ming Ni"
-                                                        name="contactFirstName0" type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-6 col-xs-12 mt-4 mx-2">
-                                                <div class="form-group">
-                                                    <label class="my-2">聯絡人姓
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <input id="booking-contact-lastname" placeholder="例：Chen"
-                                                        name="contactLastName0" type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4">
-                                            <div class="col-md-4 col-sm-6 col-xs-12 mx-4">
-                                                <div class="form-group ">
-                                                    <label>旅遊期間聯絡電話
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div data-validate-value="" name="contactTelOption0"
-                                                        class="form-inline radio-has-son my-3"><label>
-                                                            <input id="booking-contact-tel-yes" class="-2" type="radio"
-                                                                value="true">
-                                                            有
-                                                        </label><label><input id="booking-contact-tel-no" type="radio"
-                                                                value="false">
-                                                            沒有
-                                                        </label></div>
-                                                    <div class="form-group-son form-group must">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- 特殊需求備註 -->
-                                <div class="traveler-con">
-                                    <div class="sub-title my-3">
-                                        <i class="fa-solid fa-minus"></i>
-                                        <span class="fw-bolder"> 特殊需求備註</span>
-                                    </div>
-                                    <div class="row mt-10">
-                                        <div class="col-md-8 col-sm-12 ms-3">
-                                            <div class="form-group"><textarea id="booking-note"
-                                                    placeholder="此欄位僅限資料備註。不在商品規範內的個人需求，不保證提供。" maxlength="900" rows="3"
-                                                    class="form-control"></textarea></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                
                                 <!-- 使用折扣券 -->
                                 <div class="Use-coupons">
                                     <div class="sub-title my-3">
@@ -467,223 +235,50 @@
                                         </div>
                                     </div>
 
-
-
-                                    <!-- Vertically centered scrollable modal -->
-                                    <!-- <a class="Add-travelers btn btn-default btn-xs  mt-4 mx-2">
-                                        新增常用旅客
-                                    </a> -->
-
                                 </div>
-                            </div>
+                            
                         </div>
                     </div>
-                </div> <!-- 付款 請選擇付款 -->
-                <div class="Paytoorder-fliud">
-                    <div class="Paytoorder mt-4 mb-2 ms-2">
-                        <h3>付款</h3>
-                    </div>
-                </div>
-                <div class="accordion mb-3" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingthree">
-                            <div class="bg-white d-flex align-items-center my-4" data-bs-toggle="collapse"
-                                data-bs-target="#paymentmethod" aria-expanded="true">
-                                <i class="fa-solid fa-chevron-down mx-3"></i>
-                                <h4 class="page-head">請選擇付款方式
-                                </h4>
-                            </div>
-                        </h2>
-                        <div id="paymentmethod" class="accordion-collapse collapse " aria-labelledby="headingthree"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="page-text">
-                                    <form class="row g-3 needs-validation border-top" id="profile" novalidate="">
-
-                                        <div class="con ms-2">
-                                            <div
-                                                class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
-                                                <input class="form-check-input me-2" type="radio" id="Choosepay">
-                                                <span class="checkbox-title">Line Pay</span>
-                                                <label class="form-check-label mt-2" for="Choosepay">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_linepay_2.svg"
-                                                        class="pmch-logo linepay-point">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="con ms-2">
-                                            <div
-                                                class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
-                                                <input class="form-check-input me-2" type="radio" id="Choosepay">
-                                                <span class="checkbox-title">信用卡/簽帳金融卡</span>
-                                                <label class="form-check-label ms-1 mt-2" for="Choosepay">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_visa.svg"
-                                                        class="pmch-logo pay-kind-img">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_master.svg"
-                                                        class="pmch-logo pay-kind-img">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_jcb.svg"
-                                                        class="pmch-logo pay-kind-img">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="con ms-2">
-                                            <div
-                                                class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
-                                                <input class="form-check-input me-2" type="radio" id="Choosepay">
-                                                <span class="checkbox-title ">國民旅遊卡</span>
-                                                <label class="form-check-label ms-1 mt-2" for="Choosepay">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_visa.svg"
-                                                        class="pmch-logo pay-kind-img">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_master.svg"
-                                                        class="pmch-logo pay-kind-img">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_jcb.svg"
-                                                        class="pmch-logo pay-kind-img ">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="con ms-2">
-                                            <div
-                                                class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
-                                                <input class="form-check-input me-2" type="radio" id="Choosepay">
-                                                <span class="checkbox-title">街口支付</span>
-                                                <label class="form-check-label mt-2" for="Choosepay">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_jko.png"
-                                                        class="pmch-logo ic-jko">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="con ms-2">
-                                            <div
-                                                class="form-check d-flex flex-wrap border-bottom align-items-center pb-3">
-                                                <input class="form-check-input me-2" type="radio" id="Choosepay">
-                                                <span class="checkbox-title">Pi 拍錢包</span>
-                                                <label class="form-check-label mt-2" for="Choosepay">
-                                                    <img data-v-23a5a92b=""
-                                                        src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_pi_wallet.svg"
-                                                        class="pmch-logo ic-pi-wallet">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="con ms-2">
-                                            <div class="d-flex payment-critical-info critical-info text-grey">
-                                                <span class="payment-critical-info__icon me-2">
-                                                    <i class="fa-solid fa-circle-info"></i>
-                                                </span>
-                                                <div class="payment-critical-info__fee-remind">
-                                                    請注意本平台不會向您收取任何平台交易手續費，但你下單時使用的信用卡或第三方支付平台可能會向您收取相關手續費，請參考其相關服務政策和規定，並向你所選的交易服務商取得更多資訊。
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- 付款 電子發票、收據 -->
-                <div class="accordion mb-3" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header border-bottom" id="headingfour">
-                            <div class="bg-white d-flex align-items-center my-4" data-bs-toggle="collapse"
-                                data-bs-target="#electronicinvoice" aria-expanded="true">
-                                <i class="fa-solid fa-chevron-down mx-3"></i>
-                                <h4 class="page-head">電子發票、收據
-                                    <span class="paymentmethodfirst text-secondary ">(請先選擇付款方式)</span>
-                                </h4>
-                            </div>
-                        </h2>
-                        <div id="electronicinvoice" class="accordion-collapse collapse" aria-labelledby="headingfour"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="page-text ms-2">
-                                    <div class="brownow">
-                                        <div class=" mt-4 ">
-                                            <div class="invoice-wrap">
-                                                <h4>
-                                                    旅行業代收轉付電子收據
-                                                </h4>
-                                                <div class="dropdown my-4">
-                                                    <button class="btn btn-lightss dropdown-toggle border-secondary"
-                                                        type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        寄至訂購人 E-mail
-                                                        <i class="fa-solid fa-chevron-down mx-3"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
-                                                        style="">
-                                                        <li><a class="dropdown-item" href="#">寄至訂購人 E-mail</a></li>
-                                                        <li><a class="dropdown-item" href="#">開立統編 / 抬頭</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="con__product-info bg-light p-3"
-                                                    style="line-height: initial;">
-                                                    <div class="con__product-info--prod-name pt-2">
-                                                        【2022澎湖花火節】限時折50｜澎湖吉貝一日遊｜暢玩水上活動｜來回船票 &amp; 島上機車
-                                                        &amp;
-                                                        目斗嶼登島｜赤崁碼頭出發
-                                                    </div>
-                                                    <div class="Program_info py-2">
-                                                        方案 A：租借吉貝島摩托車一部（2 人 1 部）
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                </div> 
+                                        
+               
                 <!-- 付款 付款明細 -->
                 <div class="accordion mb-3" id="accordionExample">
                     <div class="accordion-item">
-                        <h2 class="accordion-header border-bottom" id="headingfive">
+                        <div class="accordion-header border-bottom" id="headingfive">
                             <div class="bg-white d-flex align-items-center my-4 " data-bs-toggle="collapse"
                                 data-bs-target="#Paymentdetails">
                                 <i class="fa-solid fa-chevron-down mx-3"></i>
                                 <h4 class="page-head ">付款明細
                                 </h4>
                             </div>
-                        </h2>
+                        </div>
                         <div id="Paymentdetails" class="accordion-collapse collapse" aria-labelledby="headingfive"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="cart-group d-flex flex-wrap align-items-center justify-content-around">
-                                    <a href="https://www.kkday.com/zh-tw/product/101369" class=" rounded-3 img-fluid">
+                                    <a href="#" class=" rounded-3 img-fluid col-md-4">
                                         <img class="product-img img-bg w-100 col-sm-4"
-                                            src="https://image.kkday.com/v2/image/get/w_140%2Ch_105%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_101369/20200715095654_5Ze05/jpg">
+                                            src="@Model.OrderProduct.Photo">
                                     </a>
-                                    <div class="car-detail col-sm-8 mb-1">
+                                    <div class="car-detail col-sm-8 mb-1 col-md-7">
                                         <div class="product-detail">
                                             <h3 class="title my-2">
-                                                <a href="https://www.kkday.com/zh-tw/product/101369" class="product_detail_text text-dark
+                                                <a href="#" class="product_detail_text text-dark 
                                         " target="_blank" onclick="event.stopPropagation()">
                                                     <span style="
                                             font-size: smaller">
-                                                        2022澎湖花火節】限時折50｜澎湖吉貝一日遊｜暢玩水上活動｜來回船票
-                                                        &amp; 島上機車 &amp; 目斗嶼登島｜赤崁碼頭出發</span>
+                                                       @Model.OrderProduct.ProductName</span>
                                                 </a>
                                             </h3>
-                                            <div class="product-option text-dark my-3">方案 A：租借吉貝島摩托車一部（2 人 1 部）</div>
-                                            <div class="product-option mb-3">用車時間 : 隔天還車
-                                            </div>
-                                            <div class="product-option mb-3">去程船班 : 09:30
-                                            </div>
-                                            <div class="product-option mb-3">回程船班 : 16:00
-                                            </div>
+                                            <div class="product-option text-dark my-3">@Model.OrderProduct.ProgramTitle</div>
+                                            <div class="product-option mb-3">@Model.OrderProduct.Screen</div>
+                                            
                                         </div>
 
                                         <div class="critical-info d-inline-block ">
                                             <i class="fa-solid fa-calendar-days me-2"></i>
-                                            <span>2022-06-23</span>
+                                            <span>@Model.OrderProduct.DepartureDate</span>
                                         </div>
                                         <!-- <div class="critical-info d-inline-block ms-2">
                                             <i class="fa-regular fa-clock mx-2"></i>
@@ -693,17 +288,17 @@
                                         </div> -->
                                         <div class="price-detail py-3 border-bottom">
                                             <i class="fa-solid fa-person me-2"></i>
-                                            <span>人數 x 1</span>
+                                            <span>@(Model.OrderProduct.Itemtext) x @(Model.OrderProduct.Quantity) @(Model.OrderProduct.UnitText)</span>
                                             <div class="pull-right" style="
                                                 float: right;">
-                                                TWD 963
+                                                @Model.OrderProduct.UnitPrice
                                             </div>
                                         </div>
                                         <div class="mt-10 text-heavy py-3">
                                             <span>總金額</span>
                                             <div class="TWD" style="
                                             float: right;">
-                                                TWD 963
+                                                TWD @Model.OrderProduct.UnitPrice
                                             </div>
                                         </div>
                                     </div>
@@ -712,7 +307,7 @@
                                     <span>支付金額</span>
                                     <div class="TWD" style="
                                     float: right;">
-                                        TWD 963
+                                        TWD @Model.OrderProduct.UnitPrice
                                     </div>
                                 </div>
                             </div>
@@ -725,10 +320,11 @@
 
                         <div class="caculate d-flex justify-content-end my-3">
                             <div class="total me-3">
-                                <span class="text-end text-secondary">1件商品合計</span>
-                                <span class=" fw-bolder fs-3 mt-2">TWD 3,120</span>
+                                
+                                <span class=" fw-bolder fs-3 mt-2">TWD @Model.OrderProduct.UnitPrice</span>
                             </div>
-                            <a href="#" class="fw-bolder me-3">前往結帳</a>
+                            <a href="~/Ecpay/CheckOut" class="fw-bolder me-3">前往結帳</a>
+                           
                         </div>
                     </div>
                 </div>
