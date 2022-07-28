@@ -55,8 +55,8 @@ namespace Today.Web.Controllers
 
                 }).ToList()
             };
-
-            TempData["ProductName"] = ShopCartVMs.ShopCartCardList.Select(x => x.ProductName);
+            TempData["ProductName"] = "【2022澎湖花火節｜獨家】台灣澎湖隘門｜BBQ燒烤吃到飽 & 水上活動嗨翻天｜隘門陽光沙灘（贈舒涼冰巾）";
+            //TempData["ProductName"] = ShopCartVMs.ShopCartCardList.Select(x => x.ProductName);
             TempData["MemberId"] = "2";
             TempData["SpecificationId"] = "5";
             TempData["DepartureDate"] = "2022-07-29";

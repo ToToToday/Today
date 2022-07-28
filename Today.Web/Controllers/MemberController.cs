@@ -65,7 +65,7 @@ namespace Today.Web.Controllers
             return View(ShopCartVMs);
         }
         //[HttpPost]//提交
-        [HttpPost("~/[controller]/[action]/{memberId}/{SpecificationId}/{Quantity}")]
+        [HttpPost("~/[controller]/[action]/{memberId}/{SpecificationId}/{ScreeningId}/{Quantity}")]
         public IActionResult ShopCart([FromRoute] string memberId, string specificationId, string quantity,string unitPrice, string screeningId)     //CreateShopCartInputDTO input /*, string ProgramTitle*/
         {
             //var userId = User.Identity.Name;

@@ -413,7 +413,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <form action="~/Member/ShopCart/@TempData["MemberId"]/@TempData["SpecificationId"]/@TempData["Quantity"]"  method="post">
+                            <form action="~/Member/ShopCart/@TempData["MemberId"]/@TempData["SpecificationId"]/@TempData["ScreeningId"]/@TempData["Quantity"]"  method="post">
                                 <div class="col-12 d-flex flex-wrap "> 
                                     <h5 class="col-12 my-2 ps-3">
                                         選擇日期、數量
@@ -433,8 +433,8 @@
                                     </h6>
                                     <div class="select-quantity-aldult col-12 d-flex flex-wrap ">
                                             <p class="col-8 justify-content-between">人數
-                                                <input type="hidden" name="ScreeningId" value="@TempData["ScreeningId"]"/>
-                                                <input type="hidden" name="ScreenTime" value="@TempData["ScreenTime"]"/>
+                                                @*<input type="hidden" name="ScreeningId" value="@TempData["ScreeningId"]"/>*@
+                                                @*<input type="hidden" name="ScreenTime" value="@TempData["ScreenTime"]"/>*@
                                                 <span>12歲以上(含)</span>
                                                 <span>TWD 600/每人</span>
                                                 <input type="hidden" name="UnitPrice" value="@TempData["UnitPrice"]" />
