@@ -25,6 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    
+    <ProjectReference Include="..\Ecpay\Ecpay.csproj" />
     <ProjectReference Include="..\Today.Model\Today.Model.csproj" />
   </ItemGroup>
 

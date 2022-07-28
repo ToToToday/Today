@@ -31,6 +31,7 @@ namespace Today.Web.DTOModels.CityDTO
 
         public class RaiderCard
         {
+            public int RaiderId { get; set; }
             public int CityId { get; set; }
             public string Title { get; set; }
             public string SubTitle { get; set; }

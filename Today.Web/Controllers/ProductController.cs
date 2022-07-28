@@ -22,7 +22,7 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-       
+
         private readonly IClassifyService _classifyService;
         
         
@@ -118,6 +118,7 @@ namespace Today.Web.Controllers
                 }).ToList(),
                 RaiderList = CityAllRaider.Select(rl => new CityVM.CityRaiderList
                 {
+                    RaiderId = rl.RaiderId,
                     CityId = rl.CityId,
                     Title = rl.Title,
                     SubTitle = rl.SubTitle
@@ -127,8 +128,8 @@ namespace Today.Web.Controllers
                     CityId = cl.CityId,
                     Name = cl.Name,
                     RatingStar = cl.RatingStar,
-                    CommentDate = cl.CommentDate,
-                    UseDate = cl.UseDate,
+                    CommentDate = string.Format("{0:yyyy/MM/dd}",cl.CommentDate),
+                    UseDate = string.Format("{0:yyyy/MM/dd}", cl.UseDate),
                     PartnerType = cl.PartnerType,
                     ProductName = cl.ProductName,
                     Text = cl.Text,
