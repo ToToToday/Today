@@ -46,9 +46,9 @@ namespace Today.Web.DTOModels.ProductInfoDTO
         public class Screening//場次
         {
             public int ScreenId { get; set; }
-            public TimeSpan Date { get; set; }
-            public int SpecificationId { get; set; }
-            public int Status { get; set; }
+            public string Date { get; set; }
+            public int? SpecificationId { get; set; }
+            public int? Status { get; set; }
 
         }
         public class ProgramSpecification
