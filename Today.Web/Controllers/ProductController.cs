@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,10 +12,13 @@ using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
 using Today.Web.Services.ClassifyService;
 using Today.Web.Services.locationService;
+using Today.Web.Services.ProductInfoService;
 using Today.Web.Services.ShopCartService;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
+using static Today.Web.ViewModels.ProductInfoVM;
+using Today.Web.DTOModels.ProductInfoDTO;
 using static Today.Web.DTOModels.CityDTO;
 using static Today.Web.DTOModels.RaiderDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO;
@@ -29,14 +33,20 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
+        private readonly IProductInfoService _productInfoService;
         private readonly IClassifyService _classifyService;
         private readonly IShopCartService _shopCartService;
         public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IShopCartService shopCartService)
+        
+        
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService)
         {
+            _productInfoService = productInfoService;
             _cityServices = cityServices;
             _productServices = productService;
             _locationServices = locationServices;
             _classifyService = classifyService;
+            _productInfoService = productInfoService;
             _shopCartService = shopCartService;
         }
 
@@ -44,45 +54,80 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-
-        public IActionResult ProductPages(int Id = 2) //商品頁面
+        
+        public IActionResult ProductInfo(int id) //商品頁面
         {
-
-
-            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
-            var ShopCartVMs = new ShopCartVM
+            if (id <= 0)
             {
-                ShopCartCardList = ShopCartCardDTO
-                .Select(s => new ShopCartCardVM
+                return Content("找不到商品");
+            }
+            else
+            {
+                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                ;
+                var productinfo = new ProductInfoVM
                 {
-                    ProductName = s.ProductName,
-                    ProgramTitle = s.ProgramTitle,
-                    Path = s.ProductPhoto,
-                    DepartureDate = s.DepartureDate,
-                    Quantity = s.Quantity,
-                    ScreenTime = s.ScreenTime,
-                    UnitPrice = s.UnitPrice,
-                    UnitText = s.UnitText,
+                    ProductIsdeleted = productPagesServiceDTO.ProductInfo.ProductIsdeleted,
+                    ShoppingNotice = productPagesServiceDTO.ProductInfo.ShoppingNotice,
+                    ProductId = productPagesServiceDTO.ProductInfo.ProductId,
+                    CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy,
+                    HowUse = productPagesServiceDTO.ProductInfo.HowUse,
+                    ProductName = productPagesServiceDTO.ProductInfo.ProductName,
+                    CityName = productPagesServiceDTO.ProductInfo.CityName,
+                    Producttag = productPagesServiceDTO.ProductInfo.ProductTag,
+                    ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
+                    ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
+                    ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
+                    new ProductInfoVM.Photo
+                    {
+                        PhotoUrl = p.PhotoUrl
+                    }).ToList(),
+                    ProgarmList = productPagesServiceDTO.ProductInfo.ProgarmList.Select(p =>
+                    new ProductInfoVM.Progarm
+                    {
+                        ProgarmIsdeleted = p.ProgarmIsdeleted,
+                        PrgramName = p.PorgramName,
+                        PrgarmText = p.PrgarmText,
+                        DateList = p.DateList.Select(d =>
+                        new Date
+                        {
+                            CantuseDate = d.CantuseDate
+                        }).ToList(),
+                        AboutProgramList = p.AboutProgramList.Select(ap => new ProductInfoVM.AboutProgram
+                        {
+                            AboutProgramName = ap.AboutProgramName,
+                            IconClass = ap.IconClass,
+                        }).ToList(),
+                        ProgramIncludeList = p.ProgramInciudeList.Select(pi =>
+                        new ProductInfoVM.ProgramInclude
+                        {
+                            Inciudetext = pi.Inciudetext,
+                            IsInclude = pi.IsInclude,
+                        }).ToList(),
+                        ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
+                        {
+                            Date = p.Date,
+                            ScreenId = p.ScreenId,
+                            SpecificationId = p.SpecificationId,
+                            Status =p.Status
+                        }).ToList()
+                        ,
+                        ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
+                            new ProductInfoVM.ProgramSpecification
+                            {
+                                SpecificationId = pgsc.SpecificationId,
+                                PorgarmUnitPrice = pgsc.PorgarmUnitPrice,
+                                Itemtext = pgsc.Itemtext,
+                                UnitText = pgsc.UnitText,
+                            }).ToList()
+                    }).ToList()
+                };
+                ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
+                return View(productinfo);
+                //return View();
+            }
 
-                }).ToList()
-            };
-            TempData["ProductName"] = "【2022澎湖花火節｜獨家】台灣澎湖隘門｜BBQ燒烤吃到飽 & 水上活動嗨翻天｜隘門陽光沙灘（贈舒涼冰巾）";
-            //TempData["ProductName"] = ShopCartVMs.ShopCartCardList.Select(x => x.ProductName);
-            TempData["MemberId"] = "2";
-            TempData["SpecificationId"] = "5";
-            TempData["DepartureDate"] = "2022-07-29";
-            //TempData["DepartureDate"] = DateTime.Now.AddDays(-1);
-            TempData["Quantity"] = "28";
-            TempData["UnitPrice"] = "28000";
-            TempData["ProgramTitle"] = "KKday專屬優惠｜頑皮世界野生動物園門票（獨家長頸鹿手繪門票)";
-            TempData["Path"] = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_115724/20220118142045_OJ8R7/jpg";
-            TempData["ScreeningId"] = "4";
-            TempData["UnitText"] = "間";
-            //TempData["ScreenTime"] = "11:00";
-            TempData.Keep();
-
-
-            return View();
         }
 
         public IActionResult Classify() //楊 分類
