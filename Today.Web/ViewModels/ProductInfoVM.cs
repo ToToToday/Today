@@ -42,6 +42,7 @@ namespace Today.Web.ViewModels
         }
         public class ProgramSpecification
         {
+            public int SpecificationId { get; set; }
             public string Itemtext { get; set; }//人
             public string UnitText { get; set; }//間
             public decimal PorgarmUnitPrice { get; set; }//價錢

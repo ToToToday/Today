@@ -3,11 +3,55 @@
     --font-color-Ash: #8a8a8a;
     --font-color-span: #26bec9;
 }
-button.shopping-cart-btn.ms-auto {
+
+.btn-close {
+    display: inline-block;
+}
+
+.shopping-cart-div {
+    justify-content: flex-end;
+}
+
+    .shopping-cart-div > input {
+        display: flex;
+        margin: 0 10px 0 0;
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px;
+        border: #fff;
+    }
+
+.asd-btn {
+    background-color: var(--font-color-span);
+}
+
+.shopping-cart-btn {
     background-color: cornflowerblue;
 }
+
+h5#offcanvasBottomLabel1 {
+    text-align: initial;
+}
+
+button.shopping-cart-btn.ms-auto {
+}
+
 html h5 {
     font-weight: bold;
+
+}
+
+
+@media screen and (min-width: 768px) {
+
+    .container {
+        margin: auto;
+        padding: 0 30px;
+    }
+
+    .productDetail {
+        padding: 0;
+    }
 }
 
 .select-total-div {
@@ -32,6 +76,7 @@ h6.product-initial-title {
 .select-total-div p, .select-total-div span {
     margin: 150px 0 0 0;
 }
+
 .shopping-cart-div {
     margin: 10px 0 0 0;
 }
@@ -48,7 +93,7 @@ h6.product-initial-title {
 }
 
 
-.select-quantity-title{
+.select-quantity-title {
     font-weight: bold;
     margin: 10px 0;
 }
@@ -93,7 +138,6 @@ h6.product-initial-title {
 }
 
 .iph-AboutProgram-div {
-    padding: 0 0 20px 0;
     margin: 0 0 30px 0;
 }
 
@@ -205,13 +249,16 @@ h1 {
     border: #ccc;
     background-color: var(--font-color-span);
 }
-HTML img{
-    width:100%;
+
+HTML img {
+    width: 100%;
 }
+
 .nav-limit .navbar-nav a:hover,
 .category-limit a:hover {
     color: var(--font-color-span) !important;
 }
+
 #offcanvasBottom1, .productDetail,
 .Details {
     max-width: 1200px;
@@ -219,9 +266,7 @@ HTML img{
     padding: 0px 20px 0 20px;
     line-height: 1.5;
 }
-.productDetail{
-    padding:40PX 0 0 0 ;
-}
+
 
 #offcanvasBottom1,
 #offcanvasBottom2 {
@@ -264,16 +309,17 @@ li img {
     margin: -5px 0;
 }
 
-.AboutProgram-div>ul>li{
-    margin:0 20px 0 0 ;
+.AboutProgram-div > ul > li, .ProgramInclude-div > ul > li {
+    margin: 0 20px 0 0;
 }
-    .container .slideshow img {
-        width: 100%;
-    }
 
-    .container .prodInfo {
-        margin: 20px 0 0 auto;
-    }
+.container .slideshow img {
+    width: 100%;
+}
+
+.container .prodInfo {
+    margin: 20px 0 0 auto;
+}
 
 .fa-heart:hover {
     -webkit-transition-duration: 2s;
@@ -515,7 +561,7 @@ div.Evaluation > a {
     }
 
     .product-initial .initial .initial-money {
-        margin: 10px 0;
+        margin:auto;
         color: var(--font-color-span);
     }
 
@@ -532,7 +578,7 @@ div.Evaluation > a {
     }
 
     .product-initial .initial .initial-Remark {
-        padding: 10px 0px 10px 20px;
+        padding: 10px 0px 10px 30px;
         color: var(--font-color-Ash);
         line-height: 2;
     }
@@ -614,14 +660,13 @@ h5 {
     font-size: 10px;
 }
 
-@media screen and (min-width: 768px) {
-    .container {
-        margin: auto;
-        padding: 0 30px;
-    }
-}
 
 @media screen and (min-width: 992px) {
+    p.initial-money{
+        margin: auto;
+        text-align: end;
+        padding: inherit;
+    }
 
     .Product-number a {
         margin: 30px 0 0 0;
@@ -636,7 +681,7 @@ h5 {
     }
 
     .productDetail {
-        margin: 40px auto 0 auto;
+        margin: 60px auto 0 auto;
     }
 
     .product h3 {
@@ -658,19 +703,22 @@ h5 {
             .product-name .product-heart i {
                 font-weight: normal;
             }
+
     .select-quantity-btn {
         align-items: center;
         line-height: 2;
     }
+
         .select-quantity-btn .select-quantity-btn-reduce, .select-quantity-btn .select-quantity-btn-add {
-        width: 40px;
-        padding: 5px;
-    }
+            width: 40px;
+            padding: 5px;
+        }
+
     .initial {
         padding: 10px;
     }
+
     .initial-money {
-        padding: 0 0 0 30px;
         margin: 0 0 auto 0;
     }
 
@@ -727,8 +775,29 @@ h5 {
         color: var(--font-color-span);
     }
 
-/*    .product-infon-a > button:hover {
-        border-left: 5px solid var(--font-color-span);
-        color: var(--font-color-span);
-    }*/
-/*# sourceMappingURL=commodity.css.map */
+label.btn {
+    color: #fff;
+    background-color: var(--font-color-span);
+    border-radius: 10px;
+    border: #fff;
+}
+
+    label.btn.initial_btn.col-4.col-lg-2.order-2 {
+        display: inline-block;
+        height: 50px;
+        margin: auto;
+        line-height: 2.3;
+    }
+
+    label.btn:checked {
+        color: #fff;
+        /*background-color: #000;*/
+    }
+
+    label.btn:hover {
+        color: #fff;
+    }
+
+li.nav-item {
+    margin: auto;
+}

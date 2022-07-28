@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Today.Web.ViewModels;
-using static Today.Web.DTOModel.ProductInfoDTO;
+using static Today.Web.DTOModels.ProductInfoDTO.ProductInfoDTO;
 
 namespace Today.Web.Services.ProductInfoService
 {

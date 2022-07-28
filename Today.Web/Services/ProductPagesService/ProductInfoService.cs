@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.ViewModels;
-using Today.Web.DTOModel;
-using static Today.Web.DTOModel.ProductInfoDTO;
-using Dapper;
+using static Today.Web.DTOModels.ProductInfoDTO.ProductInfoDTO;
 using Microsoft.Data.SqlClient;
 using System.Linq.Expressions;
 using System;
+using Today.Web.DTOModels.ProductInfoDTO;
 
 namespace Today.Web.Services.ProductInfoService
 {
@@ -71,8 +70,6 @@ namespace Today.Web.Services.ProductInfoService
                 }
             };
 
-            //Expression<Func<int, int>> e1 = x => x ;
-            //Func<int, int> e2 = x => { return x; } ;
 
             result.ProductInfo.ProgarmList.ForEach(p =>
             {
@@ -130,17 +127,10 @@ namespace Today.Web.Services.ProductInfoService
                             PorgarmUnitPrice = pgsc.UnitPrice,
                             UnitText = pgsc.UnitText,
                             Itemtext = pgsc.Itemtext,
+                            SpecificationId = pgsc.SpecificationId
                         });
 
                 });
-                //_repo.GetAll<Model.Models.ProgramCantUseDate>().Where(pgcud =>
-                //p.ProgarmId == pgcud.ProgramId)
-                //.ToList()
-                //.ForEach(pgcud=>
-                //        new ProductInfoDTO.Date
-                //        {
-                //            CantuseDate= pgcud.Date
-                //        });
             });
 
 

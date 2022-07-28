@@ -16,6 +16,7 @@ using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 using static Today.Web.ViewModels.ProductInfoVM;
+using Today.Web.DTOModels.ProductInfoDTO;
 
 namespace Today.Web.Controllers
 {
@@ -25,24 +26,25 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-       
+        private readonly IProductInfoService _productInfoService;
         private readonly IClassifyService _classifyService;
         
         
-        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService)
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService)
         {
             _productInfoService = productInfoService;
             _cityServices = cityServices;
             _productServices = productService;
             _locationServices = locationServices;
             _classifyService = classifyService;
-
+            _productInfoService = productInfoService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+        
         public IActionResult ProductInfo(int id) //商品頁面
         {
             if (id <= 0)
@@ -51,7 +53,7 @@ namespace Today.Web.Controllers
             }
             else
             {
-                var productPagesServiceDTO = _productInfoService.GetProduct(new DTOModel.ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
                 ;
                 var productinfo = new ProductInfoVM
                 {
@@ -104,6 +106,7 @@ namespace Today.Web.Controllers
                         ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
                             new ProductInfoVM.ProgramSpecification
                             {
+                                SpecificationId = pgsc.SpecificationId,
                                 PorgarmUnitPrice = pgsc.PorgarmUnitPrice,
                                 Itemtext = pgsc.Itemtext,
                                 UnitText = pgsc.UnitText,

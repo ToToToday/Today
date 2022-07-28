@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Today.Web.DTOModel
+namespace Today.Web.DTOModels.ProductInfoDTO
 {
     public class ProductInfoDTO
     {
@@ -19,7 +19,7 @@ namespace Today.Web.DTOModel
             public string ProductName { get; set; }
             public string CityName { get; set; }
             public string ProductTag { get; set; }
-            public List<Photo> PhtotList { get; set; }  
+            public List<Photo> PhtotList { get; set; }
             public List<Progarm> ProgarmList { get; set; }
             public string ProductDesc { get; set; }//商品說明
             public string ProductLocationName { get; set; }//地點名
@@ -48,11 +48,12 @@ namespace Today.Web.DTOModel
             public int ScreenId { get; set; }
             public TimeSpan Date { get; set; }
             public int SpecificationId { get; set; }
-            public  int Status { get; set; }
+            public int Status { get; set; }
 
         }
         public class ProgramSpecification
         {
+            public int SpecificationId { get; set; }
             public string Itemtext { get; set; }//人
             public string UnitText { get; set; }//間
             public decimal PorgarmUnitPrice { get; set; }//價錢
@@ -75,7 +76,7 @@ namespace Today.Web.DTOModel
         public class Date
         {
 
-             public int ProgramDateId { get; set; }
+            public int ProgramDateId { get; set; }
             public DateTime CantuseDate { get; set; } //方案不行的日期
         }
         public class Member
