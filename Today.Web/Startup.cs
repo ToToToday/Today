@@ -17,6 +17,7 @@ using Today.Web.Services.ProductService;
 using Today.Web.Services.ClassifyService;
 using Today.Web.Services.CheenkoutService;
 using Today.Web.Services.EcpayService;
+using Today.Web.Services.ProductInfoService;
 
 namespace Today.Web
 {
@@ -44,6 +45,7 @@ namespace Today.Web
             services.AddTransient<IClassifyService, ClassifyService>();
             services.AddTransient<IChenkoutService, ChenkoutService> ();
             services.AddTransient<IEcpayService, EcpayService>();
+            services.AddTransient<IProductInfoService, ProductInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
