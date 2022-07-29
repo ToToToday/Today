@@ -8,6 +8,6 @@ namespace Today.Web.Services.ClassifyService
     public interface IClassifyService
     {
         ClassifyDTO GetClassifyPages();
-        //List<ClassifyVM> GetClassifydestination();
+        ClassifyDTO GetClassifylogic();
     }
 }

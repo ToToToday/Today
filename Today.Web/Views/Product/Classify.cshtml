@@ -2,9 +2,8 @@
 
 <!-- 導覽列 -->
 @*導覽列下的三個BUTTON*@
-<div class="container city-filter-wrap position-fixed">
+<div class="container city-filter-wrap position-fixed pt-2">
     <div class="sidebar d-flex mx-0 px-3 bg-white">
-
         <!-- 第一版 目的地-->
         <div class="city-filter-btn d-flex">
             <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
@@ -48,7 +47,7 @@
                         <!-- checkbox內文 -->
                         <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
                              data-bs-parent="#accordionExample">
-                            <div class="accordion-body ">
+                            <div class="accordion-body-input ">
                                 @foreach (var item in Model.ClassifyCardList)
                                 {
                                     <div class="form-check pb-2">
@@ -261,7 +260,6 @@
         </div>
     </div>
 </div>
-</div>
 
 <div class="container-fluid-ProductList ">
     <section class="container m-auto">
@@ -273,6 +271,7 @@
                     <div class="filter-block py-2 pb-3 ps-3 ">
                         <h4>篩選目的地</h4>
                     </div>
+                    @*@using (Html.)*@
                     <div class="input-group d-flex pt-1 pb-2 ps-2">
                         <div class="input-group-text fa-solid fa-magnifying-glass border-end-0 bg-white ms-1">
                         </div>
@@ -504,7 +503,7 @@
                 <div class="container_card">
                     @foreach (var item in Model.ClassifyCardList)
                     {
-                        <div class="card_detail mb-3">
+                        <a class="card_detail mb-3" href="/Product/ProductInfo/@(item.ProductId)">
                             <div class="row g-0">
                                 <div class="col-md-4 ">
                                     <div class="pic h-100">
@@ -518,22 +517,24 @@
                                     <div class="card-body">
                                         <h4 class="card-title">@item.ProductName</h4>
                                         <div class="card-point py-2 ">
+                                            @foreach (var t in item.TagText)
+                                            {
+                                                <span class="label label-addational rounded-3 ">@t</span>
+                                            }
+                                            @*<span class="label label-addational rounded-3 ">6天前可免費取消</span>
 
-                                            @*<span class="label label-addational rounded-3 ">@item.TagText</span>*@
-                                            <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-
-                                            <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                            <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">即買即用</span>
+                                        <span class="label label-addational rounded-3 ">出發前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">適用國旅券</span>
+                                        <span class="label label-addational rounded-3 ">8天前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">2天前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">3天前可免費取消</span>
+                                        <span class="label label-addational rounded-3 ">即買即用</span>*@
                                         </div>
-                                        <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
-                                            Xpark 於 2022
-                                            年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                        </p>
-                                        <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
+                                        @*                                        <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
+                                    Xpark 於 2022
+                                    年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
+                                    </p>
+                                    *@                                        <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
                                             <i class="fa-solid fa-location-dot"></i>
                                             <div class="product-listview_inco_info flex_item product-palce">
                                                 <p class="card-text d-flex ms-2">
@@ -549,13 +550,15 @@
                                         </div>
                                         <div class="footer  d-flex flex-wrap">
                                             <div class="product_footer m-auto col-8 mt-3">
-                                                <i class="fa-solid fa-star "></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star-half"></i>
+                                                @*@foreach (var i in Model.ClassifyCardList)
+                                            {*@
+                                                <i class="fa-solid fa-star">@item.RatingStar</i>
+                                                @*<i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star-half"></i>*@
 
-                                                <span class="number">(366691)</span>
+                                                <span class="number">(@item.TotalComment)</span>
                                                 <!-- <span class="span_divider mx-1 "> | </span> -->
                                                 <!-- <div class="vr mx-1"></div> -->
                                                 <i class="fa-solid fa-fire py-2">
@@ -567,11 +570,12 @@
                                                 <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
                                                 <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     }
                 </div>
                 <!-- 頁數切換 -->
@@ -632,9 +636,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="~/css/Classify.css">
     <link rel="stylesheet" href="~/css/MoneyRange.css">
-
-
 }
+
     @section endJS{
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -657,11 +660,73 @@
             $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
             });
-
         });
     </script>
+    }
+    @section Scripts{
+    <script>
+        let container_card = document.querySelector('.container_card');
 
-}
+        container_card.addEventListener('click', function() {
+            //fetch"/api/ClassifyApi/Classify", {
+            //    method: "Get",
+            //    cache: "no-cache",
+            //    headers: new Headers({
+            //        'Content-Type': 'application/json'
+            //    }),
+            //    body: JSON.stringify({id:0}),
+            //})
+            //    .then(resp => {
+            //        if (resp.ok) {
+            //            return resp.text()
+            //        }
+            //    }).then(text => {
+            //        alert(text);
+            //    })
+        });
+    </script>
+    }
+
+    @*    <script type="text/javascript">
+        $(function() {
+            $a.jax({
+                url:
+                    dataType: "json",
+                type="Get",
+                success: function(data) {
+                    var container = $('')
+                }
+            })
+        })
+    </script>*@
+    @*    <form action="/records">
+        {{ #each categories }}
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitch{{this._id}}" name="filter" value="{{this._id}}" checked>
+            <label class="custom-control-label" for="customSwitch{{this._id}}"> {{ this.title }}</label>
+        </div>
+        {{/each}}
+        <button type="submit" class="btn btn-dark"> Submit </button>
+    </form>
+    <script>
+
+        router.get('/', (req, res) => {
+            const { filter } = req.query // 取得篩選類別
+        });
+        // Controller：路由內的邏輯都是分派程序
+        router.get('/', (req, res) => {
+            const sort = req.query.sort
+            Record.find({ category: filter }) // Model：從資料庫取出符合篩選類別的資料
+                .lean()
+                .then(records => {
+                    // View：傳進首頁模板渲染
+                    res.render('index', { records, categories })
+                })
+                .catch(error => console.error(error))
+        });
+    </script>
+*@
+
 
 
 

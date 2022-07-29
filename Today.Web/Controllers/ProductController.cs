@@ -22,10 +22,10 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-       
+
         private readonly IClassifyService _classifyService;
-        
-        
+
+
         public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService)
         {
             _cityServices = cityServices;
@@ -44,8 +44,16 @@ namespace Today.Web.Controllers
         {
             return View();
         }
+        //[HttpPost]
+        //public ActionResult SearchByCityName(string username)
+        //{
+        //    var user = _classifyService.IClassifyService.CityName
+        //        .FirstOrDefault(x => x.Name.ToUpper() == username.ToUpper());
 
-        public IActionResult Classify() //楊 分類
+        //    return View("SearchResult", user);
+        //}
+
+        public IActionResult Classify(String searchString) //楊 分類
         {
             var classPages = _classifyService.GetClassifyPages();
             var cardsource = classPages.ClassifyCardList.ToList();
@@ -54,25 +62,31 @@ namespace Today.Web.Controllers
             {
                 ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
                 {
+                    ProductId = c.ProductId,
                     ProductName = c.ProductName,
                     CityName = c.CityName,
                     Path = c.Path,
                     TagText = c.TagText,
                     UnitPrice = c.UnitPrice,
+                    RatingStar = (int)c.RatingStar,
+                    TotalComment = c.TotalComment,
                     Evaluation = c.Evaluation
                 }).ToList(),
                 CategoryList = Categorysource.Select(x => new ClassifyVM.CategoryDestinations
                 {
-                    Id = x.Id,
+                    ProductCategoryId = x.ProductCategoryId,
                     CategoryName = x.CategoryName,
                     ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
                     {
-                        Id = y.Id,
+                        ProductCategoryId = y.ProductCategoryId,
                         CategoryName = y.CategoryName
                     }).ToList()
                 }).ToList()
             };
-            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result.ClassifyCardList = result.ClassifyCardList.Where(s =>/*s.ProductName.Contains(searchString)||*/s.CityName.Contains(searchString)).ToList();
+            }
             return View(result);
         }
 
@@ -92,7 +106,7 @@ namespace Today.Web.Controllers
             var cityRequest = new CityRequestDTO
             {
                 CityId = id
-            }; 
+            };
             var CityDetail = _cityServices.GetCity(cityRequest);
             var CityAllCard = _cityServices.GetAllCity(cityRequest);
             var CityAllRaider = _cityServices.GetRaiderCard(cityRequest);
@@ -142,7 +156,7 @@ namespace Today.Web.Controllers
                     Tags = newp.Tags,
                     CityName = newp.CityName,
                     OriginalPrice = newp.OriginalPrice,
-                    Price =newp.Price,
+                    Price = newp.Price,
                     Rating = newp.Rating,
                     TotalGiveComment = newp.TotalComment,
                     TotalOrder = newp.Quantity
@@ -195,8 +209,8 @@ namespace Today.Web.Controllers
                     Text = Raidercontent.RaiderInfo.Text,
                     Video = Raidercontent.RaiderInfo.Video,
                 }
-            };   
-         
+            };
+
             return View(CityRaider);
         }
         public IActionResult OffIsland() //離島 分類
@@ -214,7 +228,7 @@ namespace Today.Web.Controllers
                 }).ToList(),
                 GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
                 {
-                    ProductId = p.ProductId, 
+                    ProductId = p.ProductId,
                     ProductName = p.ProductName,
                 }).ToList()
                 ,
