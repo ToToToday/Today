@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Today.Web.Services.EcpayService;
 using static Today.Web.DTOModels.EcpayDTO.EcpayDTO;
 
-namespace Today.Web.Controllers
+namespace Today.Web.WebApiControllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -45,12 +45,12 @@ namespace Today.Web.Controllers
                 Description = "測試購物系統",
                 Date = DateTime.UtcNow.AddHours(8), //DateTime.Now
                 Method = EPaymentMethod.Credit,
-                
+
                 Item = new List<Item>
                 {
                     new Item
                     {
-                        
+
                         Name = TempData["OrderProduct"].ToString(),
                         Price = (int)TempData["OrderPrice"],
                         Quantity = (int)TempData ["OrderQuantity"]
@@ -78,7 +78,7 @@ namespace Today.Web.Controllers
                 .Transaction.WithItems(
                     items: transaction.Item)
                 .Generate();
-            
+
             return View(payment);
         }
 
@@ -96,9 +96,9 @@ namespace Today.Web.Controllers
             if (!CheckMac.PaymentResultIsValid(result, hashKey, hashIV)) return BadRequest();
 
             // 處理後續訂單狀態的更動等等...。
-            
+
             var updateOrder = _ecpayService.UpdateStatus(result.MerchantTradeNo);
-            if(updateOrder.IsSuccess != true)
+            if (updateOrder.IsSuccess != true)
             {
 
             }
