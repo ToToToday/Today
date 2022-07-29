@@ -20,21 +20,8 @@ namespace Today.Web.Controllers
             _shopCartService = shopCartService;
         }
 
-        [HttpPost
-        ("{memberId}/{specificationId}/{screeningId}/{productName}/{programTitle}/{path}/{departureDate}/{unitText}/{unitPrice}/{quantity}/{screenTime}")]
-        public IActionResult ShopCart
-        ([FromRoute] int memberId,
-        [FromRoute] int specificationId,
-        [FromRoute] int screeningId,
-        [FromRoute] string productName,
-        [FromRoute] string programTitle,
-        [FromRoute] string path,
-        [FromRoute] DateTime departureDate,
-        [FromRoute] string unitText,
-        [FromRoute] string unitPrice,
-        [FromRoute] int quantity,
-        [FromRoute] string screenTime
-        )
+        [HttpPost]
+        public IActionResult AddCart([FromBody] ShopCartRequestVM request)
         {
             
             try

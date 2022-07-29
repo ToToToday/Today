@@ -675,6 +675,15 @@ radio
                 })
             })
         })
+
+        function addCart(request){
+            fetch('/shop/AddCart',{
+            methods:'Post',
+            headers:new Headers({'Content-Type':'application/json'}),
+            body:JSON.stringify(request)
+            })
+            .then(res => return res.json())
+        }
     </script>
 }
 
