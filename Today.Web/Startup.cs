@@ -18,6 +18,7 @@ using Today.Web.Services.ClassifyService;
 using Today.Web.Services.CheenkoutService;
 using Today.Web.Services.EcpayService;
 using Today.Web.Services.ProductInfoService;
+using Microsoft.OpenApi.Models;
 
 namespace Today.Web
 {
@@ -37,6 +38,10 @@ namespace Today.Web
             services.AddDbContext<TodayDBContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodayWeb", Version = "v1" });
             });
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
@@ -61,6 +66,8 @@ namespace Today.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodayWeb v1"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
