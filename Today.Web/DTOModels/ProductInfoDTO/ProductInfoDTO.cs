@@ -62,6 +62,7 @@ namespace Today.Web.DTOModels.ProductInfoDTO
         public class Photo
         {
             public string PhotoUrl { get; set; }
+            public int Sort { get; set; }
         }
         public class AboutProgram
         {

@@ -65,7 +65,8 @@ namespace Today.Web.Services.ProductInfoService
                     PhtotList = productPhotoSource.Select(p =>
                     new ProductInfoDTO.Photo
                     {
-                        PhotoUrl = p.Path
+                        PhotoUrl = p.Path,
+                        Sort = p.Sort,
                     }).ToList(),
                 }
             };

@@ -15,7 +15,7 @@ namespace Today.Web.DTOModels.ShopCartDTO
         public string ProductName { get; set; }
         public string UnitText { get; set; }
         public decimal UnitPrice { get; set; }
-        public TimeSpan ScreenTime { get; set; }
+        public string ScreenTime { get; set; }
         //public DateTime JoinTime { get; set; }
     }
     public class CreateShopCartOutputDTO
