@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,9 +11,12 @@ using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
 using Today.Web.Services.ClassifyService;
 using Today.Web.Services.locationService;
+using Today.Web.Services.ProductInfoService;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
+using static Today.Web.ViewModels.ProductInfoVM;
+using Today.Web.DTOModels.ProductInfoDTO;
 
 namespace Today.Web.Controllers
 {
@@ -22,27 +26,101 @@ namespace Today.Web.Controllers
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-
+        private readonly IProductInfoService _productInfoService;
         private readonly IClassifyService _classifyService;
 
 
-        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService)
+        
+        
+        
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService)
         {
+            _productInfoService = productInfoService;
             _cityServices = cityServices;
             _productServices = productService;
             _locationServices = locationServices;
             _classifyService = classifyService;
-
+            _productInfoService = productInfoService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult ProductPages() //商品頁面
+        
+        public IActionResult ProductInfo(int id) //商品頁面
         {
-            return View();
+            if (id <= 0)
+            {
+                return Content("找不到商品");
+            }
+            else
+            {
+                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                ;
+                var productinfo = new ProductInfoVM
+                {
+                    ProductIsdeleted = productPagesServiceDTO.ProductInfo.ProductIsdeleted,
+                    ShoppingNotice = productPagesServiceDTO.ProductInfo.ShoppingNotice,
+                    ProductId = productPagesServiceDTO.ProductInfo.ProductId,
+                    CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy,
+                    HowUse = productPagesServiceDTO.ProductInfo.HowUse,
+                    ProductName = productPagesServiceDTO.ProductInfo.ProductName,
+                    CityName = productPagesServiceDTO.ProductInfo.CityName,
+                    Producttag = productPagesServiceDTO.ProductInfo.ProductTag,
+                    ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
+                    ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
+                    ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
+                    new ProductInfoVM.Photo
+                    {
+                        PhotoUrl = p.PhotoUrl
+                    }).ToList(),
+                    ProgarmList = productPagesServiceDTO.ProductInfo.ProgarmList.Select(p =>
+                    new ProductInfoVM.Progarm
+                    {
+                        ProgarmIsdeleted = p.ProgarmIsdeleted,
+                        PrgramName = p.PorgramName,
+                        PrgarmText = p.PrgarmText,
+                        DateList = p.DateList.Select(d =>
+                        new Date
+                        {
+                            CantuseDate = d.CantuseDate
+                        }).ToList(),
+                        AboutProgramList = p.AboutProgramList.Select(ap => new ProductInfoVM.AboutProgram
+                        {
+                            AboutProgramName = ap.AboutProgramName,
+                            IconClass = ap.IconClass,
+                        }).ToList(),
+                        ProgramIncludeList = p.ProgramInciudeList.Select(pi =>
+                        new ProductInfoVM.ProgramInclude
+                        {
+                            Inciudetext = pi.Inciudetext,
+                            IsInclude = pi.IsInclude,
+                        }).ToList(),
+                        ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
+                        {
+                            Date = p.Date,
+                            ScreenId = p.ScreenId,
+                            SpecificationId = p.SpecificationId,
+                            Status =p.Status
+                        }).ToList()
+                        ,
+                        ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
+                            new ProductInfoVM.ProgramSpecification
+                            {
+                                SpecificationId = pgsc.SpecificationId,
+                                PorgarmUnitPrice = pgsc.PorgarmUnitPrice,
+                                Itemtext = pgsc.Itemtext,
+                                UnitText = pgsc.UnitText,
+                            }).ToList()
+                    }).ToList()
+                };
+                ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
+                return View(productinfo);
+                //return View();
+            }
+
         }
         //[HttpPost]
         //public ActionResult SearchByCityName(string username)
@@ -132,6 +210,7 @@ namespace Today.Web.Controllers
                 }).ToList(),
                 RaiderList = CityAllRaider.Select(rl => new CityVM.CityRaiderList
                 {
+                    RaiderId = rl.RaiderId,
                     CityId = rl.CityId,
                     Title = rl.Title,
                     SubTitle = rl.SubTitle
@@ -141,8 +220,8 @@ namespace Today.Web.Controllers
                     CityId = cl.CityId,
                     Name = cl.Name,
                     RatingStar = cl.RatingStar,
-                    CommentDate = cl.CommentDate,
-                    UseDate = cl.UseDate,
+                    CommentDate = string.Format("{0:yyyy/MM/dd}",cl.CommentDate),
+                    UseDate = string.Format("{0:yyyy/MM/dd}", cl.UseDate),
                     PartnerType = cl.PartnerType,
                     ProductName = cl.ProductName,
                     Text = cl.Text,
@@ -427,6 +506,7 @@ namespace Today.Web.Controllers
         }
         public IActionResult QuarantineHotel() //防疫旅館頁面
         {
+
             return View();
         }
         public IActionResult HSR() //國旅

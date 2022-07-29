@@ -75,7 +75,7 @@ namespace Today.Web.Data
             List<Coupon> couponsList = new List<Coupon>()
             {
                 new Coupon(){CouponId=1, CouponName = "評論禮", StartDate = new DateTime(2022,06,22), EndDate = new DateTime(2022,12,21), Context = "TWD 45, 訂購金額須滿 TWD 742",DiscountCode = "TWCB4YH",CouponDiscount=45,FullConsumption=742,Rebate=45, UseInfo="適用於 KKday 全站商品（大阪環球影城、東京迪士尼、JR 系列等及部分特定商品無法使用，敬請見諒。）<br>訂購金額須滿 TWD 743<br>每位會員限使用 1 次<br>限購買商品類別：一日遊, 多日旅遊, 機場接送, 司機／交通, 門票／兌換券, 半日遊, 私人導遊, 點對點接送" },
-                new Coupon(){CouponId=2, CouponName = "指定商品現折50元", StartDate = new DateTime(2021,02,04,00,00,00), EndDate = new DateTime(2023,01,01,07,59,00), Context = "TWD 50, 訂購金額須滿 TWD 51",DiscountCode = "VISA50",CouponDiscount=50,FullConsumption=51,Rebate=50, UseInfo= "- 於KKday 購買台北捷運三大場館票券(兒童新樂園一日樂FUN券、teamlab聯票方案、Xpark聯票方案、臺北小巨蛋冰上樂園、貓空纜車邀月茶坊套票)、桃園埔心牧場門票、頑皮世界野生動物園門票，刷Visa並綁定KKday App Clip或Apple Pay，結帳輸入折扣碼可享現折新台幣 50元回饋，每月限量名額，活動期間每會員限用3次。 - 需使用 KKday iOS app 1.68.0 以上版本。<br>訂購金額須滿 TWD 51<br>每位會員限使用 3 次<br>限 台灣 會員使用"}
+                new Coupon(){CouponId=2, CouponName = "指定商品現折50元", StartDate = new DateTime(2022,06,30,00,00,00), EndDate = new DateTime(2023,01,01,07,59,00), Context = "TWD 50, 訂購金額須滿 TWD 51",DiscountCode = "VISA50",CouponDiscount=50,FullConsumption=51,Rebate=50, UseInfo= "- 於KKday 購買台北捷運三大場館票券(兒童新樂園一日樂FUN券、teamlab聯票方案、Xpark聯票方案、臺北小巨蛋冰上樂園、貓空纜車邀月茶坊套票)、桃園埔心牧場門票、頑皮世界野生動物園門票，刷Visa並綁定KKday App Clip或Apple Pay，結帳輸入折扣碼可享現折新台幣 50元回饋，每月限量名額，活動期間每會員限用3次。 - 需使用 KKday iOS app 1.68.0 以上版本。<br>訂購金額須滿 TWD 51<br>每位會員限使用 3 次<br>限 台灣 會員使用"}
             };
             _context.Coupons.AddRange(couponsList);
             #endregion
@@ -896,6 +896,17 @@ namespace Today.Web.Data
                 new Comment(){ CommentId = 16, OrderDetailsId = 16, ProductId = 5, MemberId = 8, PartnerType = 2, CommentDate = new DateTime(2022, 08, 20), RatingStar = 5, CommentTitle = "住宿舒適", CommentText = "主題特殊，定位明確，地點方便，挺不錯的住宿體驗" }
             };
             _context.Comments.AddRange(commentList);
+            #endregion
+            _context.SaveChanges();
+
+            #region CouponManage
+            List<CouponManage> couponManageList = new List<CouponManage>()
+            {
+                new CouponManage(){ CouponManageId = 1, CouponId = 1, StaffId = 2, SendTime = new DateTime(2022, 06, 20), MemberId = 1, CouponStatus = 0 },
+                new CouponManage(){ CouponManageId = 2, CouponId = 1, StaffId = 2, SendTime = new DateTime(2022, 06, 20), MemberId = 3, CouponStatus = 0 },
+                new CouponManage(){ CouponManageId = 3, CouponId = 2, StaffId = 1, SendTime = new DateTime(2022, 06, 25), MemberId = 3, CouponStatus = 1 },
+            };
+            _context.CouponManages.AddRange(couponManageList);
             #endregion
             _context.SaveChanges();
         }

@@ -67,6 +67,7 @@ namespace Today.Web.Services.CityService
         {
             var raiderResult = _repo.GetAll<CityRaider>().Where(x => x.CityId == request.CityId).Select(r =>new CityDTO.RaiderCard
             {
+                RaiderId = r.RaidersId,
                 CityId = r.CityId,
                 Title = r.Title,
                 SubTitle = r.Subtitle
@@ -139,7 +140,7 @@ namespace Today.Web.Services.CityService
         }
         public ProductDTO GetProduct()
         {
-            var result = new ProductDTO { productList = new List<ProductDTO.ProductInfo> { }, cateoryList = new List<ProductDTO.CategoryInfo> { } };
+            var result = new ProductDTO { ProductList = new List<ProductDTO.ProductInfo> { }, CategoryList = new List<ProductDTO.CategoryInfo> { } };
             var productList = _repo.GetAll<Product>().ToList();
             var productPhotoList = _repo.GetAll<ProductPhoto>().ToList();
             var productCategoryList = _repo.GetAll<ProductCategory>().ToList();
@@ -180,7 +181,7 @@ namespace Today.Web.Services.CityService
                         }
                     }
                 }
-                result.cateoryList.Add(mainTemp);
+                result.CategoryList.Add(mainTemp);
             }
             #endregion
 
@@ -206,14 +207,14 @@ namespace Today.Web.Services.CityService
                     Prices = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
                 };
 
-                result.productList.Add(productTemp);
+                result.ProductList.Add(productTemp);
                 #endregion
             }
             return result;
         }
         public List<ProductCard> GetTopTen(CityRequestDTO request)
         {
-            var result = GetProduct().productList.OrderByDescending(p => p.TotalOrder).Where(c => c.CityId == request.CityId).Take(10).Select(newA => new CityDTO.ProductCard
+            var result = GetProduct().ProductList.OrderByDescending(p => p.TotalOrder).Where(c => c.CityId == request.CityId).Take(10).Select(newA => new CityDTO.ProductCard
             {
                 Id = newA.Id,
                 ProductPhoto = newA.ProductPhoto,
@@ -236,7 +237,7 @@ namespace Today.Web.Services.CityService
 
         public List<ProductCard> GetNewActiviy(CityRequestDTO request)
         {
-            var result = GetProduct().productList.OrderByDescending(p => p.Id).Where(c => c.CityId == request.CityId).Take(10).Select(newA => new CityDTO.ProductCard
+            var result = GetProduct().ProductList.OrderByDescending(p => p.Id).Where(c => c.CityId == request.CityId).Take(10).Select(newA => new CityDTO.ProductCard
             {
                 Id = newA.Id,
                 ProductPhoto = newA.ProductPhoto,
@@ -257,7 +258,7 @@ namespace Today.Web.Services.CityService
         }
         public List<ProductCard> GetAboutProduct(CityRequestDTO request)
         {
-            var Aboutresult = GetProduct().productList.OrderBy(x => Guid.NewGuid()).Where(c => c.CityId ==request.CityId).Take(10).Select(Aboutp => new CityDTO.ProductCard
+            var Aboutresult = GetProduct().ProductList.OrderBy(x => Guid.NewGuid()).Where(c => c.CityId ==request.CityId).Take(10).Select(Aboutp => new CityDTO.ProductCard
             {
                 Id = Aboutp.Id,
                 ProductPhoto = Aboutp.ProductPhoto,

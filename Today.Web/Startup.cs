@@ -15,6 +15,9 @@ using Today.Web.Services.CityService;
 using Today.Web.Services.locationService;
 using Today.Web.Services.ProductService;
 using Today.Web.Services.ClassifyService;
+using Today.Web.Services.CheenkoutService;
+using Today.Web.Services.EcpayService;
+using Today.Web.Services.ProductInfoService;
 
 namespace Today.Web
 {
@@ -40,6 +43,9 @@ namespace Today.Web
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IClassifyService, ClassifyService>();
+            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IEcpayService, EcpayService>();
+            services.AddTransient<IProductInfoService, ProductInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +72,7 @@ namespace Today.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Product}/{action=City}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
