@@ -18,8 +18,8 @@ namespace Today.Model.Models
         public int Quantity { get; set; }
         public decimal? Discount { get; set; }
         public string Itemtext { get; set; }
-        public DateTime LeaseTime { get; set; }
-        public int TicketsId { get; set; }
+        public DateTime? LeaseTime { get; set; }
+        public int? TicketsId { get; set; }
         public decimal UnitPrice { get; set; }
         public DateTime DepartureDate { get; set; }
 

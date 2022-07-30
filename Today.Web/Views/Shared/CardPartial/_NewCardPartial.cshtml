@@ -1,0 +1,38 @@
+﻿@*@model Today.Web.ViewModels.ProductVM*@
+
+@foreach(var item in Model)
+{
+    <div class="fixed-card mx-2 position-relative col">
+        <a href="#" class="text-decoration-none text-black w-100">
+            <div class="bundle position-relative overflow-hidden w-100 h-50">
+                <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+                <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>
+                <img src="@item.ProductPhoto" class="card-img-top rounded w-100 h-100" alt="@item.ProductName">
+            </div>
+            <div class="card-body px-0">
+                <h4 class="card-text overflow-hidden">@item.ProductName</h4>
+                <div class="card-tag mb-2 d-flex">
+                    @foreach(var t in item.Tags)
+                    {
+                        <span title="@t" class="tag px-2 py-1 me-2 rounded">@t</span>
+                    }
+                </div>
+                <div class="card-product-review mb-2 d-flex">
+                    <span class="px-1 border-end border-secondary">
+                        <i class="fa-solid fa-star"></i>@item.Rating (@(item.TotalGiveComment))
+                    </span>
+                    <span class="px-1">
+                        @(item.TotalOrder) 個已訂購
+                    </span>
+                </div>
+                <div class="card-product-price d-flex">
+                    <span class="text-decoration-line-through p-1 text-black @(item.OriginalPrice == null ? "d-none" : "d-flex flex-nowrap")">TWD @item.OriginalPrice</span>
+                    <span class="p-1 text-black @(item.Price == null ? "d-none" : "d-flex flex-nowrap")">TWD<span class="fw-bolder">@item.Price</span></span>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+@section topCSS{
+    <link rel="stylesheet" href="~/css/newcard.css"/>
+}

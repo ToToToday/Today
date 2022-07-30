@@ -1,0 +1,182 @@
+.modal-title{
+    margin: auto;
+}
+#fb{
+    background-color: rgb(24, 119, 242);
+}
+#line{
+    background-color: rgb(0, 195, 0);
+}
+#google{
+    background: #fff;
+    border-color: #666;
+}
+.modal-body.login-modal{
+    text-align: center;
+    padding: 20px;
+}
+.btn-circle{
+    width: 50px;
+    height: 50px;
+    line-height: 40px;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    font-size: 18px;
+    margin: 0 3px;
+}
+.btn-circle img{
+    width: 20px;
+    position: relative;
+    top: 3px;
+}
+.or{
+    position: absolute;
+    top: -6px;
+    left: calc(50% - 9px);
+    background-color: #fff;
+}
+.All-icon{
+    margin-bottom: 20px;
+}
+.login-form .input-box{
+    height: 45px;
+    align-items: center;
+    border: 1px solid #ccc;
+    margin: 10px 0px;
+}
+.login-form .icon-set{
+    margin: 0 10px 0 15px;
+}
+.inp-sty{
+    border: none;
+}
+.google-recaptcha{
+    text-align: left;
+    font-size: 0.9rem;
+}
+.google-recaptcha a{
+    line-height: 1.5rem;
+    color: #26bec9;
+}
+a{
+    text-decoration: none;
+    color: #26bec9;
+}
+.btn-box{
+    padding: 5px 0 10px 0;
+}
+.btn-box .btn{
+    background-color: #26bec9;
+}
+.modal-body.login-modal .mt-10 a {
+    font-size: 0.9rem;
+}
+.gap {
+    display: inline-block;
+    margin: 0 5px;
+    color: #ccc;
+}
+.forget-password{
+    color: #666;
+}
+.footer.login-modal {
+    color: #999;
+    font-size: 0.5rem;
+    line-height: 1.7;
+    padding: 15px 10px 0;
+    text-align: center;
+}
+.forgot-password{
+    display: none;
+}
+.dont-add{
+    display: none;
+}
+.header{
+    display: none;
+}
+.btn-close{
+    display: none;
+}
+.left-icon{
+    font-size: 30px;
+}
+.modal-body.login-modal label {
+    display: block;
+    text-align: left;
+    margin: 15px 0 5px;
+    font-size: 0.9rem;
+}
+.text-color{
+    color: #26bec9;
+}
+#exampleModal2 .footer.login-modal {
+    font-size: 0.9rem;
+}
+
+
+@media screen and (min-width:768px) {
+
+}
+
+@media screen and (min-width:992px) {
+    .footer.login-modal {
+        display: none;
+    }
+    .login-form p{
+        text-align: left;
+        font-weight: bolder;
+    }
+    .forgot-password{
+        display: block;
+        text-align: right;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    .google-recaptcha{
+        display: none;
+    }
+    .password-register{
+        display: none;
+    }
+    .dont-add{
+        display: block;
+        text-align: left;
+    }
+    .modal-header.login-modal, .modal-body.login-modal .mb-3 {
+        display: none;
+    }
+    .header{
+        margin-top: 40px;
+        display: block;
+        line-height: 2rem;
+        font-weight: bolder;
+        margin-bottom: 10px;
+    }
+    .header h4{
+        font-weight: bolder;
+    }
+    .header h5{
+        margin-top: 10px;
+        font-size: 0.9rem;
+    }
+    .modal-content.login-modal:before {
+        content: "";
+        display: block;
+        height: 8px;
+        border-radius: 4px 4px 0 0;
+        background: linear-gradient(65deg,#64b3f4,#26bec9 60%);
+    }
+    .btn-close{
+        display: block;
+        right: 50px;
+        top: 50px;
+        z-index: 20;
+    }
+}
+
+@media screen and (min-width:1200px) {
+
+}
