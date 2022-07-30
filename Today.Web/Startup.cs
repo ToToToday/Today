@@ -14,6 +14,11 @@ using Today.Model.Repositories;
 using Today.Web.Services.CityService;
 using Today.Web.Services.locationService;
 using Today.Web.Services.ProductService;
+using Today.Web.Services.ClassifyService;
+using Today.Web.Services.CheenkoutService;
+using Today.Web.Services.EcpayService;
+using Today.Web.Services.ProductInfoService;
+using Microsoft.OpenApi.Models;
 
 namespace Today.Web
 {
@@ -34,10 +39,18 @@ namespace Today.Web
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
             });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodayWeb", Version = "v1" });
+            });
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IClassifyService, ClassifyService>();
+            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IEcpayService, EcpayService>();
+            services.AddTransient<IProductInfoService, ProductInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +66,8 @@ namespace Today.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodayWeb v1"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
