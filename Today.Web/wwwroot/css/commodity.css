@@ -29,6 +29,17 @@
     background-color: cornflowerblue;
 }
 
+.icon-paper-plane:before {
+    color: currentcolor;
+    content: "\e094";
+}
+
+.fa-flash:before {
+    color: var(--font-color-span);
+    content: "\f0e7";
+}
+
+
 h5#offcanvasBottomLabel1 {
     text-align: initial;
 }
@@ -156,9 +167,7 @@ h6.product-initial-title {
     display: none;
 }
 
-html i {
-    font-size: 25px;
-}
+
 
 h2 {
     font-size: 1rem;
