@@ -448,10 +448,10 @@ radio
                     </div>
                 </div>
                 <div class="shopping-cart-div col-12 d-flex">
-                    <form action="~/Shop/ShopCart/@TempData["MemberId"]/@TempData["SpecificationId"]/@TempData["ScreeningId"]/@TempData["Quantity"]"  method="post">
+                    @*<form action="~/Shop/AddCart/@TempData["SpecificationId"]/@TempData["ScreeningId"]/@TempData["Quantity"]"  method="post">*@
                     <input type="hidden" name="UnitPrice" value="@TempData["UnitPrice"]" />
-                    <input type="submit" class="shopping-cart-btn "  value="加入購物車" />
-                    </form>
+                    <input id="AddCart" type="submit" class="shopping-cart-btn "  value="加入購物車"/>
+                    @*</form>*@
                     <input type="submit" class="asd-btn " value="立即訂購" />
                 </div>
             </div>  
@@ -506,13 +506,13 @@ radio
     @*<script src="~/js/ProductInfo.js"></script>*@
     <script>
   
-        ('@(Model.ProductName)');
+        //('@(Model.ProductName)');
 
         let product_initial = document.querySelector("#product-initial")
         let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
         //let pglist = ViewData["ProgramSpecification"];
         //let body = document.querySelector("body")
-        let selectProgram = document.querySelector(".selected-Program")
+        let selectProgram = document.querySelector(".selected-Program");
         pglist.forEach((pg, index) => {
             product_initial.append(Addcard(index, pg.PrgarmText, pg.PrgramName, pg.ProgramSpecificationList, pg.AboutProgramList, pg.ProgramIncludeList, pg.DateList))
         })
@@ -675,14 +675,73 @@ radio
                 })
             })
         })
-
-        function addCart(request){
-            fetch('/shop/AddCart',{
-            methods:'Post',
+        let addCart = document.querySelector("#AddCart");
+        addCart.addEventListener("click", function() {
+            //let request = {
+            //    ProductName : 'name',
+            //    ProgramTitle : 'title',
+            //    DepartureDate : '2022-07-30',
+            //    Path : 'Path',
+            //    Quantity : 3,
+            //    UnitPrice : 100,
+            //    UnitText : 'UnitText',
+            //    SpecificationId : 5,
+            //    ScreenTime : '10:40',
+            //    ScreeningId : 3
+            //}
+            //addToCart(request);
+            fetch('https://localhost:5001/api/Shop/AddCart',{
+            method:'POST',
             headers:new Headers({'Content-Type':'application/json'}),
-            body:JSON.stringify(request)
+                body: JSON.stringify({
+                ProductName : 'name',
+                ProgramTitle : 'title',
+                DepartureDate : '2022-07-30',
+                Path : 'Path',
+                Quantity : 3,
+                UnitPrice : 100,
+                UnitText : 'UnitText',
+                SpecificationId : 5,
+                ScreenTime : '10:40',
+                ScreeningId : 3,
+                })
             })
-            .then(res => return res.json())
+            //.then(res => { return res.json() })
+            .then(res =>{
+                if (res.data.status == 200) {
+                    alert("insert success")
+                }
+                else {
+                    alert("insert failed")
+                }
+            })
+        })
+        function addToCart(request){
+            fetch('api/Shop/AddCart',{
+            method:'POST',
+            headers:new Headers({'Content-Type':'application/json'}),
+                body: JSON.stringify({
+                ProductName : 'name',
+                ProgramTitle : 'title',
+                DepartureDate : '2022-07-30',
+                Path : 'Path',
+                Quantity : 3,
+                UnitPrice : 100,
+                UnitText : 'UnitText',
+                SpecificationId : 5,
+                ScreenTime : '10:40',
+                ScreeningId : 3,
+                })
+            })
+            .then(res => { return res.json() })
+            .then(res =>{
+                if (res.data.status === 200) {
+                    alert("insert success")
+                }
+                else {
+                    alert("insert failed")
+                }
+            })
         }
     </script>
 }

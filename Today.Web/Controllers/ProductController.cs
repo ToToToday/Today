@@ -53,7 +53,7 @@ namespace Today.Web.Controllers
             return View();
         }
         
-        public IActionResult ProductInfo(int id , string n) //商品頁面
+        public IActionResult ProductInfo(int id) //商品頁面
         {
             if (id <= 0)
             {
@@ -135,12 +135,12 @@ namespace Today.Web.Controllers
                 //    }).ToList()
                 //};
 
-                var shopCart = new ProductInfoVM
-                {
-                    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(ph => new Photo {Sort = ph.Sort, PhotoUrl = ph.PhotoUrl}).Take(1).ToList(),
-                };
+                ////var shopCart = new ProductInfoVM
+                ////{
+                ////    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(ph => new Photo {Sort = ph.Sort, PhotoUrl = ph.PhotoUrl}).Take(1).ToList(),
+                ////};
 
-                //ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
+                ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
                 //TempData["ProductName"] = productinfo.ProductName;
                 //TempData["MemberId"] = "2";
                 //TempData["SpecificationId"] = "5";
