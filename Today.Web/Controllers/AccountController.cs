@@ -59,18 +59,20 @@ namespace Today.Web.Controllers
 
         //登入
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login() //顯示
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login([FromForm] LoginVM requestParam)
+        [ValidateAntiForgeryToken]
+        public IActionResult Login([FromForm] LoginVM requestParam) //收資料，資料庫寫入
         {
             //1. 內建的 模型檢核 機制   (檢核欄位)  //後端檢核：顧及正確   //前端檢核：顧及消費者體驗
             if (!ModelState.IsValid)
             {
-                return View(requestParam);//體貼地將資料填回去
+                return Content("輸入不合規");
+                //return View(requestParam);//體貼地將資料填回去
             }
 
             //2. 輸出 = service 方法(輸入)
@@ -89,7 +91,8 @@ namespace Today.Web.Controllers
             {
                 //手動增加模型的Error 錯誤訊息
                 ModelState.AddModelError(string.Empty, outputDto.Message);
-                return View(requestParam); //體貼地將資料填回去
+                return Content("輸入不合規");
+                //return View(requestParam); //體貼地將資料填回去
             }
 
             //最後

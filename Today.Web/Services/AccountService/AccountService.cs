@@ -117,6 +117,10 @@ namespace Today.Web.Services.AccountService
                 //new Claim( ClaimTypes.NameIdentifier , memberFound.MemberId.ToString()), //三方登入會用到
                 new Claim( ClaimTypes.Name , memberFound.MemberId.ToString() ),
                 new Claim( ClaimTypes.Email , memberFound.Email),
+
+                //自行看 ClaimTypes底下有那些實用的常數***********
+                //new Claim(ClaimTypes.Role, "A"),
+                //new Claim(ClaimTypes.Role, "B"),
             };
 
             //lv2 用上面的資訊集合，造一個ClaimsIdentity物件。

@@ -18,9 +18,12 @@ using static Today.Web.ViewModels.ProductVM;
 
 namespace Today.Web.Controllers
 {
+    //[Authorize(Roles = "A")] //限制「具備A角色」才可拜訪******
+    //[Authorize(Roles = "B")]
+    //[Authorize(Roles = "A,B")] //限制「具備A角色 或 B角色」才可拜訪
+
     public class HomeController : Controller
     {
-
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
         private readonly ICityService _cityService;
@@ -148,7 +151,6 @@ namespace Today.Web.Controllers
 
             return View(homeshow);
         }
-
         
         public IActionResult Privacy()
         {

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Today.Web.ViewModels.Account
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,7 +18,8 @@
     @await RenderSectionAsync("topJS", required: false)
 </head>
 <body>
-    <partial name="Layout/_NavPartial"/>
+    <partial name="Layout/_NavPartial" />  
+    @*model="new A{loginVM = new LoginVM() , signUpVM = new SignUpVM() }"*@
 
     @*<div class="container out-border">
         <main role="main" class="main" class="pb-3">*@

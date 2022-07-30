@@ -15,6 +15,7 @@ using Today.Model.Repositories;
 using Today.Web.Services.AccountService;
 using Today.Web.Services.CityService;
 using Today.Web.Services.locationService;
+using Today.Web.Services.MemberService;
 using Today.Web.Services.ProductService;
 
 namespace Today.Web
@@ -40,9 +41,11 @@ namespace Today.Web
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
 
+
             // 註冊DI
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<GenericRepository>();
+            services.AddScoped<IMemberService, MemberService>();
             //services.AddScoped<IHttpContextAccessor, HttpContextAccessor>(); //(不要用，用內建方法【下面那行】)
             services.AddHttpContextAccessor();
 
@@ -64,6 +67,10 @@ namespace Today.Web
                     ////若權限不足，會導向的Action的路徑
                     //options.AccessDeniedPath = new PathString("/Account/AccessDenied");
                 });
+
+
+            services.AddTransient<ILocationService, LocationService>();
+
 
             services.AddTransient<ILocationService, LocationService>();
 

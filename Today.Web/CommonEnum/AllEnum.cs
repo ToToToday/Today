@@ -15,5 +15,8 @@ namespace Today.Web.CommonEnum
             [Description("朋友旅遊")]
             friend = 4,
         }
+
+
+
     }
 }

@@ -27,7 +27,9 @@ namespace Today.Web.Services.AccountService
 
 
         //void SendVerifyMail(string email); //發送驗證郵件(不需要)
-        //void VerifyAccount(int memberId); //驗證賬戶(不需要)
+
+        //void VerifyAccount(int memberId); //驗證帳號(不需要)
+
 
         /// <summary>
         /// 判斷是否登入至網站
