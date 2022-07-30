@@ -621,7 +621,6 @@ namespace Today.Model.Models
                 entity.HasOne(d => d.Tickets)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.TicketsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderDetail_Ticket");
             });
 
@@ -876,12 +875,13 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.Status).HasComment("狀態(上下架)");
 
-                entity.Property(e => e.Time).HasComment("時間");
+                entity.Property(e => e.Time)
+                    .HasMaxLength(100)
+                    .HasComment("時間");
 
                 entity.HasOne(d => d.Specification)
                     .WithMany(p => p.Screenings)
                     .HasForeignKey(d => d.SpecificationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Screening_ProgramSpecification");
             });
 

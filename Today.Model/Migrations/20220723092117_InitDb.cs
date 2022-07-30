@@ -619,8 +619,8 @@ namespace Today.Model.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false, comment: "數量"),
                     Discount = table.Column<decimal>(type: "decimal(18,0)", nullable: true, comment: "折扣"),
                     Itemtext = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "票種（成人/兒童/車)"),
-                    LeaseTime = table.Column<DateTime>(type: "datetime", nullable: false, comment: "租賃時間"),
-                    TicketsId = table.Column<int>(type: "int", nullable: false, comment: "電子憑證ID"),
+                    LeaseTime = table.Column<DateTime>(type: "datetime", nullable: true, comment: "租賃時間"),
+                    TicketsId = table.Column<int>(type: "int", nullable: true, comment: "電子憑證ID"),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,0)", nullable: false, comment: "價格"),
                     DepartureDate = table.Column<DateTime>(type: "datetime", nullable: false, comment: "出發日期")
                 },
@@ -652,9 +652,9 @@ namespace Today.Model.Migrations
                 columns: table => new
                 {
                     ScreeningId = table.Column<int>(type: "int", nullable: false, comment: "場次ID"),
-                    Time = table.Column<TimeSpan>(type: "time", nullable: false, comment: "時間"),
-                    SpecificationId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false, comment: "狀態(上下架)")
+                    Time = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "時間"),
+                    SpecificationId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true, comment: "狀態(上下架)")
                 },
                 constraints: table =>
                 {

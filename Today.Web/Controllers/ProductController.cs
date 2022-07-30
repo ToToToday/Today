@@ -1,15 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
+using Today.Web.Services.ProductService;
+using Today.Web.Services.ClassifyService;
 using Today.Web.Services.locationService;
+using Today.Web.Services.ProductInfoService;
 using Today.Web.ViewModels;
-using static Today.Web.DTOModels.CityDTO;
-using static Today.Web.DTOModels.RaiderDTO;
+using static Today.Web.DTOModels.CityDTO.CityDTO;
+using static Today.Web.DTOModels.CityDTO.RaiderDTO;
+using static Today.Web.ViewModels.ProductInfoVM;
+using Today.Web.DTOModels.ProductInfoDTO;
 
 namespace Today.Web.Controllers
 {
@@ -17,25 +24,131 @@ namespace Today.Web.Controllers
     {
 
         private readonly ICityService _cityServices;
+        private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
-        public ProductController(ICityService cityServices, ILocationService locationServices)
+        private readonly IProductInfoService _productInfoService;
+        private readonly IClassifyService _classifyService;
+        
+        
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService)
         {
+            _productInfoService = productInfoService;
             _cityServices = cityServices;
+            _productServices = productService;
             _locationServices = locationServices;
+            _classifyService = classifyService;
+            _productInfoService = productInfoService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult ProductPages() //商品頁面
+        
+        public IActionResult ProductInfo(int id) //商品頁面
         {
-            return View();
+            if (id <= 0)
+            {
+                return Content("找不到商品");
+            }
+            else
+            {
+                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                ;
+                var productinfo = new ProductInfoVM
+                {
+                    ProductIsdeleted = productPagesServiceDTO.ProductInfo.ProductIsdeleted,
+                    ShoppingNotice = productPagesServiceDTO.ProductInfo.ShoppingNotice,
+                    ProductId = productPagesServiceDTO.ProductInfo.ProductId,
+                    CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy,
+                    HowUse = productPagesServiceDTO.ProductInfo.HowUse,
+                    ProductName = productPagesServiceDTO.ProductInfo.ProductName,
+                    CityName = productPagesServiceDTO.ProductInfo.CityName,
+                    Producttag = productPagesServiceDTO.ProductInfo.ProductTag,
+                    ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
+                    ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
+                    ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
+                    new ProductInfoVM.Photo
+                    {
+                        PhotoUrl = p.PhotoUrl
+                    }).ToList(),
+                    ProgarmList = productPagesServiceDTO.ProductInfo.ProgarmList.Select(p =>
+                    new ProductInfoVM.Progarm
+                    {
+                        ProgarmIsdeleted = p.ProgarmIsdeleted,
+                        PrgramName = p.PorgramName,
+                        PrgarmText = p.PrgarmText,
+                        DateList = p.DateList.Select(d =>
+                        new Date
+                        {
+                            CantuseDate = d.CantuseDate
+                        }).ToList(),
+                        AboutProgramList = p.AboutProgramList.Select(ap => new ProductInfoVM.AboutProgram
+                        {
+                            AboutProgramName = ap.AboutProgramName,
+                            IconClass = ap.IconClass,
+                        }).ToList(),
+                        ProgramIncludeList = p.ProgramInciudeList.Select(pi =>
+                        new ProductInfoVM.ProgramInclude
+                        {
+                            Inciudetext = pi.Inciudetext,
+                            IsInclude = pi.IsInclude,
+                        }).ToList(),
+                        ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
+                        {
+                            Date = p.Date,
+                            ScreenId = p.ScreenId,
+                            SpecificationId = p.SpecificationId,
+                            Status =p.Status
+                        }).ToList()
+                        ,
+                        ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
+                            new ProductInfoVM.ProgramSpecification
+                            {
+                                SpecificationId = pgsc.SpecificationId,
+                                PorgarmUnitPrice = pgsc.PorgarmUnitPrice,
+                                Itemtext = pgsc.Itemtext,
+                                UnitText = pgsc.UnitText,
+                            }).ToList()
+                    }).ToList()
+                };
+                ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
+                return View(productinfo);
+                //return View();
+            }
+
         }
+
         public IActionResult Classify() //楊 分類
         {
-            return View();
+            var classPages = _classifyService.GetClassifyPages();
+            var cardsource = classPages.ClassifyCardList.ToList();
+            var Categorysource = classPages.CategoryList.ToList();
+            var result = new ClassifyVM()
+            {
+                ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
+                {
+                    ProductName = c.ProductName,
+                    CityName = c.CityName,
+                    Path = c.Path,
+                    TagText = c.TagText,
+                    UnitPrice = c.UnitPrice,
+                    Evaluation = c.Evaluation
+                }).ToList(),
+                CategoryList = Categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                {
+                    Id = x.Id,
+                    CategoryName = x.CategoryName,
+                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
+                    {
+                        Id = y.Id,
+                        CategoryName = y.CategoryName
+                    }).ToList()
+                }).ToList()
+            };
+            
+            return View(result);
         }
 
         public IActionResult Souvenir() //伴手禮
@@ -56,10 +169,12 @@ namespace Today.Web.Controllers
                 CityId = id
             }; 
             var CityDetail = _cityServices.GetCity(cityRequest);
-            var CityAllCard = _cityServices.GetAllCity();
-            var CityAllRaider = _cityServices.GetRaiderCard();
-            var cityAllComment = _cityServices.GetAllComment();
-
+            var CityAllCard = _cityServices.GetAllCity(cityRequest);
+            var CityAllRaider = _cityServices.GetRaiderCard(cityRequest);
+            var CityAllComment = _cityServices.GetAllComment(cityRequest);
+            var NewActiviy = _cityServices.GetNewActiviy(cityRequest);
+            var AboutProduct = _cityServices.GetAboutProduct(cityRequest);
+            var TopTen = _cityServices.GetTopTen(cityRequest);
             var cityTourPage = new CityVM
             {
                 CurrentCityInfo = new CityVM.CityInfo
@@ -70,31 +185,67 @@ namespace Today.Web.Controllers
                     CityIntrod = CityDetail.CityInfo.CityIntrod
                 },
 
-                cityCardList = CityAllCard.Where(x => x.Id > id).Take(10).Select(cc => new CityVM.CityCardList
+                CityCardsList = CityAllCard.Select(cc => new CityVM.CityCardList
                 {
                     Id = cc.Id,
                     CityImage = cc.CityImage,
                     CityName = cc.CityName,
                 }).ToList(),
-                RaiderList = CityAllRaider.Where(x => x.CityId == id).Select(rl => new CityVM.CityRaiderList
+                RaiderList = CityAllRaider.Select(rl => new CityVM.CityRaiderList
                 {
+                    RaiderId = rl.RaiderId,
                     CityId = rl.CityId,
                     Title = rl.Title,
                     SubTitle = rl.SubTitle
                 }).ToList(),
-                commentList = cityAllComment.Where(x => x.CityId == id).Select(cl => new CityVM.CityCommentList
+                CommentList = CityAllComment.Select(cl => new CityVM.CityCommentList
                 {
                     CityId = cl.CityId,
                     Name = cl.Name,
                     RatingStar = cl.RatingStar,
-                    CommentDate = cl.CommentDate,
-                    UseDate = cl.UseDate,
+                    CommentDate = string.Format("{0:yyyy/MM/dd}",cl.CommentDate),
+                    UseDate = string.Format("{0:yyyy/MM/dd}", cl.UseDate),
                     PartnerType = cl.PartnerType,
                     ProductName = cl.ProductName,
                     Text = cl.Text,
                     Title = cl.Title
+                }).ToList(),
+                NewActiviyList = NewActiviy.Select(newp => new CityVM.ProductCardVM
+                {
+                    Id = newp.Id,
+                    ProductPhoto = newp.ProductPhoto,
+                    ProductName = newp.ProductName,
+                    Tags = newp.Tags,
+                    CityName = newp.CityName,
+                    OriginalPrice = newp.OriginalPrice,
+                    Price =newp.Price,
+                    Rating = newp.Rating,
+                    TotalGiveComment = newp.TotalComment,
+                    TotalOrder = newp.Quantity
+
+
+                }).ToList(),
+                AboutActiviyList = AboutProduct.Select(aboutp => new CityVM.ProductCardVM
+                {
+                    Id = aboutp.Id,
+                    ProductPhoto = aboutp.ProductPhoto,
+                    ProductName = aboutp.ProductName,
+                    Tags = aboutp.Tags,
+                    CityName = aboutp.CityName,
+                    OriginalPrice = aboutp.OriginalPrice,
+                    Price = aboutp.Price
+                }).ToList(),
+                TopActiviyList = TopTen.Select(top => new CityVM.ProductCardVM
+                {
+                    Id = top.Id,
+                    ProductPhoto = top.ProductPhoto,
+                    ProductName = top.ProductName,
+                    Tags = top.Tags,
+                    CityName = top.CityName,
+                    OriginalPrice = top.OriginalPrice,
+                    Price = top.Price
                 }).ToList()
-                
+
 
 
             };
@@ -338,6 +489,7 @@ namespace Today.Web.Controllers
         }
         public IActionResult QuarantineHotel() //防疫旅館頁面
         {
+
             return View();
         }
         public IActionResult HSR() //國旅

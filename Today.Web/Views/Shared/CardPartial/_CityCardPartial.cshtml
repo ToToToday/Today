@@ -1,0 +1,19 @@
+﻿@{
+    int index = 1;
+}
+
+@foreach(var item in Model)
+{
+    <div class="col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1 @((index == 1) ? "flex-lg-grow-1" : "")">
+        <a href="~/Product/CityTour/@item.Id" class="text-decoration-none text-black">
+            <img src="@item.CityImage" alt="@item.CityName" class="w-100 h-100 rounded">
+            <div class="city-details position-absolute text-white d-flex flex-wrap">
+                <h4 class="mb-2 ms-2 w-100 fs-5">@item.CityName</h4>
+                <span class="px-2 py-1 mb-1 me-1 @((index != 1) ? "d-lg-none" : "")">交通 & 旅遊必備</span>
+                <span class="px-2 py-1 mb-1 me-1 @((index != 1) ? "d-lg-none" : "")">熱門票卷</span>
+                <span class="px-2 py-1 mb-1 me-1 @((index != 1) ? "d-lg-none" : "")">更多在地體驗</span>
+            </div>
+        </a>
+    </div>
+    index++;
+}
