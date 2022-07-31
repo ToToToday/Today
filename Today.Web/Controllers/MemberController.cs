@@ -3,11 +3,9 @@ using System.Linq;
 using Today.Web.Services.CheenkoutService;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.ChenkoutDTO.ChenkoutDTO;
-using Today.Web.ViewModels;
 //using Today.Model.Models;
 //using Today.Web.Data;
 using Today.Web.Services.MemberService;
-using System.Linq;
 using Today.Web.DTOModels.MemberDTO;
 using static Today.Web.ViewModels.MemberVM;
 using Today.Model.Repositories;
@@ -25,9 +23,6 @@ namespace Today.Web.Controllers
             _memberService = memberService;
             _genericRepository = genericRepository;
         }
-
-        
-
 
         //請求 
         [HttpGet]
