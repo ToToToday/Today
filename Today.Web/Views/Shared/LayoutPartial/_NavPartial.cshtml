@@ -12,7 +12,7 @@
         <div class="container-fluid px-2 px-md-4">
             <div class="inputlogo-group d-flex justify-content-start col-7 align-items-center">
                 <h1 class="w-25 me-3">
-                    <a href="#" class="align-top">
+                    <a href="~/Home/Index" class="align-top">
                         <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
                     </a>
                 </h1>
@@ -45,11 +45,7 @@
                     </div>
                 </div>
             </div>
-            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <!-- <span class="navbar-toggler-icon bg-black">
-                    </span> -->
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="bg-black"></span>
                 <span class="bg-black"></span>
                 <span class="bg-black"></span>
@@ -250,13 +246,12 @@
             </div>
         </div>
     </nav>
-    <partial name="Layout/_NavBottomPartial"/>
+    <partial name="LayoutPartial/_NavBottomPartial"/>
 </header>
 
 <!-- 登入Model -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        @********@
         <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
@@ -296,8 +291,8 @@
                         <div class="input-set flex-grow-1">
                             <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email" required>
                             @*<input asp-for="loginVM.Email" class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email"/>*@
-@*                            <span asp-validation-for="loginVM.Email" class="text-danger"></span>
-*@                        </div>
+                            @*<span asp-validation-for="loginVM.Email" class="text-danger"></span>*@
+                        </div>
                     </div>
                     <div class="input-box d-flex">
                         <div class="icon-set">
@@ -306,8 +301,7 @@
                         <div class="input-set flex-grow-1">
                             <input class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" required>
                             @*<input asp-for="loginVM.Password" class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" />*@
-@*                            <span asp-validation-for="loginVM.Password" class="text-danger"></span>
-*@
+                            @*<span asp-validation-for="loginVM.Password" class="text-danger"></span>*@
                         </div>
                     </div>
                     <a class="forgot-password text-black-50" href="#">忘記密碼</a>
@@ -323,9 +317,7 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                @*data-bs-dismiss="modal"*@>
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit" data-gtm-name="login-btn" data-gtm-channel="KKDAY" @*data-bs-dismiss="modal"*@>
                             登入
                         </button>
                     </div>
@@ -421,9 +413,7 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                @*data-bs-dismiss="modal"*@>
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit" data-gtm-name="login-btn" data-gtm-channel="KKDAY" @*data-bs-dismiss="modal"*@>
                             註冊
                         </button>
                     </div>
@@ -439,8 +429,7 @@
     </div>
 </div>
 
-@*<partial name="_ValidationScriptsPartial"/>
-*@
+@*<partial name="_ValidationScriptsPartial"/>*@
 <script>
     function a (){
 

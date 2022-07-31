@@ -33,7 +33,7 @@ namespace Today.Web.Controllers
             _productService = productService;
             _cityService = cityService;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             var homeproductSource = _productService.GetAllProductCard();
@@ -162,6 +162,13 @@ namespace Today.Web.Controllers
             };
 
             return View(homeshow);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string searchword)
+        {
+
+            return View();
         }
         
         public IActionResult Privacy()
