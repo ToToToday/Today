@@ -55,9 +55,13 @@ namespace Today.Web.Controllers
             var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
             var ShopCartVMs = new ShopCartVM
             {
+                MemberId = Id,
                 ShopCartCardList = ShopCartCardDTO
                 .Select(s => new ShopCartCardVM
                 {
+                    ScreeningId = s.ScreenId,
+                    SpecificationId = s.SpecificationId,
+                    ShoppingCartId = s.ShopCartId,
                     ProductName = s.ProductName,
                     ProgramTitle = s.ProgramTitle,
                     Path = s.ProductPhoto,

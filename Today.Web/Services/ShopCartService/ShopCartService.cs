@@ -102,9 +102,10 @@ namespace Today.Web.Services.ShopCartService
 
 
             var cartScr = cartPhoto.Join(scr, pp => pp.ScreeningId, sc => sc.ScreeningId, (pp, sc) => new {
+                sc.SpecificationId,
                 pp.MemberId,
                 pp.ShoppingCartId,
-                pp.ScreeningId,
+                sc.ScreeningId,
                 pp.DepartureDate,
                 pp.Quantity,
                 pp.UnitPrice,
@@ -136,6 +137,9 @@ namespace Today.Web.Services.ShopCartService
 
             var result = cartScr.Select(c => new ShopCartMemberResponseDTO.ShopCartCard
             {
+                ScreenId = c.ScreeningId,
+                ShopCartId = c.ShoppingCartId,
+                SpecificationId = c.SpecificationId,
                 ProductName = c.ProductName,
                 ProgramTitle = c.Title,
                 DepartureDate = c.DepartureDate,
@@ -148,9 +152,6 @@ namespace Today.Web.Services.ShopCartService
 
 
 
-
-
-            
 
             //ShopCartResult.CartCard.RecommendCartCards.ForEach(cr =>
             //{
