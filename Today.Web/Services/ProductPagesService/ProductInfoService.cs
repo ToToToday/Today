@@ -69,7 +69,7 @@ namespace Today.Web.Services.ProductInfoService
                     }).ToList(),
                 }
             };
-            result.ProductInfo.MemberComment = _repo.GetAll<Comment>()
+            result.ProductInfo.MemberComment = _repo.GetAll<Model.Models.Comment>()
                                                 .Where(c => c.ProductId == requst.ProductId)
                                                 .Select(c => new MemberComment
                                                 {
