@@ -290,7 +290,7 @@ radio
                 </div>
                 <div class=" prodInfo-pic  col-12">
                     <img src="https://image.kkday.com/v2/image/get/h_134%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/campaign_2115/20220509090224_U9TFJ/jpg"
-                         alt="">
+                        alt="">
                 </div>
             </div>
         </div>
@@ -409,7 +409,7 @@ radio
                     </ul>
                 </div>
             </div>
-            <div class="col-12 d-none d-lg-flex flex-wrap ">
+            <div id="AddCart" class="col-12 d-none d-lg-flex flex-wrap ">
                 <h5 class="col-12 my-2 ps-3">
                     選擇日期、數量
                 </h5>
@@ -417,7 +417,7 @@ radio
                     <h6 class="product-initial-title col-12">
                         選擇日期
                     </h6>
-                    <input type="hidden" name="DepartureDate" value="@TempData["DepartureDate"]"/>
+                    @*<input type="hidden" name="DepartureDate" value="@TempData["DepartureDate"]"/>*@
                     <input type="text" class="d-none"> @* <----月曆*@
                 </div>
                 <div class="lg-select-quantity-div col-6">
@@ -432,10 +432,10 @@ radio
                             
                             <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
                                 @*數量加減、總和*@
-                                <button class="select-quantity-btn-reduce reduce">-</button>
-                                <p class="count">0</p>
-                                <input type="hidden" name="Quantity" value="@TempData["Quantity"]" />
-                                <button class="select-quantity-btn-add plus">+</button>
+                                <button @*v-model="min"*@ @*v-on:click="min"*@ class="select-quantity-btn-reduce reduce">-</button>
+                                <p class="count">{{Quantity}}</p>
+                                @*<input type="hidden" name="Quantity" value="@TempData["Quantity"]" />*@
+                                <button  @*v-model="add"*@ v-on:click="add" class="select-quantity-btn-add plus">+</button>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between col-12 select-total-div ">
@@ -449,8 +449,8 @@ radio
                 </div>
                 <div class="shopping-cart-div col-12 d-flex">
                     @*<form action="~/Shop/AddCart/@TempData["SpecificationId"]/@TempData["ScreeningId"]/@TempData["Quantity"]"  method="post">*@
-                    <input type="hidden" name="UnitPrice" value="@TempData["UnitPrice"]" />
-                    <input id="AddCart" type="submit" class="shopping-cart-btn "  value="加入購物車"/>
+                    @*<input type="hidden" name="UnitPrice" value="@TempData["UnitPrice"]" />*@
+                    <input  type="submit" class="shopping-cart-btn "  value="加入購物車" v-on:click="CreateCard"/>
                     @*</form>*@
                     <input type="submit" class="asd-btn " value="立即訂購" />
                 </div>
@@ -465,7 +465,7 @@ radio
 </template>
 
 <div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1"
-     id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
+    id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -502,7 +502,14 @@ radio
     <link rel="stylesheet" href="~/css/reset.css" />
 }
     @section endJS{
+
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     @*<script src="~/js/ProductInfo.js"></script>*@
     <script>
   
@@ -675,75 +682,105 @@ radio
                 })
             })
         })
-        let addCart = document.querySelector("#AddCart");
-        addCart.addEventListener("click", function() {
-            //let request = {
-            //    ProductName : 'name',
-            //    ProgramTitle : 'title',
-            //    DepartureDate : '2022-07-30',
-            //    Path : 'Path',
-            //    Quantity : 3,
-            //    UnitPrice : 100,
-            //    UnitText : 'UnitText',
-            //    SpecificationId : 5,
-            //    ScreenTime : '10:40',
-            //    ScreeningId : 3
-            //}
-            //addToCart(request);
-            fetch('https://localhost:5001/api/Shop/AddCart',{
-            method:'POST',
-            headers:new Headers({'Content-Type':'application/json'}),
-                body: JSON.stringify({
-                ProductName : 'name',
-                ProgramTitle : 'title',
-                DepartureDate : '2022-07-30',
-                Path : 'Path',
-                Quantity : 3,
-                UnitPrice : 100,
-                UnitText : 'UnitText',
+
+        //let pd = document.querySelector("selected-Program");
+        //let addCart = document.querySelector("#AddCart");
+        //let data = {
+        //        ProductName : 'p',
+        //        ProgramTitle : 'title',
+        //        DepartureDate : '2022-07-30',
+        //        Path : 'Path',
+        //        Quantity : 3,
+        //        UnitPrice : 100,
+        //        UnitText : 'UnitText',
+        //        SpecificationId : 5,
+        //        ScreenTime : '10:40',
+        //        ScreeningId : 3
+        //}
+        //addCart.addEventListener("click", function(request) {
+        //    //let request = {
+        //    //    ProductName : 'name',
+        //    //    ProgramTitle : 'title',
+        //    //    DepartureDate : '2022-07-30',
+        //    //    Path : 'Path',
+        //    //    Quantity : 3,
+        //    //    UnitPrice : 100,
+        //    //    UnitText : 'UnitText',
+        //    //    SpecificationId : 5,
+        //    //    ScreenTime : '10:40',
+        //    //    ScreeningId : 3
+        //    //}
+        //    //addToCart(request);
+        //    fetch('https://localhost:5001/api/Shop/AddCart',{
+        //    method:'POST',
+        //    headers:new Headers({'Content-Type':'application/json'}),
+        //        body: JSON.stringify(data)
+        //    })
+        //    .then(result => console.log(data))
+        //    .then(res => { return res.json() })
+        //    .then(res =>{
+        //        if (res.data.status == 200) {
+        //            alert("insert success")
+        //        }
+        //        else {
+        //            alert("insert failed")
+        //        }
+        //    })
+        //})
+
+
+        let countTicket = document.querySelector(".count").innerHTML;
+
+        const ProductUrl = 'https://localhost:5001/api/Shop/AddCart'
+        const AddCart = new Vue({
+            el:'#AddCart',
+            data: {
+                CreateCardData: {
+                //ProductName : 'name',
+                //ProgramTitle : 'title',
+                //Path : 'Path',
+                DepartureDate : '2022-07-31',
+                Quantity : 0,
                 SpecificationId : 5,
-                ScreenTime : '10:40',
-                ScreeningId : 3,
-                })
-            })
-            //.then(res => { return res.json() })
-            .then(res =>{
-                if (res.data.status == 200) {
-                    alert("insert success")
+                ScreeningId : 3
                 }
-                else {
-                    alert("insert failed")
+            },
+            methods: {
+                add(){
+                    this.Quantity++;
+                },
+                //min(){
+                //    if(this.Quantity > 0){
+                //    this.Quantity -= 1;
+                //},
+                CreateCard() {
+                    axios.post(ProductUrl,this.CreateCardData)
+                        .then(res => {
+                            console.log(res)
+                            if (res.data.status == 200) {
+                                
+                                alert("insert success")
+                                //$('createShopCard').model('hide')
+                            }
+                            else {
+                                alert("insert failed")
+                            }
+                        })
+                    
                 }
-            })
+            }
         })
-        function addToCart(request){
-            fetch('api/Shop/AddCart',{
-            method:'POST',
-            headers:new Headers({'Content-Type':'application/json'}),
-                body: JSON.stringify({
-                ProductName : 'name',
-                ProgramTitle : 'title',
-                DepartureDate : '2022-07-30',
-                Path : 'Path',
-                Quantity : 3,
-                UnitPrice : 100,
-                UnitText : 'UnitText',
-                SpecificationId : 5,
-                ScreenTime : '10:40',
-                ScreeningId : 3,
-                })
-            })
-            .then(res => { return res.json() })
-            .then(res =>{
-                if (res.data.status === 200) {
-                    alert("insert success")
-                }
-                else {
-                    alert("insert failed")
-                }
-            })
-        }
+
+
+
+
+
+
+
+        
     </script>
+
+    
 }
 
 

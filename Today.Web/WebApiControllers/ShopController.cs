@@ -24,8 +24,10 @@ namespace Today.Web.WebApiControllers
         [HttpPost("AddCart")]
         public IActionResult AddCart([FromBody] ShopCartRequestVM request)
         {
+
             var input = new CreateShopCartInputDTO
             {
+                //MemberId = int.Parse(User.Identity.Name),
                 ProductName = request.ProductName,
                 ProgramTitle = request.ProgramTitle,
                 DepartureDate = request.DepartureDate,

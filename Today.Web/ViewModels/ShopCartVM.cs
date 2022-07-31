@@ -22,7 +22,7 @@ namespace Today.Web.ViewModels
             public string Path { get; set; }
             public decimal UnitPrice { get; set; }
             public string UnitText { get; set; }
-
+            public decimal Sum { get; set; }
             public int SpecificationId { get; set; }
         }
 

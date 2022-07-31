@@ -66,7 +66,7 @@ namespace Today.Web.Controllers
                     ScreenTime = s.ScreenTime,
                     UnitPrice = s.UnitPrice,
                     UnitText = s.UnitText,
-
+                    Sum = s.UnitPrice * s.Quantity,
                 }).ToList()
             };
             return View(ShopCartVMs);

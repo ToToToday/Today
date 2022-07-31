@@ -230,7 +230,7 @@ namespace Today.Web.Services.ShopCartService
             var cartEntity = new ShoppingCart
             {
                 //ShoppingCartId = input.ShoppingCartId,
-                MemberId = input.MemberId,
+                MemberId = 5,
                 SpecificationId = input.SpecificationId,
                 DepartureDate = input.DepartureDate,
                 Quantity = input.Quantity,
