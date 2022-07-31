@@ -16,7 +16,7 @@ header{
 .nav-limit .container-fluid, .fixed-width{
     box-sizing: border-box;
 }
-h1 {
+.nav-limit h1 {
     width: 20%;
     max-width: 80px;
 }

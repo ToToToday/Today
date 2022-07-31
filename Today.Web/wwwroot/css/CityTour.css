@@ -83,7 +83,7 @@ a > p{
     height: auto;
     
 }
-.city-Featured-card{
+/*.city-Featured-card{
     scroll-behavior: smooth;
     overflow-y: hidden;
     overflow-x: auto;
@@ -97,14 +97,13 @@ a > p{
 }
 .city-Featured-card::-webkit-scrollbar {
     display: none;
-}
+}*/
 
 
 
 .card{
     background-color:transparent;
     border: 0;
-    
 }
 .card img{
     border-radius: 10px;
@@ -126,15 +125,13 @@ h4{
     color: #999;
 }
 
-.card{
+/*.card{
     width: 224px;
     height: auto;
-    
-}
-.city-Featured-card .card{
+}*/
+/*.city-Featured-card .card{
     width: 148px;
-    
-}
+}*/
 .city-Featured-card .card img{
     height: 90px;
     
@@ -186,7 +183,7 @@ h4{
     top: -40px;
 
 }
-.city-Raiders-card{
+/*.city-Raiders-card{
     scroll-behavior: smooth;
     overflow-y: hidden;
     overflow-x: auto;
@@ -196,7 +193,7 @@ h4{
 }
 .city-Raiders-card::-webkit-scrollbar {
     display: none;
-}
+}*/
 .city-whach-map-title{
     font-size: 1.2rem;
     font-weight: bolder;
@@ -251,7 +248,7 @@ h4{
     width: 120px;
     height: 150px;
 }
-.city-explore-card{
+/*.city-explore-card{
     scroll-behavior: smooth;
     overflow-y: hidden;
     overflow-x: auto;
@@ -261,21 +258,22 @@ h4{
 }
 .city-explore-card::-webkit-scrollbar {
     display: none;
-}
-.city-explore-card .card{
+}*/
+/*.city-explore-card .card{
     width: 140px;
     
-}
+}*/
 .city-explore-silder .card img{
     height: 168px;
     
 }
 .city-explore-card-span{
     font-size: 1.2rem;
-    top: -35px;
-    margin-left: 10px;
-    margin-bottom: 15px;
-    
+    /*top: -35px;*/
+    bottom: 15px;
+    left: 10px;
+    /*margin-left: 10px;
+    margin-bottom: 15px;*/
 }
 .explore-imgtitle {
     color: #f6f7f9;
@@ -290,7 +288,6 @@ h4{
     border-radius: 30px;
 }
 
-}
 @media screen and (min-width: 360px){
    /* html{
         font-size:80%;
