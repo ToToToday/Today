@@ -133,8 +133,6 @@ namespace Today.Web.Services.ProductInfoService
 
                 });
             });
-
-
             return result;
         }
     }
