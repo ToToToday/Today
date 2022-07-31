@@ -175,7 +175,6 @@ namespace Today.Web.Controllers
 
             ViewData["CityId"] = _productService.ToCityPage(searchWord).CityId;
 
-            //return RedirectToAction("CityTour", "Product", new { id = ViewData["CityId"] });
             return RedirectToRoute(new { controller = "Product", action = "CityTour", id = ViewData["CityId"] });
         }
 
