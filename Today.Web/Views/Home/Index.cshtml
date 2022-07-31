@@ -10,9 +10,28 @@
         <div class="content w-100 text-center">
             <p class="mb-4 fs-3 fw-bold">全世界最棒的旅遊體驗</p>
             <p class="mb-3 fs-5">帶你深入所有趣又獨特的旅遊體驗行程</p>
-            <form class="input-group mb-3 w-75 m-auto" method="post" action="/Product/CityTour/@TempData["CityId"]">
-                <input type="text" class="form-control" placeholder="輸入目的地、景點、體驗行程或活動名稱…" aria-label="請輸入城市名稱" aria-describedby="search" name="searchword">
+            <form class="input-group mb-3 w-75 m-auto" method="post" action="/Home/Index">
+                <input type="text" class="form-control" placeholder="輸入目的地、景點、體驗行程或活動名稱…" aria-label="請輸入城市名稱" aria-describedby="search" name="searchword" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                 <button class="btn" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div class="search-box px-2 py-3 border w-110 rounded dropdown-menu dropdown-menu-start mt-2">
+                    <span class="title w-100 d-block mb-2 fw-blod">熱門目的地</span>
+                    <ul class="seacrch-keywords">
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/22">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/3">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/17">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/18">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/16">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/12">台南</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/13">高雄</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/4">桃園</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/8">彰化</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/6">苗栗</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/10">雲林</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/7">台中</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/11">嘉義</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/9">南投</a></li>
+                    </ul>
+                </div>
             </form>
         </div>
     </div>

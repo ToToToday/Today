@@ -17,33 +17,29 @@
                     </a>
                 </h1>
                 <div class="add-height" style="height: 48px;"></div>
-                <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")">
-                    <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
-                            aria-label="Recipient's username" aria-describedby="search" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                    <button class="btn" type="button" id="search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <div class="search-box px-2 py-3 border rounded w-120 dropdown-menu dropdown-menu-start mt-2">
-                        <span class="title w-100 d-block mb-2">熱門目的地</span>
-                        <div class="seacrch-keywords d-flex flex-wrap flex-column" style="height: 200px;">
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台南</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">高雄</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">桃園</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">平溪</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">彰化</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">苗栗</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">雲林</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">台中</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">嘉義</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">南投</a>
-                        </div>
+                <form class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")" method="post" action="/Home/Index">
+                    <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…" aria-label="請輸入城市名稱" aria-describedby="search" name="searchword" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <button class="btn" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <div class="search-box px-2 py-3 border rounded w-110 dropdown-menu dropdown-menu-start mt-2">
+                        <span class="title w-100 d-block mb-2 fw-blod">熱門目的地</span>
+                        <ul class="seacrch-keywords">
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/22">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/3">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/17">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/18">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/16">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/12">台南</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/13">高雄</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/4">桃園</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/8">彰化</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/6">苗栗</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/10">雲林</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/7">台中</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/11">嘉義</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/9">南投</a></li>
+                    </ul>
                     </div>
-                </div>
+                </form>
             </div>
             <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="bg-black"></span>

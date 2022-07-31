@@ -168,15 +168,15 @@ namespace Today.Web.Controllers
         [HttpPost]
         public IActionResult Index(string searchword)
         {
-            var couponcode = new ProductDTO.ProductRequestDTO
+            var searchWord = new ProductDTO.ProductRequestDTO
             {
                 CityName = searchword
             };
 
-            var result = _productService.ToCityPage(couponcode);
-            TempData["CityId"] = result.CityId;
+            ViewData["CityId"] = _productService.ToCityPage(searchWord).CityId;
 
-            return RedirectToAction("CityTour", "Product", new { id = result.CityId });
+            //return RedirectToAction("CityTour", "Product", new { id = ViewData["CityId"] });
+            return RedirectToRoute(new { controller = "Product", action = "CityTour", id = ViewData["CityId"] });
         }
 
         public IActionResult Privacy()

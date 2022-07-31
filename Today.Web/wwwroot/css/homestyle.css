@@ -37,8 +37,8 @@ header{
 .w-40 {
     width: 40%;
 }
-.w-120 {
-    width: 120%;
+.w-110 {
+    width: 110%;
 }
 .user-info {
     box-sizing: border-box;
@@ -66,6 +66,20 @@ header li .user-info::after{
     top: -10px;
     right: 25px;
 }
+
+.seacrch-keywords{
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-column-count: 2;
+    column-count: 2;
+    -webkit-column-rule: 1px solid #eee;
+    column-rule: 1px solid #eee;
+}
+/*.search-box li a{
+    padding: 6px 8px;
+}*/
 
 /* footer */
 .footer-limit {
@@ -196,6 +210,10 @@ footer .fa-angle-up {
 }
 
 @media screen and (min-width: 1024px) {
+    .seacrch-keywords {
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
     .swiper-button-next {
         right: -5px;
         left: auto;

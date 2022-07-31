@@ -22,10 +22,8 @@ namespace Today.Web.Services.ProductService
         {
             var cityList = _repo.GetAll<City>();
 
-            var result = new ProductResponseDTO() 
-            { 
-                CityId = cityList.Where(c => c.CityName.Contains(search.CityName)).Select(c => c.CityId).First() 
-            };
+            var result = new ProductResponseDTO();
+            result.CityId = cityList.Where(c => c.CityName.Contains(search.CityName)).Select(c => c.CityId).First();
 
             return result;
         }
