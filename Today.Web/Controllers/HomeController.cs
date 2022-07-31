@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Data;
 using Today.Web.DTOModels.AccountDTO;
+using Today.Web.DTOModels.ProductDTO;
 using Today.Web.Models;
 using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
@@ -167,10 +168,16 @@ namespace Today.Web.Controllers
         [HttpPost]
         public IActionResult Index(string searchword)
         {
+            var couponcode = new ProductDTO.ProductRequestDTO
+            {
+                CityName = searchword
+            };
 
-            return View();
+            var result = _productService.ToCityPage(couponcode);
+
+            return RedirectToAction("CityTour", "Product", new { id = result.CityId });
         }
-        
+
         public IActionResult Privacy()
         {
             return View();
