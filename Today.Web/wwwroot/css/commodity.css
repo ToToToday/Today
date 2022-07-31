@@ -447,9 +447,6 @@ a.product-name {
         color: var(--font-color-Ash);
     }
 
-    .product-name ul {
-        border-bottom: 1px solid #f3e8e8;
-    }
 
     .product-name .Company-Culture {
         padding: 0 20px;

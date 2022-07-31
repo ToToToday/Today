@@ -68,9 +68,6 @@ radio
                         <span>TWD</span>
                         10000
                     </p>
-                    @*                    <p class="points col-12">
-                    1232
-                    </p>*@
                 </div>
                 <input class="btn send-order-btn col-8 text-white " readonly value="確定送出">
             </div>
@@ -207,10 +204,6 @@ radio
                             <span>TW 762 </span>起
                         </p>
                     </div>
-                    <div class="prodInfo-pic col-12 d-lg-none">
-                        <img src="https://image.kkday.com/v2/image/get/h_134%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/campaign_2115/20220509090224_U9TFJ/jpg"
-                             alt="">
-                    </div>
                     <ul class="col-12 d-flex flex-wrap">
                         @foreach (var ap in Model.ProgarmList[0].AboutProgramList)
                         {
@@ -219,59 +212,8 @@ radio
                                 @ap.AboutProgramName
                             </li>
                         }
-                        @*
-                        <li class="col-12 col-lg-6 prodInfo-item ">
-                        <i class="fa-solid fa-mobile-screen"></i>
-                        現場請出示電子憑證
-                        </li>
-                        <li class="col-12 col-lg-6 prodInfo-item">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
-                        3天前可免費取消
-                        </li>*@
                     </ul>
-                    @*                    <ul class="Company-Culture col-12">
-                    <li>
-                    瓏山林企業集團旗下之子公司，於 2018 年創立並經營自有瓏山林旅館事業集團品牌
-                    </li>
-                    <li>
-                    鄰近南勢角夜市、樂華夜市、碧潭休憩區、烏來風景區及鶯歌陶瓷博物館等景點
-                    </li>
-                    </ul>*@
-                    <div class="col-12 Evaluation d-flex flex-wrap">
-                        <h3 class="col-12">
-                            評價
-                        </h3>
-                        <div class="Star col-8">
-                            <i class="fa-solid fa-star"></i>
-                            4.8 <span>(76)</span>
-                        </div>
-                        <a class="text-break col-4">
-                            更多評價 >
-                        </a>
-                        <div class="Evaluation-message col-12 d-flex">
-                            <i class="d-flex justify-content-center col-2 fa-solid fa-face-smile-wink"></i>
-                            <div class="message">
-                                <div class="Member-name">
-                                    詩婷
-                                </div>
-                                <div class="Member-message col-12">
-                                    <div class="Member-star-div">
-                                        <i class="Member-star fa-solid fa-star"></i>
-                                        <i class="Member-star fa-solid fa-star"></i>
-                                        <i class="Member-star fa-solid fa-star"></i>
-                                        <i class="Member-star fa-solid fa-star"></i>
-                                        <i class="Member-star fa-solid fa-star"></i>
-                                    </div>
-                                    <div class="Member-message-time">
-                                        2020/06/06
-                                    </div>
-                                    <div class="Member-message">
-                                        櫃檯人員照顧周到，專業有禮。房間寬敞舒適乾淨，有大片落地窗採光好，隔音極佳，非常適合居家檢疫時辦公。三餐蠻不錯，唯份量太多。
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="initial-money col-lg-4 d-none d-lg-flex flex-wrap">
@@ -285,10 +227,6 @@ radio
                     <a class=" d-flex col-12 Options-btn justify-content-center" href="#product-initial">
                         選擇方案
                     </a>
-                </div>
-                <div class=" prodInfo-pic  col-12">
-                    <img src="https://image.kkday.com/v2/image/get/h_134%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/campaign_2115/20220509090224_U9TFJ/jpg"
-                         alt="">
                 </div>
             </div>
         </div>
@@ -367,7 +305,6 @@ radio
 			            <img src="https://picsum.photos/300/200/?random=10">
                         </div>
                     </div>
-                    @*<i class="d-flex justify-content-center col-2 fa-solid fa-face-smile-wink"></i>*@
                     <div class="message col-10">
                         <div class="Member-name">
                             @comment.MemberName
@@ -422,13 +359,6 @@ radio
             </div>
             <input type="radio" class="btn-check " name="btnradio" autocomplete="">
             <label class="btn initial_btn col-4 col-lg-2 order-2">選擇</label>
-            @*            <button id="initial-btn-true" class="d-none col-2 ">
-            <i class="fa-solid fa-circle-check "></i>
-            己選擇
-            </button>
-            <button id="initial-btn-fles" class="col-2">
-            選擇
-            </button>*@
             <p class="initial-money col-8 col-lg-5 d-block mb-2">
                 @*所以方案價位*@
                 <span>
@@ -579,13 +509,6 @@ radio
                 dateFormat: "Y-m-d H:i",
             });
             let getdata;
-            //datainput.addEventListener("click", () => {
-            //    getdata = datainput._flatpickr.now
-            //    console.log(datainput._flatpickr.latestSelectedDateObj)
-            //    console.log(datainput._flatpickr.now)
-            //    console.log(getdata)
-            //})
-
 
             const BtnDetails = programcard.querySelector(".btn-Details")
             //按下手機板查看方案詳情
