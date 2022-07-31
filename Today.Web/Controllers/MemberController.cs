@@ -4,15 +4,9 @@ using System.Linq;
 using Today.Web.DTOModels;
 using Today.Web.Services.MemberCommentService;
 using Today.Web.ViewModels;
-using System.Linq;
 using Today.Web.Services.CheenkoutService;
-using Today.Web.ViewModels;
 using static Today.Web.DTOModels.ChenkoutDTO.ChenkoutDTO;
-using Today.Web.ViewModels;
-//using Today.Model.Models;
-//using Today.Web.Data;
 using Today.Web.Services.MemberService;
-using System.Linq;
 using Today.Web.DTOModels.MemberDTO;
 using static Today.Web.ViewModels.MemberVM;
 using Today.Model.Repositories;
@@ -27,16 +21,13 @@ namespace Today.Web.Controllers
         private readonly IMemberService _memberService;
         private readonly IGenericRepository _genericRepository;
         private readonly IMemberCommentService _membercommentservic;
-        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository)
+        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService membercommentservic)
         {
             _chenkoutService = chenkoutService;
             _memberService = memberService;
             _genericRepository = genericRepository;
             _membercommentservic = membercommentservic;
         }
-
-        
-
 
         //請求 
         [HttpGet]
@@ -78,7 +69,7 @@ namespace Today.Web.Controllers
             return View();
         }
         
-        public IActionResult OrderManage(int ID =3 )
+        public IActionResult OrderManage(int ID =1 )
         {
             var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
             var MemberCommentInfo = new MemberCommentVM
