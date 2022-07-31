@@ -18,5 +18,8 @@ namespace Today.Web.CommonEnum
             [Description("商務旅遊")]
             business = 5,
         }
+
+
+
     }
 }

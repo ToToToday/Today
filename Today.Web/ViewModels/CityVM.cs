@@ -10,11 +10,11 @@ namespace Today.Web.ViewModels
         public int CityID { get; set; } 
         public string CityName { get; set; } 
         public List<ProductCardVM> TopActiviyList { get; set; }
-        public List<ProductCardVM> AboultActiviyList { get; set; }
+        public List<ProductCardVM> AboutActiviyList { get; set; }
         public List<ProductCardVM> NewActiviyList { get; set; }
         public List<CityRaiderList> RaiderList { get; set; }
-        public List<CityCommentList> commentList { get; set; }
-        public List<CityCardList> cityCardList { get; set; }
+        public List<CityCommentList> CommentList { get; set; }
+        public List<CityCardList> CityCardsList { get; set; }
         public CityInfo CurrentCityInfo { get; set; }
        
         public class CityInfo
@@ -27,9 +27,20 @@ namespace Today.Web.ViewModels
 
         public class ProductCardVM
         {
+            public int Id { get; set; }
+            public string ProductPhoto { get; set; }
+            public string ProductName { get; set; }
+            public string CityName { get; set; }
+            public List<string> Tags { get; set; }
+            public float Rating { get; set; }
+            public int TotalGiveComment { get; set; }
+            public int TotalOrder { get; set; }
+            public decimal? OriginalPrice { get; set; }
+            public decimal? Price { get; set; }
         }
         public class CityRaiderList
         {
+            public int RaiderId { get; set; }
             public int CityId { get; set; }
             public string Title { get; set; }
             public string SubTitle { get; set; }
@@ -40,8 +51,8 @@ namespace Today.Web.ViewModels
             public int CityId { get; set; }
             public string Name { get; set; }
             public int RatingStar { get; set; }
-            public DateTime CommentDate { get; set; }
-            public DateTime UseDate { get; set; }
+            public string CommentDate { get; set; }
+            public string UseDate { get; set; }
             public string PartnerType { get; set; }
             public string ProductName { get; set; }
             public string Title { get; set; }

@@ -134,506 +134,72 @@
             </div>
             <section class="px-0">
                 <!-- 人氣top10卡片 -->
-                <h3 class="mx-4 my-3 fw-bolder ">人氣Top10</h3>
-                <div class="city-top-silder d-flex mt-4">
-                    <div class="city-top-card ms-4">
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top1</div>
-                            <img src="https://picsum.photos/300/170/?random=11" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【及買即用】台北兒童新樂園｜一日票（無限暢玩13項指定設施）</h4>
-                                <div class="card-tag d-flex">
-                                    <span title="即買即用" class="tag">即買即用</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.8 (2217)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 200</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">188</span>
-                                </div>
-                            </div>
+                <h3 class="mx-4 my-3 fw-bolder">人氣Top10</h3>
+                 <div class="city-Featured-silder d-flex mt-4 mx-2 position-relative">
+                    <div class="swiper mySwiper">
+                        <div class="city-Featured-card d-flex w-100 swiper-wrapper">
+                            <partial name="CardPartial/_Top10CardPartial" for="AboutActiviyList"/>
                         </div>
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top2</div>
-                            <img src="https://picsum.photos/300/170/?random=15" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【限時特惠】北投南豐天玥泉溫泉會館泡湯券｜大眾池・湯屋（需現場排隊）</h4>
-                                <div class="card-tag d-flex">
-                                    <span title="即買即用" class="tag">即買即用</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.5 (1861)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 780</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">569</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top3</div>
-                            <img src="https://picsum.photos/300/170/?random=12" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">北投享溫泉｜大眾池・湯屋・住宿｜須自行電話預約</h4>
-                                <div class="card-tag d-flex">
-                                    <span title="即買即用" class="tag me-1">即買即用</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.5 (120)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 1,080</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">580</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top4</div>
-                            <img src="https://picsum.photos/300/170/?random=16" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">台北王朝大酒店餐券｜SUNNY BUFFET｜須自行電話訂位</h4>
-                                <div class="card-tag d-flex">
-                                    <span title="即買即用" class="tag">即買即用</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.6 (84)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 1,078</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">625</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 多的 -->
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top5</div>
-                            <img src="https://picsum.photos/300/170/?random=11" class="card-img-top" alt="...">
-                            <div class="card-body px-0 ">
-                                <h4 class="card-text overflow-hidden">【及買即用】台北兒童新樂園｜一日票（無限暢玩13項指定設施）</h4>
-                                <div class="card-tag">
-                                    <span title="即買即用">即買即用</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.8 (2217)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 200</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">188</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top6</div>
-                            <img src="https://picsum.photos/300/170/?random=13" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【限時特惠】北投南豐天玥泉溫泉會館泡湯券｜大眾池・湯屋（需現場排隊）</h4>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.5 (1861)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 780</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">569</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top7</div>
-                            <img src="https://picsum.photos/300/170/?random=12" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">北投享溫泉｜大眾池・湯屋・住宿｜須自行電話預約</h4>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.5 (120)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 1080</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">580</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <div class="city-top-tag">Top8</div>
-                            <img src="https://picsum.photos/300/170/?random=16" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">台北王朝大酒店餐券｜SUNNY BUFFET｜須自行電話訂位</h4>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.6 (84)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 1078</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">625</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-
                 </div>
+                       
                 <!-- 為你精選台北相關行程 -->
-                <h3 class="mx-4 my-3 fw-bolder ">為你精選@(Model.CurrentCityInfo.CityName)相關行程</h3>
-                <div class="city-Featured-silder d-flex mt-4">
-                    <div class="city-Featured-card ms-4">
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=22" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【夏日養身湯學】新北烏來｜馥森阪治Trio｜溫泉景觀湯屋｜須自行官網線上預約
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="即買即用" class="tag me-1">即買即用</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.8 (41)
-                                    </span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,350</span>
-                                </div>
-                            </div>
+                <h3 class="mx-4 my-3 fw-bolder">為你精選@(Model.CurrentCityInfo.CityName)相關行程</h3>
+                <div class="city-Featured-silder d-flex mt-4 mx-2 position-relative">
+                    <div class="swiper mySwiper">
+                        <div class="city-Featured-card d-flex w-100 swiper-wrapper">
+                            <partial name="CardPartial/_NewCardPartial" for="AboutActiviyList"/>
                         </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=25" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【限時3折】2022旅遊補助｜萬豪酒店一泊一食｜頭城老街 & 外澳沙灘一日遊
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.7 (236)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 5200</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,688</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=29" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【93折】太平山一日遊 | 鳩之澤溫泉＆見晴懷古步道 ＆ 翠峰湖 | 台北市區 & 宜蘭火車站接送
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="4天前可免費取消" class="tag me-1">4天前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.7 (277)
-                                    </span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,320</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=26" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【野餐召集令】桃園｜小人國主題樂園門票獨家套票 戶外必玩景點
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.8 (41)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 850</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">500</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=22" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【夏日養身湯學】新北烏來｜馥森阪治Trio｜溫泉景觀湯屋｜須自行官網線上預約
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="即買即用" class="tag me-1">即買即用</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.8 (41)
-                                    </span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,350</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=25" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【限時3折】2022旅遊補助｜萬豪酒店一泊一食｜頭城老街 & 外澳沙灘一日遊
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.7 (236)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 5200</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,688</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=29" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【93折】太平山一日遊 | 鳩之澤溫泉＆見晴懷古步道 ＆ 翠峰湖 | 台北市區 & 宜蘭火車站接送
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="4天前可免費取消" class="tag me-1">4天前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.7 (277)
-                                    </span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,320</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=26" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【野餐召集令】桃園｜小人國主題樂園門票獨家套票 戶外必玩景點
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.8 (41)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 850</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">500</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                 <!-- 最新上架 -->
-                <h3 class="mx-4 my-3 fw-bolder ">最新上架</h3>
-                <div class="city-Featured-silder d-flex mt-4">
-                    <div class="city-Featured-card ms-4">
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=29" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【夏日養身湯學】新北烏來｜馥森阪治Trio｜溫泉景觀湯屋｜須自行官網線上預約
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="8天前可免費取消" class="tag me-1">8天前可免費取消</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,350</span>
-                                </div>
-                            </div>
+                <h3 class="mx-4 my-3 fw-bolder">最新上架</h3>
+                <div class="city-Featured-silder d-flex mt-4 mx-2 position-relative">
+                    <div class="swiper mySwiper">
+                        <div class="city-Featured-card d-flex w-100 swiper-wrapper">
+                            <partial name="CardPartial/_NewCardPartial" for="NewActiviyList"/>
                         </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=65" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【限時3折】2022旅遊補助｜萬豪酒店一泊一食｜頭城老街 & 外澳沙灘一日遊
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="6天前可免費取消" class="tag me-1">6天前可免費取消</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,688</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=52" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【93折】太平山一日遊 | 鳩之澤溫泉＆見晴懷古步道 ＆ 翠峰湖 | 台北市區 & 宜蘭火車站接送
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="4天前可免費取消" class="tag me-1">4天前可免費取消</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,320</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=36" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【野餐召集令】桃園｜小人國主題樂園門票獨家套票 戶外必玩景點
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">500</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=42" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【夏日養身湯學】新北烏來｜馥森阪治Trio｜溫泉景觀湯屋｜須自行官網線上預約
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="即買即用" class="tag me-1">即買即用</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,350</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=35" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【限時3折】2022旅遊補助｜萬豪酒店一泊一食｜頭城老街 & 外澳沙灘一日遊
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,688</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=39" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【93折】太平山一日遊 | 鳩之澤溫泉＆見晴懷古步道 ＆ 翠峰湖 | 台北市區 & 宜蘭火車站接送
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="4天前可免費取消" class="tag me-1">4天前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.7 (277)
-                                    </span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">1,320</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card me-3">
-                            <img src="https://picsum.photos/300/125/?random=26" class="card-img-top" alt="...">
-                            <div class="card-body px-0">
-                                <h4 class="card-text overflow-hidden">【野餐召集令】桃園｜小人國主題樂園門票獨家套票 戶外必玩景點
-                                </h4>
-                                <div class="card-tag d-flex">
-                                    <span title="立即確認" class="tag me-1">立即確認</span>
-                                    <span title="出發前可免費取消" class="tag me-1">出發前可免費取消</span>
-                                </div>
-                                <div class="card-product-review">
-                                    <span>
-                                        <i class="icofont-star"></i>4.8 (41)
-                                    </span>
-                                </div>
-                                <div class="card-product-orm-price">
-                                    <span class="text-decoration-line-through">TWD 850</span>
-                                </div>
-                                <div class="card-product-price">
-                                    <span>TWD</span>
-                                    <span class="fw-bolder">500</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                 <div class="city-btn-wrap d-flex justify-content-center">
-                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有@(Model.CurrentCityInfo.CityName)體驗活動</a>
+                    <a href="#" type="button" class="back-to-top city-all-btn btn btn-light mb-3">查看所有@(Model.CurrentCityInfo.CityName)體驗活動</a>
                 </div>
                 <!-- 旅遊攻略 -->
-                <h3 class="mx-4 my-3 fw-bolder ">@(Model.CurrentCityInfo.CityName)旅遊攻略</h3>
+                <h3 class="mx-4 my-3 fw-bolder">@(Model.CurrentCityInfo.CityName)旅遊攻略</h3>
                 <div class="city-Raiders-silder d-flex mt-4">
-                    <div class="city-Raiders-card ms-4 ">
+                    <div class="swiper mySwiper">
+                        <div class="city-Raiders-card d-flex w-100 swiper-wrapper">
+                            @foreach(var raider in Model.RaiderList)
+                            {
+                                <div class="swiper-slide px-1">
+                                    <a href="~/Product/CityRaiders/@raider.RaiderId" class="text-decoration-none h-100">
+                                        <div class="card">
+                                            <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="@raider.Title">
+                                            <div class="city-Raiders-card-span d-flex position-relative ">
+                                                <span class="Raiders-imgtitle ">@raider.SubTitle</span>
+                                            </div>
+                                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
+                                                <h4 class="card-text overflow-hidden">@raider.Title</h4>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                    @*<div class="city-Raiders-card ms-4 ">
                         @foreach(var raider in @Model.RaiderList)
                         {
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/CityRaiders/@raider.RaiderId" class="text-decoration-none">
                                 <div class="card me-3">
                                     <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="@raider.Title">
                                     <div class="city-Raiders-card-span d-flex position-relative ">
@@ -646,7 +212,8 @@
                                 </div>
                             </a>
                         }
-                </div>
+
+                    </div>*@
                 </div>
                 <!-- map -->
                 <div class="city-about-title ms-4">
@@ -664,7 +231,7 @@
                     </div>
                     <div class="city-map-wrap  overflow-hidden col-12 col-md-4 m-3 position-relative">
                         <a href="#" class="d-inline-block h-100">
-                            <img src="https://picsum.photos/1200/850/?random=50"
+                            <img src="https://cdn.kkday.com/pc-web/assets/img/bg_map.jpg"
                                 class="card-img rounded-3 align-top w-100 h-100 " alt="...">
                             <div class="city-whach-map position-absolute">
                                 <p class="city-whach-map-title">看地圖搜尋@(Model.CurrentCityInfo.CityName)體驗活動</p>
@@ -678,42 +245,62 @@
             <section>
                 <!-- 留言區 -->
                 <div class="city-Evaluation-wrap mx-2 d-flex flex-wrap">
-                    @foreach(var comment in @Model.commentList)
-                {
-                    <div class="city-card-eva col-md-6 px-md-2">
-                        <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
-                            <div class="card-people-info d-flex p-2">
-                                <img src="https://picsum.photos/30/30/?random=60" class="people-img rounded-circle">
-                                <p class="align-items-center my-auto mx-2">@comment.Name</p>
-                            </div>
-                            <div class="city-evaluation-star my-3 px-2">
-                                <i class="icofont-favourite"></i>@(comment.RatingStar) · 體驗日期@(comment.UseDate) @(comment.PartnerType)
-                            </div>
-                            <div class="city-evaluaation-a mb-3 px-2">
-                                <a href="#">@comment.ProductName</a>
-                            </div>
-                            <img src="https://picsum.photos/300/200/?random=10" class="card-img-top rounded-0 px-2" alt="...">
-                            <div class="card-body">
-                                <p class="card-title fw-bolder">@comment.Title</p>
-                                <p class="card-text">@comment.Text</p>
-                                <p class="card-text"><small class="text-muted">於@(comment.CommentDate) 評價</small></p>
+                    @foreach(var comment in Model.CommentList)
+                    {
+                        <div class="city-card-eva col-md-6 px-md-2">
+                            <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
+                                <div class="card-people-info d-flex p-2">
+                                    <img src="https://picsum.photos/30/30/?random=60" class="people-img rounded-circle">
+                                    <p class="align-items-center my-auto mx-2">@comment.Name</p>
+                                </div>
+                                <div class="city-evaluation-star my-3 px-2">
+                                    <i class="icofont-favourite"></i>@(comment.RatingStar) · 體驗日期@(comment.UseDate) @(comment.PartnerType)
+                                </div>
+                                <div class="city-evaluaation-a mb-3 px-2">
+                                    <a href="#">@comment.ProductName</a>
+                                </div>
+                                <img src="https://picsum.photos/300/200/?random=10" class="card-img-top rounded-0 px-2" alt="...">
+                                <div class="card-body">
+                                    <p class="card-title fw-bolder">@comment.Title</p>
+                                    <p class="card-text">@comment.Text</p>
+                                    <p class="card-text"><small class="text-muted">於@(comment.CommentDate) 評價</small></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-                
+                    }
                 </div>
             </section>
             <!-- 探索周邊城市 -->
             <section class="px-0">
                 <div class="city-explore-wrap">
-                    <h3 class="mx-4 my-3 fw-bolder ">探索@(Model.CurrentCityInfo.CityName)周邊城市</h3>
-                    <div class="city-explore-silder d-flex mt-4">
-                        <div class="city-explore-card ms-4 ">
+                    <h3 class="mx-4 my-3 fw-bolder">探索@(Model.CurrentCityInfo.CityName)周邊城市</h3>
+                    <div class="city-explore-silder d-flex mt-4 position-relative">
+                        <div class="city-Featured-card d-flex w-100">
+                            <div class="swiper nearbycity-Swiper">
+                                <div class="city-explore-card swiper-wrapper">
+                                    @foreach(var citycard in Model.CityCardsList)
+                                    {
+                                        <div class="swiper-slide px-1">
+                                            <a href="~/Product/CityTour/@citycard.Id" class="text-decoration-none mx-2">
+                                                <div class="card position-relative">
+                                                    <img src="@citycard.CityImage" class="card-img-top" alt="@citycard.CityName">
+                                                    <div class="city-explore-card-span d-flex position-absolute">
+                                                        <span class="explore-imgtitle ">@citycard.CityName</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+                        @*<div class="city-explore-card ms-4 ">
                             
-                            @foreach(var citycard in @Model.cityCardList)
+                            @foreach(var citycard in @Model.CityCardsList)
                             {
-                                <a href="https://localhost:44338/Product/CityTour/@citycard.Id" class="text-decoration-none">
+                                <a href="~/Product/CityTour/@citycard.Id" class="text-decoration-none">
                                     <div class="card me-3">
                                         <img src="@citycard.CityImage" class="card-img-top" alt="@citycard.CityName">
                                         <div class="city-explore-card-span d-flex position-relative ">
@@ -722,10 +309,9 @@
                                     </div>
                                 </a>
                             }
-
-                        </div>
+                        </div>*@
                     </div>
-                    <div class="city-keyword-wrap ">
+                    @*<div class="city-keyword-wrap ">
                         <h3 class="mx-4 my-3 fw-bolder ">其他人也搜尋了</h3>
                         <div class="city-keyword-group d-flex flex-wrap mx-4">
                             <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">台北101</a>
@@ -749,7 +335,7 @@
                             <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">新北</a>
                         </div>
                         
-                    </div>
+                    </div>*@
                 </div>
             </section>
             
@@ -757,35 +343,36 @@
     </div>
 
 
-   @section topCSS{
-       <link rel="stylesheet" href="~/css/CityTour.css" />
-       @*<link rel="stylesheet" href="~/css/reset.css" />*@
-       <style>
-           footer ul li{
-               list-style: none;
-               
-           }
-           footer ul{
-               padding-left: 0px;
-           }
-           .city-Raiders-card-body h4{
-               color: #000;
-           }
-           @@media screen and (min-width: 360px){
+@section topCSS{
+    <link rel="stylesheet" href="~/css/CityTour.css" />
+    <link rel="stylesheet" href="~/css/newcard.css"/>
+
+    @*<link rel="stylesheet" href="~/css/reset.css" />*@
+    <style>
+        body{
+            margin: 0;
+        }
+        footer ul li{
+            list-style: none; 
+        }
+        footer ul{
+            padding-left: 0px;
+        }
+        .city-Raiders-card-body h4{
+            color: #000;
+        }
+        @@media screen and (min-width: 360px){
    
-                .city-type-xl{
-                    display: none;
-                }
-           }
-           @@media screen and (min-width: 1200px){
-                .city-type-xl{
-                    display: block;
-                }
-           }
-       </style>
-        
-        
-       
-   }
+            .city-type-xl{
+                display: none;
+            }
+        }
+        @@media screen and (min-width: 1200px){
+            .city-type-xl{
+                display: block;
+            }
+        }
+    </style>
+}
 
 

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Today.Model.Models;
-using Today.Web.DTOModels;
+using Today.Web.DTOModels.CityDTO;
 using Today.Web.ViewModels;
-using static Today.Web.DTOModels.CityDTO;
-using static Today.Web.DTOModels.RaiderDTO;
+using static Today.Web.DTOModels.CityDTO.CityDTO;
+using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 
 namespace Today.Web.Services.CityService
 {
@@ -11,12 +11,13 @@ namespace Today.Web.Services.CityService
     {
         
         CityResponseDTO GetCity(CityRequestDTO request);
-        List<CityDTO.City> GetAllCity();
-        List<RaiderCard> GetRaiderCard();
-        List<CommentCard> GetAllComment();
+        List<CityDTO.City> GetAllCity(CityRequestDTO request);
+        List<RaiderCard> GetRaiderCard(CityRequestDTO request);
+        List<CommentCard> GetAllComment(CityRequestDTO request);
         RaiderResponseDTO GetRaiders(RaiderRequestDTO request);
-       
+        List<ProductCard> GetNewActiviy(CityRequestDTO request);
+        List<ProductCard> GetAboutProduct(CityRequestDTO request);
+        List<ProductCard> GetTopTen(CityRequestDTO request);
 
-       
     }
 }

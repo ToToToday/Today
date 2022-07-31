@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,9 +12,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
+using Today.Web.Services.AccountService;
 using Today.Web.Services.CityService;
 using Today.Web.Services.locationService;
+using Today.Web.Services.MemberService;
 using Today.Web.Services.ProductService;
+using Today.Web.Services.ClassifyService;
+using Today.Web.Services.CheenkoutService;
+using Today.Web.Services.EcpayService;
+using Today.Web.Services.ProductInfoService;
+using Microsoft.OpenApi.Models;
 using Today.Web.Services.MemberCommentService;
 
 namespace Today.Web
@@ -35,10 +43,50 @@ namespace Today.Web
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
             });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodayWeb", Version = "v1" });
+            });
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
+
+
+            // 註冊DI
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<GenericRepository>();
+            services.AddScoped<IMemberService, MemberService>();
+            //services.AddScoped<IHttpContextAccessor, HttpContextAccessor>(); //(不要用，用內建方法【下面那行】)
+            services.AddHttpContextAccessor();
+
+            //Cookie
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    //全部寫得和預設值一樣
+
+                    //設定登入Action的路徑： 
+                    //options.LoginPath = new PathString("/Account/Login");
+
+                    ////設定 導回網址 的QueryString參數名稱：
+                    //options.ReturnUrlParameter = "ReturnUrl";
+
+                    ////設定登出Action的路徑： 
+                    //options.LogoutPath = new PathString("/Account/Logout");
+
+                    ////若權限不足，會導向的Action的路徑
+                    //options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                });
+
+
             services.AddTransient<ILocationService, LocationService>();
+
+
+            services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IClassifyService, ClassifyService>();
+            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IEcpayService, EcpayService>();
+            services.AddTransient<IProductInfoService, ProductInfoService>();
             services.AddTransient<IMemberCommentService, MemberCommentService>();
         }
 
@@ -55,11 +103,14 @@ namespace Today.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodayWeb v1"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication(); //加
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
