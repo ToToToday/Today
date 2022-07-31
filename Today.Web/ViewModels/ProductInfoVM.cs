@@ -16,7 +16,7 @@ namespace Today.Web.ViewModels
         public string ShoppingNotice { get; set; }//購物須知
         public List<Photo> PhtotList { get; set; }
         public List<Progarm> ProgarmList { get; set; }
-        public List<Member> MemberList { get; set; }//會員
+        public List<MemberComment> MemberList { get; set; }//會員
         public bool ProductIsdeleted { get; set; }//商品狀態
         
         //public JSON
@@ -66,11 +66,17 @@ namespace Today.Web.ViewModels
             public int ProgramDateId { get; set; }
             public DateTime CantuseDate { get; set; } //方案不行的日期
         }
-        public class Member
+        public class MemberComment
         {
+
+            public int CommentId { get; set; }
+            public int MemberId { get; set; }
             public string MemberPhoto { get; set; }
             public string MemberName { get; set; }//會員名
             public string MembermMessageText { get; set; }//會員留言
+            public int Star { get; set; }
+            public DateTime Data { get; set; }
+
         }
     }
 }

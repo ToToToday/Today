@@ -51,7 +51,6 @@ namespace Today.Web.Controllers
             if (screeninfo == null)
             {
                 s = screeninfo == null ? "": screeninfo.ToString();
-               
             }
             else
             {
