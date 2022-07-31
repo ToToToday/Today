@@ -22,7 +22,6 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
@@ -39,7 +38,6 @@ namespace Today.Web.Controllers
             _classifyService = classifyService;
             _productInfoService = productInfoService;
         }
-
         public IActionResult Index()
         {
             return View();

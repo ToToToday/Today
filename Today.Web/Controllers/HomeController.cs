@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Data;
+using Today.Web.DTOModels.AccountDTO;
 using Today.Web.Models;
 using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
@@ -15,9 +17,12 @@ using Today.Web.ViewModels;
 
 namespace Today.Web.Controllers
 {
+    //[Authorize(Roles = "A")] //限制「具備A角色」才可拜訪******
+    //[Authorize(Roles = "B")]
+    //[Authorize(Roles = "A,B")] //限制「具備A角色 或 B角色」才可拜訪
+
     public class HomeController : Controller
     {
-        
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
         private readonly ICityService _cityService;
@@ -155,14 +160,15 @@ namespace Today.Web.Controllers
                     Price = (h.Prices == null) ? null : h.Prices.Price
                 }).ToList(),
             };
-            
+
             return View(homeshow);
         }
-
+        
         public IActionResult Privacy()
         {
             return View();
         }
+
         public IActionResult Data()
         {
             InitDB data = new InitDB();
