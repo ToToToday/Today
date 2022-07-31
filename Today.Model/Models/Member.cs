@@ -20,7 +20,7 @@ namespace Today.Model.Models
 
         public int MemberId { get; set; }
         public string MemberName { get; set; }
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         public string Image { get; set; }
         public int? Age { get; set; }
         public string Phone { get; set; }

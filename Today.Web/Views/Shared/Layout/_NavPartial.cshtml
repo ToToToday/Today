@@ -1,5 +1,11 @@
-﻿@{
+﻿@using Today.Web.Services.AccountService;
+@using Today.Web.ViewModels.Account
+@inject IAccountService _accountService
+@{
+    var isAuthenticated = _accountService.IsAuthenticated();
 }
+
+@*@model A*@
 
 <header class="nav-limit w-100 position-fixed border-bottom border-secondary">
     <nav class="navbar navbar-expand-lg fixed-width m-auto px-1 py-2">
@@ -50,15 +56,15 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav my-2 my-lg-0">
-                    <form method="get" asp-action="/Account/Login">
-                        @if (true)
+                    <form class="Auth" method="get" asp-action="/Account/Login">
+                        @if (isAuthenticated)
                         {
                             @*<div>成功</div>*@
                             <!--手機(已登入)-->
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center"  href="~/Member/CountSetting">
                                     <span class="big-headimg col-3">
-                                        <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle">
+                                        <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle">
                                     </span>
                                     <p class="flex-grow-1">蝦毀</p>
                                     <span class="setting-icon col-3 text-end">
@@ -134,13 +140,19 @@
                                     <p class="order-title flex-grow-1">常見問題與幫助</p>
                                 </a>
                             </li>
+                            <!-- 中型裝置(都存在) -->
+                            <li class="nav-item d-none d-lg-block m-auto">
+                                <a class="nav-link text-secondary text-opacity-75 me-4" href="#">
+                                    <i class="fa-solid fa-cart-shopping fs-6"></i>
+                                </a>
+                            </li>
                             <!--中型裝置(以登入)-->
                             <li class="nav-item d-none d-lg-block">
-                                <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 <div class="user-info border rounded dropdown-menu py-0 dropdown-menu-end mt-0">
-                                    <a class="top-info text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                    <a class="top-info text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/CountSetting">
                                         <span class="big-headimg col-3">
-                                            <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle">
+                                            <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle">
                                         </span>
                                         <p class="flex-grow-1">蝦毀</p>
                                         <span class="setting-icon col-3 text-end">
@@ -205,7 +217,7 @@
                             @*<div>失敗</div>*@
                             <!-- 手機(未登入) -->
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <a class="nav-link shopping-cart text-secondary text-opacity-75" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     <i class="fa-solid fa-right-to-bracket"></i>
                                     登入
                                 </a>
@@ -223,7 +235,7 @@
                                 </a>
                             </li>
                             <!-- 中型裝置(都存在) -->
-                            <li class="nav-item d-none d-lg-block m-auto me-2">
+                            <li class="nav-item d-none d-lg-block m-auto">
                                 <a class="nav-link text-secondary text-opacity-75" href="#">
                                     <i class="fa-solid fa-cart-shopping fs-6"></i>
                                 </a>
@@ -244,7 +256,8 @@
 <!-- 登入Model -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        <div class="modal-content position-relative">
+        @********@
+        <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
                     <i class="icofont-rounded-left"></i>
@@ -274,21 +287,27 @@
                 </div>
                 @*加 method="post" action="/Account/Login"*@
                 <form class="login-form form-horizontal" role="form" method="post" action="/Account/Login">
+                    @Html.AntiForgeryToken()
                     <p>Today會員帳號登入</p>
                     <div class="input-box d-flex">
                         <div class="icon-set">
                             <i class="icofont-envelope text-black-50"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email">
-                        </div>
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email" required>
+                            @*<input asp-for="loginVM.Email" class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email"/>*@
+@*                            <span asp-validation-for="loginVM.Email" class="text-danger"></span>
+*@                        </div>
                     </div>
                     <div class="input-box d-flex">
                         <div class="icon-set">
                             <i class="icofont-lock text-black-50"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="password" name="Password">
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" required>
+                            @*<input asp-for="loginVM.Password" class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" />*@
+@*                            <span asp-validation-for="loginVM.Password" class="text-danger"></span>
+*@
                         </div>
                     </div>
                     <a class="forgot-password text-black-50" href="#">忘記密碼</a>
@@ -306,7 +325,7 @@
                     <div class="btn-box">
                         <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
                                 data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                data-bs-dismiss="modal">
+                                @*data-bs-dismiss="modal"*@>
                             登入
                         </button>
                     </div>
@@ -330,10 +349,12 @@
     </div>
 </div>
 
+
 <!-- 註冊Model -->
 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        <div class="modal-content position-relative">
+        @********@
+        <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
                     <i class="icofont-rounded-left"></i>
@@ -363,7 +384,8 @@
                     <span class="or d-inline-block">或</span>
                 </div>
                 @*加 method="post" action="/Account/SignUp"*@
-                <form class="login-form" method="post" action="/Account/SignUp">
+                <form class="login-form" role="form" method="post" action="/Account/SignUp">
+                    @Html.AntiForgeryToken()
                     <p>免費註冊 KKday 會員帳號</p>
                     <!-- 電子郵件 -->
                     <div class="input-box d-flex">
@@ -371,7 +393,7 @@
                             <i class="icofont-envelope"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email">
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email" required>
                         </div>
                     </div>
                     <!-- 密碼 -->
@@ -380,7 +402,7 @@
                             <i class="icofont-lock"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="password" name="Password">
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" required>
                         </div>
                     </div>
                     <label class="d-flex">
@@ -401,14 +423,27 @@
                     <div class="btn-box">
                         <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
                                 data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                data-bs-dismiss="modal">
+                                @*data-bs-dismiss="modal"*@>
                             註冊
                         </button>
                     </div>
                 </form>
+                @**************@
+                <div id="dont-add" class="dont-add text-black-50">
+                    還未登入KKday嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">立即登入！</a>
+                </div>
 
                 <div class="footer login-modal text-color" data-bs-toggle="modal" data-bs-target="#staticBackdrop">登入KKday</div>
             </div>
         </div>
     </div>
 </div>
+
+@*<partial name="_ValidationScriptsPartial"/>
+*@
+<script>
+    function a (){
+
+    }
+</script>
+

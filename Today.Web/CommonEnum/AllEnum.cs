@@ -2,6 +2,7 @@
 
 namespace Today.Web.CommonEnum
 {
+    //可以不用放在class裡面
     public class AllEnum
     {
         public enum PartnerType
@@ -14,6 +15,11 @@ namespace Today.Web.CommonEnum
             Personal = 3,
             [Description("朋友旅遊")]
             friend = 4,
+            [Description("商務旅遊")]
+            business = 5,
         }
+
+
+
     }
 }

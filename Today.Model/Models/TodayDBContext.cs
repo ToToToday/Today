@@ -54,7 +54,7 @@ namespace Today.Model.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Database=TodayDB;");
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=TodayDB;Integrated Security=True");
             }
         }
 
@@ -65,6 +65,10 @@ namespace Today.Model.Models
             modelBuilder.Entity<AboutProgram>(entity =>
             {
                 entity.ToTable("AboutProgram");
+
+                entity.HasIndex(e => e.AboutProgramOptionsId, "IX_AboutProgram_AboutProgramOptionsId");
+
+                entity.HasIndex(e => e.ProgramId, "IX_AboutProgram_ProgramId");
 
                 entity.Property(e => e.AboutProgramId).ValueGeneratedNever();
 
@@ -85,6 +89,8 @@ namespace Today.Model.Models
             {
                 entity.HasKey(e => e.AboutProgramOptionsId);
 
+                entity.HasIndex(e => e.ProductId, "IX_AboutProgramOptions_ProductId");
+
                 entity.Property(e => e.AboutProgramOptionsId).ValueGeneratedNever();
 
                 entity.Property(e => e.Context)
@@ -104,6 +110,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
+
+                entity.HasIndex(e => e.ParentCategoryId, "IX_Category_ParentCategoryId");
 
                 entity.Property(e => e.CategoryId).ValueGeneratedNever();
 
@@ -145,6 +153,10 @@ namespace Today.Model.Models
             modelBuilder.Entity<CityRaider>(entity =>
             {
                 entity.HasKey(e => e.RaidersId);
+
+                entity.HasIndex(e => e.CityId, "IX_CityRaiders_CityId");
+
+                entity.HasIndex(e => e.StaffId, "IX_CityRaiders_StaffId");
 
                 entity.Property(e => e.RaidersId).ValueGeneratedNever();
 
@@ -191,6 +203,10 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Collect");
 
+                entity.HasIndex(e => e.MemberId, "IX_Collect_MemberId");
+
+                entity.HasIndex(e => e.ProductId, "IX_Collect_ProductId");
+
                 entity.Property(e => e.CollectId)
                     .ValueGeneratedNever()
                     .HasComment("收藏id");
@@ -215,6 +231,12 @@ namespace Today.Model.Models
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.ToTable("Comment");
+
+                entity.HasIndex(e => e.MemberId, "IX_Comment_MemberId");
+
+                entity.HasIndex(e => e.OrderDetailsId, "IX_Comment_OrderDetailsID");
+
+                entity.HasIndex(e => e.ProductId, "IX_Comment_ProductId");
 
                 entity.Property(e => e.CommentId)
                     .ValueGeneratedNever()
@@ -305,6 +327,12 @@ namespace Today.Model.Models
             {
                 entity.ToTable("CouponManage");
 
+                entity.HasIndex(e => e.CouponId, "IX_CouponManage_CouponId");
+
+                entity.HasIndex(e => e.MemberId, "IX_CouponManage_MemberId");
+
+                entity.HasIndex(e => e.StaffId, "IX_CouponManage_StaffId");
+
                 entity.Property(e => e.CouponManageId)
                     .ValueGeneratedNever()
                     .HasComment("優惠卷管理");
@@ -341,6 +369,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<Location>(entity =>
             {
                 entity.ToTable("Location");
+
+                entity.HasIndex(e => e.ProductId, "IX_Location_ProductId");
 
                 entity.Property(e => e.LocationId)
                     .ValueGeneratedNever()
@@ -383,6 +413,8 @@ namespace Today.Model.Models
             {
                 entity.ToTable("LoginWay");
 
+                entity.HasIndex(e => e.MemberId, "IX_LoginWay_MemberID");
+
                 entity.Property(e => e.LoginWayId)
                     .ValueGeneratedNever()
                     .HasComment("登入方式ID");
@@ -410,9 +442,9 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Member");
 
-                entity.Property(e => e.MemberId)
-                    .ValueGeneratedNever()
-                    .HasComment("會員ID");
+                entity.HasIndex(e => e.CityId, "IX_Member_CityId");
+
+                entity.Property(e => e.MemberId).HasComment("會員ID");
 
                 entity.Property(e => e.Age).HasComment("年齡");
 
@@ -432,7 +464,6 @@ namespace Today.Model.Models
                 entity.Property(e => e.Image).HasComment("會員圖片");
 
                 entity.Property(e => e.MemberName)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasComment("會員名稱");
 
@@ -441,20 +472,24 @@ namespace Today.Model.Models
                     .HasComment("密碼");
 
                 entity.Property(e => e.Phone)
-                    .IsRequired()
                     .HasMaxLength(10)
                     .HasComment("電話");
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Members)
                     .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_City");
             });
 
             modelBuilder.Entity<Message>(entity =>
             {
                 entity.ToTable("Message");
+
+                entity.HasIndex(e => e.MemberId, "IX_Message_MemberId");
+
+                entity.HasIndex(e => e.OrderId, "IX_Message_OrderId");
+
+                entity.HasIndex(e => e.ReplyId, "IX_Message_ReplyId");
 
                 entity.Property(e => e.MessageContext)
                     .IsRequired()
@@ -492,6 +527,10 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Order");
 
+                entity.HasIndex(e => e.MemberId, "IX_Order_MemberId");
+
+                entity.HasIndex(e => e.PaymentId, "IX_Order_PaymentId");
+
                 entity.Property(e => e.OrderId)
                     .ValueGeneratedNever()
                     .HasComment("訂單ID");
@@ -527,6 +566,12 @@ namespace Today.Model.Models
                     .HasName("PK_OrderDetails");
 
                 entity.ToTable("OrderDetail");
+
+                entity.HasIndex(e => e.OrderId, "IX_OrderDetail_OrderId");
+
+                entity.HasIndex(e => e.SpecificationId, "IX_OrderDetail_SpecificationId");
+
+                entity.HasIndex(e => e.TicketsId, "IX_OrderDetail_TicketsId");
 
                 entity.Property(e => e.OrderDetailsId)
                     .ValueGeneratedNever()
@@ -595,6 +640,10 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Product");
 
+                entity.HasIndex(e => e.CityId, "IX_Product_CityId");
+
+                entity.HasIndex(e => e.SupplierId, "IX_Product_SupplierId");
+
                 entity.Property(e => e.ProductId).ValueGeneratedNever();
 
                 entity.Property(e => e.CancellationPolicy).HasComment("取消政策");
@@ -629,6 +678,10 @@ namespace Today.Model.Models
             {
                 entity.ToTable("ProductCategory");
 
+                entity.HasIndex(e => e.CategoryId, "IX_ProductCategory_CategoryId");
+
+                entity.HasIndex(e => e.ProductId, "IX_ProductCategory_ProductId");
+
                 entity.Property(e => e.ProductCategoryId)
                     .ValueGeneratedNever()
                     .HasComment("商品類別");
@@ -652,6 +705,8 @@ namespace Today.Model.Models
 
                 entity.ToTable("ProductPhoto");
 
+                entity.HasIndex(e => e.ProductId, "IX_ProductPhoto_ProductId");
+
                 entity.Property(e => e.PhotoId).ValueGeneratedNever();
 
                 entity.Property(e => e.Path)
@@ -670,6 +725,10 @@ namespace Today.Model.Models
             modelBuilder.Entity<ProductTag>(entity =>
             {
                 entity.ToTable("ProductTag");
+
+                entity.HasIndex(e => e.ProductId, "IX_ProductTag_ProductId");
+
+                entity.HasIndex(e => e.TagId, "IX_ProductTag_TagId");
 
                 entity.Property(e => e.ProductTagId)
                     .ValueGeneratedNever()
@@ -693,6 +752,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<Program>(entity =>
             {
                 entity.ToTable("Program");
+
+                entity.HasIndex(e => e.ProductId, "IX_Program_ProductId");
 
                 entity.Property(e => e.ProgramId)
                     .ValueGeneratedNever()
@@ -721,6 +782,8 @@ namespace Today.Model.Models
 
                 entity.ToTable("ProgramCantUseDate");
 
+                entity.HasIndex(e => e.ProgramId, "IX_ProgramCantUseDate_ProgramID");
+
                 entity.Property(e => e.ProgramDateId).ValueGeneratedNever();
 
                 entity.Property(e => e.Date)
@@ -739,6 +802,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<ProgramInclude>(entity =>
             {
                 entity.ToTable("ProgramInclude");
+
+                entity.HasIndex(e => e.ProgramId, "IX_ProgramInclude_ProgramID");
 
                 entity.Property(e => e.ProgramIncludeId).ValueGeneratedNever();
 
@@ -760,6 +825,8 @@ namespace Today.Model.Models
                 entity.HasKey(e => e.SpecificationId);
 
                 entity.ToTable("ProgramSpecification");
+
+                entity.HasIndex(e => e.ProgramId, "IX_ProgramSpecification_ProgramId");
 
                 entity.Property(e => e.SpecificationId).ValueGeneratedNever();
 
@@ -800,6 +867,8 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Screening");
 
+                entity.HasIndex(e => e.SpecificationId, "IX_Screening_SpecificationId");
+
                 entity.Property(e => e.ScreeningId)
                     .ValueGeneratedNever()
                     .HasComment("場次ID");
@@ -819,6 +888,12 @@ namespace Today.Model.Models
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
                 entity.ToTable("ShoppingCart");
+
+                entity.HasIndex(e => e.MemberId, "IX_ShoppingCart_MemberId");
+
+                entity.HasIndex(e => e.ScreeningId, "IX_ShoppingCart_ScreeningId");
+
+                entity.HasIndex(e => e.SpecificationId, "IX_ShoppingCart_SpecificationId");
 
                 entity.Property(e => e.ShoppingCartId).HasComment("購物車ID");
 
@@ -868,6 +943,8 @@ namespace Today.Model.Models
             modelBuilder.Entity<Supplier>(entity =>
             {
                 entity.ToTable("Supplier");
+
+                entity.HasIndex(e => e.CityId, "IX_Supplier_CityId");
 
                 entity.Property(e => e.SupplierId)
                     .ValueGeneratedNever()
