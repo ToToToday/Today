@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Today.Web.CommonEnum.AllEnum;
 
 namespace Today.Web.DTOModels
 {
@@ -21,7 +22,6 @@ namespace Today.Web.DTOModels
         {
             public int ProductId { get; set; }
             public int OrderId { get; set; }
-            public int OrderDetailId { get; set; }
             public string ProductName { get; set; }
             public string Title { get; set; }
             public string Path { get; set; }
@@ -34,12 +34,14 @@ namespace Today.Web.DTOModels
         {
             public string MemberName { get; set; }
             public int RatingStar { get; set; }
-            public int Parnertype { get; set; }
+            public PartnerType Partnertype { get; set; }
             public string Image { get; set; }
             public string ProductName { get; set; }
             public string CommentTitle { get; set; }
             public string CommentText { get; set; }
             public DateTime CommentDate { get; set; }
+            public int OrderDetailId { get; set; }
+            public int ProductId { get; set; }
         }
     }
 }

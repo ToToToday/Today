@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Linq;
+using Today.Web.DTOModels;
 using Today.Web.Services.MemberCommentService;
 using Today.Web.ViewModels;
 
@@ -28,6 +30,7 @@ namespace Today.Web.Controllers
             var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
             var MemberCommentInfo = new MemberCommentVM
             {
+                MemberId=ID,
                 OrderDtailList = DTO.OrderInfo.OrderDtailList.Select(d => new OrderDetailCard
                 {
                     Path = d.Path,
@@ -35,9 +38,22 @@ namespace Today.Web.Controllers
                     OrderId = d.OrderId,
                     ProductName=d.ProductName,
                     UnitPrice=d.UnitPrice,
-                    Title=d.Title
+                    Title=d.Title,
+                    comment = new ViewModels.Comment
+                    {
+                        PartnerType=d.comment.Partnertype,
+                        RatingStar=d.comment.RatingStar,
+                        CommentTitle=d.comment.CommentTitle,
+                        CommentText = d.comment.CommentText,
+                        OrderDetailId = d.comment.OrderDetailId,
+                        ProductId=d.comment.ProductId,
+                        CommentDate=d.comment.CommentDate,
+                        //
+                    },
                 }).ToList()
             };
+            ViewData["OrderManageCard"]=JsonConvert.SerializeObject(MemberCommentInfo);
+            
             return View(MemberCommentInfo);
         }
         public IActionResult MessageManage()
