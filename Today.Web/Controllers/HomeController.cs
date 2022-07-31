@@ -174,6 +174,7 @@ namespace Today.Web.Controllers
             };
 
             var result = _productService.ToCityPage(couponcode);
+            TempData["CityId"] = result.CityId;
 
             return RedirectToAction("CityTour", "Product", new { id = result.CityId });
         }
