@@ -34,7 +34,7 @@ namespace Today.Web.Services.ProductInfoService
             var locationSource = _repo.GetAll<Location>().First(loc => loc.ProductId == source.ProductId);
             var productPhotoSource = _repo.GetAll<ProductPhoto>().Where(p => p.ProductId == source.ProductId).ToList();
             var programSource = _repo.GetAll<Model.Models.Program>().Where(p => p.ProductId == source.ProductId).ToList();
-            
+
             var result = new ProductInfoResponseDTO
             {
                 ProductInfo = new ProductInfoDTO.Product
@@ -59,7 +59,7 @@ namespace Today.Web.Services.ProductInfoService
                         ProgarmIsdeleted = p.Isdeleted,
                         AboutProgramList = new List<ProductInfoDTO.AboutProgram>(),
                         ProgramInciudeList = new List<ProgramInciude>(),
-                        ProgramSpecificationList =new List<ProductInfoDTO.ProgramSpecification>(),
+                        ProgramSpecificationList = new List<ProductInfoDTO.ProgramSpecification>(),
                         DateList = new List<ProductInfoDTO.Date>(),
                     }).ToList(),
                     PhtotList = productPhotoSource.Select(p =>
@@ -70,7 +70,24 @@ namespace Today.Web.Services.ProductInfoService
                     }).ToList(),
                 }
             };
-
+            result.ProductInfo.MemberComment = _repo.GetAll<Model.Models.Comment>()
+                                                .Where(c => c.ProductId == requst.ProductId)
+                                                .Select(c => new MemberComment
+                                                {
+                                                    CommentId = c.CommentId,
+                                                    MemberId = c.MemberId,
+                                                    MembermMessageText = c.CommentText ,
+                                                    Star = c.RatingStar,
+                                                    Data = c.CommentDate
+                                               }).ToList();
+            result.ProductInfo.MemberComment.ForEach(c =>
+                _repo.GetAll<Member>().Where(m => c.MemberId == m.MemberId)
+                .ToList()
+                .ForEach(m =>
+                {
+                    c.MemberPhoto = m.Image;
+                    c.MemberName = m.MemberName;
+                }));
 
             result.ProductInfo.ProgarmList.ForEach(p =>
             {
@@ -112,6 +129,7 @@ namespace Today.Web.Services.ProductInfoService
                 .ToList()
                 .ForEach(pgsc =>
                 {
+
                     p.ScreeningList = _repo.GetAll<Model.Models.Screening>()
                     .Where(sc => sc.SpecificationId == pgsc.SpecificationId)
                     .Select(pss =>
@@ -133,9 +151,7 @@ namespace Today.Web.Services.ProductInfoService
 
                 });
             });
-
-
-            return result;
+           return result;
         }
     }
 }

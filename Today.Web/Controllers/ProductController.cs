@@ -28,7 +28,6 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-        
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
@@ -47,7 +46,6 @@ namespace Today.Web.Controllers
             _productInfoService = productInfoService;
             _shopCartService = shopCartService;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -76,6 +74,16 @@ namespace Today.Web.Controllers
                     ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
                     ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
                     ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    MemberList = productPagesServiceDTO.ProductInfo.MemberComment.Select(m => new MemberComment
+                    {
+                        MembermMessageText = m.MembermMessageText,
+                        MemberName = m.MemberName,
+                        MemberPhoto = m.MemberPhoto,
+                        MemberId = m.MemberId,
+                        CommentId = m.CommentId,
+                        Star = m.Star,
+                        Data = m.Data
+                    }).ToList(),
                     PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
                     new ProductInfoVM.Photo
                     {
