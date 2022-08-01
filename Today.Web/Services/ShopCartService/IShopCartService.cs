@@ -11,8 +11,8 @@ namespace Today.Web.Services.ShopCartService
     public interface IShopCartService
     {
         List<ShopCartCard> GetShopCartCard(ShopCartMemberRequestDTO Id);
-        CreateShopCartOutputDTO CreateShopCart(CreateShopCartInputDTO input);
+        public void CreateShopCard(ShopCartRequestVM input);
         //Task<string> AddItem(int memberId, int shopCartId);
-
+        public void DeleteShopCard(DeleteCardVM input);
     }
 }

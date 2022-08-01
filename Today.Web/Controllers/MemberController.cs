@@ -58,6 +58,7 @@ namespace Today.Web.Controllers
                 ShopCartCardList = ShopCartCardDTO
                 .Select(s => new ShopCartCardVM
                 {
+                    ShoppingCartId = s.ShopCartId,
                     ProductName = s.ProductName,
                     ProgramTitle = s.ProgramTitle,
                     Path = s.ProductPhoto,

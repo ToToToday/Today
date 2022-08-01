@@ -116,26 +116,10 @@ namespace Today.Web.Services.ShopCartService
             }).ToList();
 
 
-       
-            //var result = new ShopCartMemberResponseDTO
-            //{
-            //    //ShopCartCards = new List<ShopCartCard> {
-            //    //    new ShopCartCard {
-            //    //        ProductName = cartScr.ProductName,
-            //    //        ProgramTitle = cartScr.Title,
-            //    //        DepartureDate = cartScr.DepartureDate,
-            //    //        Quantity = cartScr.Quantity,
-            //    //        ScreenTime = cartScr.Time,
-            //    //        ProductPhoto = cartScr.Path,
-            //    //        UnitPrice = cartScr.UnitPrice,
-            //    //        UnitText = cartScr.UnitText,
-            //    //    }
-            //    //}.ToList()
-
-            //};
 
             var result = cartScr.Select(c => new ShopCartMemberResponseDTO.ShopCartCard
             {
+                ShopCartId = c.ShoppingCartId,
                 ProductName = c.ProductName,
                 ProgramTitle = c.Title,
                 DepartureDate = c.DepartureDate,
@@ -221,23 +205,53 @@ namespace Today.Web.Services.ShopCartService
         //    return result.ToString();
         //}
 
-        public CreateShopCartOutputDTO CreateShopCart(CreateShopCartInputDTO input)
+        public void CreateShopCard(ShopCartRequestVM request)
         {
-            var result = new CreateShopCartOutputDTO
+
+
+            var input = request.SpecificationList.Select(sp =>
+              new ShoppingCart
+              {
+                  MemberId = request.MemberId,
+                  DepartureDate = DateTime.Parse(request.DepartureDate),
+                  ScreeningId = 1,
+                  SpecificationId = sp.SpecificationId,
+                  Quantity = sp.Quantity,
+                  JoinTime = DateTime.UtcNow.AddHours(8),
+              })
+            .ToList();
+
+
+            input.ForEach(s =>
             {
-                IsSuccess = false,
-            };
-            var cartEntity = new ShoppingCart
-            {
-                //ShoppingCartId = input.ShoppingCartId,
-                MemberId = 5,
-                SpecificationId = input.SpecificationId,
-                DepartureDate = input.DepartureDate,
-                Quantity = input.Quantity,
-                ScreeningId = input.ScreeningId,
-                JoinTime = DateTime.UtcNow.AddHours(8),
-                
-            };
+                _repo.Create<ShoppingCart>(s);
+                _repo.SavaChanges();
+            });
+
+
+            //var isNull =  _repo.GetAll<ShopCartCard>()
+            //        .Where(c => c.ShopCartId == request.ShoppingCartId).FirstOrDefaultAsync();
+
+            //if (isNull == null)
+            //{
+            //    return "已成功加入購物車";
+            //}
+
+            //var result = new CreateShopCartOutputDTO
+            //{
+            //    IsSuccess = false,
+            //};
+            //var cartEntity = new ShoppingCart
+            //{
+            //    //ShoppingCartId = input.ShoppingCartId,
+            //    MemberId = 5,
+            //    SpecificationId = input.SpecificationId,
+            //    DepartureDate = input.DepartureDate,
+            //    Quantity = input.Quantity,
+            //    ScreeningId = input.ScreeningId,
+            //    JoinTime = DateTime.UtcNow.AddHours(8),
+
+            //};
 
             //var shopcart = _repo.GetAll<ShoppingCart>();
             //var specEntity = _repo.GetAll<ProgramSpecification>().Join(shopcart, sc => sc.SpecificationId, sp => sp.SpecificationId, (sc, sp) => new
@@ -253,25 +267,33 @@ namespace Today.Web.Services.ShopCartService
             //    pr.ProductId
             //});
 
-            
-
-            try
-            {
-                _repo.Create<ShoppingCart>(cartEntity);
-                //_repo.Create(programEntity);
-                _repo.SavaChanges();
-                result.IsSuccess = true;
-            }
-            catch (Exception ex)
-            {
-                result.IsSuccess = false;
-                result.Message = ex.Message;
-            }
 
 
+            //try
+            //{
+            //    _repo.Create<ShoppingCart>(input);
+            //    //_repo.Create(programEntity);
+            //    _repo.SavaChanges();
+            //    result.IsSuccess = true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    result.IsSuccess = false;
+            //    result.Message = ex.Message;
+            //}
 
 
-            return result;
+
+
+            //return result;
+        }
+
+        public void DeleteShopCard(DeleteCardVM request)
+        {
+            var removeCard = _repo.GetAll<ShoppingCart>().FirstOrDefault(r => r.ShoppingCartId == request.ShoppingCartId);
+
+            _repo.Delete(removeCard);
+            _repo.SavaChanges();
         }
     }
 }
