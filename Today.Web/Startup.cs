@@ -23,6 +23,7 @@ using Today.Web.Services.EcpayService;
 using Today.Web.Services.ProductInfoService;
 using Microsoft.OpenApi.Models;
 using Today.Web.Services.MemberCommentService;
+using Today.Web.Services.ShopCartService;
 
 namespace Today.Web
 {
@@ -88,6 +89,7 @@ namespace Today.Web
             services.AddTransient<IEcpayService, EcpayService>();
             services.AddTransient<IProductInfoService, ProductInfoService>();
             services.AddTransient<IMemberCommentService, MemberCommentService>();
+            services.AddTransient<IShopCartService, ShopCartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

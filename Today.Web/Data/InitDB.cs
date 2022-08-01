@@ -10,12 +10,11 @@ namespace Today.Web.Data
 
         public InitDB():this(context: new TodayDBContext())
         {
-        }
 
+        }
         public InitDB(TodayDBContext context)
         {
             _context = context;
-            
         }
         public void CreateBaseData()
         {

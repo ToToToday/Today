@@ -6,17 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
+using Today.Web.DTOModels.ShopCartDTO;
 using Today.Web.Services;
 using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
 using Today.Web.Services.ClassifyService;
 using Today.Web.Services.locationService;
 using Today.Web.Services.ProductInfoService;
+using Today.Web.Services.ShopCartService;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 using static Today.Web.ViewModels.ProductInfoVM;
 using Today.Web.DTOModels.ProductInfoDTO;
+
+using static Today.Web.DTOModels.ShopCartMemberDTO;
+using static Today.Web.DTOModels.ShopCartMemberDTO.ShopCartMemberResponseDTO;
+using static Today.Web.ViewModels.ShopCartVM;
 
 namespace Today.Web.Controllers
 {
@@ -27,9 +33,10 @@ namespace Today.Web.Controllers
         private readonly ILocationService _locationServices;
         private readonly IProductInfoService _productInfoService;
         private readonly IClassifyService _classifyService;
+        private readonly IShopCartService _shopCartService;
         
         
-        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService)
+        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService, IShopCartService shopCartService)
         {
             _productInfoService = productInfoService;
             _cityServices = cityServices;
@@ -37,6 +44,7 @@ namespace Today.Web.Controllers
             _locationServices = locationServices;
             _classifyService = classifyService;
             _productInfoService = productInfoService;
+            _shopCartService = shopCartService;
         }
         public IActionResult Index()
         {
@@ -66,6 +74,16 @@ namespace Today.Web.Controllers
                     ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
                     ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
                     ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    MemberList = productPagesServiceDTO.ProductInfo.MemberComment.Select(m => new MemberComment
+                    {
+                        MembermMessageText = m.MembermMessageText,
+                        MemberName = m.MemberName,
+                        MemberPhoto = m.MemberPhoto,
+                        MemberId = m.MemberId,
+                        CommentId = m.CommentId,
+                        Star = m.Star,
+                        Data = m.Data
+                    }).ToList(),
                     PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
                     new ProductInfoVM.Photo
                     {
@@ -111,9 +129,17 @@ namespace Today.Web.Controllers
                             }).ToList()
                     }).ToList()
                 };
+
+                
+
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
+               
+
+
                 return View(productinfo);
-                //return View();
+                
+
+                
             }
 
         }
@@ -487,7 +513,6 @@ namespace Today.Web.Controllers
         }
         public IActionResult QuarantineHotel() //防疫旅館頁面
         {
-
             return View();
         }
         public IActionResult HSR() //國旅
