@@ -1,3 +1,6 @@
+.collapse-plate{
+    display:none;
+}
 :root {
     --font-color: #138184;
     --font-color-Ash: #8a8a8a;
