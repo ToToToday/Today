@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Web.Data;
 using Today.Web.DTOModels.AccountDTO;
+using Today.Web.DTOModels.ProductDTO;
 using Today.Web.Models;
 using Today.Web.Services.CityService;
 using Today.Web.Services.ProductService;
@@ -33,7 +34,7 @@ namespace Today.Web.Controllers
             _productService = productService;
             _cityService = cityService;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             var homeproductSource = _productService.GetAllProductCard();
@@ -163,7 +164,21 @@ namespace Today.Web.Controllers
 
             return View(homeshow);
         }
-        
+
+        [HttpPost]
+        public IActionResult Index(string searchword)
+        {
+            var searchWord = new ProductDTO.ProductRequestDTO
+            {
+                CityName = searchword
+            };
+
+            ViewData["CityId"] = _productService.ToCityPage(searchWord).CityId;
+
+            //return RedirectToAction("CityTour", "Product", new { id = ViewData["CityId"] });
+            return RedirectToRoute(new { controller = "Product", action = "CityTour", id = ViewData["CityId"] });
+        }
+
         public IActionResult Privacy()
         {
             return View();

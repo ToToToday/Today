@@ -12,44 +12,36 @@
         <div class="container-fluid px-2 px-md-4">
             <div class="inputlogo-group d-flex justify-content-start col-7 align-items-center">
                 <h1 class="w-25 me-3">
-                    <a href="#" class="align-top">
+                    <a href="~/Home/Index" class="align-top">
                         <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
                     </a>
                 </h1>
                 <div class="add-height" style="height: 48px;"></div>
-                <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")">
-                    <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
-                            aria-label="Recipient's username" aria-describedby="search" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                    <button class="btn" type="button" id="search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <div class="search-box px-2 py-3 border rounded w-120 dropdown-menu dropdown-menu-start mt-2">
-                        <span class="title w-100 d-block mb-2">熱門目的地</span>
-                        <div class="seacrch-keywords d-flex flex-wrap flex-column" style="height: 200px;">
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台南</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">高雄</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">桃園</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">平溪</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">彰化</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">苗栗</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">雲林</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">台中</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">嘉義</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">南投</a>
-                        </div>
+                <form class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")" method="post" action="/Home/Index">
+                    <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…" aria-label="請輸入城市名稱" aria-describedby="search" name="searchword" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <button class="btn" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <div class="search-box px-2 py-3 border rounded w-110 dropdown-menu dropdown-menu-start mt-2">
+                        <span class="title w-100 d-block mb-2 fw-blod">熱門目的地</span>
+                        <ul class="seacrch-keywords">
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/22">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/3">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/17">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/18">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/16">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/12">台南</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/13">高雄</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/4">桃園</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/8">彰化</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/6">苗栗</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/10">雲林</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/7">台中</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/11">嘉義</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/9">南投</a></li>
+                    </ul>
                     </div>
-                </div>
+                </form>
             </div>
-            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <!-- <span class="navbar-toggler-icon bg-black">
-                    </span> -->
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="bg-black"></span>
                 <span class="bg-black"></span>
                 <span class="bg-black"></span>
@@ -72,7 +64,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item d-sm-block d-lg-none m-2">
+                            @*<li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex" href="#">
                                     <span class="member-icon col-3">
                                         <i class="fa-regular fa-gem"></i>
@@ -82,7 +74,7 @@
                                         <p class="member-level-display">白銀會員</p>
                                     </span>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
                                     <span class="ticket-icon col-3">
@@ -92,14 +84,14 @@
                                     <p class="coupon-display col-3 text-end">0</p>
                                 </a>
                             </li>
-                            <li class="nav-item d-sm-block d-lg-none m-2">
+                            @*<li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
                                     <span class="task-icon col-3">
                                         <i class="fa-solid fa-list-ul"></i>
                                     </span>
                                     <p class="task-title flex-grow-1">解任務，賺獎勵</p>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
                                     <span class="message-icon col-3">
@@ -161,7 +153,7 @@
                                     </a>
                                     <hr class="dropdown-divider mx-0">
                                     <span class="body-info border-bottom border-secondary">
-                                        <a class="member-level text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        @*<a class="member-level text-black text-decoration-none d-flex align-items-center px-3 py-2">
                                             <span class="member-icon col-3">
                                                 <i class="fa-regular fa-gem"></i>
                                             </span>
@@ -169,7 +161,7 @@
                                                 <p class="member-level-title mb-1">我的會員禮遇</p>
                                                 <p class="member-level-display">白銀會員</p>
                                             </span>
-                                        </a>
+                                        </a>*@
                                         <a class="discount-coupon text-black text-decoration-none d-flex align-items-center px-3 py-2">
                                             <span class="ticket-icon col-3">
                                                 <i class="fa-solid fa-ticket-simple"></i>
@@ -177,12 +169,12 @@
                                             <p class="coupon-title flex-grow-1">Today 折扣券</p>
                                             <p class="coupon-display col-3 text-end">0</p>
                                         </a>
-                                        <a class="task text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        @*<a class="task text-black text-decoration-none d-flex align-items-center px-3 py-2">
                                             <span class="task-icon col-3">
                                                 <i class="fa-solid fa-list-ul"></i>
                                             </span>
                                             <p class="task-title flex-grow-1">解任務，賺獎勵</p>
-                                        </a>
+                                        </a>*@
                                     </span>
                                     <hr class="dropdown-divider mx-0">
                                     <span class="middle-info">
@@ -250,13 +242,12 @@
             </div>
         </div>
     </nav>
-    <partial name="Layout/_NavBottomPartial"/>
+    <partial name="LayoutPartial/_NavBottomPartial"/>
 </header>
 
 <!-- 登入Model -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        @********@
         <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
@@ -296,8 +287,8 @@
                         <div class="input-set flex-grow-1">
                             <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email" required>
                             @*<input asp-for="loginVM.Email" class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email"/>*@
-@*                            <span asp-validation-for="loginVM.Email" class="text-danger"></span>
-*@                        </div>
+                            @*<span asp-validation-for="loginVM.Email" class="text-danger"></span>*@
+                        </div>
                     </div>
                     <div class="input-box d-flex">
                         <div class="icon-set">
@@ -306,8 +297,7 @@
                         <div class="input-set flex-grow-1">
                             <input class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" required>
                             @*<input asp-for="loginVM.Password" class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" />*@
-@*                            <span asp-validation-for="loginVM.Password" class="text-danger"></span>
-*@
+                            @*<span asp-validation-for="loginVM.Password" class="text-danger"></span>*@
                         </div>
                     </div>
                     <a class="forgot-password text-black-50" href="#">忘記密碼</a>
@@ -323,9 +313,7 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                @*data-bs-dismiss="modal"*@>
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit" data-gtm-name="login-btn" data-gtm-channel="KKDAY" @*data-bs-dismiss="modal"*@>
                             登入
                         </button>
                     </div>
@@ -421,9 +409,7 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                @*data-bs-dismiss="modal"*@>
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit" data-gtm-name="login-btn" data-gtm-channel="KKDAY" @*data-bs-dismiss="modal"*@>
                             註冊
                         </button>
                     </div>
@@ -439,8 +425,7 @@
     </div>
 </div>
 
-@*<partial name="_ValidationScriptsPartial"/>
-*@
+@*<partial name="_ValidationScriptsPartial"/>*@
 <script>
     function a (){
 

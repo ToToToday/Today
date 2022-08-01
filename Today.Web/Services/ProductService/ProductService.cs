@@ -18,6 +18,15 @@ namespace Today.Web.Services.ProductService
         {
             _repo = repo;
         }
+        public ProductResponseDTO ToCityPage(ProductRequestDTO search)
+        {
+            var cityList = _repo.GetAll<City>();
+
+            var result = new ProductResponseDTO();
+            result.CityId = cityList.Where(c => c.CityName.Contains(search.CityName)).Select(c => c.CityId).First();
+
+            return result;
+        }
         
         public ProductDTO AllProduct()
         {

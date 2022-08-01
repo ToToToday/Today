@@ -66,6 +66,16 @@ namespace Today.Web.Controllers
                     ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
                     ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
                     ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    MemberList = productPagesServiceDTO.ProductInfo.MemberComment.Select(m => new MemberComment
+                    {
+                        MembermMessageText = m.MembermMessageText,
+                        MemberName = m.MemberName,
+                        MemberPhoto = m.MemberPhoto,
+                        MemberId = m.MemberId,
+                        CommentId = m.CommentId,
+                        Star = m.Star,
+                        Data = m.Data
+                    }).ToList(),
                     PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
                     new ProductInfoVM.Photo
                     {
