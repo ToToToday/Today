@@ -11,8 +11,8 @@
             <p class="mb-4 fs-3 fw-bold">全世界最棒的旅遊體驗</p>
             <p class="mb-3 fs-5">帶你深入所有趣又獨特的旅遊體驗行程</p>
             <form class="input-group mb-3 w-75 m-auto" method="post" action="/Home/Index">
-                <input type="text" class="form-control" placeholder="輸入目的地、景點、體驗行程或活動名稱…" aria-label="請輸入城市名稱" aria-describedby="search" name="searchword" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                <button class="btn" type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" class="form-control" placeholder="輸入目的地、或活動類型…" aria-label="請輸入城市名稱" aria-describedby="search" name="searchword" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                <button class="btn" type="submit" id="search-home"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <div class="search-box px-2 py-3 border w-110 rounded dropdown-menu dropdown-menu-start mt-2">
                     <span class="title w-100 d-block mb-2 fw-blod">熱門目的地</span>
                     <ul class="seacrch-keywords">
@@ -526,4 +526,34 @@
     <link rel="stylesheet" href="~/css/reset.css"/>
     <link rel="stylesheet" href="~/css/home.css"/>
     <link rel="stylesheet" href="~/css/newcard.css"/>
+}
+
+@section endJS{
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            //"hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            //"hideMethod": "fadeOut"
+        }
+        let result = '@Html.Raw(TempData["SearchMessage"])'.replace(/\"/g, "")
+
+        window.onload = function(){
+            if (result !== ''){
+                //alert(`${result}`)
+                toastr['warning'](`${result}`, '錯誤')
+            }
+        }
+    </script>
 }

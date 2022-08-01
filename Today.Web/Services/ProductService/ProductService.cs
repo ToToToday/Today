@@ -18,12 +18,35 @@ namespace Today.Web.Services.ProductService
         {
             _repo = repo;
         }
-        public ProductResponseDTO ToCityPage(ProductRequestDTO search)
+        public ProductResponseDTO ConvertPages(ProductRequestDTO search)
         {
             var cityList = _repo.GetAll<City>();
+            var categoryList = _repo.GetAll<Category>();
+            //var productList = _repo.GetAll<Product>();
+
+            var selectCity = cityList.Where(c => c.CityName.Contains(search.SearchWord)).Select(c => c.CityId);
+            var selectCategory = categoryList.Where(c => c.CategoryName.Contains(search.SearchWord)).Select(c => c.CategoryId);
 
             var result = new ProductResponseDTO();
-            result.CityId = cityList.Where(c => c.CityName.Contains(search.CityName)).Select(c => c.CityId).First();
+            int? cityId = (selectCity.Count() != 0) ? selectCity.First() : null;
+            int? categoryId = (selectCategory.Count() != 0) ? selectCategory.First() : null;
+            //var productId = productList.Where(p => p.ProductName.Contains(search.SearchWord)).Select(p => p.ProductId).ToList();
+
+            if (cityId != null && categoryId == null)
+            {
+                result.HasCityId = true;
+                result.Id = (int)cityId;
+            }
+            else if (categoryId != null && cityId == null)
+            {
+                result.HasCityId = false;
+                result.Id = (int)categoryId;
+            }
+            else
+            {
+                result.HasCityId = false;
+                result.Id = 0;
+            }
 
             return result;
         }
