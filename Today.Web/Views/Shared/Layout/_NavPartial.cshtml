@@ -5,14 +5,12 @@
     var isAuthenticated = _accountService.IsAuthenticated();
 }
 
-@*@model A*@
-
 <header class="nav-limit w-100 position-fixed border-bottom border-secondary">
     <nav class="navbar navbar-expand-lg fixed-width m-auto px-1 py-2">
         <div class="container-fluid px-2 px-md-4">
             <div class="inputlogo-group d-flex justify-content-start col-7 align-items-center">
                 <h1 class="w-25 me-3">
-                    <a href="#" class="align-top">
+                    <a href="~/Home/Index" class="align-top">
                         <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
                     </a>
                 </h1>
@@ -66,13 +64,13 @@
                                     <span class="big-headimg col-3">
                                         <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle">
                                     </span>
-                                    <p class="flex-grow-1">蝦毀</p>
+                                    <p class="flex-grow-1">帳號設定</p> @*@ViewData["MemberName"]*@
                                     <span class="setting-icon col-3 text-end">
                                         <i class="fa-solid fa-gear"></i>
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item d-sm-block d-lg-none m-2">
+                            @*<li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex" href="#">
                                     <span class="member-icon col-3">
                                         <i class="fa-regular fa-gem"></i>
@@ -82,9 +80,9 @@
                                         <p class="member-level-display">白銀會員</p>
                                     </span>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/Coupon">
                                     <span class="ticket-icon col-3">
                                         <i class="fa-solid fa-ticket-simple"></i>
                                     </span>
@@ -92,16 +90,16 @@
                                     <p class="coupon-display col-3 text-end">0</p>
                                 </a>
                             </li>
-                            <li class="nav-item d-sm-block d-lg-none m-2">
+                            @*<li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
                                     <span class="task-icon col-3">
                                         <i class="fa-solid fa-list-ul"></i>
                                     </span>
                                     <p class="task-title flex-grow-1">解任務，賺獎勵</p>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/MessageManage">
                                     <span class="message-icon col-3">
                                         <i class="fa-regular fa-comment-dots"></i>
                                     </span>
@@ -109,7 +107,7 @@
                                 </a>
                             </li>
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/MyCollect">
                                     <span class="collect-icon col-3">
                                         <i class="fa-regular fa-heart"></i>
                                     </span>
@@ -117,7 +115,7 @@
                                 </a>
                             </li>
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/OrderManage">
                                     <span class="order-icon col-3">
                                         <i class="fa-regular fa-rectangle-list"></i>
                                     </span>
@@ -154,14 +152,14 @@
                                         <span class="big-headimg col-3">
                                             <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle">
                                         </span>
-                                        <p class="flex-grow-1">蝦毀</p>
+                                        <p class="flex-grow-1">帳號設定</p>
                                         <span class="setting-icon col-3 text-end">
                                             <i class="fa-solid fa-gear"></i>
                                         </span>
                                     </a>
                                     <hr class="dropdown-divider mx-0">
                                     <span class="body-info border-bottom border-secondary">
-                                        <a class="member-level text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        @*<a class="member-level text-black text-decoration-none d-flex align-items-center px-3 py-2">
                                             <span class="member-icon col-3">
                                                 <i class="fa-regular fa-gem"></i>
                                             </span>
@@ -169,36 +167,36 @@
                                                 <p class="member-level-title mb-1">我的會員禮遇</p>
                                                 <p class="member-level-display">白銀會員</p>
                                             </span>
-                                        </a>
-                                        <a class="discount-coupon text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        </a>*@
+                                        <a class="discount-coupon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/Coupon">
                                             <span class="ticket-icon col-3">
                                                 <i class="fa-solid fa-ticket-simple"></i>
                                             </span>
                                             <p class="coupon-title flex-grow-1">Today 折扣券</p>
                                             <p class="coupon-display col-3 text-end">0</p>
                                         </a>
-                                        <a class="task text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        @*<a class="task text-black text-decoration-none d-flex align-items-center px-3 py-2">
                                             <span class="task-icon col-3">
                                                 <i class="fa-solid fa-list-ul"></i>
                                             </span>
                                             <p class="task-title flex-grow-1">解任務，賺獎勵</p>
-                                        </a>
+                                        </a>*@
                                     </span>
-                                    <hr class="dropdown-divider mx-0">
+                                    @*<hr class="dropdown-divider mx-0">*@
                                     <span class="middle-info">
-                                        <a class="order text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        <a class="order-icon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/OrderManage">
                                             <span class="order-icon col-3">
                                                 <i class="fa-regular fa-rectangle-list"></i>
                                             </span>
                                             <p class="order-title flex-grow-1">訂單管理</p>
                                         </a>
-                                        <a class="message text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        <a class="message-icon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/MessageManage">
                                             <span class="message-icon col-3">
                                                 <i class="fa-regular fa-comment-dots"></i>
                                             </span>
                                             <p class="message-title flex-grow-1">訊息管理</p>
                                         </a>
-                                        <a class="collect text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        <a class="collect-icon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/MyCollect">
                                             <span class="collect-icon col-3">
                                                 <i class="fa-regular fa-heart"></i>
                                             </span>
@@ -256,7 +254,6 @@
 <!-- 登入Model -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        @********@
         <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
@@ -293,21 +290,22 @@
                         <div class="icon-set">
                             <i class="icofont-envelope text-black-50"></i>
                         </div>
+                        <!-- 電子郵件 -->
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email" required>
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="on" name="Email" required>
                             @*<input asp-for="loginVM.Email" class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email"/>*@
-@*                            <span asp-validation-for="loginVM.Email" class="text-danger"></span>
-*@                        </div>
+                            @*<span asp-validation-for="loginVM.Email" class="text-danger"></span>*@
+                      </div>
                     </div>
                     <div class="input-box d-flex">
                         <div class="icon-set">
                             <i class="icofont-lock text-black-50"></i>
                         </div>
+                        <!-- 密碼 -->
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" required>
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="on" name="Password" required>
                             @*<input asp-for="loginVM.Password" class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" />*@
-@*                            <span asp-validation-for="loginVM.Password" class="text-danger"></span>
-*@
+                            @*<span asp-validation-for="loginVM.Password" class="text-danger"></span>*@
                         </div>
                     </div>
                     <a class="forgot-password text-black-50" href="#">忘記密碼</a>
@@ -323,9 +321,7 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                @*data-bs-dismiss="modal"*@>
+                        <button type="submit" class="btn btn-block w-100" @*data-bs-dismiss="modal"*@>
                             登入
                         </button>
                     </div>
@@ -342,7 +338,7 @@
                     </a>
                 </div>
                 <div id="dont-add" class="dont-add text-black-50">
-                    還未加入KKday嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">立即註冊！</a>
+                    還未加入Today嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">立即註冊！</a>
                 </div>
             </div>
         </div>
@@ -353,13 +349,12 @@
 <!-- 註冊Model -->
 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        @********@
         <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
                     <i class="icofont-rounded-left"></i>
                 </div>
-                <h5 class="modal-title" id="exampleModalLabel2">免費註冊</h5>
+                <h5 class="modal-title login-modal" id="exampleModalLabel2">免費註冊</h5>
             </div>
             <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body login-modal">
@@ -386,14 +381,14 @@
                 @*加 method="post" action="/Account/SignUp"*@
                 <form class="login-form" role="form" method="post" action="/Account/SignUp">
                     @Html.AntiForgeryToken()
-                    <p>免費註冊 KKday 會員帳號</p>
+                    <p>免費註冊 Today 會員帳號</p>
                     <!-- 電子郵件 -->
                     <div class="input-box d-flex">
                         <div class="icon-set">
                             <i class="icofont-envelope"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email" required>
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="off" name="Email" required>
                         </div>
                     </div>
                     <!-- 密碼 -->
@@ -402,7 +397,7 @@
                             <i class="icofont-lock"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" required>
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="off" name="Password" required>
                         </div>
                     </div>
                     <label class="d-flex">
@@ -421,19 +416,16 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                @*data-bs-dismiss="modal"*@>
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit">
                             註冊
                         </button>
                     </div>
                 </form>
-                @**************@
                 <div id="dont-add" class="dont-add text-black-50">
-                    還未登入KKday嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">立即登入！</a>
+                    還未登入Today嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">立即登入！</a>
                 </div>
 
-                <div class="footer login-modal text-color" data-bs-toggle="modal" data-bs-target="#staticBackdrop">登入KKday</div>
+                <div class="footer login-modal text-color" data-bs-toggle="modal" data-bs-target="#staticBackdrop">登入Today</div>
             </div>
         </div>
     </div>
@@ -441,9 +433,5 @@
 
 @*<partial name="_ValidationScriptsPartial"/>
 *@
-<script>
-    function a (){
 
-    }
-</script>
 

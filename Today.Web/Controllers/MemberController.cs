@@ -26,12 +26,8 @@ namespace Today.Web.Controllers
             _genericRepository = genericRepository;
             _membercommentservic = membercommentservic;
         }
-
         
-
-
-        //請求 
-        [HttpGet]
+        [HttpGet] //請求 
         public IActionResult CountSetting()
         {
             //抓資料R
@@ -49,7 +45,7 @@ namespace Today.Web.Controllers
                 CityId = emailSelect.CityId,
                 Age = emailSelect.Age,
                 Phone = emailSelect.Phone,
-                IdentityCard = emailSelect.IdentityCard,
+                //IdentityCard = emailSelect.IdentityCard,
                 Gender = emailSelect.Gender,
                 Email = emailSelect.Email,
 
@@ -60,6 +56,8 @@ namespace Today.Web.Controllers
                     CityName = c.CityName,
                 }).ToList()
             };
+
+            //ViewData["MemberName"] = memberSelectInfo.MemberName;
 
             return View(memberSelectInfo);
         }
@@ -93,7 +91,6 @@ namespace Today.Web.Controllers
                         OrderDetailId = d.comment.OrderDetailId,
                         ProductId=d.comment.ProductId,
                         CommentDate=d.comment.CommentDate,
-                        //
                     },
                 }).ToList()
             };
