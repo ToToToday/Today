@@ -1,7 +1,7 @@
 .modal-title{
     margin: auto;
 }
-#fb{
+#fb {
     background-color: rgb(24, 119, 242);
 }
 #line{
@@ -175,8 +175,15 @@ a{
         top: 50px;
         z-index: 20;
     }
+    /*·s¥[ªº*/
+    .Auth {
+        display: contents;
+    }
+    .coupon-display {
+        display: contents;
+    }
 }
 
 @media screen and (min-width:1200px) {
-
+    
 }

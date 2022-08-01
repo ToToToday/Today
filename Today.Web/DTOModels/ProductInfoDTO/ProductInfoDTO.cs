@@ -28,6 +28,7 @@ namespace Today.Web.DTOModels.ProductInfoDTO
             public string HowUse { get; set; }//如何使用
             public string ShoppingNotice { get; set; }//購物須知
             public bool ProductIsdeleted { get; set; }//商品狀態
+            public List<MemberComment> MemberComment { get; set; }//會員留言List
         }
         public class Progarm
         {
@@ -79,11 +80,16 @@ namespace Today.Web.DTOModels.ProductInfoDTO
             public int ProgramDateId { get; set; }
             public DateTime CantuseDate { get; set; } //方案不行的日期
         }
-        public class Member
+        public class MemberComment
         {
+
+            public int  CommentId {get; set;}
+            public int MemberId { get; set; }
             public string MemberPhoto { get; set; }
             public string MemberName { get; set; }//會員名
             public string MembermMessageText { get; set; }//會員留言
+            public int Star { get; set; }
+            public DateTime Data { get; set; }
         }
     }
 }

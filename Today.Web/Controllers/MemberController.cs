@@ -1,30 +1,102 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Linq;
-using Today.Web.Services.CheenkoutService;
+using Today.Web.Services.MemberCommentService;
 using Today.Web.ViewModels;
+using Today.Web.Services.CheenkoutService;
 using static Today.Web.DTOModels.ChenkoutDTO.ChenkoutDTO;
+using Today.Web.Services.MemberService;
+using Today.Web.DTOModels.MemberDTO;
+using Today.Model.Repositories;
+
 
 namespace Today.Web.Controllers
 {
+    
     public class MemberController : Controller
     {
         private readonly IChenkoutService _chenkoutService;
-        public MemberController(IChenkoutService chenkoutService)
+        private readonly IMemberService _memberService;
+        private readonly IGenericRepository _genericRepository;
+        private readonly IMemberCommentService _membercommentservic;
+        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService  membercommentservic)
         {
             _chenkoutService = chenkoutService;
+            _memberService = memberService;
+            _genericRepository = genericRepository;
+            _membercommentservic = membercommentservic;
         }
 
+        //請求 
+        [HttpGet]
         public IActionResult CountSetting()
         {
-            return View();
+            //抓資料R
+            var request = new MemberDTO.MemberRequestDTO()
+            {
+                MemberId = int.Parse(User.Identity.Name)
+            };
+
+            var citySelect = _memberService.AllCityList();
+            var emailSelect = _memberService.GetMember(request);
+
+            var memberSelectInfo = new MemberVM.MemberInfo
+            {
+                MemberName = emailSelect.MemberName,
+                CityId = emailSelect.CityId,
+                Age = emailSelect.Age,
+                Phone = emailSelect.Phone,
+                IdentityCard = emailSelect.IdentityCard,
+                Gender = emailSelect.Gender,
+                Email = emailSelect.Email,
+
+
+                AllCity = citySelect.Select(c => new MemberVM.CityList
+                {
+                    CityId = c.CityId,
+                    CityName = c.CityName,
+                }).ToList()
+            };
+
+            return View(memberSelectInfo);
         }
+
+
         public IActionResult Coupon()
         {
             return View();
         }
-        public IActionResult OrderManage()
+        
+        public IActionResult OrderManage(int ID =3 )
         {
-            return View();
+            var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
+            var MemberCommentInfo = new MemberCommentVM
+            {
+                MemberId=ID,
+                OrderDtailList = DTO.OrderInfo.OrderDtailList.Select(d => new OrderDetailCard
+                {
+                    Path = d.Path,
+                    DepartureDate = d.DepartureDate,
+                    OrderId = d.OrderId,
+                    ProductName=d.ProductName,
+                    UnitPrice=d.UnitPrice,
+                    Title=d.Title,
+                    comment = new ViewModels.Comment
+                    {
+                        PartnerType=d.comment.Partnertype,
+                        RatingStar=d.comment.RatingStar,
+                        CommentTitle=d.comment.CommentTitle,
+                        CommentText = d.comment.CommentText,
+                        OrderDetailId = d.comment.OrderDetailId,
+                        ProductId=d.comment.ProductId,
+                        CommentDate=d.comment.CommentDate,
+                        //
+                    },
+                }).ToList()
+            };
+            ViewData["OrderManageCard"]=JsonConvert.SerializeObject(MemberCommentInfo);
+            
+            return View(MemberCommentInfo);
         }
         public IActionResult MessageManage()
         {
@@ -51,7 +123,6 @@ namespace Today.Web.Controllers
             if (screeninfo == null)
             {
                 s = screeninfo == null ? "": screeninfo.ToString();
-               
             }
             else
             {
@@ -92,7 +163,7 @@ namespace Today.Web.Controllers
             };
             return View(orderPage);
         }
-        
+
 
     }
 }
