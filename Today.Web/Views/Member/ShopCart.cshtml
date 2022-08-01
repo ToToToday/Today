@@ -420,15 +420,13 @@
             })
                 .then(res => {
                     if (res.status === 200) {
-                        toastr.success("刪除成功");
+                        //toastr.success("刪除成功");
                         window.location.reload();
-
-                        
                     }
-                    else {
-                        toastr.error("刪除失敗");
-                        //return res.text()
-                    }
+                    //else {
+                    //    toastr.error("刪除失敗");
+                    //    //return res.text()
+                    //}
 
                 })
         })

@@ -130,42 +130,14 @@ namespace Today.Web.Controllers
                     }).ToList()
                 };
 
-                //var shopCart = new ProductInfoVM
-                //{
-                //    ProgarmList = productPagesServiceDTO.ProductInfo.ProgarmList.Select(p =>
-                //    new ProductInfoVM.Progarm
-                //    {
-                //        ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
-                //        {
-                //            ScreenId = p.ScreenId
-                //        }).ToList()
-                //    ,
-                //    }).ToList()
-                //};
-
-                ////var shopCart = new ProductInfoVM
-                ////{
-                ////    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(ph => new Photo {Sort = ph.Sort, PhotoUrl = ph.PhotoUrl}).Take(1).ToList(),
-                ////};
+                
 
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
-                //TempData["ProductName"] = productinfo.ProductName;
-                //TempData["MemberId"] = "2";
-                //TempData["SpecificationId"] = "5";
-                //TempData["DepartureDate"] = "2022-07-29";
-                //TempData["Quantity"] = "28";
-                //TempData["UnitPrice"] = "28000";
-                //TempData["ProgramTitle"] = "KKday專屬優惠｜頑皮世界野生動物園門票（獨家長頸鹿手繪門票)";
-                //TempData["Path"] = shopCart.PhtotList.Select(ph => ph.PhotoUrl);
-                ////TempData["ScreeningId"] = shopCart.ProgarmList.Select(pl => pl.ScreeningList.Select(s => s.ScreenId));
-                //TempData["ScreeningId"] = "4";
-                //TempData["UnitText"] = "間";
-                ////TempData["ScreenTime"] = "11:00";
-                //TempData.Keep();
+               
 
 
                 return View(productinfo);
-                //return View();
+                
 
                 
             }

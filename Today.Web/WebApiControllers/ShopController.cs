@@ -22,18 +22,10 @@ namespace Today.Web.WebApiControllers
             _shopCartService = shopCartService;
         }
 
-        [HttpPost("AddCart")]
+        [HttpPost]
         public IActionResult AddCart([FromBody] ShopCartRequestVM request)
         {       
-            //    new CreateShopCartInputDTO
-            //{
-            //    MemberId = request.MemberId,
-            //    DepartureDate = DateTime.Parse(request.DepartureDate),
-            //    SpecificationId = request.SpecificationList,
-            //    Quantity = request.Quantity,
-            //    ScreeningId = request.ScreeningId,
 
-            //};
             _shopCartService.CreateShopCard(request);
 
             try 
