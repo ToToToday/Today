@@ -12,7 +12,7 @@ namespace Today.Model.Models
         public int SpecificationId { get; set; }
         public DateTime DepartureDate { get; set; }
         public int Quantity { get; set; }
-        public int ScreeningId { get; set; }
+        public int? ScreeningId { get; set; }
         public DateTime JoinTime { get; set; }
 
         public virtual Member Member { get; set; }

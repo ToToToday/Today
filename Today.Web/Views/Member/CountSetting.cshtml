@@ -1,4 +1,6 @@
-﻿@section topCSS{
+﻿@model Today.Web.ViewModels.MemberVM.MemberInfo
+
+@section topCSS{
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/countSetting.css">
 }
@@ -9,18 +11,18 @@
                 <div class="page-aside">
                     <div class="card aside-box">
                         <div class="editor-logo">
-                            <img class="rounded-circle" src="https://picsum.photos/200/200/?random=10">
+                            <img class="rounded-circle" src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg">
                             <div class="icon-bg rounded-circle">
                                 <i class="fa-solid fa-camera"></i>
                             </div>
                         </div>
-                        <div class="aside-box-text name">盧致文</div>
-                        <div class="aside-box-text level">白銀會員</div>
+                        <div class="aside-box-text name">@Model.MemberName</div>
+                        @*<div class="aside-box-text level">VVIP</div>*@
                         <hr>
                         <div class="account-group">
                             <div class="account d-flex">
                                 <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/google.svg"
-                                 alt="">
+                                    alt="">
                                 <div class="channel-name flex-grow-1">
                                     <div>Google</div>
                                 </div>
@@ -32,51 +34,32 @@
                         <li class="list-item active">
                             <div class="list-item-text">
                                 <i class="icofont-gear-alt"></i>
-                                <a href="#">帳號設定</a>
+                                <a href="~/Member/CountSetting">帳號設定</a>
                             </div>
                         </li>
-                        <!-- <li class="list-item">
-                            <div class="list-item-text">
-                                <i class="icofont-diamond"></i>
-                                <a href="#">我的會籍禮遇</a>
-                            </div>
-                        </li> -->
                         <li class="list-item">
                             <div class="list-item-text d-flex">
                                 <i class="icofont-ticket"></i>
-                                <a class="flex-grow-1" href="#">KKday折扣卷</a>
+                                <a class="flex-grow-1" href="~/Member/Coupon">Today折扣卷</a>
                                 <span class="text-warning">0</span>
                             </div>
                         </li>
-                        <!-- <li class="list-item">
-                            <div class="list-item-text d-flex">
-                                <i class="icofont-copyright"></i>
-                                <a class="flex-grow-1" href="#">KKday Points</a>
-                                <span class="text-warning">0</span>
-                            </div>
-                        </li>
-                        <li class="list-item">
-                            <div class="list-item-text">
-                                <i class="icofont-flag-alt-1"></i>
-                                <a href="#">解任務，賺獎勵</a>
-                            </div>
-                        </li> -->
                         <li class="list-item">
                             <div class="list-item-text">
                                 <i class="icofont-ui-file"></i>
-                                <a href="#">訂單管理</a>
+                                <a href="~/Member/OrderManage">訂單管理</a>
                             </div>
                         </li>
                         <li class="list-item">
                             <div class="list-item-text">
                                 <i class="icofont-ello"></i>
-                                <a href="#">訊息管理</a>
+                                <a href="~/Member/MessageManage">訊息管理</a>
                             </div>
                         </li>
                         <li class="list-item">
                             <div class="list-item-text">
                                 <i class="icofont-hype-machine"></i>
-                                <a href="#">我的收藏</a>
+                                <a href="~/Member/MyCollect">我的收藏</a>
                             </div>
                         </li>
                     </ul>
@@ -89,314 +72,126 @@
                         <h2>帳號設定</h2>
                         <ul class="nav nav-tabs">
                             <li class="nav-item active">
-                                <a href="#profile">基本資料</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#buddy">常用旅客</a>
+                                基本資料
                             </li>
                         </ul>
                     </div>
 
                     <div class="page-text">
-                        <form class="needs-validation" id="profile" novalidate>
-                            <!-- <div class="row">
-                                <div class="col-md-4">
-                                    <label for="validationCustom01" class="form-label">名</label>
-                                    <input type="text" class="form-control" id="validationCustom01" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="validationCustom02" class="form-label">姓</label>
-                                    <input type="text" class="form-control" id="validationCustom02" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="validationCustom03" class="form-label">性別</label>
-                                    <select class="form-select" id="validationCustom03" required>
-                                        <option selected disabled value="">-請選擇-</option>
-                                        <option>男性</option>
-                                        <option>女性</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select a valid gender.
-                                    </div>
-                                </div>
-                            </div> -->
-
+                        <form class="needs-validation" novalidate>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="validationCustom01" class="form-label">名</label>
-                                        <input type="text" class="form-control" id="validationCustom01" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
+                                        <label for="name" class="form-label">姓名</label>
+                                        <input type="text" class="form-control" id="name" value="@Model.MemberName" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="validationCustom02" class="form-label">姓</label>
-                                        <input type="text" class="form-control" id="validationCustom02" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="validationCustom03" class="form-label">性別</label>
-                                        <select class="form-select" id="validationCustom03" required>
-                                            <option selected disabled value="">-請選擇-</option>
-                                            <option>男性</option>
-                                            <option>女性</option>
+                                        <label for="gender" class="form-label">性別</label>
+                                        <select class="form-select" id="gender" required>
+                                            <option selected value="">-請選擇-</option>
+                                            <option value="1" selected="@(Model.Gender == true)">男性</option>
+                                            <option value="0" selected="@(Model.Gender == false)">女性</option>
                                         </select>
-                                        <div class="invalid-feedback">
-                                            Please select a valid state.
+                                        <div class="invalid-feedback mb-3">
+                                            Please select a valid gender.
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
+                                @*<div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="validationCustom04" class="form-label">英文名(同護照)</label>
-                                        <input type="text" class="form-control" id="validationCustom04"
-                                           placeholder="英文名(同護照)" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="validationCustom05" class="form-label">英文姓(同護照)</label>
-                                        <input type="text" class="form-control" id="validationCustom05"
-                                           placeholder="英文姓(同護照)" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="validationCustom06" class="form-label">護照號碼</label>
-                                        <input type="tel" class="form-control" id="validationCustom06"
-                                           placeholder="護照號碼" required>
-                                        <div class="valid-feedback">
-                                            Please select a valid passport number.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="validationCustom07" class="form-label">出生日期</label>
-                                        <input type="date" class="form-control" id="validationCustom07" required>
+                                        <label for="identityCard" class="form-label">身分證字號</label>
+                                        <input type="tel" class="form-control" id="identityCard" value="Model.IdentityCard" required>
                                         <div class="invalid-feedback">
-                                            Please provide a valid birthday.
+                                            Please provide a valid ID number.
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="age" class="form-label">年齡</label>
+                                        <input class="form-control" id="age" value="@Model.Age" required>
+                                        <div class="invalid-feedback mb-3">
+                                            Please provide a valid age.
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="validationCustom08" class="form-label">國家/地區</label>
-                                        <select class="form-select" id="validationCustom08" required>
-                                            <option selected disabled value="">Choose...</option>
-                                            <option>台灣</option>
+                                        <label for="city" class="form-label">地區</label>
+                                        <select class="form-select" id="city" required>
+                                            <option selected value="">-請選擇-</option>
+                                            @*<option>台灣</option>*@
+                                            @foreach (var item in Model.AllCity)
+                                            {
+                                                <option value="@item.CityId" selected="@(item.CityId == Model.CityId)">@item.CityName</option>
+                                            }
                                         </select>
-                                        <div class="invalid-feedback">
-                                            Please select a valid city.
-                                        </div>
+                                    <div class="invalid-feedback mb-3">
+                                        Please select a valid city.
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="validationCustom09" class="form-label">電話號碼</label>
-                                        <input type="tel" class="form-control" id="validationCustom09" required>
-                                        <div class="valid-feedback">
-                                            Please provide a valid phone.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label for="validationCustom10" class="form-label">聯絡 E-mail</label>
-                                        <input type="email" class="form-control" id="validationCustom10" required>
-                                        <div class="valid-feedback">
-                                            Please provide a valid email.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="save">
-                                <button class="btn btn-info text-light" type="submit">儲存</button>
-                            </div>
-                        </form>
-
-                        <div class="buddy-group" id="buddy">
-                            <div class="addtraveler">
-                                <div class="addtraveler-text">
-                                    <img src="https://cdn.kkday.com/pc-web/assets/img/empty_state/travel_buddy.svg"
-                                     width="140" height="140">
-                                    <h4>尚未建立常用旅客資料</h4>
-                                    <a class="btn btn-info text-light" href="#">新增常用旅客</a>
-                                </div>
-                            </div>
-
-                            <div class="buddy-valid">
-                                <div class="addtraveler-heading d-flex">
-                                    <img src="https://cdn.kkday.com/pc-web/assets/img/default_image.png" width="35" height="35">
-                                    <h4>新增常用旅客</h4>
-                                </div>
-
-                                <form class="needs-validation" novalidate>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom01" class="form-label">名</label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="例：品睿" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom02" class="form-label">姓</label>
-                                                <input type="text" class="form-control" id="validationCustom02" placeholder="例：陳" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom03" class="form-label">性別</label>
-                                                <select class="form-select" id="validationCustom03" required>
-                                                    <option selected disabled value="">-請選擇-</option>
-                                                    <option>男性</option>
-                                                    <option>女性</option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    Please select a valid state.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom04" class="form-label">英文名(同護照)</label>
-                                                <input type="text" class="form-control" id="validationCustom04"
-                                                   placeholder="英文名(同護照)" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom05" class="form-label">英文姓(同護照)</label>
-                                                <input type="text" class="form-control" id="validationCustom05"
-                                                   placeholder="英文姓(同護照)" required>
-                                                <div class="valid-feedback">
-                                                    Looks good!
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom06" class="form-label">護照號碼</label>
-                                                <input type="tel" class="form-control" id="validationCustom06" placeholder="護照號碼"
-                                                   required>
-                                                <div class="valid-feedback">
-                                                    Please select a valid passport number.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom07" class="form-label">出生日期</label>
-                                                <input type="date" class="form-control" id="validationCustom07" required>
-                                                <div class="invalid-feedback">
-                                                    Please provide a valid birthday.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom08" class="form-label">國家/地區</label>
-                                                <select class="form-select" id="validationCustom08" required>
-                                                    <option selected disabled value="">Choose...</option>
-                                                    <option>台灣</option>
-                                                </select>
-                                                <div class="invalid-feedback">
-                                                    Please select a valid city.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="validationCustom09" class="form-label">電話號碼</label>
-                                                <input type="tel" class="form-control" id="validationCustom09" required>
-                                                <div class="valid-feedback">
-                                                    Please provide a valid phone.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label for="validationCustom10" class="form-label">聯絡 E-mail</label>
-                                                <input type="email" class="form-control" id="validationCustom10" placeholder="聯絡 E-mail" required>
-                                                <div class="valid-feedback">
-                                                    Please provide a valid email.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="save">
-                                        <button class="btn btn-light" type="submit">取消</button>
-                                        <button class="btn btn-info text-light" type="submit">儲存</button>
-                                    </div>
-                                </form>
-
                             </div>
                         </div>
-                    </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">電話號碼</label>
+                                    <input type="tel" class="form-control" id="phone" value=@Model.Phone required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid phone.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">聯絡 E-mail</label>
+                                    <input type="email" class="form-control" id="email" value="@Model.Email" disabled="disabled">
+                                    <div class="invalid-feedback">
+                                        Please provide a valid email.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="save">
+                            <button class="btn btn-info text-light" id="btn-submit" type="button">儲存</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+@section Scripts{
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+    <script src="~/js/accountSetting.js"></script>
+}
