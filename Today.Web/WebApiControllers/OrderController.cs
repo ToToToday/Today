@@ -15,7 +15,6 @@ namespace Today.Web.WebApiControllers
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
-
         }
         [HttpPost]
         public IActionResult CreateOrder([FromBody] CreateOrderRequstDTO requstDTO)
@@ -23,7 +22,7 @@ namespace Today.Web.WebApiControllers
             try
             {
                 //requstDTO.MemeberID = int.Parse(User.Identity.Name);
-                requstDTO.MemeberID = 2;
+                requstDTO.MemeberID = 1;
                 _orderService.CreateOrder(requstDTO);
                 return Ok(new APIResult(APIStatus.Success, string.Empty, true));
             }
