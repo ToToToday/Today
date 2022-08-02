@@ -355,12 +355,21 @@
     <link rel="stylesheet" href="~/css/root.css">
 }
 
-    @section endJS{
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+@section endJS{
+    
+     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
+
+
+         <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+
+
     <script>
         let createItem = document.querySelectorAll(".list .item")
         let emptyCart = document.querySelector(".empty-cart")
@@ -431,12 +440,10 @@
                 })
         })
 
-    @section endJS{
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-        crossorigin="anonymous"></script>
+    
+ 
 
+    </script>
     <script>
         let create_order_btn = document.querySelector(".caculate>a")
         create_order_btn.addEventListener("click", () => {
@@ -459,4 +466,5 @@
         })
 
     </script>
-}
+ }
+   
