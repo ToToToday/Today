@@ -12,7 +12,7 @@ using Today.Model.Repositories;
 using System.Threading.Tasks;
 using Today.Model.Models;
 
-namespace Today.Web.Controllers
+namespace Today.Web.WebApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
