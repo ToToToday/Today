@@ -295,7 +295,29 @@
     </div>
 
     @section Scripts{
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="~/lib/Ckeditor5SimpleUpload/build/ckeditor.js" type="text/javascript"></script>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+</script>
     <script>
         //template
         let index = 0;
@@ -449,13 +471,14 @@
                     ProductId: productid,
                 }),
             })
-                .then(resp => {
-                    if (resp.ok) {
-                        return resp.text()
-                    }
-                }).then(text => {
-                    alert(text);
-                })
+            .then(resp => {
+            if (resp.ok) {
+                    window.location.reload();
+                }
+                else { 
+                    toastr['error']('新增留言失敗:有什麼錯誤了！');
+                }
+        })
         });
         //按出修改紐
         let submit_edit=document.querySelector('#btn-edit');
@@ -487,10 +510,11 @@
             })
             .then(resp => {
                 if (resp.ok) {
-                    return resp.text()
-                }
-            }).then(text => {
-                alert(text);
+                        window.location.reload();
+                    }
+                    else { 
+                        toastr['error']('修改留言失敗:有什麼錯誤了！');
+                    }
             })
         })
     </script>

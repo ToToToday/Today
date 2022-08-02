@@ -297,25 +297,25 @@ radio
                 <a class="text-break col-4">
                     更多評價 >
                 </a>
-                @foreach(var comment in @Model.MemberList)
+                @foreach (var comment in @Model.MemberList)
                 {
-                <div class="Evaluation-message col-12 d-flex">
-                    <div class="message-img col-2">
-                        <div class="img-message-div">
-			            <img src="https://picsum.photos/300/200/?random=10">
+                    <div class="Evaluation-message col-12">
+                        <div class="message-img col-1">
+                            <div class="img-message-div">
+                                <img src="https://picsum.photos/300/200/?random=10">
+                            </div>
                         </div>
-                    </div>
-                    <div class="message col-10">
-                        <div class="Member-name">
-                            @comment.MemberName
-                        </div> 
-                        <div class="Member-message-time">
-                            @comment.Data.ToString().Substring(0,11)
-                        </div>
+                        <div class="message col-10">
+                            <div class="Member-name">
+                                @comment.MemberName
+                            </div>
+                            <div class="Member-message-time">
+                                @comment.Data.ToString().Substring(0,11)
+                            </div>
                             <div class="Member-star-div">
-                                @for(int s = 0; s < 5;s++)
+                                @for (int s = 0; s < 5; s++)
                                 {
-                                    if(s<=@comment.Star)
+                                    if (s <= @comment.Star)
                                     {
                                         <i class="Member-star fa-solid fa-star"></i>
                                     }
@@ -325,13 +325,13 @@ radio
                                     }
                                 }
                             </div>
-                        <div class="Member-message col-12">
-                            <div class="Member-message">
-                                @comment.MembermMessageText
+                            <div class="Member-message col-12">
+                                <div class="Member-message">
+                                    @Html.Raw(@comment.MembermMessageText)
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 }
             </div>
         </div>
@@ -358,7 +358,7 @@ radio
                 </div>
             </div>
             <input type="radio" class="btn-check " name="btnradio" autocomplete="">
-            <label class="btn initial_btn col-4 col-lg-2 order-2">選擇</label>
+            <label class="btn initial_btn col-4 col-lg-2 order-2  plate">選擇</label>
             <p class="initial-money col-8 col-lg-5 d-block mb-2">
                 @*所以方案價位*@
                 <span>
@@ -509,7 +509,6 @@ radio
                 dateFormat: "Y-m-d H:i",
             });
             let getdata;
-
             const BtnDetails = programcard.querySelector(".btn-Details")
             //按下手機板查看方案詳情
             BtnDetails.addEventListener("click", () => {
@@ -638,17 +637,12 @@ radio
             })
         })
         //彥蓉做的
-        $(function(){
-            $(".plate").click(function(){
-                $(".collapse-plate").slideToggle("slow");
-                });
+        $(".plate").click(function() {
+            $(".collapse-plate").slideToggle("slow");
         });
-        let more_comment = document.querySelector(".text-break");
-        let comment_card=document.querySelectorAll('.Evaluation-message');
-        if(comment_card.length>=2){
-            for (let i = 2; i < comment_card.length;i++){
-                comment_card[i].classList.classList.add('d-none')
-            }
-        }
+        $('.Evaluation-message~div').hide();
+        $(".text-break").click(function() {
+            $(".Evaluation-message~div").slideToggle("slow");
+        });
     </script>
 }

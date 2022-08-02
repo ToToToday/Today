@@ -1,5 +1,8 @@
-.collapse-plate{
-    display:none;
+.active{
+    display: block;
+}
+.collapse-plate, .Evaluation-message ~ div {
+    display: none;
 }
 :root {
     --font-color: #138184;
@@ -24,9 +27,9 @@
         border: #fff;
     }
 
-.asd-btn {
-    background-color: var(--font-color-span);
-}
+    .asd-btn {
+        background-color: var(--font-color-span);
+    }
 
 .shopping-cart-btn {
     background-color: cornflowerblue;
@@ -486,11 +489,6 @@ a.product-name {
             color: var(--font-color-Ash);
         }
 
-    .Evaluation .Evaluation-message {
-        margin: 10px 0;
-        padding: 10px 0;
-    }
-
         .Evaluation .Evaluation-message i {
             font-weight: normal;
         }
@@ -502,10 +500,11 @@ div.Evaluation > a {
     margin: auto 0 0 auto;
     font-weight: bold;
     border-bottom: 1px solid #f3e8e8;
+    cursor:pointer;
 }
 
 .message-img {
-    padding: 20px 0 0 0;
+    padding: 20px 0
 }
 .img-message-div {
     width: 50px;
