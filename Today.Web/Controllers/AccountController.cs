@@ -27,7 +27,8 @@ namespace Today.Web.Controllers
             //1. 內建的 模型檢核 機制   (檢核欄位)  //後端檢核：顧及正確   //前端檢核：顧及消費者體驗
             if (!ModelState.IsValid)
             {
-                return View(requestParam);//體貼地將資料填回去
+                //return View(requestParam);//體貼地將資料填回去
+                //return
             }
 
             //2. 輸出 = service 方法(輸入)

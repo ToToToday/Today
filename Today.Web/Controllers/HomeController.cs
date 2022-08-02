@@ -1,15 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Today.Model.Models;
 using Today.Web.Data;
-using Today.Web.DTOModels.AccountDTO;
 using Today.Web.DTOModels.ProductDTO;
 using Today.Web.Models;
 using Today.Web.Services.CityService;
@@ -37,6 +31,7 @@ namespace Today.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            TempData["SearchMessage"] = string.Empty;
             var homeproductSource = _productService.GetAllProductCard();
             var citySource = _productService.PopularCityCard().CityList;
             var categorySource = homeproductSource.CategoryList;
@@ -162,21 +157,40 @@ namespace Today.Web.Controllers
                 }).ToList(),
             };
 
+            if (TempData["SearchMessageTemp"] != null && TempData["SearchMessageTemp"].ToString() != string.Empty)
+            {
+                TempData["SearchMessage"] = JsonConvert.SerializeObject(TempData["SearchMessageTemp"].ToString());
+            }
+
             return View(homeshow);
         }
 
         [HttpPost]
         public IActionResult Index(string searchword)
         {
+            TempData["SearchMessageTemp"] = string.Empty;
             var searchWord = new ProductDTO.ProductRequestDTO
             {
-                CityName = searchword
+                SearchWord = searchword
             };
 
-            ViewData["CityId"] = _productService.ToCityPage(searchWord).CityId;
+            var result = _productService.ConvertPages(searchWord);
 
-            //return RedirectToAction("CityTour", "Product", new { id = ViewData["CityId"] });
-            return RedirectToRoute(new { controller = "Product", action = "CityTour", id = ViewData["CityId"] });
+            if (result.HasCityId == true)
+            {
+                return RedirectToRoute(new { controller = "Product", action = "CityTour", id = result.Id });
+            }
+            else if (result.HasCityId == false && result.Id != 0)
+            {
+                return RedirectToRoute(new { controller = "Product", action = "Classify", id = result.Id });
+            }
+            else
+            {
+                TempData["SearchMessageTemp"] = "找不到此筆資料";
+                return Redirect("/");
+            }
+
+            //return RedirectToRoute(new { controller = "Product", action = "CityTour", id = ViewData["CityId"] });
         }
 
         public IActionResult Privacy()

@@ -10,6 +10,15 @@ using Today.Web.Services.MemberService;
 using Today.Web.DTOModels.MemberDTO;
 using static Today.Web.ViewModels.MemberVM;
 using Today.Model.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Today.Model.Models;
+using Today.Web.DTOModels.ShopCartDTO;
+using Today.Web.Models;
+using Today.Web.Services.ShopCartService;
+using static Today.Web.DTOModels.ShopCartMemberDTO;
+using static Today.Web.ViewModels.ShopCartVM;
 
 
 namespace Today.Web.Controllers
@@ -21,12 +30,14 @@ namespace Today.Web.Controllers
         private readonly IMemberService _memberService;
         private readonly IGenericRepository _genericRepository;
         private readonly IMemberCommentService _membercommentservic;
-        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService membercommentservic)
+        private readonly IShopCartService _shopCartService;
+        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService membercommentservic,IShopCartService shopCartService)
         {
             _chenkoutService = chenkoutService;
             _memberService = memberService;
             _genericRepository = genericRepository;
             _membercommentservic = membercommentservic;
+            _shopCartService = shopCartService;
         }
 
         //請求 
@@ -48,7 +59,7 @@ namespace Today.Web.Controllers
                 CityId = emailSelect.CityId,
                 Age = emailSelect.Age,
                 Phone = emailSelect.Phone,
-                IdentityCard = emailSelect.IdentityCard,
+                //IdentityCard = emailSelect.IdentityCard,
                 Gender = emailSelect.Gender,
                 Email = emailSelect.Email,
 
@@ -59,6 +70,8 @@ namespace Today.Web.Controllers
                     CityName = c.CityName,
                 }).ToList()
             };
+
+            //ViewData["MemberName"] = memberSelectInfo.MemberName;
 
             return View(memberSelectInfo);
         }
@@ -92,7 +105,6 @@ namespace Today.Web.Controllers
                         OrderDetailId = d.comment.OrderDetailId,
                         ProductId=d.comment.ProductId,
                         CommentDate=d.comment.CommentDate,
-                        //
                     },
                 }).ToList()
             };
@@ -108,10 +120,30 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        public IActionResult ShopCart()
+        [HttpGet]//請求
+        public IActionResult ShopCart(int Id)
         {
-            return View();
+            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
+            var ShopCartVMs = new ShopCartVM
+            {
+                ShopCartCardList = ShopCartCardDTO
+                .Select(s => new ShopCartCardVM
+                {
+                    ShoppingCartId = s.ShopCartId,
+                    ProductName = s.ProductName,
+                    ProgramTitle = s.ProgramTitle,
+                    Path = s.ProductPhoto,
+                    DepartureDate = s.DepartureDate,
+                    Quantity = s.Quantity,
+                    ScreenTime = s.ScreenTime,
+                    UnitPrice = s.UnitPrice,
+                    UnitText = s.UnitText,
+                    Sum = s.UnitPrice * s.Quantity,
+                }).ToList()
+            };
+            return View(ShopCartVMs);
         }
+        
         public IActionResult Checkout(int id)
         {
             var orderRequet = new ChenkoutRequestDTO

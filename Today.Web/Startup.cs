@@ -23,6 +23,7 @@ using Today.Web.Services.EcpayService;
 using Today.Web.Services.ProductInfoService;
 using Microsoft.OpenApi.Models;
 using Today.Web.Services.MemberCommentService;
+using Today.Web.Services.ShopCartService;
 
 namespace Today.Web
 {
@@ -84,10 +85,11 @@ namespace Today.Web
 
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IClassifyService, ClassifyService>();
-            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IChenkoutService, ChenkoutService>();
             services.AddTransient<IEcpayService, EcpayService>();
             services.AddTransient<IProductInfoService, ProductInfoService>();
             services.AddTransient<IMemberCommentService, MemberCommentService>();
+            services.AddTransient<IShopCartService, ShopCartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -118,6 +120,7 @@ namespace Today.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //defaults: new { controller = "Products", action = "Index" ,id="Category"});
             });
         }
     }

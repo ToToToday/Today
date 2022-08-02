@@ -7,11 +7,12 @@ namespace Today.Web.DTOModels.ProductDTO
     {
         public class ProductRequestDTO
         {
-            public string CityName { get; set; }
+            public string SearchWord { get; set; }
         }
         public class ProductResponseDTO
         {
-            public int CityId { get; set; }
+            public bool HasCityId { get; set; }
+            public int Id { get; set; }
         }
         #region 所需資料欄位
         public IQueryable<ProductInfo> QueryProduct { get; set; }
