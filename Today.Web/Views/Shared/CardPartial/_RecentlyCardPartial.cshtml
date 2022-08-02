@@ -3,25 +3,27 @@
 
 @foreach(var item in Model)
 {
-    <div class="row-card mb-3 me-2 col-12 col-md-6 col-xl-4 p-0 mx-md-0 p-2 col">
-        <a href="#" class="text-decoration-none text-black">
-            <div class="row g-0 h-100 overflow-hidden align-items-center">
-                <div class="col-4 overflow-hidden h-100">
-                    <img src="@item.ProductPhoto" class="rounded-start align-top w-100 h-100" alt="@item.ProductName">
-                </div>
-                <div class="col-8 h-100">
-                    <div class="card-body h-100 d-flex flex-wrap justify-content-end align-content-between">
-                        <div class="title-group d-flex justify-content-between">
-                            <h5 class="card-title align-items-center w-75">
-                                <i class="fa-solid fa-bolt-lightning"></i>
-                                @item.ProductName
-                            </h5>
-                            <i class="fa-regular fa-heart"></i>
+    <div class="swiper-slide px-1">
+        <div class="row-card col-12 col-md-6 col-xl-4" style="height: 153px;">
+            <a href="~/Product/ProductInfo/@item.Id" class="text-decoration-none text-black">
+                <div class="row g-0 overflow-hidden">
+                    <div class="col-4 overflow-hidden" style="height: 153px;">
+                        <img src="@item.ProductPhoto" class="rounded-start align-top w-100 h-100" alt="@item.ProductName">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body h-100 d-flex flex-wrap justify-content-end align-items-between">
+                            <div class="title-group d-flex justify-content-between">
+                                <h5 class="card-title align-items-center w-75">
+                                    <i class="fa-solid fa-bolt-lightning"></i>
+                                    @item.ProductName
+                                </h5>
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+                            <p class="card-text text-end fs-6"><span>TWD</span>@item.Price</p>
                         </div>
-                        <p class="card-text text-end fs-6"><span>TWD</span>@item.Price</p>
                     </div>
                 </div>
-            </div>
-         </a>
+             </a>
+        </div>
     </div>
 }

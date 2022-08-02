@@ -1,45 +1,116 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Linq;
-using Today.Web.Services.CheenkoutService;
+using Today.Web.DTOModels;
+using Today.Web.Services.MemberCommentService;
 using Today.Web.ViewModels;
+using Today.Web.Services.CheenkoutService;
 using static Today.Web.DTOModels.ChenkoutDTO.ChenkoutDTO;
+using Today.Web.Services.MemberService;
+using Today.Web.DTOModels.MemberDTO;
+using static Today.Web.ViewModels.MemberVM;
+using Today.Model.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Today.Model.Models;
-using Today.Model.Repositories;
 using Today.Web.DTOModels.ShopCartDTO;
 using Today.Web.Models;
 using Today.Web.Services.ShopCartService;
 using static Today.Web.DTOModels.ShopCartMemberDTO;
 using static Today.Web.ViewModels.ShopCartVM;
 
+
 namespace Today.Web.Controllers
 {
+    
     public class MemberController : Controller
     {
         private readonly IChenkoutService _chenkoutService;
+        private readonly IMemberService _memberService;
+        private readonly IGenericRepository _genericRepository;
+        private readonly IMemberCommentService _membercommentservic;
         private readonly IShopCartService _shopCartService;
-
-        public MemberController(IChenkoutService chenkoutService, IShopCartService shopCartService)
+        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService membercommentservic,IShopCartService shopCartService)
         {
             _chenkoutService = chenkoutService;
+            _memberService = memberService;
+            _genericRepository = genericRepository;
+            _membercommentservic = membercommentservic;
             _shopCartService = shopCartService;
         }
 
-
-        
+        //請求 
+        [HttpGet]
         public IActionResult CountSetting()
         {
-            return View();
+            //抓資料R
+            var request = new MemberDTO.MemberRequestDTO()
+            {
+                MemberId = int.Parse(User.Identity.Name)
+            };
+
+            var citySelect = _memberService.AllCityList();
+            var emailSelect = _memberService.GetMember(request);
+
+            var memberSelectInfo = new MemberVM.MemberInfo
+            {
+                MemberName = emailSelect.MemberName,
+                CityId = emailSelect.CityId,
+                Age = emailSelect.Age,
+                Phone = emailSelect.Phone,
+                //IdentityCard = emailSelect.IdentityCard,
+                Gender = emailSelect.Gender,
+                Email = emailSelect.Email,
+
+
+                AllCity = citySelect.Select(c => new MemberVM.CityList
+                {
+                    CityId = c.CityId,
+                    CityName = c.CityName,
+                }).ToList()
+            };
+
+            //ViewData["MemberName"] = memberSelectInfo.MemberName;
+
+            return View(memberSelectInfo);
         }
+
+
         public IActionResult Coupon()
         {
             return View();
         }
-        public IActionResult OrderManage()
+        
+        public IActionResult OrderManage(int ID =1 )
         {
-            return View();
+            var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
+            var MemberCommentInfo = new MemberCommentVM
+            {
+                MemberId=ID,
+                OrderDtailList = DTO.OrderInfo.OrderDtailList.Select(d => new OrderDetailCard
+                {
+                    Path = d.Path,
+                    DepartureDate = d.DepartureDate,
+                    OrderId = d.OrderId,
+                    ProductName=d.ProductName,
+                    UnitPrice=d.UnitPrice,
+                    Title=d.Title,
+                    comment = new ViewModels.Comment
+                    {
+                        PartnerType=d.comment.Partnertype,
+                        RatingStar=d.comment.RatingStar,
+                        CommentTitle=d.comment.CommentTitle,
+                        CommentText = d.comment.CommentText,
+                        OrderDetailId = d.comment.OrderDetailId,
+                        ProductId=d.comment.ProductId,
+                        CommentDate=d.comment.CommentDate,
+                    },
+                }).ToList()
+            };
+            ViewData["OrderManageCard"]=JsonConvert.SerializeObject(MemberCommentInfo);
+            
+            return View(MemberCommentInfo);
         }
         public IActionResult MessageManage()
         {
@@ -50,7 +121,7 @@ namespace Today.Web.Controllers
             return View();
         }
         [HttpGet]//請求
-        public IActionResult ShopCart(/*ShopCartCardVM vm,*/ int Id)
+        public IActionResult ShopCart(int Id)
         {
             var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
             var ShopCartVMs = new ShopCartVM
@@ -75,65 +146,7 @@ namespace Today.Web.Controllers
             };
             return View(ShopCartVMs);
         }
-        //[HttpPost]//提交
-        //[HttpPost("~/[controller]/[action]/{memberId}/{SpecificationId}/{ScreeningId}/{Quantity}")]
-        //public IActionResult ShopCart([FromRoute] string memberId, string specificationId, string quantity,string unitPrice, string screeningId)     //CreateShopCartInputDTO input /*, string ProgramTitle*/
-        //{
-        //    //var userId = User.Identity.Name;
-        //    var a = TempData["ScreeningId"]as string;
-        //    var b = TempData["Path"];
-        //    var input = new CreateShopCartInputDTO
-        //    {
-        //        MemberId = int.Parse(memberId),
-        //        SpecificationId = int.Parse(specificationId),
-        //        //DepartureDate = DateTime.Now.AddDays(-1),
-        //        DepartureDate = (DateTime)TempData["DepartureDate"],
-        //        Quantity = int.Parse(quantity),
-        //        ProgramTitle = TempData["ProgramTitle"] as string,
-        //        Path = TempData["Path"] as string,
-        //        ProductName = TempData["ProductName"] as string,
-        //        UnitText = TempData["UnitText"] as string,
-        //        ScreeningId = int.Parse(screeningId),
-        //        UnitPrice = int.Parse(unitPrice),
-        //        //ScreenTime = (TimeSpan)TempData["ScreenTime"]
-        //    };
-            
-            
-        //    var ShopCartCardDTO = _shopCartService.CreateShopCart(input);
-
-        //    if(ShopCartCardDTO.IsSuccess == false)
-        //    {
-        //        return Content(ShopCartCardDTO.Message);
-        //    }
-        //    //var ShopCartVMs = new ShopCartVM
-        //    //{
-
-        //    //    ShopCartCardList = ShopCartCardDTO.ShopCartCards
-        //    //    .Select(s => new ShopCartCardVM
-        //    //    {
-        //    //        ProductName = s.ProductName,
-        //    //        ProgramTitle = s.ProgramTitle,
-        //    //        Path = s.ProductPhoto,
-        //    //        DepartureDate = s.DepartureDate,
-        //    //        Quantity = s.Quantity,
-        //    //        ScreenTime = s.ScreenTime,
-        //    //        UnitPrice = s.UnitPrice,
-        //    //        UnitText = s.UnitText,
-
-        //    //    }).ToList()
-        //    //};
-        //    //User.Identity.Name;
-
-        //    var result = new ShopCartVM();
-        //    result.ShopCartCardList = new List<ShopCartCardVM>()
-        //    { new ShopCartCardVM
-        //    { Quantity = input.Quantity,ProgramTitle = input.ProgramTitle , Path = input.Path, ProductName = input.ProductName, UnitText = input.UnitText, DepartureDate = input.DepartureDate, UnitPrice = input.UnitPrice,ScreeningId = input.ScreeningId/*ScreenTime = input.ScreenTime*/} };
-        //    //ViewData["id"] = id;
-        //    //ViewData["SDate"] = StartDate;
-        //    //ViewData["PersonCount"] = Person;
-        //    //return Content("success");  //ShopCartVMs
-        //    return View(result);
-        //}
+        
         public IActionResult Checkout(int id)
         {
             var orderRequet = new ChenkoutRequestDTO

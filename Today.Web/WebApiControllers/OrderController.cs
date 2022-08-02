@@ -5,20 +5,20 @@ using Today.Web.DTOModels.CreateOrderDTO;
 using Today.Web.Models.ShopCartAPI;
 using Today.Web.Services.OrderService;
 
-namespace Today.Web.APIController
+namespace Today.Web.WebApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        public OrderController(IOrderService orderService) 
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
 
         }
         [HttpPost]
-        public IActionResult CreateOrder([FromBody]CreateOrderRequstDTO requstDTO)
+        public IActionResult CreateOrder([FromBody] CreateOrderRequstDTO requstDTO)
         {
             try
             {

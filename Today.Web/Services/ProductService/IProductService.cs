@@ -8,6 +8,7 @@ namespace Today.Web.Services.ProductService
 {
     public interface IProductService
     {
+        ProductResponseDTO ConvertPages(ProductRequestDTO search);
         ProductDTO AllProduct();
         ProductDTO GetAllProductCard();
         ProductDTO PopularCityCard();

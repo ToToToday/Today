@@ -19,6 +19,7 @@ using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 using static Today.Web.ViewModels.ProductInfoVM;
 using Today.Web.DTOModels.ProductInfoDTO;
+using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 
 using static Today.Web.DTOModels.ShopCartMemberDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO.ShopCartMemberResponseDTO;
@@ -28,7 +29,6 @@ namespace Today.Web.Controllers
 {
     public class ProductController : Controller
     {
-        
         private readonly ICityService _cityServices;
         private readonly IProductService _productServices;
         private readonly ILocationService _locationServices;
@@ -47,12 +47,11 @@ namespace Today.Web.Controllers
             _productInfoService = productInfoService;
             _shopCartService = shopCartService;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-        
+
         public IActionResult ProductInfo(int id) //商品頁面
         {
             if (id <= 0)
@@ -76,6 +75,16 @@ namespace Today.Web.Controllers
                     ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
                     ProductText = productPagesServiceDTO.ProductInfo.ProductDesc,
                     ProductLocationAddress = productPagesServiceDTO.ProductInfo.ProductLocationAddress,
+                    MemberList = productPagesServiceDTO.ProductInfo.MemberComment.Select(m => new MemberComment
+                    {
+                        MembermMessageText = m.MembermMessageText,
+                        MemberName = m.MemberName,
+                        MemberPhoto = m.MemberPhoto,
+                        MemberId = m.MemberId,
+                        CommentId = m.CommentId,
+                        Star = m.Star,
+                        Data = m.Data
+                    }).ToList(),
                     PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(p =>
                     new ProductInfoVM.Photo
                     {
@@ -108,7 +117,7 @@ namespace Today.Web.Controllers
                             Date = p.Date,
                             ScreenId = p.ScreenId,
                             SpecificationId = p.SpecificationId,
-                            Status =p.Status
+                            Status = p.Status
                         }).ToList()
                         ,
                         ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
@@ -122,76 +131,67 @@ namespace Today.Web.Controllers
                     }).ToList()
                 };
 
-                //var shopCart = new ProductInfoVM
-                //{
-                //    ProgarmList = productPagesServiceDTO.ProductInfo.ProgarmList.Select(p =>
-                //    new ProductInfoVM.Progarm
-                //    {
-                //        ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
-                //        {
-                //            ScreenId = p.ScreenId
-                //        }).ToList()
-                //    ,
-                //    }).ToList()
-                //};
-
-                ////var shopCart = new ProductInfoVM
-                ////{
-                ////    PhtotList = productPagesServiceDTO.ProductInfo.PhtotList.Select(ph => new Photo {Sort = ph.Sort, PhotoUrl = ph.PhotoUrl}).Take(1).ToList(),
-                ////};
+                
 
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
-                //TempData["ProductName"] = productinfo.ProductName;
-                //TempData["MemberId"] = "2";
-                //TempData["SpecificationId"] = "5";
-                //TempData["DepartureDate"] = "2022-07-29";
-                //TempData["Quantity"] = "28";
-                //TempData["UnitPrice"] = "28000";
-                //TempData["ProgramTitle"] = "KKday專屬優惠｜頑皮世界野生動物園門票（獨家長頸鹿手繪門票)";
-                //TempData["Path"] = shopCart.PhtotList.Select(ph => ph.PhotoUrl);
-                ////TempData["ScreeningId"] = shopCart.ProgarmList.Select(pl => pl.ScreeningList.Select(s => s.ScreenId));
-                //TempData["ScreeningId"] = "4";
-                //TempData["UnitText"] = "間";
-                ////TempData["ScreenTime"] = "11:00";
-                //TempData.Keep();
+               
 
 
                 return View(productinfo);
-                //return View();
+                
 
                 
             }
 
         }
+        //public JsonResult GetCountyDDL(string cityId)
 
-        public IActionResult Classify() //楊 分類
+        //[HttpGet("{categoryId}")]
+        //[HttpGet("~/[controller]/[action]/{categoryId}")]
+        public IActionResult Classify(int id) //楊 分類
         {
-            var classPages = _classifyService.GetClassifyPages();
-            var cardsource = classPages.ClassifyCardList.ToList();
-            var Categorysource = classPages.CategoryList.ToList();
+            var categoryshow = new ClassifyRequestDTO
+            {
+                CategoryId = id,
+                Page = 1,
+            };
+
+            var classPages = _classifyService.GetClassifyPages(categoryshow);
+            var cardsource = classPages.ClassifyCardList;
+            var categorysource = classPages.CategoryList;
+
+
             var result = new ClassifyVM()
             {
                 ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
                 {
+                    ProductId = c.ProductId,
                     ProductName = c.ProductName,
+                    CityId = c.CityId,
                     CityName = c.CityName,
                     Path = c.Path,
                     TagText = c.TagText,
                     UnitPrice = c.UnitPrice,
+                    RatingStar = (int)c.RatingStar,
+                    TotalComment = c.TotalComment,
                     Evaluation = c.Evaluation
                 }).ToList(),
-                CategoryList = Categorysource.Select(x => new ClassifyVM.CategoryDestinations
+
+                CardCount = classPages.CardCount,
+
+                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
                 {
-                    Id = x.Id,
+                    ProductCategoryId = x.ProductCategoryId,
                     CategoryName = x.CategoryName,
                     ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
                     {
-                        Id = y.Id,
+                        ProductCategoryId = y.ProductCategoryId,
                         CategoryName = y.CategoryName
                     }).ToList()
                 }).ToList()
             };
-            
+
+
             return View(result);
         }
 
@@ -211,7 +211,7 @@ namespace Today.Web.Controllers
             var cityRequest = new CityRequestDTO
             {
                 CityId = id
-            }; 
+            };
             var CityDetail = _cityServices.GetCity(cityRequest);
             var CityAllCard = _cityServices.GetAllCity(cityRequest);
             var CityAllRaider = _cityServices.GetRaiderCard(cityRequest);
@@ -247,7 +247,7 @@ namespace Today.Web.Controllers
                     CityId = cl.CityId,
                     Name = cl.Name,
                     RatingStar = cl.RatingStar,
-                    CommentDate = string.Format("{0:yyyy/MM/dd}",cl.CommentDate),
+                    CommentDate = string.Format("{0:yyyy/MM/dd}", cl.CommentDate),
                     UseDate = string.Format("{0:yyyy/MM/dd}", cl.UseDate),
                     PartnerType = cl.PartnerType,
                     ProductName = cl.ProductName,
@@ -262,7 +262,7 @@ namespace Today.Web.Controllers
                     Tags = newp.Tags,
                     CityName = newp.CityName,
                     OriginalPrice = newp.OriginalPrice,
-                    Price =newp.Price,
+                    Price = newp.Price,
                     Rating = newp.Rating,
                     TotalGiveComment = newp.TotalComment,
                     TotalOrder = newp.Quantity
@@ -315,8 +315,8 @@ namespace Today.Web.Controllers
                     Text = Raidercontent.RaiderInfo.Text,
                     Video = Raidercontent.RaiderInfo.Video,
                 }
-            };   
-         
+            };
+
             return View(CityRaider);
         }
         public IActionResult OffIsland() //離島 分類
@@ -334,7 +334,7 @@ namespace Today.Web.Controllers
                 }).ToList(),
                 GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
                 {
-                    ProductId = p.ProductId, 
+                    ProductId = p.ProductId,
                     ProductName = p.ProductName,
                 }).ToList()
                 ,
