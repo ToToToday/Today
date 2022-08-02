@@ -43,7 +43,7 @@ namespace Today.Web
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IClassifyService, ClassifyService>();
-            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IChenkoutService, ChenkoutService>();
             services.AddTransient<IEcpayService, EcpayService>();
             services.AddTransient<IProductInfoService, ProductInfoService>();
         }
@@ -73,6 +73,7 @@ namespace Today.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //defaults: new { controller = "Products", action = "Index" ,id="Category"});
             });
         }
     }

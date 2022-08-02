@@ -17,6 +17,7 @@ using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 using static Today.Web.ViewModels.ProductInfoVM;
 using Today.Web.DTOModels.ProductInfoDTO;
+using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 
 namespace Today.Web.Controllers
 {
@@ -29,11 +30,12 @@ namespace Today.Web.Controllers
         private readonly IProductInfoService _productInfoService;
         private readonly IClassifyService _classifyService;
 
-
-        
-        
-        
-        public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService)
+        public ProductController(
+            ICityService cityServices,
+            ILocationService locationServices,
+            IProductService productService,
+            IClassifyService classifyService,
+            IProductInfoService productInfoService)
         {
             _productInfoService = productInfoService;
             _cityServices = cityServices;
@@ -47,7 +49,7 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        
+
         public IActionResult ProductInfo(int id) //商品頁面
         {
             if (id <= 0)
@@ -103,7 +105,7 @@ namespace Today.Web.Controllers
                             Date = p.Date,
                             ScreenId = p.ScreenId,
                             SpecificationId = p.SpecificationId,
-                            Status =p.Status
+                            Status = p.Status
                         }).ToList()
                         ,
                         ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
@@ -122,26 +124,30 @@ namespace Today.Web.Controllers
             }
 
         }
-        //[HttpPost]
-        //public ActionResult SearchByCityName(string username)
-        //{
-        //    var user = _classifyService.IClassifyService.CityName
-        //        .FirstOrDefault(x => x.Name.ToUpper() == username.ToUpper());
+        //public JsonResult GetCountyDDL(string cityId)
 
-        //    return View("SearchResult", user);
-        //}
-
-        public IActionResult Classify(String searchString) //楊 分類
+        //[HttpGet("{categoryId}")]
+        //[HttpGet("~/[controller]/[action]/{categoryId}")]
+        public IActionResult Classify(int id) //楊 分類
         {
-            var classPages = _classifyService.GetClassifyPages();
-            var cardsource = classPages.ClassifyCardList.ToList();
-            var Categorysource = classPages.CategoryList.ToList();
+            var categoryshow = new ClassifyRequestDTO
+            {
+                CategoryId = id,
+                Page = 1,
+            };
+
+            var classPages = _classifyService.GetClassifyPages(categoryshow);
+            var cardsource = classPages.ClassifyCardList;
+            var categorysource = classPages.CategoryList;
+
+
             var result = new ClassifyVM()
             {
                 ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
                 {
                     ProductId = c.ProductId,
                     ProductName = c.ProductName,
+                    CityId = c.CityId,
                     CityName = c.CityName,
                     Path = c.Path,
                     TagText = c.TagText,
@@ -150,7 +156,10 @@ namespace Today.Web.Controllers
                     TotalComment = c.TotalComment,
                     Evaluation = c.Evaluation
                 }).ToList(),
-                CategoryList = Categorysource.Select(x => new ClassifyVM.CategoryDestinations
+
+                CardCount = classPages.CardCount,
+
+                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
                 {
                     ProductCategoryId = x.ProductCategoryId,
                     CategoryName = x.CategoryName,
@@ -161,10 +170,8 @@ namespace Today.Web.Controllers
                     }).ToList()
                 }).ToList()
             };
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                result.ClassifyCardList = result.ClassifyCardList.Where(s =>/*s.ProductName.Contains(searchString)||*/s.CityName.Contains(searchString)).ToList();
-            }
+
+
             return View(result);
         }
 
@@ -220,7 +227,7 @@ namespace Today.Web.Controllers
                     CityId = cl.CityId,
                     Name = cl.Name,
                     RatingStar = cl.RatingStar,
-                    CommentDate = string.Format("{0:yyyy/MM/dd}",cl.CommentDate),
+                    CommentDate = string.Format("{0:yyyy/MM/dd}", cl.CommentDate),
                     UseDate = string.Format("{0:yyyy/MM/dd}", cl.UseDate),
                     PartnerType = cl.PartnerType,
                     ProductName = cl.ProductName,
