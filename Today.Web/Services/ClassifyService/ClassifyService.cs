@@ -131,7 +131,7 @@ namespace Today.Web.Services.ClassifyService
             var productTag = _repo.GetAll<ProductTag>();
             var Tag = _repo.GetAll<Tag>();
 
-            var comment = _repo.GetAll<Comment>();
+            var comment = _repo.GetAll<Today.Model.Models.Comment>();
 
 
             product.ForEach(p => result.Add(
