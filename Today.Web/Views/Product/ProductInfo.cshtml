@@ -473,18 +473,67 @@ radio
     <link rel="stylesheet" href="~/css/reset.css" />
 }
     @section endJS{
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- toastr v2.1.4 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet"  />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     @*<script src="~/js/ProductInfo.js"></script>*@
     <script>
 
+        //const ProductUrl = 'https:localhost:5001/api/Shop/AddCart'
+        //    let AddCart = new Vue({
+        //        el:'#AddCart',
+        //        data: {
+        //            aa: 0,
+        //            CreateCardData: {
+        //            ProductName : 'name',
+        //            ProgramTitle : 'title',
+        //            Path : 'Path',
+        //            DepartureDate : '2022-07-31',
+        //            Quantity : 0,
+        //            SpecificationId : 5,
+        //            ScreeningId : 3
+        //            }
+        //        },
+        //        methods: {
+        //            add(){
+        //                this.aa++;
+        //            },
+        //            min(){
+        //                if (this.aa > 0) {
+        //                    this.aa--;
+        //                }
+        //            },
+
+        //            CreateCard() {
+        //                axios.post(ProductUrl,this.CreateCardData)
+        //                    .then(res => {
+        //                        console.log(res)
+        //                        if (res.data.status == 200) {
+
+        //                            alert("insert success")
+        //                            $('createShopCard').model('hide')
+        //                        }
+        //                        else {
+        //                            alert("insert failed")
+        //                        }
+        //                    })
+
+        //            }
+        //        }
+        //    })
+
+
         let product_initial = document.querySelector("#product-initial")
         let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
-        //let pglist = ViewData["ProgramSpecification"];
         //let body = document.querySelector("body")
-        let selectProgram = document.querySelector(".selected-Program")
+        let selectProgram = document.querySelector(".selected-Program");
         pglist.forEach((pg, index) => {
             product_initial.append(Addcard(index, pg.PrgarmText, pg.PrgramName, pg.ProgramSpecificationList, pg.AboutProgramList, pg.ProgramIncludeList, pg.DateList))
         })
+
         function Addcard(index, PrgarmText, name, ProgramSpecificationList, AboutProgramList, ProgramIncludeList, DateList) {
             let programcard = PrgramNameModel.content.cloneNode(true);
             programcard.querySelector("h4").innerText = name
@@ -509,6 +558,7 @@ radio
                 dateFormat: "Y-m-d H:i",
             });
             let getdata;
+
             const BtnDetails = programcard.querySelector(".btn-Details")
             //按下手機板查看方案詳情
             BtnDetails.addEventListener("click", () => {
@@ -579,22 +629,22 @@ radio
 
 
             let getSpecificationId;
-            let Array2 = [];
-            console.log(Array2)
+            let Array = [];
 
-            ProgramSpecificationList.forEach(ps => {
+            ProgramSpecificationList.forEach((ps, index) => {
                 programcard.querySelector(".UnitText-div>p").innerText = ps.Itemtext + ps.PorgarmUnitPrice + "/" + ps.UnitText
 
                 let num = 0;
                 let count = programcard.querySelector(".count")
                 let sum_price = programcard.querySelector(".price")
-                let obj = { SpecificationId: ps.getSpecificationId, num: num }
-
+                let obj = { SpecificationId: ps.SpecificationId, Quantity: num }
+                Array.push(obj)
                 programcard.querySelector(".plus").addEventListener("click", function() {
                     num = parseInt(count.innerHTML, 10) + 1
                     count.innerHTML = num
                     sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
-                    Array2.push(obj)
+                    Array[index].Quantity = num
+                    console.log(Array)
                     console.log(obj)
                 })
                 programcard.querySelector(".reduce").addEventListener("click", function() {
@@ -602,7 +652,8 @@ radio
                         num = parseInt(count.innerHTML, 10) - 1
                         count.innerHTML = num
                         sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
-                        Array2.push(obj)
+                        Array[index].Quantity = num
+                        console.log(Array)
                         console.log(obj)
                     }
                 })
@@ -613,6 +664,73 @@ radio
             //按下選擇按鈕---->選擇區快要顯示方案名稱、下一步後的方案規格要改變
             //按下以選擇按鈕 --->
             //按下一步按鈕 ---> 方案或日期未選擇需要防呆
+
+
+
+            //let addCart = document.querySelector("#AddCart");
+            //let data = {
+            //        ProductName : 'p',
+            //        ProgramTitle : 'title',
+            //        DepartureDate : departuredate,
+            //        Path : 'Path',
+            //        Quantity : 3,
+            //        UnitPrice : 100,
+            //        UnitText : 'UnitText',
+            //        SpecificationId : 5,
+            //        ScreenTime : '10:40',
+            //        ScreeningId : 3
+            //}
+            //programcard.querySelector(".shopping-cart-btn").addEventListener("click", function() {
+            //    AddCart(data);
+            //}
+
+            let shoppingbtn = programcard.querySelector(".shopping-cart-btn")
+            shoppingbtn.addEventListener("click", function() {
+                //num2 = num
+                getdata = datainput._flatpickr.selectedDates
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                //console.log(getdata)
+                //console.log(departuredate)
+                //console.log(getSpecificationId)
+                let url = "/api/Shop/AddCart";
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": "3000"
+                }
+
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        MemberId: 1,
+                        SpecificationList: Array,
+                        DepartureDate: Departuredate,
+                        //ScreeningId : 3,
+                        //SpecificationId: getSpecificationId,
+                        //ScreeningId : ,
+                        //ProductName : "p",
+                        //ProgramTitle : name,
+                        //DepartureDate : '2022-09-23',
+
+                    })
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            toastr.success("新增成功");
+                        }
+                        else {
+                            toastr.error("新增失敗");
+                            //return res.text()
+                        }
+                    })
+                    //.then(text => {
+                    //    alert(text);
+                    //})
+
+            })
+
             return programcard
         }
         let programlabel = document.querySelectorAll("label.btn")
@@ -636,6 +754,25 @@ radio
                 })
             })
         })
+
+
+
+                //function AddCart(data) {
+                //    fetch('https://localhost:5001/api/Shop/AddCart',{
+                //    method:'POST',
+                //    headers:new Headers({'Content-Type':'application/json'}),
+                //        body: JSON.stringify(data)
+                //    })
+                //    .then(res => { return res.json() })
+                //    .then(res =>{
+                //        if (res.data.status === 200) {
+                //            alert("insert success")
+                //        }
+                //        else {
+                //            alert("insert failed")
+                //        }
+                //    })
+                //})
         //彥蓉做的
         $(".plate").click(function() {
             $(".collapse-plate").slideToggle("slow");
