@@ -53,7 +53,8 @@ namespace Today.Model.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=TodayDB;Integrated Security=True");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=TodayDB; Trusted_Connection=True;");
             }
         }
 
@@ -443,7 +444,9 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.CityId, "IX_Member_CityId");
 
-                entity.Property(e => e.MemberId).HasComment("會員ID");
+                entity.Property(e => e.MemberId)
+                    .ValueGeneratedNever()
+                    .HasComment("會員ID");
 
                 entity.Property(e => e.Age).HasComment("年齡");
 
@@ -463,6 +466,7 @@ namespace Today.Model.Models
                 entity.Property(e => e.Image).HasComment("會員圖片");
 
                 entity.Property(e => e.MemberName)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .HasComment("會員名稱");
 
@@ -471,12 +475,14 @@ namespace Today.Model.Models
                     .HasComment("密碼");
 
                 entity.Property(e => e.Phone)
+                    .IsRequired()
                     .HasMaxLength(10)
                     .HasComment("電話");
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Members)
                     .HasForeignKey(d => d.CityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Member_City");
             });
 
@@ -530,9 +536,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.PaymentId, "IX_Order_PaymentId");
 
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasComment("訂單ID");
+                entity.Property(e => e.OrderId).HasComment("訂單ID");
 
                 entity.Property(e => e.Note).HasComment("備註");
 
@@ -572,9 +576,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.TicketsId, "IX_OrderDetail_TicketsId");
 
-                entity.Property(e => e.OrderDetailsId)
-                    .ValueGeneratedNever()
-                    .HasComment("訂單詳細ID");
+                entity.Property(e => e.OrderDetailsId).HasComment("訂單詳細ID");
 
                 entity.Property(e => e.DepartureDate)
                     .HasColumnType("datetime")

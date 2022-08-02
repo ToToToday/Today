@@ -44,7 +44,7 @@
                         <div class="check-control m-0 ps-0">
                             <label class="form-check-label" for="commodity-control">
                             </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
+                            <input class="form-check-input commodity-control" type="checkbox" id="commodity-control" value="@cart.ShoppingCartId">
                         </div>
                         <div class="card p-0">
                             <a href="#">
@@ -96,7 +96,7 @@
                         <span class="text-end">1件商品合計</span>
                         <span class=" fw-bolder mt-2">TWD 28000</span>
                     </div>
-                    <a class="fw-bolder mb-3 mx-3" asp-action="Checkout">前往結帳</a>
+                    <a class="caculate-input fw-bolder mb-3 mx-3" asp-action="Checkout">前往結帳</a>
                 </div>
             </div>
         </div>
@@ -355,12 +355,21 @@
     <link rel="stylesheet" href="~/css/root.css">
 }
 
-    @section endJS{
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+@section endJS{
+    
+     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
+
+
+         <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+
+
     <script>
         let createItem = document.querySelectorAll(".list .item")
         let emptyCart = document.querySelector(".empty-cart")
@@ -431,7 +440,31 @@
                 })
         })
 
+    
+ 
 
     </script>
+    <script>
+        let create_order_btn = document.querySelector(".caculate>a")
+        create_order_btn.addEventListener("click", () => {
 
-}
+            let List = document.querySelectorAll("input.commodity-control:checked")
+
+            fetch("/api/Order/CreateOrder", {
+                 method: 'Post',
+                 cache:'no-cache',
+                headers: new Headers({'Content-Type': 'application/json'}),
+                body: JSON.stringify({
+                    //加入產品詳細資訊
+                    ShoppingCradIdList: Array.from(List).map(x=>parseInt(x.value))
+                })
+            })
+            .then(resp => {
+                if (resp.status ==200) {         
+                }
+            })
+        })
+
+    </script>
+ }
+   
