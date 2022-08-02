@@ -1,4 +1,5 @@
 ﻿@model MemberCommentVM
+
 @section topCSS{
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/orderManage.css">
@@ -10,12 +11,12 @@
                 <div class="page-aside">
                     <div class="card aside-box">
                         <div class="editor-logo">
-                            <img class="rounded-circle" src="https://picsum.photos/200/200/?random=10">
+                            <img class="rounded-circle" src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg">
                             <div class="icon-bg rounded-circle">
                                 <i class="fa-solid fa-camera"></i>
                             </div>
                         </div>
-                        <div class="aside-box-text name">盧致文</div>
+                        <div class="aside-box-text name">@Model.MemberName</div>
                         <div class="aside-box-text level">白銀會員</div>
                         <hr>
                         <div class="account-group">

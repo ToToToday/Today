@@ -20,7 +20,7 @@ namespace Today.Web.Services.MemberCommentService
 
         public DTOModels.MemberCommentDTO.MemberCommentResponseDTO ReadMemberComment(DTOModels.MemberCommentDTO.MemberCommentRequestDTO Id)
         {
-
+            var member = _repo.GetAll<Member>().Where(m => m.MemberId == Id.MemberId).Select(m => m.MemberName).First();
             var Order = _repo.GetAll<Order>().Where(m => m.MemberId == Id.MemberId);
             var OrderDetail = _repo.GetAll<OrderDetail>();
 
@@ -75,6 +75,7 @@ namespace Today.Web.Services.MemberCommentService
             var comment2 = _repo.GetAll<Today.Model.Models.Comment>().Where(cm => cm.MemberId == Id.MemberId).ToList();
             var result = new DTOModels.MemberCommentDTO.MemberCommentResponseDTO
             {
+                MemberName = member,
                 OrderInfo = new DTOModels.MemberCommentDTO.Order
                 {
                     OrderDtailList = Product.Select(p => new DTOModels.MemberCommentDTO.OrderDetailCard

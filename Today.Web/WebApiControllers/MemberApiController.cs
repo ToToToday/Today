@@ -35,8 +35,6 @@ namespace Today.Web.WebApiControllers
 
             var entity = _memberService.UpdateMember(inputDto);
 
-            //var memberToastr = entity.Message
-
             return Ok(entity);
         }
     }
