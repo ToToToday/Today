@@ -163,7 +163,7 @@
                         <span class="text-end">1件商品合計</span>
                         <span class=" fw-bolder mt-2">TWD 28000</span>
                     </div>
-                    <a class="caculate-input fw-bolder mb-3 mx-3" @*asp-action="Checkout"*@>前往結帳</a>
+                    <a class="caculate-input fw-bolder mb-3 mx-3" asp-action="Checkout">前往結帳</a>
                 </div>
             </div>
         </div>
@@ -424,40 +424,23 @@
 
     <script>
         let create_order_btn = document.querySelector(".caculate>a")
-        document.querySelectorAll("input.commodity-control")
-        .forEach(i=>{
-
-        i.addEventListener("click",()=>{
-
-        console.log(@Model.MemberId)
-
-
-        })
-        })
-        
-        
         create_order_btn.addEventListener("click", () => {
 
             let List = document.querySelectorAll("input.commodity-control:checked")
 
             fetch("/api/Order/CreateOrder", {
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                method: 'post',
+                 method: 'Post',
+                 cache:'no-cache',
+                headers: new Headers({'Content-Type': 'application/json'}),
                 body: JSON.stringify({
                     //加入產品詳細資訊
-                    MemeberID: @Model.MemberId,
-                    ShoppingCradIdList: Array.from(List).map(x=> x.value)
-                }),
+                    ShoppingCradIdList: Array.from(List).map(x=>parseInt(x.value))
+                })
             })
-            //.then(resp => {
-            //    if (resp.ok) {
-            //        return resp.text()
-            //    }
-            //}).then(text => {
-            //    alert(text);
-            //})
+            .then(resp => {
+                if (resp.status ==200) {         
+                }
+            })
         })
 
     </script>

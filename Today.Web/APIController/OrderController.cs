@@ -1,19 +1,36 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static Today.Web.DTOModels.OrderDTO.OrderDTO;
+using System;
+using Today.Web.DTOModels.CreateOrderDTO;
+using Today.Web.Models.ShopCartAPI;
+using Today.Web.Services.OrderService;
 
 namespace Today.Web.APIController
 {
-    [Route("API/[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
-        [HttpPost]
-        public IActionResult CreateOrder(ProductInfoRequstDTO requstDTO)
+        private readonly IOrderService _orderService;
+        public OrderController(IOrderService orderService) 
         {
+            _orderService = orderService;
 
-            
-            return Ok();
+        }
+        [HttpPost]
+        public IActionResult CreateOrder([FromBody]CreateOrderRequstDTO requstDTO)
+        {
+            try
+            {
+                //requstDTO.MemeberID = int.Parse(User.Identity.Name);
+                requstDTO.MemeberID = 2;
+                _orderService.CreateOrder(requstDTO);
+                return Ok(new APIResult(APIStatus.Success, string.Empty, true));
+            }
+            catch (Exception ex)
+            {
+                return Ok(new APIResult(APIStatus.Fail, ex.Message, null));
+            }
         }
         [HttpPost]
         public IActionResult CreateOrderDetail()

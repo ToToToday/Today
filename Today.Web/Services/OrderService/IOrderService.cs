@@ -1,7 +1,9 @@
-﻿namespace Today.Web.Services.OrderService
+﻿using Today.Web.DTOModels.CreateOrderDTO;
+
+namespace Today.Web.Services.OrderService
 {
     public interface IOrderService
     {
-        //private void CreateOrder(ProductInfoRequstDTO requstDTO)
+        public void CreateOrder(CreateOrderRequstDTO requstDTO);
     }
 }
