@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Today.Model.Models;
+using static Today.Web.DTOModels.ProductDTO.ProductDTO;
 
 namespace Today.Web.DTOModels.CityDTO
 {
@@ -32,6 +33,7 @@ namespace Today.Web.DTOModels.CityDTO
         public class RaiderCard
         {
             public int RaiderId { get; set; }
+            public string photo { get; set; }
             public int CityId { get; set; }
             public string Title { get; set; }
             public string SubTitle { get; set; }
@@ -51,26 +53,11 @@ namespace Today.Web.DTOModels.CityDTO
             public string ProductName { get; set; }
             public string Title { get; set; }
             public string Text { get; set; }
+            public int ProductId { get; set; }
         }
 
-        public List<ProductCard> TopProductList { get; set; }
-        public List<ProductCard> AboutProductList { get; set; }
-        public List<ProductCard> NewProductList { get; set; }
-        public class ProductCard
-        {
-            public int Id { get; set; }
-            public string ProductPhoto { get; set; }
-            public string ProductName { get; set; }
-            public string ChildCategoryName { get; set; }
-            public int CityId { get; set; }
-            public string CityName { get; set; }
-            public List<string> Tags { get; set; }
-            public float Rating { get; set; }
-            public int TotalComment { get; set; }
-            public int Quantity { get; set; }
-            public decimal? OriginalPrice { get; set; }
-            public decimal? Price { get; set; }
-            
-        }
+        public List<ProductInfo> TopProductList { get; set; }
+        public List<ProductInfo> AboutProductList { get; set; }
+        public List<ProductInfo> NewProductList { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace Today.Web.DTOModels
         }
         public class MemberCommentResponseDTO
         {
+            public string MemberName { get; set; }
             public Order OrderInfo { get; set; }
         }
         public class Order

@@ -122,6 +122,7 @@ namespace Today.Web.Services.AccountService
                 //new Claim(ClaimTypes.Role, "A"),
                 //new Claim(ClaimTypes.Role, "B"),
             };
+            
 
             //lv2 用上面的資訊集合，造一個ClaimsIdentity物件。
             //(用多項個資，組出【證件】)
