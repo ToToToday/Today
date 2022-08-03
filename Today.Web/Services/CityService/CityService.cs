@@ -70,6 +70,7 @@ namespace Today.Web.Services.CityService
             var raiderResult = _repo.GetAll<CityRaider>().Where(x => x.CityId == request.CityId).Select(r =>new CityDTO.RaiderCard
             {
                 RaiderId = r.RaidersId,
+                photo = r.Image,
                 CityId = r.CityId,
                 Title = r.Title,
                 SubTitle = r.Subtitle
@@ -91,7 +92,7 @@ namespace Today.Web.Services.CityService
                               cm.MemberId equals m.MemberId
                               join c in _repo.GetAll<City>() on
                               p.CityId equals c.CityId
-                              select new { c.CityId, m.MemberName, cm.RatingStar, cm.CommentDate, od.DepartureDate, cm.PartnerType, p.ProductName, cm.CommentText, cm.CommentTitle };
+                              select new { c.CityId, m.MemberName, cm.RatingStar, cm.CommentDate, od.DepartureDate, cm.PartnerType, p.ProductName, cm.CommentText, cm.CommentTitle,p.ProductId };
 
             var Comment = CommentData.Where(c => c.CityId == request.CityId).Take(4).ToList();
             var result = new List<CommentCard>();
@@ -110,7 +111,9 @@ namespace Today.Web.Services.CityService
                         PartnerType = typeDesc,
                         ProductName = cm.ProductName,
                         Title = cm.CommentTitle,
-                        Text = cm.CommentText
+                        Text = cm.CommentText,
+                        ProductId = cm.ProductId
+                        
                     };
                     result.Add(temp);
 
