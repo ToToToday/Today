@@ -36,8 +36,8 @@ namespace Today.Web.WebApiControllers
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = "https://9a4d-220-141-63-234.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://9a4d-220-141-63-234.jp.ngrok.io/Home/Index" //之後改主頁網址
+                ServerUrl = "https://todayweb.azurewebsites.net/Ecpay/callback",
+                ClientUrl = "https://todayweb.azurewebsites.net/Home/Index" //之後改主頁網址
             };
             var transaction = new
             {
