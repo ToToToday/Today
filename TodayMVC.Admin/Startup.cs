@@ -28,7 +28,7 @@ namespace TodayMVC.Admin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<TodayDBContext>(options =>
+            services.AddDbContext<TodayDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
 

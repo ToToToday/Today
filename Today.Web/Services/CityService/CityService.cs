@@ -23,9 +23,11 @@ namespace Today.Web.Services.CityService
     {
 
         private readonly IGenericRepository _repo;
-        public CityService(IGenericRepository repo)
+        private readonly IProductService _productService;
+        public CityService(IGenericRepository repo, IProductService productService)
         {
             _repo = repo;
+            _productService = productService;
         }
 
         public CityResponseDTO GetCity(CityRequestDTO request)
@@ -118,7 +120,6 @@ namespace Today.Web.Services.CityService
 
 
         }
-
         public RaiderResponseDTO GetRaiders(RaiderRequestDTO request)
         {
             var raiderdata = _repo.GetAll<CityRaider>();
@@ -138,144 +139,16 @@ namespace Today.Web.Services.CityService
             }
             return RaiderPages;
         }
-        public ProductDTO GetProduct()
+        public CityDTO GetAllCard(CityRequestDTO request)
         {
-            var result = new ProductDTO { ProductList = new List<ProductDTO.ProductInfo> { }, CategoryList = new List<ProductDTO.CategoryInfo> { } };
-            var productList = _repo.GetAll<Product>().ToList();
-            var productPhotoList = _repo.GetAll<ProductPhoto>().ToList();
-            var productCategoryList = _repo.GetAll<ProductCategory>().ToList();
-            var categoryList = _repo.GetAll<Category>().ToList();
-            var cityList = _repo.GetAll<City>().ToList();
-            var productTagList = _repo.GetAll<ProductTag>().ToList();
-            var tagList = _repo.GetAll<Tag>().ToList();
-            var programList = _repo.GetAll<Model.Models.Program>().ToList();
-            var specificationList = _repo.GetAll<ProgramSpecification>().ToList();
-            var commentList = _repo.GetAll<Comment>().ToList();
-            var orderDetailList = _repo.GetAll<OrderDetail>().ToList();
-            var mainCategoryList = categoryList.Where(category => category.ParentCategoryId == null);
-            var categoryListGroup = categoryList.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
-
-
-            #region categoryList
-            foreach (var category in mainCategoryList)
+            var dataSource = _productService.AllProduct().QueryProduct;
+            var result = new CityDTO()
             {
-                var mainTemp = new CategoryInfo
-                {
-                    Id = category.CategoryId,
-                    Name = category.CategoryName,
-                    ChildCategoryList = new List<CategoryInfo>()
-                };
-
-                foreach (var group in categoryListGroup)
-                {
-                    if (mainTemp.Id == group.Key)
-                    {
-                        foreach (var item in group)
-                        {
-                            var temp = new CategoryInfo
-                            {
-                                Id = item.CategoryId,
-                                Name = item.CategoryName
-                            };
-                            mainTemp.ChildCategoryList.Add(temp);
-                        }
-                    }
-                }
-                result.CategoryList.Add(mainTemp);
-            }
-            #endregion
-
-            #region productList
-            foreach (var product in productList)
-            {
-                var tempCategoryList = productCategoryList.Where(productCategory => productCategory.ProductId == product.ProductId);
-                var tempProductTagList = productTagList.Where(productTag => productTag.ProductId == product.ProductId);
-                var totalComment = commentList.Where(comment => comment.ProductId == product.ProductId).Count();
-                var sumRating = commentList.Where(comment => comment.ProductId == product.ProductId).Sum(comment => comment.RatingStar);
-
-                var productTemp = new ProductDTO.ProductInfo
-                {
-                    Id = product.ProductId,
-                    ProductPhoto = productPhotoList.Where(photo => photo.ProductId == product.ProductId).Select(x => x.Path).First(),
-                    ProductName = product.ProductName,
-                    ChildCategoryName = tempCategoryList.Select(productCategory => categoryList.Where(category => category.CategoryId == productCategory.CategoryId).Select(category => category.CategoryName).First()).First(),
-                    CityId = product.CityId,
-                    CityName = string.Join("", cityList.Where(city => city.CityId == product.CityId).Select(city => city.CityName)),
-                    Tags = tempProductTagList.Join(tagList, productTag => productTag.TagId, tag => tag.TagId, (productTag, tag) => new { tag.TagText }).Select(tag => tag.TagText).ToList(),
-                    Rating = new RatingInfo() { RatingStar = (totalComment != 0) ? (float)sumRating / totalComment : 0, TotalGiveComment = totalComment },
-                    TotalOrder = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
-                    Prices = programList.Where(program => program.ProductId == product.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
-                };
-
-                result.ProductList.Add(productTemp);
-                #endregion
-            }
+                TopProductList = dataSource.Where(p => p.CityId == request.CityId).OrderByDescending(p => p.TotalOrder).Take(10).ToList(),
+                NewProductList = dataSource.Where(p => p.CityId == request.CityId).OrderByDescending(p => p.Id).Take(10).ToList(),
+                AboutProductList = dataSource.Where(p => p.CityId == request.CityId).OrderBy(x => Guid.NewGuid()).Take(10).ToList()
+            };
             return result;
-        }
-        public List<ProductCard> GetTopTen(CityRequestDTO request)
-        {
-            var result = GetProduct().ProductList.OrderByDescending(p => p.TotalOrder).Where(c => c.CityId == request.CityId).Take(10).Select(newA => new CityDTO.ProductCard
-            {
-                Id = newA.Id,
-                ProductPhoto = newA.ProductPhoto,
-                ProductName = newA.ProductName,
-                CityId = newA.CityId,
-                CityName = newA.CityName,
-                Tags = newA.Tags,
-                Rating = newA.Rating.RatingStar,
-                TotalComment = newA.Rating.TotalGiveComment,
-                Quantity = newA.TotalOrder,
-                OriginalPrice = (newA.Prices == null || newA.Prices.OriginalPrice == newA.Prices.Price) ? null : newA.Prices.OriginalPrice,
-                Price = (newA.Prices == null) ? null : newA.Prices.Price
-
-
-            }).ToList();
-
-            return result;
-        }
-    
-
-        public List<ProductCard> GetNewActiviy(CityRequestDTO request)
-        {
-            var result = GetProduct().ProductList.OrderByDescending(p => p.Id).Where(c => c.CityId == request.CityId).Take(10).Select(newA => new CityDTO.ProductCard
-            {
-                Id = newA.Id,
-                ProductPhoto = newA.ProductPhoto,
-                ProductName = newA.ProductName,
-                CityId = newA.CityId,
-                CityName = newA.CityName,
-                Tags = newA.Tags,
-                Rating = newA.Rating.RatingStar,
-                TotalComment = newA.Rating.TotalGiveComment,
-                Quantity = newA.TotalOrder,
-                OriginalPrice = (newA.Prices == null || newA.Prices.OriginalPrice == newA.Prices.Price) ? null : newA.Prices.OriginalPrice,
-                Price = (newA.Prices == null) ? null : newA.Prices.Price
-
-
-            }).ToList();
-
-            return result;
-        }
-        public List<ProductCard> GetAboutProduct(CityRequestDTO request)
-        {
-            var Aboutresult = GetProduct().ProductList.OrderBy(x => Guid.NewGuid()).Where(c => c.CityId ==request.CityId).Take(10).Select(Aboutp => new CityDTO.ProductCard
-            {
-                Id = Aboutp.Id,
-                ProductPhoto = Aboutp.ProductPhoto,
-                ProductName = Aboutp.ProductName,
-                CityId = Aboutp.CityId,
-                CityName = Aboutp.CityName,
-                Tags = Aboutp.Tags,
-                Rating = Aboutp.Rating.RatingStar,
-                TotalComment = Aboutp.Rating.TotalGiveComment,
-                Quantity = Aboutp.TotalOrder,
-                OriginalPrice = (Aboutp.Prices == null || Aboutp.Prices.OriginalPrice == Aboutp.Prices.Price) ? null : Aboutp.Prices.OriginalPrice,
-                Price = (Aboutp.Prices == null) ? null : Aboutp.Prices.Price
-
-
-            }).ToList();
-
-            return Aboutresult;
         }
 
     }

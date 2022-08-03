@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Today.Model.Models
 {
-    public partial class TodayDBContext : DbContext
+    public partial class TodayDbContext : DbContext
     {
-        public TodayDBContext()
+        public TodayDbContext()
         {
         }
 
-        public TodayDBContext(DbContextOptions<TodayDBContext> options)
+        public TodayDbContext(DbContextOptions<TodayDbContext> options)
             : base(options)
         {
         }
@@ -53,13 +53,14 @@ namespace Today.Model.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=TodayDB;Integrated Security=True");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=todaysqlserver.database.windows.net;Initial Catalog=TodayDb;User ID=bs;Password=P@ssword");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Chinese_Taiwan_Stroke_BIN");
 
             modelBuilder.Entity<AboutProgram>(entity =>
             {
@@ -68,8 +69,6 @@ namespace Today.Model.Models
                 entity.HasIndex(e => e.AboutProgramOptionsId, "IX_AboutProgram_AboutProgramOptionsId");
 
                 entity.HasIndex(e => e.ProgramId, "IX_AboutProgram_ProgramId");
-
-                entity.Property(e => e.AboutProgramId).ValueGeneratedNever();
 
                 entity.HasOne(d => d.AboutProgramOptions)
                     .WithMany(p => p.AboutPrograms)
@@ -89,8 +88,6 @@ namespace Today.Model.Models
                 entity.HasKey(e => e.AboutProgramOptionsId);
 
                 entity.HasIndex(e => e.ProductId, "IX_AboutProgramOptions_ProductId");
-
-                entity.Property(e => e.AboutProgramOptionsId).ValueGeneratedNever();
 
                 entity.Property(e => e.Context)
                     .IsRequired()
@@ -112,8 +109,6 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ParentCategoryId, "IX_Category_ParentCategoryId");
 
-                entity.Property(e => e.CategoryId).ValueGeneratedNever();
-
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -133,8 +128,6 @@ namespace Today.Model.Models
 
                 entity.HasComment("");
 
-                entity.Property(e => e.CityId).ValueGeneratedNever();
-
                 entity.Property(e => e.CityImage).IsRequired();
 
                 entity.Property(e => e.CityIntrod)
@@ -147,6 +140,16 @@ namespace Today.Model.Models
                     .HasComment("城市名稱");
 
                 entity.Property(e => e.IsIsland).HasComment("是否為本島");
+
+                entity.Property(e => e.Latitude)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasComment("緯度");
+
+                entity.Property(e => e.Longitude)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasComment("經度");
             });
 
             modelBuilder.Entity<CityRaider>(entity =>
@@ -157,7 +160,9 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.StaffId, "IX_CityRaiders_StaffId");
 
-                entity.Property(e => e.RaidersId).ValueGeneratedNever();
+                entity.Property(e => e.Image)
+                    .HasMaxLength(200)
+                    .HasComment("卡牌用圖片");
 
                 entity.Property(e => e.Isdeleted).HasComment("軟刪除");
 
@@ -206,9 +211,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProductId, "IX_Collect_ProductId");
 
-                entity.Property(e => e.CollectId)
-                    .ValueGeneratedNever()
-                    .HasComment("收藏id");
+                entity.Property(e => e.CollectId).HasComment("收藏id");
 
                 entity.Property(e => e.CreateTime)
                     .HasColumnType("datetime")
@@ -237,9 +240,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProductId, "IX_Comment_ProductId");
 
-                entity.Property(e => e.CommentId)
-                    .ValueGeneratedNever()
-                    .HasComment("評論");
+                entity.Property(e => e.CommentId).HasComment("評論");
 
                 entity.Property(e => e.CommentDate)
                     .HasColumnType("datetime")
@@ -289,8 +290,6 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Coupon");
 
-                entity.Property(e => e.CouponId).ValueGeneratedNever();
-
                 entity.Property(e => e.Context).HasComment("優惠卷簡易說明");
 
                 entity.Property(e => e.CouponDiscount)
@@ -332,9 +331,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.StaffId, "IX_CouponManage_StaffId");
 
-                entity.Property(e => e.CouponManageId)
-                    .ValueGeneratedNever()
-                    .HasComment("優惠卷管理");
+                entity.Property(e => e.CouponManageId).HasComment("優惠卷管理");
 
                 entity.Property(e => e.CouponId).HasComment("優惠眷id");
 
@@ -371,9 +368,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProductId, "IX_Location_ProductId");
 
-                entity.Property(e => e.LocationId)
-                    .ValueGeneratedNever()
-                    .HasComment("體驗地點ID");
+                entity.Property(e => e.LocationId).HasComment("體驗地點ID");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -399,7 +394,7 @@ namespace Today.Model.Models
                     .HasMaxLength(50)
                     .HasComment("體驗地點標題");
 
-                entity.Property(e => e.Type).HasComment("類型0＝體驗 ,1,2...\r\n(地點種類)");
+                entity.Property(e => e.Type).HasComment("類型0＝體驗 ,1(兌換),2...\r\n(地點種類)");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Locations)
@@ -414,9 +409,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.MemberId, "IX_LoginWay_MemberID");
 
-                entity.Property(e => e.LoginWayId)
-                    .ValueGeneratedNever()
-                    .HasComment("登入方式ID");
+                entity.Property(e => e.LoginWayId).HasComment("登入方式ID");
 
                 entity.Property(e => e.LongWayName).HasComment("登入方式(email1, fb2, google3)");
 
@@ -530,9 +523,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.PaymentId, "IX_Order_PaymentId");
 
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasComment("訂單ID");
+                entity.Property(e => e.OrderId).HasComment("訂單ID");
 
                 entity.Property(e => e.Note).HasComment("備註");
 
@@ -542,7 +533,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.PaymentId).HasComment("付款ID");
 
-                entity.Property(e => e.Status).HasComment("狀態");
+                entity.Property(e => e.Status).HasComment("狀態(1.成功2.失敗3.已付款4.未付款)");
 
                 entity.Property(e => e.StatusUpdate).HasComment("訂單狀態更新");
 
@@ -572,9 +563,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.TicketsId, "IX_OrderDetail_TicketsId");
 
-                entity.Property(e => e.OrderDetailsId)
-                    .ValueGeneratedNever()
-                    .HasComment("訂單詳細ID");
+                entity.Property(e => e.OrderDetailsId).HasComment("訂單詳細ID");
 
                 entity.Property(e => e.DepartureDate)
                     .HasColumnType("datetime")
@@ -587,7 +576,7 @@ namespace Today.Model.Models
                 entity.Property(e => e.Itemtext)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .HasComment("票種（成人/兒童/車)");
+                    .HasComment("票種（成人/兒童/車/四人房/雙人房)");
 
                 entity.Property(e => e.LeaseTime)
                     .HasColumnType("datetime")
@@ -627,8 +616,6 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Payment");
 
-                entity.Property(e => e.PaymentId).ValueGeneratedNever();
-
                 entity.Property(e => e.PaymentWay)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -642,8 +629,6 @@ namespace Today.Model.Models
                 entity.HasIndex(e => e.CityId, "IX_Product_CityId");
 
                 entity.HasIndex(e => e.SupplierId, "IX_Product_SupplierId");
-
-                entity.Property(e => e.ProductId).ValueGeneratedNever();
 
                 entity.Property(e => e.CancellationPolicy).HasComment("取消政策");
 
@@ -681,9 +666,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProductId, "IX_ProductCategory_ProductId");
 
-                entity.Property(e => e.ProductCategoryId)
-                    .ValueGeneratedNever()
-                    .HasComment("商品類別");
+                entity.Property(e => e.ProductCategoryId).HasComment("商品類別");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.ProductCategories)
@@ -706,8 +689,6 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProductId, "IX_ProductPhoto_ProductId");
 
-                entity.Property(e => e.PhotoId).ValueGeneratedNever();
-
                 entity.Property(e => e.Path)
                     .IsRequired()
                     .HasComment("路徑");
@@ -729,9 +710,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.TagId, "IX_ProductTag_TagId");
 
-                entity.Property(e => e.ProductTagId)
-                    .ValueGeneratedNever()
-                    .HasComment("商品標籤");
+                entity.Property(e => e.ProductTagId).HasComment("商品標籤");
 
                 entity.Property(e => e.ProductId).HasComment("商品id");
 
@@ -754,9 +733,7 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProductId, "IX_Program_ProductId");
 
-                entity.Property(e => e.ProgramId)
-                    .ValueGeneratedNever()
-                    .HasComment("");
+                entity.Property(e => e.ProgramId).HasComment("");
 
                 entity.Property(e => e.Context).HasComment("方案內文");
 
@@ -783,8 +760,6 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProgramId, "IX_ProgramCantUseDate_ProgramID");
 
-                entity.Property(e => e.ProgramDateId).ValueGeneratedNever();
-
                 entity.Property(e => e.Date)
                     .HasColumnType("date")
                     .HasComment("要關閉的日期");
@@ -803,8 +778,6 @@ namespace Today.Model.Models
                 entity.ToTable("ProgramInclude");
 
                 entity.HasIndex(e => e.ProgramId, "IX_ProgramInclude_ProgramID");
-
-                entity.Property(e => e.ProgramIncludeId).ValueGeneratedNever();
 
                 entity.Property(e => e.IsInclude).HasComment("是否包含(判斷放在哪邊)");
 
@@ -827,8 +800,6 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.ProgramId, "IX_ProgramSpecification_ProgramId");
 
-                entity.Property(e => e.SpecificationId).ValueGeneratedNever();
-
                 entity.Property(e => e.Inventory).HasComment("庫存量");
 
                 entity.Property(e => e.IsScreening).HasComment("有無場次");
@@ -844,7 +815,7 @@ namespace Today.Model.Models
 
                 entity.Property(e => e.ProgramId).HasComment("方案ID");
 
-                entity.Property(e => e.Status).HasComment("狀態(上下架)");
+                entity.Property(e => e.Status).HasComment("狀態(上下架 1上架2下架3缺貨?)");
 
                 entity.Property(e => e.UnitPrice)
                     .HasColumnType("decimal(18, 0)")
@@ -868,14 +839,12 @@ namespace Today.Model.Models
 
                 entity.HasIndex(e => e.SpecificationId, "IX_Screening_SpecificationId");
 
-                entity.Property(e => e.ScreeningId)
-                    .ValueGeneratedNever()
-                    .HasComment("場次ID");
+                entity.Property(e => e.ScreeningId).HasComment("場次ID");
 
-                entity.Property(e => e.Status).HasComment("狀態(上下架)");
+                entity.Property(e => e.Status).HasComment("狀態(上下架1上架2下架3缺貨?)");
 
                 entity.Property(e => e.Time)
-                    .HasMaxLength(100)
+                    .HasMaxLength(200)
                     .HasComment("時間");
 
                 entity.HasOne(d => d.Specification)
@@ -917,7 +886,6 @@ namespace Today.Model.Models
                 entity.HasOne(d => d.Screening)
                     .WithMany(p => p.ShoppingCarts)
                     .HasForeignKey(d => d.ScreeningId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ShoppingCart_Screening");
 
                 entity.HasOne(d => d.Specification)
@@ -946,7 +914,6 @@ namespace Today.Model.Models
                 entity.HasIndex(e => e.CityId, "IX_Supplier_CityId");
 
                 entity.Property(e => e.SupplierId)
-                    .ValueGeneratedNever()
                     .HasColumnName("SupplierID")
                     .HasComment("供應商ID");
 
@@ -987,8 +954,6 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Tag");
 
-                entity.Property(e => e.TagId).ValueGeneratedNever();
-
                 entity.Property(e => e.TagText)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -1002,11 +967,9 @@ namespace Today.Model.Models
 
                 entity.ToTable("Ticket");
 
-                entity.Property(e => e.TicketsId)
-                    .ValueGeneratedNever()
-                    .HasComment("電子憑證ID");
+                entity.Property(e => e.TicketsId).HasComment("電子憑證ID");
 
-                entity.Property(e => e.Status).HasComment("狀態");
+                entity.Property(e => e.Status).HasComment("狀態(1未使用、2已使用)");
 
                 entity.Property(e => e.TicketQrcode)
                     .IsRequired()
@@ -1018,9 +981,7 @@ namespace Today.Model.Models
             {
                 entity.ToTable("Staff");
 
-                entity.Property(e => e.StaffId)
-                    .ValueGeneratedNever()
-                    .HasComment("員工ID");
+                entity.Property(e => e.StaffId).HasComment("員工ID");
 
                 entity.Property(e => e.Birthday)
                     .HasColumnType("date")

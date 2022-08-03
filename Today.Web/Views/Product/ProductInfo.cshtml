@@ -6,7 +6,8 @@ radio
     <nav class=" nav nav-pills text-center px-2 py-2 align-items-center navbar navbar-expand-lg fixed-width">
         <div class="selected-div col-12 d-flex">
             <p class="selected-date col-6">
-
+                @*8月29號*@
+                @*選擇日期*@
             </p>
             <p class="selected-Program col-6">
                 @Model.ProductName
@@ -28,7 +29,6 @@ radio
              aria-labelledby="offcanvasBottomLabel1">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasBottomLabel1">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
-                <input type="hidden" name="ProductName" value="@TempData["ProductName"]" />
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
             </div>
@@ -36,7 +36,6 @@ radio
                 <div>
                     <h6>方案</h6>
                     <p>精緻客房｜一泊三食</p>
-                    <input type="hidden" name="ProgramTitle" value="@TempData["ProgramTitle"]" />
                 </div>
                 <div>
                     <h6>使用日期</h6>
@@ -76,18 +75,18 @@ radio
     </nav>
 </div>
 <div class="row justify-content-center slideshow-phone p-0 m-0 d-flex d-lg-none">
-    <div id="carouselExampleIndicators" class="productDetail-tour carousel slide row" data-bs-ride="true">
+    <div id="carouselExampleIndicators1" class="productDetail-tour carousel slide row" data-bs-ride="true">
         <div class="carousel-indicators p-0 ms-0">
             @for (var item = 0; item < Model.PhtotList.Count(); item++)
             {
                 int num = @item + 1;
                 if (item == 0)
                 {
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to=" @item" class="active" aria-current="true" aria-label="Slide @num"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to=" @item" class="active" aria-current="true" aria-label="Slide @num"></button>
                 }
                 else
                 {
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to=" @item" aria-label="Slide @num"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to=" @item" aria-label="Slide @num"></button>
                 }
             }
         </div>
@@ -108,12 +107,12 @@ radio
                 }
             }
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1"
                 data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1"
                 data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
@@ -298,25 +297,25 @@ radio
                 <a class="text-break col-4">
                     更多評價 >
                 </a>
-                @foreach(var comment in @Model.MemberList)
+                @foreach (var comment in @Model.MemberList)
                 {
-                <div class="Evaluation-message col-12 d-flex">
-                    <div class="message-img col-2">
-                        <div class="img-message-div">
-			            <img src="https://picsum.photos/300/200/?random=10">
+                    <div class="Evaluation-message col-12">
+                        <div class="message-img col-1">
+                            <div class="img-message-div">
+                                <img src="https://picsum.photos/300/200/?random=10">
+                            </div>
                         </div>
-                    </div>
-                    <div class="message col-10">
-                        <div class="Member-name">
-                            @comment.MemberName
-                        </div> 
-                        <div class="Member-message-time">
-                            @comment.Data.ToString().Substring(0,11)
-                        </div>
+                        <div class="message col-10">
+                            <div class="Member-name">
+                                @comment.MemberName
+                            </div>
+                            <div class="Member-message-time">
+                                @comment.Data.ToString().Substring(0,11)
+                            </div>
                             <div class="Member-star-div">
-                                @for(int s = 0; s < 5;s++)
+                                @for (int s = 0; s < 5; s++)
                                 {
-                                    if(s<=@comment.Star)
+                                    if (s <= @comment.Star)
                                     {
                                         <i class="Member-star fa-solid fa-star"></i>
                                     }
@@ -326,13 +325,13 @@ radio
                                     }
                                 }
                             </div>
-                        <div class="Member-message col-12">
-                            <div class="Member-message">
-                                @comment.MembermMessageText
+                            <div class="Member-message col-12">
+                                <div class="Member-message">
+                                    @Html.Raw(@comment.MembermMessageText)
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 }
             </div>
         </div>
@@ -347,7 +346,7 @@ radio
     </div>
 </div>
 <template id="PrgramNameModel">
-    <div class="initial col-12 ">
+    <div class="initial col-12">
         <div class="initial-container  col-12 d-flex flex-wrap ">
             <div class="col-12 col-lg-5 mb-2">
                 <h4>
@@ -359,7 +358,7 @@ radio
                 </div>
             </div>
             <input type="radio" class="btn-check " name="btnradio" autocomplete="">
-            <label class="btn initial_btn col-4 col-lg-2 order-2">選擇</label>
+            <label class="btn initial_btn col-4 col-lg-2 order-2  " data-bs-toggle="collapse" >選擇</label>
             <p class="initial-money col-8 col-lg-5 d-block mb-2">
                 @*所以方案價位*@
                 <span>
@@ -367,7 +366,7 @@ radio
                 </span>
             </p>
         </div>
-        <div class="flex-wrap d-flex">
+        <div class=" collapse">
             <div class="Programcontext-div initial-Remark">
             </div>
             <div class="col-12  AboutProgram-ProgramInclude-div d-none d-lg-block">
@@ -395,7 +394,6 @@ radio
                     <h6 class="product-initial-title col-12">
                         選擇日期
                     </h6>
-                    @*<input type="hidden" name="DepartureDate" value="@TempData["DepartureDate"]"/>*@
                     <input type="text" class="d-none"> @* <----月曆*@
                 </div>
                 <div class="lg-select-quantity-div col-6">
@@ -407,13 +405,11 @@ radio
                             <p class="col-8 mt-auto UnitText">
                                 @*規格項目/價格/單位*@
                             </p>
-
                             <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
                                 @*數量加減、總和*@
-                                <button @*v-on:click="min"*@ class="select-quantity-btn-reduce reduce">-</button>
+                                <button class="select-quantity-btn-reduce reduce">-</button>
                                 <p class="count">0</p>
-                                @*<input type="hidden" name="Quantity" value="@TempData["Quantity"]" />*@
-                                <button @*v-on:click="add"*@ class="select-quantity-btn-add plus">+</button>
+                                <button class="select-quantity-btn-add plus">+</button>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between col-12 select-total-div ">
@@ -426,10 +422,7 @@ radio
                     </div>
                 </div>
                 <div class="shopping-cart-div col-12 d-flex">
-                    @*<form action="~/Shop/AddCart/@TempData["SpecificationId"]/@TempData["ScreeningId"]/@TempData["Quantity"]"  method="post">*@
-                    @*<input type="hidden" name="UnitPrice" value="@TempData["UnitPrice"]" />*@
-                    <input id="AddCart" type="submit" class="shopping-cart-btn " value="加入購物車" />
-                    @*</form>*@
+                    <input type="submit" class="shopping-cart-btn " value="加入購物車" />
                     <input type="submit" class="asd-btn " value="立即訂購" />
                 </div>
             </div>
@@ -475,21 +468,14 @@ radio
     </div>
 </div>
 
-
 @section topCSS{
     <link rel="stylesheet" href="~/css/commodity.css" />
     <link rel="stylesheet" href="~/css/reset.css" />
 }
     @section endJS{
-
-
-    @* <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-    crossorigin="anonymous"></script>*@
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet"  />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -555,6 +541,11 @@ radio
             programcard.querySelector("label.btn").for = `btn${index}`
             programcard.querySelector(".initial-money").innerHTML = `${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`
             programcard.querySelector(".Programcontext-div").innerHTML = PrgarmText
+
+            programcard.querySelector(".btn-check").id = `flush-heading${index}`
+            programcard.querySelector("label.initial_btn").setAttribute("data-bs-target",`#flush-collapse${index}`)
+            programcard.querySelector(".collapse").id = `flush-collapse${index}`
+
             let datainput = programcard.querySelector(".product-initial-div>input")
             console.log(datainput)
             datainput.id = `myID${index}`
@@ -739,9 +730,9 @@ radio
                             //return res.text()
                         }
                     })
-                    //.then(text => {
-                    //    alert(text);
-                    //})
+                //.then(text => {
+                //    alert(text);
+                //})
 
             })
 
@@ -761,6 +752,7 @@ radio
                 progarminput.forEach((b, i) => {
                     if (b.checked == true) {
                         programlabel[i].innerHTML = `<i class="fa-solid fa-circle-check "></i>己選擇`;
+                        //$(".collapse-plate")[i].slideToggle("slow");
                     }
                     else {
                         programlabel[i].innerText = "選擇";
@@ -769,282 +761,29 @@ radio
             })
         })
 
-
-
-                //function AddCart(data) {
-                //    fetch('https://localhost:5001/api/Shop/AddCart',{
-                //    method:'POST',
-                //    headers:new Headers({'Content-Type':'application/json'}),
-                //        body: JSON.stringify(data)
-                //    })
-                //    .then(res => { return res.json() })
-                //    .then(res =>{
-                //        if (res.data.status === 200) {
-                //            alert("insert success")
-                //        }
-                //        else {
-                //            alert("insert failed")
-                //        }
-                //    })
-                //})
-
-
-
-
-
-
-
-
-
-
-
-
+        //function AddCart(data) {
+        //    fetch('https://localhost:5001/api/Shop/AddCart',{
+        //    method:'POST',
+        //    headers:new Headers({'Content-Type':'application/json'}),
+        //        body: JSON.stringify(data)
+        //    })
+        //    .then(res => { return res.json() })
+        //    .then(res =>{
+        //        if (res.data.status === 200) {
+        //            alert("insert success")
+        //        }
+        //        else {
+        //            alert("insert failed")
+        //        }
+        //    })
+        //})
+        //彥蓉做的
+        //$(".plate").click(function() {
+        //    $(".collapse-plate").slideToggle("slow");
+        //});
+        //$('.Evaluation-message~div').hide();
+        //$(".text-break").click(function() {
+        //    $(".Evaluation-message~div").slideToggle("slow");
+        //});
     </script>
-
-
 }
-
-
-
-
-
-
-
-    @*
-                @foreach (var pg in @Model.ProgarmList)
-                {
-                <div class="initial col-12 ">
-                <div class="initial-container  col-12 d-flex flex-wrap text-r">
-                <div class="col-8 mb-2">
-                <h4>
-                @pg.PrgramName
-                </h4>
-                <div class="remind d-inline-block ">
-                3天前可以免費取消
-                </div>
-                </div>
-                <p class="initial-money col-2 d-block mb-2">
-                TWD 24,000
-                <span>
-                起
-                </span>
-                </p>
-                @if (pg.ProgarmIsdeleted == true)
-                {
-                <button id="initial-btn-true" class="d-none col-2 mb-2">
-                <i class="fa-solid fa-circle-check "></i>
-                己選擇
-                </button>
-                <button id="initial-btn-fles" class="col-2 mb-2">
-                選擇
-                </button>
-                }
-                @if (pg.ProgarmIsdeleted == false)
-                {
-                <button id="initial-btn-fles" class="btn btn-secondary col-2 mb-2">
-                不可購買
-                </button>
-                }
-                @Html.Raw(@pg.PrgarmText)
-                </div>
-                <div class="flex-wrap d-none d-lg-flex">
-                <div class="col-12  AboutProgram-ProgramInclude-div">
-                <div class="col-12 d-flex AboutProgram-div">
-                <h5 class="col-3 AboutProgram-h5 ">關於此方案</h5>
-                <ul class="col-9 d-flex flex-wrap">
-                @foreach (var ap in pg.AboutProgramList)
-                {
-                <li class="d-flex">
-                @Html.Raw(@ap.IconClass)
-                @ap.AboutProgramName
-                </li>
-                }
-                </ul>
-                </div>
-                <div class="col-12  ProgramInclude-div d-flex ">
-                <h5 class="col-3 ProgramInclude-h5">費用包含與不包含</h5>
-                <ul class="col-5 ProgramInclude-true-ul">
-                @foreach (var li in pg.ProgramIncludeList)
-                {
-                if (li.IsInclude == true)
-                {
-                <li>@li.Inciudetext</li>
-                }
-                }
-                </ul>
-                <ul class="col-4 ProgramInclude-fals-ul">
-                @foreach (var li in pg.ProgramIncludeList)
-                {
-                if (li.IsInclude == false)
-                {
-                <li>@li.Inciudetext</li>
-                }
-                }
-                </ul>
-                </div>
-                </div>
-                <div class="col-12 d-flex flex-wrap ">
-                <h5 class="col-12 my-2 ps-3">
-                選擇日期、數量
-                </h5>
-                <div class="col-6 product-initial-div">
-                <h6 class="product-initial-title col-12">
-                選擇日期
-                </h6>
-                <input id="myID" type="text" class="d-none">
-                </div>
-                <div class="lg-select-quantity-div col-6">
-                <h6 class="select-quantity-title">
-                選擇數量
-                </h6>
-                <div class="select-quantity-aldult col-12 d-flex flex-wrap">
-                @foreach (var sp in pg.ProgramSpecificationList)
-                {
-                <div class="col-12 d-flex flex-wrap  mb-2">
-                <p class="col-8 mt-auto">
-                兩人房
-                <span class="">TWD <span class="price">@sp.PorgarmUnitPrice</span>/@sp.UnitText</span>
-                </p>
-                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                <button class="select-quantity-btn-reduce reduce">-</button>
-                <p class="count">0</p>
-                <button class="select-quantity-btn-add plus">+</button>
-                </div>
-                </div>
-                }
-                @foreach (var sp in pg.ProgramSpecificationList)
-                {
-                <div class="col-12 d-flex flex-wrap  mb-2">
-                <p class="col-8 mt-auto">
-                兩人房
-                <span class="">TWD <span class="price">@sp.PorgarmUnitPrice</span>/@sp.UnitText</span>
-                </p>
-                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                <button class="select-quantity-btn-reduce reduce">-</button>
-                <p class="count">0</p>
-                <button class="select-quantity-btn-add plus">+</button>
-                </div>
-                </div>
-                }
-                <div class="d-flex justify-content-between col-12 select-total-div ">
-                <span>總金額</span>
-                <p>TWD <p class="sum-price">0</p></p>
-                </div>
-                </div>
-                </div>
-                <div class="shopping-cart-div col-12 d-flex">
-                <input type="submit" class="shopping-cart-btn ms-auto" value="加入購物車">
-                <input type="submit" value="立即訂購">
-                </div>
-                </div>
-                </div>
-                <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
-                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
-                aria-controls="offcanvasBottom">
-                查看方案詳情
-                </button>
-                <div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1"
-                id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
-                <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close">
-                </button>
-                </div>
-                <div class="offcanvas-body small d-flex flex-wrap p-3">
-                <div class="col-md-12 iph-AboutProgram-ProgramInclude-div">
-                <div class=" d-flex iph-AboutProgram-div">
-                <ul class="iph-AboutProgram-ul">
-                <li><i class="fa-solid fa-calendar"></i>最早預定時間8/15 12:00</li>
-                <li><i class="fa-brands fa-bitcoin"></i>7天前可免費取消</li>
-                </ul>
-                </div>
-                <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
-                <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
-                <ul class="col-md-4 iph-ProgramInclude-true-ul">
-                @foreach (var li in pg.ProgramIncludeList)
-                {
-                if (li.IsInclude == true)
-                {
-                <li>@li.Inciudetext</li>
-                }
-                }
-                </ul>
-                <ul class="col-md-12 iph-ProgramInclude-fals-ul">
-                @foreach (var li in pg.ProgramIncludeList)
-                {
-                if (li.IsInclude == false)
-                {
-                <li>@li.Inciudetext</li>
-                }
-                }
-                </ul>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                }
-                *@
-
-
-
-
-    @*                <h4>
-                如何抵達
-                </h4>
-                <div class="How-get-there">
-                ►桃園捷運：A18站下車，徒步約8分鐘<br>
-                ►高鐵：桃園站6號出口，徒步約9分鐘<br>
-                ►公車：高鐵桃園站下車，徒步約10分鐘<br>
-                ►自行開車（假日車潮眾多易塞車，建議搭乘大眾交通工具前往）
-                </div>
-                <h4>
-                開放說明時間
-                </h4>
-                <ul>
-                <li>週一至週日：10:00 - 18:00<br>（最後預約場次為16:00，閉館時間為18:00）</li>
-                <li>特殊節日營業時間：無<br></li>
-                </ul>*@
-
-
-
-    @*                <div class="Notes">
-                <ul>
-                <li>
-                未滿 4 歲的兒童可免費入場，需有家長陪同入場。
-                </li>
-                <li>
-                下訂時請以「票券使用日」為主，下訂後即無法變更，敬請留意。
-                </li>
-                <li>
-                訂單一次最高訂購上限為 6 張，每日場次數量為限量販售，售完為止；團體預約請洽
-                </li>
-                <li>
-                訂單恕不接受部分變更，若需變更入場日及場次請整筆重新下訂。
-                </li>
-                <li>
-                訂購博愛票旅客陪同者也需購買一張博愛票（陪同者僅限於身心障礙旅客）。
-                </li>
-                </ul>
-                <h4>
-                注意事項
-                </h4>
-                <div class="Precautions Notes-Precautions">
-                <ul>
-                <li class="notice-list__item">
-                購買學生、孩童、敬老票（博愛票）者當日請配合出示相關證件，若無法出示工作人員將有權拒絕旅客入場。
-                </li>
-                <li class="notice-list__item">
-                為維護館內參觀品質，每個時段皆有人數限制，因此若該場次已售完，請選擇其他場次，並請配合現場人流管制。
-                </li>
-                <li class="notice-list__item">
-                請勿於任何非主辦單位正式授權售票之通路、網站購買票劵，以免自身權益受損，若透過上述管道購票發生無法入場或其他交易糾紛問題，主辦單位及相關售票平台概不負責。
-                </li>
-                <li class="notice-list__item">
-                如有未盡事宜，台灣橫浜八景島股份有限公司保留、修改、終止、變更各專案內容細節之權利，且不另行通知。
-                </li>
-                </ul>
-                </div>
-                </div>
-                *@

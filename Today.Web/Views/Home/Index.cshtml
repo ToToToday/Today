@@ -43,7 +43,7 @@
         <ul class="list-unstyled bg-light rounded-3 d-flex flex-wrap">
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none text-center">
+                    <a href="~/Product/Classify/1" class="text-decoration-none text-center">
                         <i class="fa-solid fa-bed"></i>
                         <br>
                         <p class="mt-2">住宿</p>
@@ -52,7 +52,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/2" class="text-decoration-none">
                         <i class="fa-solid fa-mountain-sun"></i>
                         <br>
                         <p class="mt-2">景點門票</p>
@@ -61,7 +61,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/3" class="text-decoration-none">
                         <i class="fa-solid fa-jet-fighter"></i>
                         <br>
                         <p class="mt-2">觀光行程</p>
@@ -70,7 +70,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/4" class="text-decoration-none">
                         <i class="fa-solid fa-volleyball"></i>
                         <br>
                         <p class="mt-2">戶外活動</p>
@@ -79,7 +79,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/5" class="text-decoration-none">
                         <i class="fa-solid fa-train-subway"></i>
                         <br>
                         <p class="mt-2">高鐵國旅聯票</p>
@@ -88,7 +88,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/6" class="text-decoration-none">
                         <i class="fa-solid fa-car"></i>
                         <br>
                         <p class="mt-2">交通</p>
@@ -97,7 +97,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/7" class="text-decoration-none">
                         <i class="fa-solid fa-couch"></i>
                         <br>
                         <p class="mt-2">紓壓 & 放鬆</p>
@@ -106,7 +106,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/8" class="text-decoration-none">
                         <i class="fa-solid fa-gift"></i>
                         <br>
                         <p class="mt-2">伴手禮</p>
@@ -115,7 +115,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/9" class="text-decoration-none">
                         <i class="fa-solid fa-images"></i>
                         <br>
                         <p class="mt-2">活動 & 展覽</p>
@@ -124,7 +124,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/10" class="text-decoration-none">
                         <i class="fa-solid fa-place-of-worship"></i>
                         <br>
                         <p class="mt-2">工作坊 & 在地文化</p>
@@ -133,7 +133,7 @@
             </li>
             <li class="col-3 p-3 col-xl-2">
                 <div class="city-type text-center">
-                    <a href="#" class="text-decoration-none">
+                    <a href="~/Product/Classify/11" class="text-decoration-none">
                         <i class="fa-solid fa-plane-departure"></i>
                         <br>
                         <p class="mt-2">旅遊服務</p>
@@ -533,19 +533,19 @@
         toastr.options = {
             "closeButton": true,
             "debug": false,
-            "newestOnTop": true,
+            "newestOnTop": false,
             "progressBar": true,
-            "positionClass": "toast-bottom-right",
+            "positionClass": "toast-top-right",
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
-            //"hideDuration": "1000",
+            "hideDuration": "1000",
             "timeOut": "5000",
             "extendedTimeOut": "1000",
             "showEasing": "swing",
             "hideEasing": "linear",
             "showMethod": "fadeIn",
-            //"hideMethod": "fadeOut"
+            "hideMethod": "fadeOut"
         }
         let result = '@Html.Raw(TempData["SearchMessage"])'.replace(/\"/g, "")
 

@@ -19,6 +19,7 @@ using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 using static Today.Web.ViewModels.ProductInfoVM;
 using Today.Web.DTOModels.ProductInfoDTO;
+using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 
 using static Today.Web.DTOModels.ShopCartMemberDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO.ShopCartMemberResponseDTO;
@@ -38,7 +39,7 @@ namespace Today.Web.Controllers
         
         public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService, IShopCartService shopCartService)
         {
-            _productInfoService = productInfoService;
+            //_productInfoService = productInfoService;
             _cityServices = cityServices;
             _productServices = productService;
             _locationServices = locationServices;
@@ -50,7 +51,7 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        
+
         public IActionResult ProductInfo(int id) //商品頁面
         {
             if (id <= 0)
@@ -116,7 +117,7 @@ namespace Today.Web.Controllers
                             Date = p.Date,
                             ScreenId = p.ScreenId,
                             SpecificationId = p.SpecificationId,
-                            Status =p.Status
+                            Status = p.Status
                         }).ToList()
                         ,
                         ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
@@ -143,35 +144,54 @@ namespace Today.Web.Controllers
             }
 
         }
+        //public JsonResult GetCountyDDL(string cityId)
 
-        public IActionResult Classify() //楊 分類
+        //[HttpGet("{categoryId}")]
+        //[HttpGet("~/[controller]/[action]/{categoryId}")]
+        public IActionResult Classify(int id) //楊 分類
         {
-            var classPages = _classifyService.GetClassifyPages();
-            var cardsource = classPages.ClassifyCardList.ToList();
-            var Categorysource = classPages.CategoryList.ToList();
+            var categoryshow = new ClassifyRequestDTO
+            {
+                CategoryId = id,
+                Page = 1,
+            };
+
+            var classPages = _classifyService.GetClassifyPages(categoryshow);
+            var cardsource = classPages.ClassifyCardList;
+            var categorysource = classPages.CategoryList;
+
+
             var result = new ClassifyVM()
             {
                 ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
                 {
+                    ProductId = c.ProductId,
                     ProductName = c.ProductName,
+                    CityId = c.CityId,
                     CityName = c.CityName,
                     Path = c.Path,
                     TagText = c.TagText,
                     UnitPrice = c.UnitPrice,
+                    RatingStar = (int)c.RatingStar,
+                    TotalComment = c.TotalComment,
                     Evaluation = c.Evaluation
                 }).ToList(),
-                CategoryList = Categorysource.Select(x => new ClassifyVM.CategoryDestinations
+
+                CardCount = classPages.CardCount,
+
+                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
                 {
-                    Id = x.Id,
+                    ProductCategoryId = x.ProductCategoryId,
                     CategoryName = x.CategoryName,
                     ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
                     {
-                        Id = y.Id,
+                        ProductCategoryId = y.ProductCategoryId,
                         CategoryName = y.CategoryName
                     }).ToList()
                 }).ToList()
             };
-            
+
+
             return View(result);
         }
 
@@ -191,14 +211,12 @@ namespace Today.Web.Controllers
             var cityRequest = new CityRequestDTO
             {
                 CityId = id
-            }; 
+            };
             var CityDetail = _cityServices.GetCity(cityRequest);
             var CityAllCard = _cityServices.GetAllCity(cityRequest);
             var CityAllRaider = _cityServices.GetRaiderCard(cityRequest);
             var CityAllComment = _cityServices.GetAllComment(cityRequest);
-            var NewActiviy = _cityServices.GetNewActiviy(cityRequest);
-            var AboutProduct = _cityServices.GetAboutProduct(cityRequest);
-            var TopTen = _cityServices.GetTopTen(cityRequest);
+            var getcard = _cityServices.GetAllCard(cityRequest);
             var cityTourPage = new CityVM
             {
                 CurrentCityInfo = new CityVM.CityInfo
@@ -227,47 +245,51 @@ namespace Today.Web.Controllers
                     CityId = cl.CityId,
                     Name = cl.Name,
                     RatingStar = cl.RatingStar,
-                    CommentDate = string.Format("{0:yyyy/MM/dd}",cl.CommentDate),
+                    CommentDate = string.Format("{0:yyyy/MM/dd}", cl.CommentDate),
                     UseDate = string.Format("{0:yyyy/MM/dd}", cl.UseDate),
                     PartnerType = cl.PartnerType,
                     ProductName = cl.ProductName,
                     Text = cl.Text,
                     Title = cl.Title
                 }).ToList(),
-                NewActiviyList = NewActiviy.Select(newp => new CityVM.ProductCardVM
+                NewActiviyList = getcard.NewProductList.Select(newp => new CityVM.ProductCardVM
                 {
                     Id = newp.Id,
                     ProductPhoto = newp.ProductPhoto,
                     ProductName = newp.ProductName,
                     Tags = newp.Tags,
                     CityName = newp.CityName,
-                    OriginalPrice = newp.OriginalPrice,
-                    Price =newp.Price,
-                    Rating = newp.Rating,
-                    TotalGiveComment = newp.TotalComment,
-                    TotalOrder = newp.Quantity
-
-
+                    OriginalPrice = (newp.Prices == null || newp.Prices.OriginalPrice == newp.Prices.Price) ? null : newp.Prices.OriginalPrice,
+                    Price = (newp.Prices == null) ? null : newp.Prices.Price,
+                    Rating = newp.Rating.RatingStar,
+                    TotalGiveComment = newp.Rating.TotalGiveComment,
+                    TotalOrder = newp.TotalOrder
                 }).ToList(),
-                AboutActiviyList = AboutProduct.Select(aboutp => new CityVM.ProductCardVM
+                AboutActiviyList = getcard.AboutProductList.Select(aboutp => new CityVM.ProductCardVM
                 {
                     Id = aboutp.Id,
                     ProductPhoto = aboutp.ProductPhoto,
                     ProductName = aboutp.ProductName,
                     Tags = aboutp.Tags,
                     CityName = aboutp.CityName,
-                    OriginalPrice = aboutp.OriginalPrice,
-                    Price = aboutp.Price
+                    OriginalPrice = (aboutp.Prices == null || aboutp.Prices.OriginalPrice == aboutp.Prices.Price) ? null : aboutp.Prices.OriginalPrice,
+                    Price = (aboutp.Prices == null) ? null : aboutp.Prices.Price,
+                    Rating = aboutp.Rating.RatingStar,
+                    TotalGiveComment = aboutp.Rating.TotalGiveComment,
+                    TotalOrder = aboutp.TotalOrder
                 }).ToList(),
-                TopActiviyList = TopTen.Select(top => new CityVM.ProductCardVM
+                TopActiviyList = getcard.TopProductList.Select(top => new CityVM.ProductCardVM
                 {
                     Id = top.Id,
                     ProductPhoto = top.ProductPhoto,
                     ProductName = top.ProductName,
                     Tags = top.Tags,
                     CityName = top.CityName,
-                    OriginalPrice = top.OriginalPrice,
-                    Price = top.Price
+                    OriginalPrice = (top.Prices == null || top.Prices.OriginalPrice == top.Prices.Price) ? null : top.Prices.OriginalPrice,
+                    Price = (top.Prices == null) ? null : top.Prices.Price,
+                    Rating = top.Rating.RatingStar,
+                    TotalGiveComment = top.Rating.TotalGiveComment,
+                    TotalOrder = top.TotalOrder
                 }).ToList()
 
 
@@ -295,8 +317,8 @@ namespace Today.Web.Controllers
                     Text = Raidercontent.RaiderInfo.Text,
                     Video = Raidercontent.RaiderInfo.Video,
                 }
-            };   
-         
+            };
+
             return View(CityRaider);
         }
         public IActionResult OffIsland() //離島 分類
@@ -314,7 +336,7 @@ namespace Today.Web.Controllers
                 }).ToList(),
                 GetProdocutName = getProduct.Select(p => new LocationVM.GetProduct
                 {
-                    ProductId = p.ProductId, 
+                    ProductId = p.ProductId,
                     ProductName = p.ProductName,
                 }).ToList()
                 ,
