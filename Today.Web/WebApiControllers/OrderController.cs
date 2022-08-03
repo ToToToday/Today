@@ -22,8 +22,7 @@ namespace Today.Web.WebApiControllers
         {
             try
             {
-                //requstDTO.MemeberID = int.Parse(User.Identity.Name);
-                requstDTO.MemeberID = 1;
+                requstDTO.MemeberID =  int.Parse(User.Identity.Name);
                 var Id =  _orderService.CreateOrder(requstDTO);
                 return Ok(new APIResult(APIStatus.Success, string.Empty, new { Id = Id}));
             }
@@ -38,7 +37,7 @@ namespace Today.Web.WebApiControllers
             try
             {
                 //requstDTO.MemeberID = int.Parse(User.Identity.Name);
-                request.MemberId = 1;
+                request.MemberId = int.Parse(User.Identity.Name);
                 var ID =  _orderService.directCreateOrder(request); 
                 //return RedirectToAction("Checkout", "Member", new { id  = ID });
                 return Ok(new APIResult(APIStatus.Success, string.Empty, new { id = ID }));

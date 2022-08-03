@@ -122,7 +122,6 @@ namespace Today.Web.Services.MemberCommentService
                 CommentText = a.CommentText,
                 CommentDate = DateTime.Now,
                 OrderDetailsId = a.OrderDetailId,
-                CommentId = 18,
                 ProductId = a.ProductId,
                 MemberId = a.MemberId
             };
