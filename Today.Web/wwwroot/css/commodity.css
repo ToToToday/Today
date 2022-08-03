@@ -9,7 +9,6 @@
     --font-color-Ash: #8a8a8a;
     --font-color-span: #26bec9;
 }
-
 .btn-close {
     display: inline-block;
 }
@@ -58,7 +57,9 @@ html h5 {
 
 }
 
-
+.carousel-item > img {
+    height: 200px;
+}
 @media screen and (min-width: 768px) {
 
     .container {
@@ -686,6 +687,10 @@ h5 {
 
 
 @media screen and (min-width: 992px) {
+
+    .carousel-item > img {
+        height: 450px;
+    }
     p.initial-money{
         margin: auto;
         text-align: end;

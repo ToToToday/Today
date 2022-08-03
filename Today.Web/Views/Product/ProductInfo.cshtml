@@ -75,18 +75,18 @@ radio
     </nav>
 </div>
 <div class="row justify-content-center slideshow-phone p-0 m-0 d-flex d-lg-none">
-    <div id="carouselExampleIndicators" class="productDetail-tour carousel slide row" data-bs-ride="true">
+    <div id="carouselExampleIndicators1" class="productDetail-tour carousel slide row" data-bs-ride="true">
         <div class="carousel-indicators p-0 ms-0">
             @for (var item = 0; item < Model.PhtotList.Count(); item++)
             {
                 int num = @item + 1;
                 if (item == 0)
                 {
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to=" @item" class="active" aria-current="true" aria-label="Slide @num"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to=" @item" class="active" aria-current="true" aria-label="Slide @num"></button>
                 }
                 else
                 {
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to=" @item" aria-label="Slide @num"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to=" @item" aria-label="Slide @num"></button>
                 }
             }
         </div>
@@ -107,12 +107,12 @@ radio
                 }
             }
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1"
                 data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1"
                 data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
@@ -358,7 +358,7 @@ radio
                 </div>
             </div>
             <input type="radio" class="btn-check " name="btnradio" autocomplete="">
-            <label class="btn initial_btn col-4 col-lg-2 order-2  plate">選擇</label>
+            <label class="btn initial_btn col-4 col-lg-2 order-2  " data-bs-toggle="collapse" >選擇</label>
             <p class="initial-money col-8 col-lg-5 d-block mb-2">
                 @*所以方案價位*@
                 <span>
@@ -366,7 +366,7 @@ radio
                 </span>
             </p>
         </div>
-        <div class="collapse-plate">
+        <div class=" collapse">
             <div class="Programcontext-div initial-Remark">
             </div>
             <div class="col-12  AboutProgram-ProgramInclude-div d-none d-lg-block">
@@ -475,7 +475,7 @@ radio
     @section endJS{
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet"  />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -541,6 +541,11 @@ radio
             programcard.querySelector("label.btn").for = `btn${index}`
             programcard.querySelector(".initial-money").innerHTML = `${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`
             programcard.querySelector(".Programcontext-div").innerHTML = PrgarmText
+
+            programcard.querySelector(".btn-check").id = `flush-heading${index}`
+            programcard.querySelector("label.initial_btn").setAttribute("data-bs-target",`#flush-collapse${index}`)
+            programcard.querySelector(".collapse").id = `flush-collapse${index}`
+
             let datainput = programcard.querySelector(".product-initial-div>input")
             console.log(datainput)
             datainput.id = `myID${index}`
@@ -725,9 +730,9 @@ radio
                             //return res.text()
                         }
                     })
-                    //.then(text => {
-                    //    alert(text);
-                    //})
+                //.then(text => {
+                //    alert(text);
+                //})
 
             })
 
@@ -747,6 +752,7 @@ radio
                 progarminput.forEach((b, i) => {
                     if (b.checked == true) {
                         programlabel[i].innerHTML = `<i class="fa-solid fa-circle-check "></i>己選擇`;
+                        //$(".collapse-plate")[i].slideToggle("slow");
                     }
                     else {
                         programlabel[i].innerText = "選擇";
@@ -755,31 +761,29 @@ radio
             })
         })
 
-
-
-                //function AddCart(data) {
-                //    fetch('https://localhost:5001/api/Shop/AddCart',{
-                //    method:'POST',
-                //    headers:new Headers({'Content-Type':'application/json'}),
-                //        body: JSON.stringify(data)
-                //    })
-                //    .then(res => { return res.json() })
-                //    .then(res =>{
-                //        if (res.data.status === 200) {
-                //            alert("insert success")
-                //        }
-                //        else {
-                //            alert("insert failed")
-                //        }
-                //    })
-                //})
+        //function AddCart(data) {
+        //    fetch('https://localhost:5001/api/Shop/AddCart',{
+        //    method:'POST',
+        //    headers:new Headers({'Content-Type':'application/json'}),
+        //        body: JSON.stringify(data)
+        //    })
+        //    .then(res => { return res.json() })
+        //    .then(res =>{
+        //        if (res.data.status === 200) {
+        //            alert("insert success")
+        //        }
+        //        else {
+        //            alert("insert failed")
+        //        }
+        //    })
+        //})
         //彥蓉做的
-        $(".plate").click(function() {
-            $(".collapse-plate").slideToggle("slow");
-        });
-        $('.Evaluation-message~div').hide();
-        $(".text-break").click(function() {
-            $(".Evaluation-message~div").slideToggle("slow");
-        });
+        //$(".plate").click(function() {
+        //    $(".collapse-plate").slideToggle("slow");
+        //});
+        //$('.Evaluation-message~div').hide();
+        //$(".text-break").click(function() {
+        //    $(".Evaluation-message~div").slideToggle("slow");
+        //});
     </script>
 }
