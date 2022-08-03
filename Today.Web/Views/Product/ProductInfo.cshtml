@@ -531,6 +531,8 @@ radio
         let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
         //let body = document.querySelector("body")
         let selectProgram = document.querySelector(".selected-Program");
+
+
         pglist.forEach((pg, index) => {
             product_initial.append(Addcard(index, pg.PrgarmText, pg.PrgramName, pg.ProgramSpecificationList, pg.AboutProgramList, pg.ProgramIncludeList, pg.DateList))
         })
@@ -546,7 +548,9 @@ radio
             programcard.querySelector(".btn-check").id = `flush-heading${index}`
             programcard.querySelector("label.initial_btn").setAttribute("data-bs-target",`#flush-collapse${index}`)
             programcard.querySelector(".collapse").id = `flush-collapse${index}`
-
+            if(programcard.querySelector("input.btn-check") == true){
+                selectProgram.innerText =  name
+            }
             let datainput = programcard.querySelector(".product-initial-div>input")
             console.log(datainput)
             datainput.id = `myID${index}`
@@ -632,8 +636,6 @@ radio
                 })
             }
             //ProgramSpecification
-
-
             let getSpecificationId;
             let Array = [];
 
@@ -794,6 +796,7 @@ radio
                 }
                 progarminput.forEach((b, i) => {
                     if (b.checked == true) {
+
                         programlabel[i].innerHTML = `<i class="fa-solid fa-circle-check "></i>己選擇`;
                         //$(".collapse-plate")[i].slideToggle("slow");
                     }
