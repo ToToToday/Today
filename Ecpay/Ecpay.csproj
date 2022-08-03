@@ -59,25 +59,14 @@
     <Compile Include="IPayment.cs" />
     <Compile Include="IPaymentResult.cs" />
     <Compile Include="Item.cs" />
-    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PaymentConfiguration.cs" />
     <Compile Include="PaymentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\Ecpay.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\Ecpay.csproj.CoreCompileInputs.cache" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="obj\Debug\Ecpay.csproj.FileListAbsolute.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\" />
-    <Folder Include="bin\Release\" />
-    <Folder Include="obj\Debug\TempPE\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

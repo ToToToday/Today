@@ -18,6 +18,7 @@ namespace Today.Model.Models
         public int Status { get; set; }
         public bool Isdeleted { get; set; }
         public int StaffId { get; set; }
+        public string Image { get; set; }
 
         public virtual City City { get; set; }
         public virtual staff Staff { get; set; }
