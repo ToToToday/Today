@@ -7,6 +7,7 @@ namespace Today.Web.ViewModels
     public class MemberCommentVM
     {
         public int MemberId { get; set; }
+        public string MemberName { get; set; }
         public List<OrderDetailCard> OrderDtailList { get; set; }
     }
     public class OrderDetailCard
