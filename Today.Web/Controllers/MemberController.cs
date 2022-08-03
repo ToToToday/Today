@@ -80,12 +80,12 @@ namespace Today.Web.Controllers
             return View();
         }
         
-        public IActionResult OrderManage(int ID =19 )
+        public IActionResult OrderManage()
         {
-            var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
+            var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = int.Parse(User.Identity.Name) });
             var MemberCommentInfo = new MemberCommentVM
             {
-                MemberId=ID,
+                MemberId= int.Parse(User.Identity.Name),
                 MemberName = DTO.MemberName,
                 OrderDtailList = DTO.OrderInfo.OrderDtailList.Select(d => new OrderDetailCard
                 {
