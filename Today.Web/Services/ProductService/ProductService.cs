@@ -107,6 +107,7 @@ namespace Today.Web.Services.ProductService
                     ProductName = x.ProductName,
                     ProductPhoto = productPhotoList.Where(pp => pp.ProductId == x.ProductId).Select(x => x.Path).First(),
                     ChildCategoryName = productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName).First(),
+                    CityId = x.CityId,
                     CityName = cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName).First(),
                     Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
                     Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
