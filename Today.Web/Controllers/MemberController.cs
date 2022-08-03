@@ -82,12 +82,13 @@ namespace Today.Web.Controllers
             return View();
         }
         
-        public IActionResult OrderManage(int ID =1 )
+        public IActionResult OrderManage()
         {
-            var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
+            var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = int.Parse(User.Identity.Name) });
             var MemberCommentInfo = new MemberCommentVM
             {
-                MemberId=ID,
+                MemberId= int.Parse(User.Identity.Name),
+                MemberName = DTO.MemberName,
                 OrderDtailList = DTO.OrderInfo.OrderDtailList.Select(d => new OrderDetailCard
                 {
                     Path = d.Path,
@@ -121,12 +122,12 @@ namespace Today.Web.Controllers
             return View();
         }
         [HttpGet]//請求
-        public IActionResult ShopCart(int Id)
+        public IActionResult ShopCart()
         {
-            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
+            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = int.Parse(User.Identity.Name) });   //int.Parse(User.Identity.Name)
             var ShopCartVMs = new ShopCartVM
             {
-                MemberId = Id,
+                MemberId = int.Parse(User.Identity.Name),
                 ShopCartCardList = ShopCartCardDTO
                 .Select(s => new ShopCartCardVM
                 {

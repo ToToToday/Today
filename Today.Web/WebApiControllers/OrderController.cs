@@ -4,6 +4,7 @@ using System;
 using Today.Web.DTOModels.CreateOrderDTO;
 using Today.Web.Models.ShopCartAPI;
 using Today.Web.Services.OrderService;
+using Today.Web.ViewModels;
 
 namespace Today.Web.WebApiControllers
 {
@@ -23,8 +24,8 @@ namespace Today.Web.WebApiControllers
             {
                 //requstDTO.MemeberID = int.Parse(User.Identity.Name);
                 requstDTO.MemeberID = 1;
-                _orderService.CreateOrder(requstDTO);
-                return Ok(new APIResult(APIStatus.Success, string.Empty, true));
+                var Id =  _orderService.CreateOrder(requstDTO);
+                return Ok(new APIResult(APIStatus.Success, string.Empty, new { Id = Id}));
             }
             catch (Exception ex)
             {
@@ -32,9 +33,20 @@ namespace Today.Web.WebApiControllers
             }
         }
         [HttpPost]
-        public IActionResult CreateOrderDetail()
+        public IActionResult directCreateOrder([FromBody] ShopCartRequestVM request)
         {
-            return Ok();
+            try
+            {
+                //requstDTO.MemeberID = int.Parse(User.Identity.Name);
+                request.MemberId = 1;
+                var ID =  _orderService.directCreateOrder(request); 
+                //return RedirectToAction("Checkout", "Member", new { id  = ID });
+                return Ok(new APIResult(APIStatus.Success, string.Empty, new { id = ID }));
+            }
+            catch (Exception ex)
+            {
+                return Ok(new APIResult(APIStatus.Fail, ex.Message, null));
+            }
         }
     }
 }
