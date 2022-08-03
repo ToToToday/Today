@@ -26,6 +26,7 @@ namespace Today.Web.ViewModels
             public List<CategoryDestinations> ChildCategory { get; set; }
 
         }
+
     }
 }
 

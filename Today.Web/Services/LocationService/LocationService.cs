@@ -4,7 +4,7 @@ using Today.Model.Models;
 using Today.Model.Repositories;
 using System.Linq;
 using Today.Web.DTOModels.locationDTO;
-
+using static Today.Web.DTOModels.locationDTO.LocationDTO;
 
 namespace Today.Web.Services.locationService
 {
@@ -16,118 +16,31 @@ namespace Today.Web.Services.locationService
             _repo = repo;
         }
 
-        public List<LocationDTO.ProductLocationDTO> GetLocations()
+        public LocationDTO GetLocation()
         {
             var productLocation = _repo.GetAll<Location>();
-            if (productLocation == null) return null; //防呆
-            var result = productLocation.Select( lo => new LocationDTO.ProductLocationDTO
-            {
-                 LocationID = lo.LocationId ,
-                 Latitude =lo.Latitude ,
-                 Longitude =lo.Longitude ,
-            }).ToList();
-            return result;
-        }
-        public List<LocationDTO.ProductNameDTO> GetProducts()
-        {
-            var products = _repo.GetAll<Product>();
-            if(products == null) return null;
-
-            var result = products.Select(p => new LocationDTO.ProductNameDTO
-            {
-                ProductId = p.ProductId ,
-                ProductName = p.ProductName,
-                CityId=p.CityId
-            }).ToList();
-            return result;
-        }
-        public List<LocationDTO.ProductPictureDTO> GetPhoto()
-        {
-            var photo = _repo.GetAll<ProductPhoto>();
-            if (photo == null) return null;
-
-            var result = photo.Select(pho => new LocationDTO.ProductPictureDTO
-            {
-                PhotoId = pho.PhotoId,
-                Path = pho.Path ,
-                ProductId = pho.ProductId,
-                Sort = pho.Sort
-            }).ToList();
-            return result;
-        }
-
-
-        public List<LocationDTO.CityDTO> GetCity()
-        {
-            var City = _repo.GetAll<City>();
-            if (City == null) return null;
-
-            var result = City.Select(c => new LocationDTO.CityDTO
-            {
-                CityId = c.CityId,
-                CityName = c.CityName,
-                IsIsland = c.IsIsland
-            }).ToList();
-            return result;
-        }
-        public List<LocationDTO.Program> GetPrograms()
-        {
-            var programs = _repo.GetAll<Today.Model.Models.Program>();
-            if (programs == null) return null;
-            var result = programs.Select(p => new LocationDTO.Program
-            {
-                ProductId = p.ProductId,
-                ProgramId = p.ProgramId
-            }).ToList();
-            return result;
-        }
-        public List<LocationDTO.ProgramSpecification> GetProgramSpecifications()
-        {
-            var programSpecification = _repo.GetAll<ProgramSpecification>();
-            if (programSpecification == null) return null;
-            var result = programSpecification.Select(p => new LocationDTO.ProgramSpecification
-            {
-                ProgramId = p.ProgramId,
-                SpecificationId = p.SpecificationId,
-                OriginalUnitPrice = p.OriginalUnitPrice,
-                UnitPrice = p.UnitPrice
-
-            }).ToList();
-            return result;
-        }
-        public List<LocationDTO.ProgramCantUseDate> GetProgramCantUseDates()
-        {
-            var programCantUseDate = _repo.GetAll<ProgramCantUseDate>();
-            if (programCantUseDate == null) return null;
-            var reuslt = programCantUseDate.Select(p => new LocationDTO.ProgramCantUseDate
-            {
-                ProgramDateId = p.ProgramDateId,
-                ProgramId = p.ProgramId,
-                Date = p.Date
-            }).ToList();
-            return reuslt;
-        }
-        public List<LocationDTO.ProductCard> ProductCards()
-        {
             var products = _repo.GetAll<Product>();
             var photo = _repo.GetAll<ProductPhoto>();
-            var City = _repo.GetAll<City>();
-            var programs = _repo.GetAll<Today.Model.Models.Program>();
-            var programSpecification = _repo.GetAll<ProgramSpecification>();
-            var programCantUseDate = _repo.GetAll<ProgramCantUseDate>();
+            var result = new LocationDTO() { ProductLocationList = new List<ProductLocationDTO>() };     
+            var Geting = (from pro in products
+                          join loca in productLocation on pro.ProductId equals loca.ProductId
+                          join pho in photo on loca.ProductId equals pho.ProductId
+                          where pho.Sort == 1
+                          select new {ProductId = pro.ProductId , LocationId =loca.LocationId, ProductName = pro.ProductName, Longitude = loca.Longitude, Latitude = loca.Latitude, Path = pho.Path  }
+                           ).ToList();
 
-            var result = products.Select(p => new LocationDTO.ProductCard
+            foreach (var item in Geting)
             {
-                ProductId = p.ProductId,
-                ProductName = p.ProductName,
-                CityId = p.CityId,
-                CityDTOs = GetCity(),
-                Programs = GetPrograms(),
-                CantUseDates = GetProgramCantUseDates(),
-                ProductPictureDTOs = GetPhoto(),
-                ProgramSpecifications = GetProgramSpecifications()
-            }).ToList();
+                result.ProductLocationList.Add(new ProductLocationDTO() { ProductId = item.ProductId, LocationId = item.LocationId ,  ProductName = item.ProductName, Longitude = item.Longitude, Latitude = item.Latitude, Path = item.Path });
+            }
+
             return result;
         }
+        //public LocationDTO GetCategory()
+        //{
+        //    var category = _repo.GetAll<Category>();
+            
+        //}
+
     }
 }

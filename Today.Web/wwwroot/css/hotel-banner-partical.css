@@ -35,7 +35,7 @@
 }
 .hotel_banner_city
 {
-    z-index:3;
+    z-index:21;
 }
 @media screen and (max-width:768px) {
     .Parent-child-search 
