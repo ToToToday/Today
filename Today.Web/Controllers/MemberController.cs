@@ -1,13 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq;
+using Today.Web.DTOModels;
 using Today.Web.Services.MemberCommentService;
 using Today.Web.ViewModels;
 using Today.Web.Services.CheenkoutService;
 using static Today.Web.DTOModels.ChenkoutDTO.ChenkoutDTO;
 using Today.Web.Services.MemberService;
 using Today.Web.DTOModels.MemberDTO;
+using static Today.Web.ViewModels.MemberVM;
 using Today.Model.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Today.Model.Models;
+using Today.Web.DTOModels.ShopCartDTO;
+using Today.Web.Models;
+using Today.Web.Services.ShopCartService;
+using static Today.Web.DTOModels.ShopCartMemberDTO;
+using static Today.Web.ViewModels.ShopCartVM;
 
 
 namespace Today.Web.Controllers
@@ -19,12 +30,14 @@ namespace Today.Web.Controllers
         private readonly IMemberService _memberService;
         private readonly IGenericRepository _genericRepository;
         private readonly IMemberCommentService _membercommentservic;
-        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService  membercommentservic)
+        private readonly IShopCartService _shopCartService;
+        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService membercommentservic,IShopCartService shopCartService)
         {
             _chenkoutService = chenkoutService;
             _memberService = memberService;
             _genericRepository = genericRepository;
             _membercommentservic = membercommentservic;
+            _shopCartService = shopCartService;
         }
 
         //請求 
@@ -46,7 +59,7 @@ namespace Today.Web.Controllers
                 CityId = emailSelect.CityId,
                 Age = emailSelect.Age,
                 Phone = emailSelect.Phone,
-                IdentityCard = emailSelect.IdentityCard,
+                //IdentityCard = emailSelect.IdentityCard,
                 Gender = emailSelect.Gender,
                 Email = emailSelect.Email,
 
@@ -58,6 +71,8 @@ namespace Today.Web.Controllers
                 }).ToList()
             };
 
+            //ViewData["MemberName"] = memberSelectInfo.MemberName;
+
             return View(memberSelectInfo);
         }
 
@@ -67,7 +82,7 @@ namespace Today.Web.Controllers
             return View();
         }
         
-        public IActionResult OrderManage(int ID =3 )
+        public IActionResult OrderManage(int ID =1 )
         {
             var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = ID });
             var MemberCommentInfo = new MemberCommentVM
@@ -90,7 +105,6 @@ namespace Today.Web.Controllers
                         OrderDetailId = d.comment.OrderDetailId,
                         ProductId=d.comment.ProductId,
                         CommentDate=d.comment.CommentDate,
-                        //
                     },
                 }).ToList()
             };
@@ -106,10 +120,33 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        public IActionResult ShopCart()
+        [HttpGet]//請求
+        public IActionResult ShopCart(int Id)
         {
-            return View();
+            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
+            var ShopCartVMs = new ShopCartVM
+            {
+                MemberId = Id,
+                ShopCartCardList = ShopCartCardDTO
+                .Select(s => new ShopCartCardVM
+                {
+                    ScreeningId = s.ScreenId,
+                    SpecificationId = s.SpecificationId,
+                    ShoppingCartId = s.ShopCartId,
+                    ProductName = s.ProductName,
+                    ProgramTitle = s.ProgramTitle,
+                    Path = s.ProductPhoto,
+                    DepartureDate = s.DepartureDate,
+                    Quantity = s.Quantity,
+                    ScreenTime = s.ScreenTime,
+                    UnitPrice = s.UnitPrice,
+                    UnitText = s.UnitText,
+                    Sum = s.UnitPrice * s.Quantity,
+                }).ToList()
+            };
+            return View(ShopCartVMs);
         }
+        
         public IActionResult Checkout(int id)
         {
             var orderRequet = new ChenkoutRequestDTO
@@ -119,47 +156,68 @@ namespace Today.Web.Controllers
             var memberinfo = _chenkoutService.GetOrderMember(orderRequet);
             var orderinfo = _chenkoutService.GetOrderProduct(orderRequet);
             var screeninfo = _chenkoutService.GetOrderSceen(orderRequet);
-            string s;
-            if (screeninfo == null)
-            {
-                s = screeninfo == null ? "": screeninfo.ToString();
-            }
-            else
-            {
-                s = $"場次:{screeninfo.Screen}";
-                //s = "場次:" + string.Format("{0:yyyy/MM/dd}", screeninfo.Screen);
-            }
-            var OrderProduct = orderinfo.ProductName;
-            var OrderQuantity = orderinfo.Quantity;
-            var OrderPrice = (int)orderinfo.UnitPrice;
-            var OrderId = orderinfo.OrderId;
-            TempData["OrderProduct"] = OrderProduct;
-            TempData["OrderQuantity"] = OrderQuantity;
-            TempData["OrderPrice"] = OrderPrice;
-            TempData["OrderId"] = OrderId;
             
+            List<string> s = new List<string>();
+            foreach (var sc in screeninfo)
+            {
+                if (screeninfo == null)
+                {
+                    s.Add(screeninfo == null ? "" : screeninfo.ToString());
+                }
+                else
+                {
+                    
+                     s.Add($"場次:{sc.Screen}");
+                    
+                }
+            }
+            List<string> OrderProduct  = new List<string>();
+            List<int> OrderQuantity = new List<int>();
+            List<int> OrderPrice = new List<int>();
+            
+
+            foreach (var p in orderinfo)
+            {
+                OrderProduct.Add(p.ProductName);
+                OrderQuantity.Add(p.Quantity);
+                OrderPrice.Add((int)p.UnitPrice);
+              
+
+            }
+            
+            var OrderId = id;
+            TempData["OrderProduct"] = OrderProduct.ToList();
+            TempData["OrderQuantity"] = OrderQuantity.ToList();
+            TempData["OrderPrice"] = OrderPrice.ToList();
+            TempData["OrderId"] = OrderId;
+
             var orderPage = new ChenkoutVM
             {
-                OrderMember = new ChenkoutVM.MemberInfo
+                OrderMember = memberinfo.Select(m => new ChenkoutVM.MemberInfo
                 {
-                    Name = memberinfo.Name,
-                    CityName = memberinfo.CityName,
-                    PhoneNumber = memberinfo.PhoneNumber,
-                    Email = memberinfo.Email
-                },
-                OrderProduct = new ChenkoutVM.OrderInfo
+                    Name = m.Name,
+                    CityName = m.CityName,
+                    PhoneNumber = m.PhoneNumber,
+                    Email = m.Email,
+                }).First(),
+                
+                OrderProduct = orderinfo.Select(oi => new ChenkoutVM.OrderInfo
                 {
-                    ProductName = orderinfo.ProductName,
-                    ProgramTitle = orderinfo.ProgramTitle,
-                    Photo = orderinfo.Photo,
-                    DepartureDate = string.Format("{0:yyyy/MM/dd}",orderinfo.DepartureDate),
-                    Screen = s,
-                    Itemtext = orderinfo.Itemtext,
-                    Quantity = orderinfo.Quantity,
-                    UnitPrice = orderinfo.UnitPrice,
-                    UnitText = orderinfo.UnitText,
-                }
-               
+                    ProductName = oi.ProductName,
+                    ProgramTitle = oi.ProgramTitle,
+                    Photo = oi.Photo,
+                    DepartureDate = String.Format("{0:yyyy/MM/dd}", oi.DepartureDate),
+                    //SceenLists = s.Select(sn => new ChenkoutVM.OrderInfo.SceenList
+                    //{
+                    //    Screen = sn
+                    //}),
+                    Itemtext = oi.Itemtext,
+                    Quantity = oi.Quantity,
+                    UnitPrice = oi.UnitPrice,
+                    UnitText = oi.UnitText,
+                }).ToList()
+
+
             };
             return View(orderPage);
         }

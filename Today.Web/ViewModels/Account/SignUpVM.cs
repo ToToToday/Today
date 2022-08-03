@@ -9,7 +9,6 @@ namespace Today.Web.ViewModels.Account
         public string Email { get; set; }
 
         [Required]
-        //[StringLength(3)]
         public string Password { get; set; }
     }
 }

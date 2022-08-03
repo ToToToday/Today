@@ -15,8 +15,8 @@
                                 <i class="fa-solid fa-camera"></i>
                             </div>
                         </div>
-                        <div class="aside-box-text name">盧致文</div>
-                        <div class="aside-box-text level">白銀會員</div>
+                        <div class="aside-box-text name">蝦毀</div>
+                        @*<div class="aside-box-text level">白銀會員</div>*@
                         <hr>
                         <div class="account-group">
                             <div class="account d-flex">
@@ -45,7 +45,7 @@
                         <li class="list-item">
                             <div class="list-item-text d-flex">
                                 <i class="icofont-ticket"></i>
-                                <a class="flex-grow-1" href="#">KKday折扣卷</a>
+                                <a class="flex-grow-1" href="#">Today折扣卷</a>
                                 <span class="text-warning">0</span>
                             </div>
                         </li>
@@ -91,7 +91,7 @@
                     </div>
 
                     <!-- 無訂單 -->
-                    <div class="page-text">
+                    <div class="page-text d-none">
                         <div class="order-group">
                             <div class="order">
                                 <div class="order-text">
@@ -113,7 +113,7 @@
                     </div>
 
                     <!-- 無折扣 -->
-                    <!-- <div class="card_detail shadow bg-body rounded">
+                    @*<div class="card_detail shadow bg-body rounded no-discount d-none">
                             <div class="row g-0">
                                 <div class="col-md-4 ">
                                     <div class="pic h-100">
@@ -160,11 +160,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div> -->
+                            </div>*@
+                        </div>
                 </div>
             </div>
-        </div>
     </div>
 
 
@@ -206,7 +205,7 @@
 
                         <div class="TWD p-1 mt-1 lh-base">TWD @*@comm.UnitPrice*@</div>
 
-                        <div class="footer d-flex flex-wrap align-items-center">
+                        <div class="footer d-flex flex-wrap align-items-center position-relative">
                             <!-- Button trigger modal -->
                             <button type="button" id="commitBtn" class="btn btn-white text-dark comment flex-grow-1 shadow-none p-0"
                                 data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -296,7 +295,29 @@
     </div>
 
     @section Scripts{
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="~/lib/Ckeditor5SimpleUpload/build/ckeditor.js" type="text/javascript"></script>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+</script>
     <script>
         //template
         let index = 0;
@@ -306,6 +327,12 @@
         let page_text_dynamic = document.querySelector(".page-text-dynamic")
         let template_list = @Html.Raw(ViewData["OrderManageCard"])
             template_list.OrderDtailList.forEach((x, index) => {
+                //先判斷尚無購買任何商品的情況
+                if(template_list.OrderDtailList.length==0)
+                {
+                    document.querySelector('.page-text').classList.remove("d-none")
+                    return;
+                }
                 let clone_card = template_card.content.cloneNode(true);
                 clone_card.querySelector(".commm-productname").innerText = x.ProductName
                 clone_card.querySelector(".comm-title").innerText = x.Title
@@ -444,13 +471,14 @@
                     ProductId: productid,
                 }),
             })
-                .then(resp => {
-                    if (resp.ok) {
-                        return resp.text()
-                    }
-                }).then(text => {
-                    alert(text);
-                })
+            .then(resp => {
+            if (resp.ok) {
+                    window.location.reload();
+                }
+                else { 
+                    toastr['error']('新增留言失敗:有什麼錯誤了！');
+                }
+        })
         });
         //按出修改紐
         let submit_edit=document.querySelector('#btn-edit');
@@ -482,10 +510,11 @@
             })
             .then(resp => {
                 if (resp.ok) {
-                    return resp.text()
-                }
-            }).then(text => {
-                alert(text);
+                        window.location.reload();
+                    }
+                    else { 
+                        toastr['error']('修改留言失敗:有什麼錯誤了！');
+                    }
             })
         })
     </script>

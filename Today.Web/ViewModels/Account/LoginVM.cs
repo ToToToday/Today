@@ -9,7 +9,7 @@ namespace Today.Web.ViewModels.Account
         public string Email { get; set; }
 
         [Required] //前端檢核
-        [DataType(DataType.Password)] //前端檢核 讓密碼名稱看不見，變成*
+        //[DataType(DataType.Password)] //前端檢核 讓密碼名稱看不見，變成*
         //[StringLength(3, ErrorMessage = "沒機會顯示")] //前端檢核 密碼最多只能輸入3碼
         public string Password { get; set; }
     }

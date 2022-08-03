@@ -121,7 +121,7 @@ namespace Today.Web.Services.MemberCommentService
                 CommentText = a.CommentText,
                 CommentDate = DateTime.Now,
                 OrderDetailsId = a.OrderDetailId,
-                CommentId = 17,
+                CommentId = 18,
                 ProductId = a.ProductId,
                 MemberId = a.MemberId
             };
@@ -129,7 +129,7 @@ namespace Today.Web.Services.MemberCommentService
             {
                 _repo.Create(entity);
                 _repo.SavaChanges();
-                return "成功";
+                return "11";
             }
             catch (Exception ex)
             {
@@ -148,6 +148,7 @@ namespace Today.Web.Services.MemberCommentService
             comment.CommentTitle = a.CommentTitle;
             comment.RatingStar = a.RatingStar;
             comment.CommentText = a.CommentText;
+                comment.CommentDate = DateTime.Now;
                 _repo.Update(comment);
                 _repo.SavaChanges();
                 return "修改成功";

@@ -30,7 +30,7 @@ namespace Today.Web.Services.MemberService
         {
             var result = _repo.GetAll<Member>()
                 .Where(m => m.MemberId == MemberId.MemberId)
-                .Select(m => new MemberResponseDTO { MemberName=m.MemberName, CityId=m.CityId, Age=m.Age, Phone=m.Phone, IdentityCard=m.IdentityCard, Gender=m.Gender, Email=m.Email})
+                .Select(m => new MemberResponseDTO { MemberName=m.MemberName, CityId=m.CityId, Age=m.Age, Phone=m.Phone, /*IdentityCard=m.IdentityCard,*/ Gender=m.Gender, Email=m.Email})
                 .First();
 
             return result;
@@ -44,13 +44,12 @@ namespace Today.Web.Services.MemberService
                 Code = -1,
             };
             var result = new MemberResponseDTO() { 
-                //IsSuccess = false,
                 MemberId = input.MemberId,
                 MemberName = input.MemberName,
                 CityId = input.CityId,
                 Age = input.Age,
                 Phone = input.Phone,
-                IdentityCard = input.IdentityCard,
+                //IdentityCard = input.IdentityCard,
                 Gender = input.Gender,
             };
 
@@ -60,7 +59,7 @@ namespace Today.Web.Services.MemberService
             user.CityId = input.CityId;
             user.Age = input.Age;
             user.Phone = input.Phone;
-            user.IdentityCard = input.IdentityCard;
+            //user.IdentityCard = input.IdentityCard;
             user.Gender = input.Gender;
 
             try
@@ -70,9 +69,9 @@ namespace Today.Web.Services.MemberService
                 test.Code = 0;
                 test.IsSuccess = true;
                 test.Data = result;
-               
+                test.Message = "更新成功";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 test.Code = 404;
                 test.Message = ex.Message;

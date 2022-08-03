@@ -25,7 +25,7 @@ namespace Today.Web.DTOModels.MemberDTO
             public int? CityId { get; set; }
             public int? Age { get; set; }
             public string Phone { get; set; }
-            public string IdentityCard { get; set; }
+            //public string IdentityCard { get; set; }
             public bool? Gender { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }

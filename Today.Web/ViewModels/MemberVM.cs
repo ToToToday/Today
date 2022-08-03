@@ -13,7 +13,7 @@ namespace Today.Web.ViewModels
             public string Image { get; set; }
             public int? Age { get; set; }
             public string Phone { get; set; }
-            public string IdentityCard { get; set; } //(之後可能不要了)
+            //public string IdentityCard { get; set; } //(之後可能不要了)
             public bool? Gender { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }

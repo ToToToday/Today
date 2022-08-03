@@ -1,4 +1,7 @@
 ﻿@model Today.Web.ViewModels.ChenkoutVM
+@{
+    int totalPrice = 0;
+}
 @section topCSS{
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/Checkout.css">
@@ -36,7 +39,7 @@
                
 
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        @*@TempData["OrderProduct"].ToString();*@
+                       
                     <ol class="breadcrumb ms-2">
                         <li class="breadcrumb-item fw-bolder">付款</li>
                         <li class="breadcrumb-item active" aria-current="page">訂購完成</li>
@@ -106,60 +109,53 @@
                 <!-- 旅客資料info -->
                 <div class="accordion mt-2 " id="accordionExample">
                     <div class="accordion-item">
-                        <div class="accordion-header " id="headingtwo">
-                            <div class="bg-white d-flex align-items-center collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#Passengerinformation" aria-expanded="false">
-                                <i class="fa-solid fa-chevron-down mx-2"></i>
-                                <!-- 旅客資料 title -->
-                                <div class="cart-item d-flex flex-wrap align-items-center justify-content-evenly py-3 border-bottom">
-                                    <a href="#" class=" rounded-3 img-fluid col-md-3">
-                                        <img class="product-img img-bg w-100 col-sm-4" src="@Model.OrderProduct.Photo">
-                                    </a>
-                                    <div class="car-detail col-sm-8 ms-1 col-md-8">
-                                        <div class="product-detail">
-                                            <h3 class="title my-2 me-2">
-                                                <a href="#" class="product_detail_text text-dark
-                                                " target="_blank" onclick="event.stopPropagation()">
-                                                    <span style="font-size: smaller">
-                                                        @Model.OrderProduct.ProductName
-                                                    </span>
-                                                </a>
-                                            </h3>
-                                            <div class="product-option text-dark my-3">@Model.OrderProduct.ProgramTitle</div>
+                       
+                        @foreach(var od in Model.OrderProduct)
+                        {
+                            <div class="accordion-header " id="headingtwo">
+                                <div class="bg-white d-flex align-items-center collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#Passengerinformation" aria-expanded="false">
+                                    <i class="fa-solid fa-chevron-down mx-2"></i>
+                                    <!-- 旅客資料 title -->
+                                    <div class="cart-item d-flex flex-wrap align-items-center justify-content-evenly py-3 border-bottom">
+                                        <a href="#" class=" rounded-3 img-fluid col-md-3">
+                                            <img class="product-img img-bg w-100 col-sm-4" src="@od.Photo">
+                                        </a>
+                                        <div class="car-detail col-sm-8 ms-1 col-md-8">
+                                            <div class="product-detail">
+                                                <h3 class="title my-2 me-2">
+                                                    <a href="#" class="product_detail_text text-dark" target="_blank" onclick="event.stopPropagation()">
+                                                        <span style="font-size: smaller"> @od.ProductName</span>
+                                                    </a>
+                                                </h3>
+                                                <div class="product-option text-dark my-3">@od.ProgramTitle</div>
                                           
-                                            <div class="mix d-flex">
-                                                <div class="product-option mb-3 me-3 flex-wrap">@Model.OrderProduct.Screen
-                                                </div>
+                                                <div class="mix d-flex">
+                                                    <div class="product-option mb-3 me-3 flex-wrap">@od.SceenLists
+                                                    </div>
                                                 
+                                                </div>
+
                                             </div>
 
-                                        </div>
-
-                                        <div class="critical-info d-inline-block ">
-                                            <i class="fa-solid fa-calendar-days me-2"></i>
-                                            <span>@Model.OrderProduct.DepartureDate</span>
-                                        </div>
+                                            <div class="critical-info d-inline-block ">
+                                                <i class="fa-solid fa-calendar-days me-2"></i>
+                                                <span>@od.DepartureDate</span>
+                                            </div>
                                         
-                                        <div class="critical-info d-inline-block ms-2">
-                                            <i class="fa-solid fa-person mx-2"></i>
-                                            <span>@(Model.OrderProduct.Itemtext) x @(Model.OrderProduct.Quantity)  @(Model.OrderProduct.UnitText)</span>
+                                            <div class="critical-info d-inline-block ms-2">
+                                                <i class="fa-solid fa-person mx-2"></i>
+                                                <span>@(od.Itemtext) x @(od.Quantity)  @(od.UnitText)</span>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="Passengerinformation" class="accordion-collapse collapse" aria-labelledby="headingtwo"
-                            data-bs-parent="#accordionExample" style="">
-                            <div class="accordion-body">
+                        }
+                    <div id="Passengerinformation" class="accordion-collapse collapse" aria-labelledby="headingtwo"data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
 
-
-
-                                
-                                   
-
-                                
-                                
                                 <!-- 使用折扣券 -->
                                 <div class="Use-coupons">
                                     <div class="sub-title my-3">
@@ -239,6 +235,7 @@
                             
                         </div>
                     </div>
+                    </div>
                 </div> 
                                         
                
@@ -249,69 +246,62 @@
                             <div class="bg-white d-flex align-items-center my-4 " data-bs-toggle="collapse"
                                 data-bs-target="#Paymentdetails">
                                 <i class="fa-solid fa-chevron-down mx-3"></i>
-                                <h4 class="page-head ">付款明細
-                                </h4>
+                                <h4 class="page-head ">付款明細</h4>
                             </div>
                         </div>
-                        <div id="Paymentdetails" class="accordion-collapse collapse" aria-labelledby="headingfive"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="cart-group d-flex flex-wrap align-items-center justify-content-around">
-                                    <a href="#" class=" rounded-3 img-fluid col-md-4">
-                                        <img class="product-img img-bg w-100 col-sm-4"
-                                            src="@Model.OrderProduct.Photo">
-                                    </a>
-                                    <div class="car-detail col-sm-8 mb-1 col-md-7">
-                                        <div class="product-detail">
-                                            <h3 class="title my-2">
-                                                <a href="#" class="product_detail_text text-dark 
-                                        " target="_blank" onclick="event.stopPropagation()">
-                                                    <span style="
-                                            font-size: smaller">
-                                                       @Model.OrderProduct.ProductName</span>
-                                                </a>
-                                            </h3>
-                                            <div class="product-option text-dark my-3">@Model.OrderProduct.ProgramTitle</div>
-                                            <div class="product-option mb-3">@Model.OrderProduct.Screen</div>
-                                            
+                      <div id="Paymentdetails" class="accordion-collapse collapse" aria-labelledby="headingfive"data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                                 
+                                @foreach (var od in Model.OrderProduct)
+                                {
+                                    <div class="cart-group d-flex flex-wrap align-items-center justify-content-around">
+                                        <a href="#" class=" rounded-3 img-fluid col-md-4">
+                                            <img class="product-img img-bg w-100 col-sm-4"
+                                                src="@od.Photo">
+                                        </a>
+                                        <div class="car-detail col-sm-8 mb-1 col-md-7">
+                                            <div class="product-detail">
+                                                <h3 class="title my-2">
+                                                    <a href="#" class="product_detail_text text-dark" target="_blank" onclick="event.stopPropagation()">
+                                                        <span style="font-size: smaller">@od.ProductName</span>
+                                                    </a>
+                                                </h3>
+                                                <div class="product-option text-dark my-3">@od.ProgramTitle</div>
+                                                <div class="product-option mb-3">@od.SceenLists</div>
+
+                                            </div>
+
+                                            <div class="critical-info d-inline-block ">
+                                                <i class="fa-solid fa-calendar-days me-2"></i>
+                                                <span>@od.DepartureDate</span>
+                                            </div>
+
+                                            <div class="price-detail py-3 border-bottom">
+                                                <i class="fa-solid fa-person me-2"></i>
+                                                <span>@(od.Itemtext) x @(od.Quantity) @(od.UnitText)</span>
+                                                <div class="pull-right" style="float: right;">
+                                                    @od.UnitPrice
+                                                </div>
+                                            </div>
+                                            <div class="mt-10 text-heavy py-3">
+                                                <span>總金額</span>
+                                                <div class="TWD" style="float: right;">
+                                                    TWD @((int)od.UnitPrice * od.Quantity)
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="critical-info d-inline-block ">
-                                            <i class="fa-solid fa-calendar-days me-2"></i>
-                                            <span>@Model.OrderProduct.DepartureDate</span>
-                                        </div>
-                                        <!-- <div class="critical-info d-inline-block ms-2">
-                                            <i class="fa-regular fa-clock mx-2"></i>
-                                            <span>09 : 30</span>
-                                        </div> -->
-                                        <!-- <div class="critical-info d-inline-block ms-2  border-bottom">
-                                        </div> -->
-                                        <div class="price-detail py-3 border-bottom">
-                                            <i class="fa-solid fa-person me-2"></i>
-                                            <span>@(Model.OrderProduct.Itemtext) x @(Model.OrderProduct.Quantity) @(Model.OrderProduct.UnitText)</span>
-                                            <div class="pull-right" style="
-                                                float: right;">
-                                                @Model.OrderProduct.UnitPrice
-                                            </div>
-                                        </div>
-                                        <div class="mt-10 text-heavy py-3">
-                                            <span>總金額</span>
-                                            <div class="TWD" style="
-                                            float: right;">
-                                                TWD @Model.OrderProduct.UnitPrice
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
-                                <div class="mt-10 text-heavy p-3 mx-3">
-                                    <span>支付金額</span>
-                                    <div class="TWD" style="
-                                    float: right;">
-                                        TWD @Model.OrderProduct.UnitPrice
-                                    </div>
-                                </div>
+                                  
+                                    totalPrice += ((int)od.UnitPrice * od.Quantity);
+                                }
+                             <div class="mt-10 text-heavy p-3 mx-3">
+                                        <span>支付金額</span>
+                                        <div class="TWD" style="float: right;">TWD @totalPrice
+                                        </div>
                             </div>
                         </div>
+                      </div>
                     </div>
                 </div>
 
@@ -321,7 +311,7 @@
                         <div class="caculate d-flex justify-content-end my-3">
                             <div class="total me-3">
                                 
-                                <span class=" fw-bolder fs-3 mt-2">TWD @Model.OrderProduct.UnitPrice</span>
+                                <span class=" fw-bolder fs-3 mt-2">TWD @totalPrice</span>
                             </div>
                             <a href="~/Ecpay/CheckOut" class="fw-bolder me-3">前往結帳</a>
                            
