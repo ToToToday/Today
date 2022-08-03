@@ -1,7 +1,3 @@
-let eventdetails = document.querySelector(".event-details");
-let eventimg = document.querySelector(".new-limit img");
-let afterward = document.querySelectorAll(".afterward");
-let groupcard = document.querySelectorAll(".group-card");
 let citycard = document.querySelectorAll(".city-limit .group-card > div");
 let other_dropdown = document.querySelectorAll(".other-selection-limit .title-icon");
 let other_ul = document.querySelectorAll(".other-selection-limit ul");
@@ -9,25 +5,6 @@ let footer_dropdown = document.querySelectorAll(".footer-limit .title-icon");
 let footer_ul = document.querySelectorAll(".footer-limit ul");
 let city_moused = citycard[0];
 let other_checked_index, footer_checked_index;
-
-// eventimg.addEventListener("mouseenter", () => {
-//     eventdetails.width = document.querySelector(".new-limit .pic").offsetWidth;
-//     eventdetails.Height = document.querySelector(".new-limit .pic");
-//     eventdetails.classList.toggle("d-none");
-// })
-// if (eventdetails != undefined){
-//     eventdetails.addEventListenter("mouseleave", () => {
-//         eventdetails.classList.toggle("d-none");
-//     })
-// }
-
-// afterward.forEach((item, index) => {
-//     item.addEventListener("click", () => {
-//         groupcard[index].querySelectorAll("div").forEach((item, index) => {
-//             item.setAttribute("style", "transform: translateX(-200px);");
-//         })
-//     })
-// })
 
 citycard.forEach((item, index) => {
     item.addEventListener("mouseenter", () => {
@@ -41,8 +18,6 @@ citycard.forEach((item, index) => {
     })
 })
 
-
-
 other_dropdown.forEach((item, index) => {
     item.addEventListener("click", ()=>{
         if (index != other_checked_index && other_checked_index != undefined){
@@ -50,7 +25,7 @@ other_dropdown.forEach((item, index) => {
         }
         other_ul[index].classList.toggle("d-none");
         other_checked_index = index;
-        alert("成功");
+        //alert("成功");
     });
 })
 
@@ -61,6 +36,6 @@ footer_dropdown.forEach((item, index) => {
         }
         footer_ul[index].classList.toggle("d-none");
         footer_checked_index = index;
-        alert("成功");
+        //alert("成功");
     });
 })

@@ -1,225 +1,102 @@
-﻿
+﻿@model ShopCartVM
+
+
+
 <div class="shopping-cart">
     <div class="shopping-group">
         <div style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="d-inline-block">
             <ol class="breadcrumb">
-                 <li class="breadcrumb-item fw-bolder">購物車</li>
-                 <li class="breadcrumb-item">填寫資料與付款</li>
-                 <li class="breadcrumb-item active" aria-current="page">訂購完成</li>
+                <li class="breadcrumb-item fw-bolder">購物車</li>
+                <li class="breadcrumb-item">填寫資料與付款</li>
+                <li class="breadcrumb-item active" aria-current="page">訂購完成</li>
             </ol>
         </div>
-
         <div class="list">
-             <h3 class="fw-bolder">購物車</h3>
-            @*<div class="empty-cart justify-content-center d-flex flex-column p-5 align-items-center">
-                 <img src="https://cdn.kkday.com/pc-web/assets/img/empty_state/shopping_cart.svg">
-                 <span>您的購物車是空的</span>
-                 <a href="#" class="btn">跟著Today一起探索世界</a>
-            </div>*@
-             <div class="container">
-                 <div class="item d-flex flex-row">
+            <h3 class="fw-bolder">購物車</h3>
+            <div class="empty-cart justify-content-center d-flex flex-column p-5 align-items-center d-none">
+                <img src="https://cdn.kkday.com/pc-web/assets/img/empty_state/shopping_cart.svg">
+                <span>您的購物車是空的</span>
+                <a href="~/Home/Index" class="btn">跟著Today一起探索世界</a>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog px-3">
+                    <div class="modal-content px-2 pb-3">
+                        <div class="modal-header border-bottom-0">
+                            <h5 class="fw-bolder fs-4" id="exampleModalLabel">刪除商品</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start py-3 border-bottom-0">
+                            您確定要刪除所選商品嗎？
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn btn-light" data-bs-dismiss="modal">取消</button>
+                            <button  type="button" class="btn btn-primary footer-delete">刪除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                @foreach (var cart in Model.ShopCartCardList)
+                {
+                    <div id="createShopCard" class="item d-flex flex-row">
                         <div class="check-control m-0 ps-0">
                             <label class="form-check-label" for="commodity-control">
                             </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
+                            <input class="form-check-input commodity-control" type="checkbox" id="commodity-control" value="@cart.ShoppingCartId">
                         </div>
                         <div class="card p-0">
                             <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=10">
+                                <img src="@cart.Path">
                             </a>
                             <div class="card-body px-2 mt-0">
                                 <div class="row">
                                     <div class="col-lg-6 m-0">
                                         <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
+                                            <h4 v-model="CreateCardData.ProductName" class="card-title fw-bolder">@cart.ProductName</h4>
                                         </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
+                                        <p class="card-text p-0">@cart.ProgramTitle</p>
                                     </div>
-                                    <div class="col-lg-3 ">
-                                        <span class="d-inline-block">2022-06-23</span>
-                                        <span>張x2</span>
+                                    <div class="col-lg-3 d-flex flex-column flex-lg-row">
+                                        <div class="time">
+                                            <span class="d-lg-inline-block">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
+                                            <span class=" mt-1 m-0 p-0">時間: @cart.ScreenTime</span>
+                                        </div>
+                                        <span class="text-nowrap d-inline-block">@(cart.UnitText)x@(cart.Quantity)</span>
                                     </div>
                                     <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD 3,120</span>
+                                        <span class=" fw-bold text-nowrap">TWD @cart.Sum</span>
                                         <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
+                                        <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa-regular fa-trash-can ms-2"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                 <div class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
-                            <label class="form-check-label" for="commodity-control">
-                            </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
-                        </div>
-                        <div class="card p-0">
-                            <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=10">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row">
-                                    <div class="col-lg-6 m-0">
-                                        <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
-                                        </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
-                                    </div>
-                                    <div class="col-lg-3 ">
-                                        <span class="d-inline-block">2022-06-23</span>
-                                        <span>張x2</span>
-                                    </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD 3,120</span>
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 <div class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
-                            <label class="form-check-label" for="commodity-control">
-                            </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
-                        </div>
-                        <div class="card p-0">
-                            <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=10">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row">
-                                    <div class="col-lg-6 m-0">
-                                        <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
-                                        </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
-                                    </div>
-                                    <div class="col-lg-3 ">
-                                        <span class="d-inline-block">2022-06-23</span>
-                                        <span>張x2</span>
-                                    </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD 3,120</span>
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 <div class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
-                            <label class="form-check-label" for="commodity-control">
-                            </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
-                        </div>
-                        <div class="card p-0">
-                            <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=10">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row">
-                                    <div class="col-lg-6 m-0">
-                                        <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
-                                        </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
-                                    </div>
-                                    <div class="col-lg-3 ">
-                                        <span class="d-inline-block">2022-06-23</span>
-                                        <span>張x2</span>
-                                    </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD 3,120</span>
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 <div class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
-                            <label class="form-check-label" for="commodity-control">
-                            </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
-                        </div>
-                        <div class="card p-0">
-                            <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=10">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row">
-                                    <div class="col-lg-6 m-0">
-                                        <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
-                                        </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <span class="d-inline-block">2022-06-23</span>
-                                        <span>張x2</span>
-                                    </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD 3,120</span>
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 <div class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
-                            <label class="form-check-label" for="commodity-control">
-                            </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
-                        </div>
-                        <div class="card p-0">
-                            <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=10">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row">
-                                    <div class="col-lg-6 m-0">
-                                        <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
-                                        </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
-                                    </div>
-                                    <div class="col-lg-3 ">
-                                        <span class="d-inline-block">2022-06-23</span>
-                                        <span>張x2</span>
-                                    </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD 3,120</span>
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-             </div>
+                }
+            </div>
+
+
+
 
             <div class="checkout">
                 <div class="check-control">
                     <input class="form-check-input input" type="checkbox" id="checkout-control" value=""
-                            aria-label="...">
+                           aria-label="...">
                     <label class="form-check-label " for="checkout-control">全選 (1)</label>
                     <span>
-                           <a href="#" class="text-dark text-decoration-none">刪除已選項目</a>
+                        <button type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除已選項目</button>
                     </span>
                 </div>
                 <div class="caculate m-0">
                     <div class="total mb-3">
                         <span class="text-end">1件商品合計</span>
-                        <span class=" fw-bolder mt-2">TWD 3,120</span>
+                        <span class=" fw-bolder mt-2">TWD 28000</span>
                     </div>
-                    <a href="#" class="fw-bolder mb-3 mx-3">前往結帳</a>
+                    <a class="caculate-input fw-bolder mb-3 mx-3" asp-action="Checkout">前往結帳</a>
                 </div>
             </div>
         </div>
@@ -230,25 +107,27 @@
         <div class="reconfirmation p-0">
             <h3 class="fw-bolder">須重新確認的商品</h3>
             <div class="container">
+                @foreach (var confirm in Model.ShopCartCardList)
+                {
                     <div class="item d-flex flex-row">
                         <div class="card">
                             <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=12">
+                                <img src="@confirm.Path">
                             </a>
                             <div class="card-body px-2 mt-0">
                                 <div class="row">
                                     <div class="col-lg-6 m-0">
                                         <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
+                                            <h4 class="card-title fw-bolder">@confirm.ProductName</h4>
                                         </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
+                                        <p class="card-text p-0">@confirm.ProgramTitle</p>
                                     </div>
                                     <div class="col-lg-3 d-flex flex-column flex-lg-row">
                                         <div class="time">
-                                            <span class="d-lg-inline-block lh-base">2022-06-17</span>
-                                            <span class=" mt-1 m-0 p-0">時間: 10:40</span>
+                                            <span class="d-lg-inline-block lh-base">@confirm.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
+                                            <span class=" mt-1 m-0 p-0">時間: @confirm.ScreenTime</span>
                                         </div>
-                                        <span class="text-nowrap d-inline-block">人數x2</span>
+                                        <span class="text-nowrap d-inline-block">@(confirm.UnitText)x@(confirm.Quantity)</span>
                                     </div>
                                     <div class="col-lg-3 text-end d-lg-flex align-items-start">
                                         <div class="sold-out text-start">
@@ -256,48 +135,54 @@
                                             <span class="mt-2 text-lg-start d-block text-start ">請重新選擇商品</span>
                                         </div>
                                         <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
+
+
+                                        <button type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa-regular fa-trash-can ms-2"></i>
+                                        </button>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="item d-flex flex-row">
-                        <div class="card">
-                            <a href="#">
-                                <img src="https://picsum.photos/650/400/?random=13">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row">
-                                    <div class="col-lg-6 m-0">
-                                        <a href="#">
-                                            <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
-                                        </a>
-                                        <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
-                                    </div>
-                                    <div class="col-lg-3 d-flex flex-column flex-lg-row">
-                                        <div class="time">
-                                            <span class="d-lg-inline-block lh-base">2022-06-17</span>
-                                            <span class=" mt-1 m-0 p-0">時間: 10:40</span>
-                                        </div>
-                                        <span class="text-nowrap d-inline-block">人數x2</span>
-                                    </div>
-                                    <div class="col-lg-3 text-end d-lg-flex align-items-start">
-                                        <div class="sold-out text-start">
-                                            <span class="fw-bold lh-base text-lg-center">商品已售罄</span>
-                                            <span class="mt-2 text-lg-start d-block text-start ">請重新選擇商品</span>
-                                        </div>
-                                        <i class="fa-regular fa-heart"></i>
-                                        <i class="fa-regular fa-trash-can ms-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                }
+                @*<div class="item d-flex flex-row">
+                <div class="card">
+                <a href="#">
+                <img src="https://picsum.photos/650/400/?random=13">
+                </a>
+                <div class="card-body px-2 mt-0">
+                <div class="row">
+                <div class="col-lg-6 m-0">
+                <a href="#">
+                <h4 class="card-title fw-bolder">台北喜來登大飯店餐券｜十二廚 Kitchen 12｜須自行電話訂位</h4>
+                </a>
+                <p class="card-text p-0">台北喜來登酒店十二廚平日自助式午或晚餐券 ｜須自行電話訂位</p>
                 </div>
+                <div class="col-lg-3 d-flex flex-column flex-lg-row">
+                <div class="time">
+                <span class="d-lg-inline-block lh-base">2022-06-17</span>
+                <span class=" mt-1 m-0 p-0">時間: 10:40</span>
+                </div>
+                <span class="text-nowrap d-inline-block">人數x2</span>
+                </div>
+                <div class="col-lg-3 text-end d-lg-flex align-items-start">
+                <div class="sold-out text-start">
+                <span class="fw-bold lh-base text-lg-center">商品已售罄</span>
+                <span class="mt-2 text-lg-start d-block text-start ">請重新選擇商品</span>
+                </div>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-trash-can ms-2"></i>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>*@
+            </div>
 
             <div class="remove">
-               <a href="#" class="text-decoration-none text-black"><span><i class="fa-regular fa-trash-can mx-2"></i>全部移除</span></a>
+                <a href="#" class="text-decoration-none text-black"><span><i class="fa-regular fa-trash-can mx-2"></i>全部移除</span></a>
             </div>
 
         </div>
@@ -308,156 +193,278 @@
 
 
 <section class="cart-recommend">
-        <div class="recommend-products">
-            <h3 class="fw-bolder mb-3">多數旅客還買了以下商品</h3>
-            <div class="container-xxl p-0 m-0">
-                <div class="row">
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=23" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
+    <div class="recommend-products">
+        <h3 class="fw-bolder mb-3">多數旅客還買了以下商品</h3>
+        <div class="container-xxl p-0 m-0">
+            <div class="row">
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=23" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=32" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                        </a>
-                    </div>
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=32" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=33" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=33" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                        </a>
-                    </div>
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=33" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=33" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=33" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                        </a>
-                    </div>
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=33" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=33" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-transparent border-0 mb-3">
+                    <a href="#" class="text-decoration-none">
+                        <div>
+                            <img src="https://picsum.photos/300/200/?random=33" class="w-100">
+                            <span class="city card-img-overlay text-light fw-bolder">
+                                <i class="fa-solid fa-location-dot me-1"></i>
+                                所有城市<i class="fa-solid fa-heart ms-auto"></i>
+                            </span>
+                        </div>
+                        <div class="card-body px-0">
+                            <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
+                            <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
+                            <div class="card-footer border-0 px-0">
+                                <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
                             </div>
-                        </a>
-                    </div>
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=33" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
-                            </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=33" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
-                            </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=33" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
-                            </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card bg-transparent border-0 mb-3">
-                        <a href="#" class="text-decoration-none">
-                            <div>
-                                <img src="https://picsum.photos/300/200/?random=33" class="w-100">
-                                <span class="city card-img-overlay text-light fw-bolder">
-                                    <i class="fa-solid fa-location-dot me-1"></i>
-                                    所有城市<i class="fa-solid fa-heart ms-auto"></i></span>
-                            </div>
-                            <div class="card-body px-0">
-                                <h4 class="card-title fw-bolder">有點秋食物工作室｜達克罐罐彩虹甜點組合｜台灣本島配送</h4>
-                                <p class="score"><i class="fa-solid fa-star"></i>5.0 (2) | 100+個已訂購</p>
-                                <div class="card-footer border-0 px-0">
-                                    <span class="d-block mt-4">TWD <strong class="fw-bold">580</strong></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-
-            <button type="button"><i class="fa-solid fa-angle-left"></i></button>
-            <button type="button"><i class="fa-solid fa-angle-right"></i></button>
         </div>
-    </section>
+
+        <button type="button"><i class="fa-solid fa-angle-left"></i></button>
+        <button type="button"><i class="fa-solid fa-angle-right"></i></button>
+    </div>
+</section>
 
 @section topCSS{
-        <link rel="stylesheet" href="~/css/reset.css">
-        <link rel="stylesheet" href="~/css/ShopCart.css">
-        <link rel="stylesheet" href="~/css/root.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/ShopCart.css">
+    <link rel="stylesheet" href="~/css/root.css">
 }
+
+@section endJS{
+    
+     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- toastr v2.1.4 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
+
+
+         <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        let createItem = document.querySelectorAll(".list .item")
+        let emptyCart = document.querySelector(".empty-cart")
+        //let time = document.querySelector(".time + span")
+        //let confirmItem = document.querySelectorAll(".reconfirmation .item")
+        let reconfirmation = document.querySelector(".reconfirmation")
+        let shoppingGroup = document.querySelector(".shopping-group")
+        let deleteCard = document.querySelector(".modal .btn-primary")
+        //const fp = flatpickr(datainput, {
+        //        disable: CantuseDate,
+        //        dateFormat: "Y-m-d",
+        //        inline: true,
+        //        mode: "range",
+        //        dateFormat: "Y-m-d H:i",
+        //    });
+        //let datainput = document.querySelector(".product-initial-div>input")
+        //let getdata
+        //getdata = datainput._flatpickr.selectedDates
+        //let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+        let deletebtnlist = document.querySelectorAll(".text-end>button")
+        console.log(deletebtnlist)
+        deletebtnlist.forEach((d,index) => {
+        console.log(d)
+            d.addEventListener("click", () => {
+                document.querySelector(".footer-delete").value = deletebtnlist[index].value
+            })
+        })
+        if (createItem.length == 0) {
+            emptyCart.classList.remove("d-none")
+            reconfirmation.classList.add("d-none")
+            //if (time.contains(getdata.getFullYear())) {
+            //    shoppingGroup.classList.remove(reconfirmation)
+            //}
+        }
+        else {
+            reconfirmation.classList.add("d-none")
+        }
+
+        deleteCard.addEventListener("click", function() {
+
+            let shoppingCardId = document.querySelector(".footer-delete").value
+
+            toastr.options = {
+                "positionClass": "toast-top-center",
+                "timeOut": "3000"
+            }
+
+            let url = "/api/Shop/DeleteCard";
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                        ShoppingCartId : parseInt(shoppingCardId)
+                })
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        //toastr.success("刪除成功");
+                        window.location.reload();
+                    }
+                    //else {
+                    //    toastr.error("刪除失敗");
+                    //    //return res.text()
+                    //}
+
+                })
+        })
+
+    
+ 
+
+    </script>
+    <script>
+        let create_order_btn = document.querySelector(".caculate>a")
+        create_order_btn.addEventListener("click", () => {
+
+            let List = document.querySelectorAll("input.commodity-control:checked")
+
+            fetch("/api/Order/CreateOrder", {
+                 method: 'Post',
+                 cache:'no-cache',
+                headers: new Headers({'Content-Type': 'application/json'}),
+                body: JSON.stringify({
+                    //加入產品詳細資訊
+                    ShoppingCradIdList: Array.from(List).map(x=>parseInt(x.value))
+                })
+            })
+            .then(resp => {
+                if (resp.status ==200) {         
+                }
+            })
+        })
+
+    </script>
+ }
+   

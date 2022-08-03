@@ -4,8 +4,8 @@
 
 @foreach(var item in Model)
 {
-    <div class="taipei col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1 @((index == 1) ? "flex-lg-grow-1" : "")">
-        <a href="#" class="text-decoration-none text-black">
+    <div class="col-12 col-md-4 col-lg-2 p-2 position-relative flex-lg-shrink-1 @((index == 1) ? "flex-lg-grow-1" : "")">
+        <a href="~/Product/CityTour/@item.Id" class="text-decoration-none text-black">
             <img src="@item.CityImage" alt="@item.CityName" class="w-100 h-100 rounded">
             <div class="city-details position-absolute text-white d-flex flex-wrap">
                 <h4 class="mb-2 ms-2 w-100 fs-5">@item.CityName</h4>

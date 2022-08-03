@@ -20,6 +20,8 @@ namespace Today.Model.Models
         public string CityIntrod { get; set; }
         public bool IsIsland { get; set; }
         public string CityImage { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
 
         public virtual ICollection<CityRaider> CityRaiders { get; set; }
         public virtual ICollection<Member> Members { get; set; }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Today.Web.Services.EcpayService;
 using static Today.Web.DTOModels.EcpayDTO.EcpayDTO;
 
-namespace Today.Web.Controllers
+namespace Today.Web.WebApiControllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -36,8 +36,8 @@ namespace Today.Web.Controllers
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = "https://9a4d-220-141-63-234.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://9a4d-220-141-63-234.jp.ngrok.io/Home/Index" //之後改主頁網址
+                ServerUrl = "https://todayweb.azurewebsites.net/Ecpay/callback",
+                ClientUrl = "https://todayweb.azurewebsites.net/Home/Index" //之後改主頁網址
             };
             var transaction = new
             {
@@ -45,12 +45,12 @@ namespace Today.Web.Controllers
                 Description = "測試購物系統",
                 Date = DateTime.UtcNow.AddHours(8), //DateTime.Now
                 Method = EPaymentMethod.Credit,
-                
+
                 Item = new List<Item>
                 {
                     new Item
                     {
-                        
+
                         Name = TempData["OrderProduct"].ToString(),
                         Price = (int)TempData["OrderPrice"],
                         Quantity = (int)TempData ["OrderQuantity"]
@@ -78,7 +78,7 @@ namespace Today.Web.Controllers
                 .Transaction.WithItems(
                     items: transaction.Item)
                 .Generate();
-            
+
             return View(payment);
         }
 
@@ -96,9 +96,9 @@ namespace Today.Web.Controllers
             if (!CheckMac.PaymentResultIsValid(result, hashKey, hashIV)) return BadRequest();
 
             // 處理後續訂單狀態的更動等等...。
-            
+
             var updateOrder = _ecpayService.UpdateStatus(result.MerchantTradeNo);
-            if(updateOrder.IsSuccess != true)
+            if (updateOrder.IsSuccess != true)
             {
 
             }
