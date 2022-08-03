@@ -120,9 +120,9 @@ namespace Today.Web.Controllers
             return View();
         }
         [HttpGet]//請求
-        public IActionResult ShopCart(int Id)
+        public IActionResult ShopCart()
         {
-            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = Id });   //int.Parse(User.Identity.Name)
+            var ShopCartCardDTO = _shopCartService.GetShopCartCard(new ShopCartMemberRequestDTO { MemberId = int.Parse(User.Identity.Name) });   //int.Parse(User.Identity.Name)
             var ShopCartVMs = new ShopCartVM
             {
                 ShopCartCardList = ShopCartCardDTO
