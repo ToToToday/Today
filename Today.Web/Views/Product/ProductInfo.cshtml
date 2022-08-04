@@ -423,7 +423,8 @@ radio
                 </div>
                 <div class="shopping-cart-div col-12 d-flex">
                     <input type="submit" class="shopping-cart-btn " value="加入購物車" />
-                    <input type="submit" class="asd-btn " value="立即訂購" />
+                    @*<a type="submit" class="asd-btn "  href="/Member/Checkout" >立即訂購</a>*@
+                    <input type="submit" class="asd-btn " value="立即訂購" href="/Member/Checkout" />
                 </div>
             </div>
         </div>
@@ -688,7 +689,49 @@ radio
             //programcard.querySelector(".shopping-cart-btn").addEventListener("click", function() {
             //    AddCart(data);
             //}
+            let  asd_btn= programcard.querySelector(".asd-btn")
 
+            asd_btn.addEventListener("click",()=>{
+            
+                getdata = datainput._flatpickr.selectedDates
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+
+                let url = "/api/Order/directCreateOrder";
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": "3000"
+                }
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        MemberId: 1,
+                        SpecificationList: Array,
+                        DepartureDate: Departuredate,
+                        //ScreeningId : ,
+                    })
+                })
+                .then(res => {
+                    if (res.status == 200) {
+                        toastr.success("新增成功");
+                        return res.json()
+                    }
+                    else {
+                        toastr.error("新增失敗");
+                        //return res.text()
+                    }
+                })
+                .then(obj => {
+                    //console.log(obj)
+                    //Status 
+                    //Msg 
+                    //Result 
+                    window.location.href=`/Member/Checkout/${obj.result.id}`
+
+                })
+            })
             let shoppingbtn = programcard.querySelector(".shopping-cart-btn")
             shoppingbtn.addEventListener("click", function() {
                 //num2 = num

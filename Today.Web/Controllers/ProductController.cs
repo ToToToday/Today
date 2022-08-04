@@ -236,6 +236,7 @@ namespace Today.Web.Controllers
                 RaiderList = CityAllRaider.Select(rl => new CityVM.CityRaiderList
                 {
                     RaiderId = rl.RaiderId,
+                    photo = rl.photo,
                     CityId = rl.CityId,
                     Title = rl.Title,
                     SubTitle = rl.SubTitle
@@ -250,7 +251,9 @@ namespace Today.Web.Controllers
                     PartnerType = cl.PartnerType,
                     ProductName = cl.ProductName,
                     Text = cl.Text,
-                    Title = cl.Title
+                    Title = cl.Title,
+                    ProductId = cl.ProductId
+                    
                 }).ToList(),
                 NewActiviyList = getcard.NewProductList.Select(newp => new CityVM.ProductCardVM
                 {

@@ -31,7 +31,7 @@
                         </div>
                         <div class="modal-footer border-top-0">
                             <button type="button" class="btn btn btn-light" data-bs-dismiss="modal">取消</button>
-                            <button  type="button" class="btn btn-primary footer-delete">刪除</button>
+                            <button type="button" class="btn btn-primary footer-delete">刪除</button>
                         </div>
                     </div>
                 </div>
@@ -355,16 +355,16 @@
     <link rel="stylesheet" href="~/css/root.css">
 }
 
-@section endJS{
-    
-     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    @section endJS{
+
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
 
 
-         <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
         integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
         crossorigin="anonymous"></script>
@@ -391,8 +391,8 @@
         //let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
         let deletebtnlist = document.querySelectorAll(".text-end>button")
         console.log(deletebtnlist)
-        deletebtnlist.forEach((d,index) => {
-        console.log(d)
+        deletebtnlist.forEach((d, index) => {
+            console.log(d)
             d.addEventListener("click", () => {
                 document.querySelector(".footer-delete").value = deletebtnlist[index].value
             })
@@ -424,7 +424,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                        ShoppingCartId : parseInt(shoppingCardId)
+                    ShoppingCartId: parseInt(shoppingCardId)
                 })
             })
                 .then(res => {
@@ -440,31 +440,43 @@
                 })
         })
 
-    
- 
+
+
 
     </script>
     <script>
         let create_order_btn = document.querySelector(".caculate>a")
         create_order_btn.addEventListener("click", () => {
-
             let List = document.querySelectorAll("input.commodity-control:checked")
-
             fetch("/api/Order/CreateOrder", {
-                 method: 'Post',
-                 cache:'no-cache',
-                headers: new Headers({'Content-Type': 'application/json'}),
+                method: 'Post',
+                cache: 'no-cache',
+                headers: new Headers({ 'Content-Type': 'application/json' }),
                 body: JSON.stringify({
                     //加入產品詳細資訊
-                    ShoppingCradIdList: Array.from(List).map(x=>parseInt(x.value))
+                    ShoppingCradIdList: Array.from(List).map(x => parseInt(x.value))
                 })
             })
-            .then(resp => {
-                if (resp.status ==200) {         
-                }
-            })
+                .then(res => {
+                    if (res.status == 200) {
+                        toastr.success("新增成功");
+                        return res.json()
+                    }
+                    else {
+                        toastr.error("新增失敗");
+                        //return res.text()
+                    }
+                })
+                .then(obj => {
+                    //console.log(obj)
+                    //Status
+                    //Msg
+                    //Result
+                    window.location.href = `/Member/Checkout/${obj.result.id}`
+
+                })
         })
 
     </script>
  }
-   
+

@@ -341,6 +341,16 @@
                 clone_card.querySelector(".day").innerText = x.DepartureDate.slice(0, 10)
                 clone_card.querySelector(".TWD").innerText = "TWD" + x.UnitPrice
                 clone_card.querySelector(".comm-path").src = x.Path
+                //template:判斷已出發或未出發
+                let date = new Date();
+                let date1 = new Date(date.toISOString().split('T')[0]);
+                let date2 = new Date(clone_card.querySelector(".day").innerText);
+                if (date1 < date2) {
+                    clone_card.querySelector(".togo>span").innerHTML = "未出發"
+                }
+                else {
+                    clone_card.querySelector(".togo>span").innerHTML = "已出發"
+                }
                 //template:給予評論按鈕
                 clone_card.querySelector("#commitBtn").addEventListener("click", () => {
                     document.querySelector('.alert-danger').classList.add("d-none")
@@ -479,7 +489,7 @@
                 else { 
                     toastr['error']('新增留言失敗:有什麼錯誤了！');
                 }
-        })
+            })
         });
         //按出修改紐
         let submit_edit=document.querySelector('#btn-edit');

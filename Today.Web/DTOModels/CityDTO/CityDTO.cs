@@ -33,6 +33,7 @@ namespace Today.Web.DTOModels.CityDTO
         public class RaiderCard
         {
             public int RaiderId { get; set; }
+            public string photo { get; set; }
             public int CityId { get; set; }
             public string Title { get; set; }
             public string SubTitle { get; set; }
@@ -52,6 +53,7 @@ namespace Today.Web.DTOModels.CityDTO
             public string ProductName { get; set; }
             public string Title { get; set; }
             public string Text { get; set; }
+            public int ProductId { get; set; }
         }
 
         public List<ProductInfo> TopProductList { get; set; }
