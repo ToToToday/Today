@@ -24,8 +24,8 @@ namespace Today.Web.WebApiControllers
 
         [HttpPost]
         public IActionResult AddCart([FromBody] ShopCartRequestVM request)
-        {       
-
+        {
+            request.MemberId = int.Parse(User.Identity.Name);
             _shopCartService.CreateShopCard(request);
 
             try 
