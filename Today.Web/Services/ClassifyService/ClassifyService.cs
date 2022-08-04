@@ -30,12 +30,18 @@ namespace Today.Web.Services.ClassifyService
             var ProgramList = _repo.GetAll<Today.Model.Models.Program>().ToList();
             var ProgramCantUseDate = _repo.GetAll<ProgramCantUseDate>().ToList();
 
-            filter.RealDate.ForEach(ds =>
+            if(filter.RealDate!=null)
             {
-                var date = ds.Substring(6, 4) + '-' + ds.Substring(0, 2) + '-' + ds.Substring(3, 2);
-                var dateTo = DateTime.Parse(date);
-                    ProgramCantUseDate = _repo.GetAll<ProgramCantUseDate>().Where(x => x.Date != dateTo).ToList();
-            });
+                     filter.RealDate.ForEach(ds =>
+                     {
+                         if (ds.Substring(2, 1) == "/")
+                         {
+                             var date = ds.Substring(6, 4) + '-' + ds.Substring(0, 2) + '-' + ds.Substring(3, 2);
+                             var dateTo = DateTime.Parse(date);
+                             ProgramCantUseDate = _repo.GetAll<ProgramCantUseDate>().Where(x => x.Date != dateTo).ToList();
+                         }
+                     });
+            }
 
             if (filter.categoryId!=0)
             {

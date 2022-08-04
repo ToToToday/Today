@@ -198,12 +198,12 @@ namespace Today.Web.Controllers
             return View(CityRaider);
         }
 
-        public IActionResult OffIsland(string filter,int id ,String searchString) //離島 分類
+        public IActionResult OffIsland([FromQuery] List<string> typeDate, int id ,String searchString) //離島 分類
         {
             var getLocations = _locationServices.GetLocation();
             var getLocation = getLocations.ProductLocationList.ToList();
 
-            var classPages = _classifyService.GetClassifyPages(new DTOModels.ClassifyDTO.ClassifyDTO.ClassifyDTORequest { categoryId = id});
+            var classPages = _classifyService.GetClassifyPages(new DTOModels.ClassifyDTO.ClassifyDTO.ClassifyDTORequest { RealDate = typeDate });
             var cardsource = classPages.ClassifyCardList.ToList();
             var Categorysource = classPages.CategoryList.ToList();
 

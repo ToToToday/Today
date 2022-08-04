@@ -641,7 +641,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="~/js/calendar.js"></script>
     <script type="text/javascript">
-
+        var All_search = window.location.search;
+        if(All_search !='') All_search = All_search.substring(1,All_search.length)
         $(function() 
         {
 
@@ -664,14 +665,40 @@
             document.querySelectorAll(".drp-buttons>.applyBtn").forEach( (Applybtn,i)=>
             {
                 Applybtn.addEventListener('click', () => { 
-
                     var Date_button = document.querySelectorAll("span.drp-selected");
-                    var splitDate = Date_button[i].innerText.split(' - ') ;
+                    if(Date_button[0].innerText.substring(2, 3) == "/")
+                    {
+                        Date_button[1].innerText = Date_button[0].innerText
+                    }
+                    else if (Date_button[1].innerText.substring(2, 3) == "/")
+                    {
+                        Date_button[0].innerText= Date_button[1].innerText
+                    }
+                    var splitDate = Date_button[i].innerText.split(' - ');
 
                     PostDate(splitDate);
-                    window.location.search = 'typeDate=' + splitDate
+
+                    if(All_search=='')
+                    {
+                        window.location.search = "typeDate=" +splitDate;
+                        All_search = window.location.search;
+                    }
+                    else if (!All_search.includes("typeDate="))
+                    {
+                        window.location.search = "typeDate=" +splitDate +"&" + All_search
+                    }
+                    else if (All_search.includes("typeDate="))
+                    {   
+                        let params = new URLSearchParams(All_search);
+                        let q = params.get('typeDate');  //會接到 window.location.search  typeDate 的值 , 並且typeDate 的值會被拿走
+                        All_search = All_search.replace(`typeDate=${q}`,"typeDate=" +splitDate)
+                        window.location.search = All_search;
+                    }
                 })
             });
+            //document.querySelectorAll(".cancelBtn").forEach( ()=>{
+            //    window.location.search = '';
+            //})
         });
     
         console.log("asdasd")
