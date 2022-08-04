@@ -1,6 +1,31 @@
-.fa-star {
+.rating {
+    font-size: 0;
+    display: table;
+}
+
+.rating > label {
+    color: #ddd;
+    float: right;
+}
+
+.rating > label:before {
+    padding: 5px;
+    font-size: 35px;
+    line-height: 1em;
+    display: inline-block;
+    content: "★";
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
     color: #0dcaf0;
-    font-size: 25px;
+}
+
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+    opacity: 0.5;
 }
 
 .btn-outline-info:hover {
@@ -12,11 +37,13 @@
     height: 40px;
     width: 100%;
 }
-.modal-footer p{
-    color:gray;
-    font-weight:bold;
+
+.modal-footer p {
+    color: gray;
+    font-weight: bold;
 }
-.modal-body p, .fa-star, .btn-outline-info, #comment-title {
+
+.modal-body p, .rating, .btn-outline-info, #comment-title, .text .card {
     margin-bottom: 20px;
 }
 
@@ -87,14 +114,6 @@
     }
 
 
-/* 無訂單 */
-.page-text {
-    display: none;
-}
-/* 有訂單 */
-/* .page-text-dynamic{
-    display: none;
-} */
 .card_detail .card-title {
     font-size: 1.125rem;
     font-weight: bolder;
@@ -111,7 +130,7 @@
 
 .card_detail .TWD {
     justify-content: flex-end;
-    text-align: end;
+    text-align: start;
 }
 
 .order-main-goday {
@@ -152,6 +171,9 @@
 
 
 @media screen and (min-width:768px) {
+    .card_detail .TWD{
+        text-align:end;
+    }
     /*.container .bigrow{
         padding-bottom: 90px;
     }*/

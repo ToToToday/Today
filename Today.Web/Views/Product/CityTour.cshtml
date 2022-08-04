@@ -19,7 +19,7 @@
                 <ul class="row list-unstyled  bg-white rounded-3">
                     <li class="col-3 px-3 pt-4 col-xl px-xl-3">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none text-center">
+                            <a href="~/Product/Classify" class="text-decoration-none text-center">
                                 <i class="icofont-air-ticket"></i>
                                 <br>
                                 <p class="mt-2">景點門票</p>
@@ -28,7 +28,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4 col-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-direction-sign"></i>
                                 <br>
                                 <p class="mt-2">活動&展覽 </p>
@@ -37,7 +37,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4 col-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-hill-side"></i>
                                 <br>
                                 <p class="mt-2">戶外活動</p>
@@ -46,7 +46,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4 col-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-bathtub"></i>
                                 <br>
                                 <p class="mt-2">紓壓&放鬆</p>
@@ -55,7 +55,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4 col-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/DIY" class="text-decoration-none">
                                 <i class="icofont-tea-pot"></i>
                                 <br>
                                 <p class="mt-2">工作訪&在地文化</p>
@@ -64,7 +64,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4 col-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-air-balloon"></i>
                                 <br>
                                 <p class="mt-2">觀光行程</p>
@@ -73,7 +73,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4 col-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-broccoli"></i>
                                 <br>
                                 <p class="mt-2">美食&生鮮</p>
@@ -82,7 +82,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4  col-xl city-type-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/HRSClassify" class="text-decoration-none">
                                 <i class="icofont-train-line"></i>
                                 <br>
                                 <p class="mt-2">交通</p>
@@ -91,7 +91,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4  col-xl city-type-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-hotel"></i>
                                 <br>
                                 <p class="mt-2">住宿</p>
@@ -100,7 +100,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4  col-xl city-type-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-smart-phone"></i>
                                 <br>
                                 <p class="mt-2">Wi-Fi&<br>SIM卡</p>
@@ -109,7 +109,7 @@
                     </li>
                     <li class="col-3 px-3 pt-4  col-xl">
                         <div class="city-type text-center">
-                            <a href="#" class="text-decoration-none">
+                            <a href="~/Product/Classify" class="text-decoration-none">
                                 <i class="icofont-map"></i>
                                 <br>
                                 <p class="mt-2">所有活動</p>
@@ -134,50 +134,69 @@
             </div>
             <section class="px-0">
                 <!-- 人氣top10卡片 -->
-                <h3 class="mx-4 my-3 fw-bolder ">人氣Top10</h3>
-                 <div class="city-Featured-silder d-flex mt-4 mx-2">
-                    <div class="city-Featured-card d-flex flex-nowrap row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
-                        <partial name="CardPartial/_NewCardPartial" for="AboutActiviyList"/>
+                <h3 class="mx-4 my-3 fw-bolder">人氣Top10</h3>
+                 <div class="city-Featured-silder d-flex mt-4 mx-2 position-relative">
+                    <div class="swiper mySwiper">
+                        <div class="city-Featured-card d-flex w-100 swiper-wrapper">
+                            <partial name="CardPartial/_Top10CardPartial" for="AboutActiviyList"/>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                        
                 <!-- 為你精選台北相關行程 -->
-                <h3 class="mx-4 my-3 fw-bolder ">為你精選@(Model.CurrentCityInfo.CityName)相關行程</h3>
-                <div class="city-Featured-silder d-flex mt-4 mx-2">
-                    <div class="city-Featured-card d-flex flex-nowrap row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
-                        <partial name="CardPartial/_NewCardPartial" for="AboutActiviyList"/>
+                <h3 class="mx-4 my-3 fw-bolder">為你精選@(Model.CurrentCityInfo.CityName)相關行程</h3>
+                <div class="city-Featured-silder d-flex mt-4 mx-2 position-relative">
+                    <div class="swiper mySwiper">
+                        <div class="city-Featured-card d-flex w-100 swiper-wrapper">
+                            <partial name="CardPartial/_NewCardPartial" for="AboutActiviyList"/>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                 <!-- 最新上架 -->
-                <h3 class="mx-4 my-3 fw-bolder ">最新上架</h3>
-                <div class="city-Featured-silder d-flex mt-4 mx-2">
-                    <div class="city-Featured-card d-flex flex-nowrap row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
-                        <partial name="CardPartial/_NewCardPartial" for="NewActiviyList"/>
+                <h3 class="mx-4 my-3 fw-bolder">最新上架</h3>
+                <div class="city-Featured-silder d-flex mt-4 mx-2 position-relative">
+                    <div class="swiper mySwiper">
+                        <div class="city-Featured-card d-flex w-100 swiper-wrapper">
+                            <partial name="CardPartial/_NewCardPartial" for="NewActiviyList"/>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                 <div class="city-btn-wrap d-flex justify-content-center">
-                    <a href="#" type="button" class="city-all-btn btn btn-light mb-3">查看所有@(Model.CurrentCityInfo.CityName)體驗活動</a>
+                    <a href="#" type="button" class="back-to-top city-all-btn btn btn-light mb-3">查看所有@(Model.CurrentCityInfo.CityName)體驗活動</a>
                 </div>
                 <!-- 旅遊攻略 -->
-                <h3 class="mx-4 my-3 fw-bolder ">@(Model.CurrentCityInfo.CityName)旅遊攻略</h3>
+                <h3 class="mx-4 my-3 fw-bolder">@(Model.CurrentCityInfo.CityName)旅遊攻略</h3>
                 <div class="city-Raiders-silder d-flex mt-4">
-                    <div class="city-Raiders-card ms-4 ">
-                        @foreach(var raider in @Model.RaiderList)
-                        {
-                            <a href="#" class="text-decoration-none">
-                                <div class="card me-3">
-                                    <img src="https://picsum.photos/300/168/?random=78" class="card-img-top" alt="@raider.Title">
-                                    <div class="city-Raiders-card-span d-flex position-relative ">
-                                        <span class="Raiders-imgtitle ">@raider.SubTitle</span>
-                                    </div>
-                                    <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
-                                        <h4 class="card-text overflow-hidden">@raider.Title</h4>
+                    <div class="swiper mySwiper">
+                        <div class="city-Raiders-card d-flex w-100 swiper-wrapper">
+                            @foreach(var raider in Model.RaiderList)
+                            {
+                                <div class="swiper-slide px-1">
+                                    <a href="~/Product/CityRaiders/@raider.RaiderId" class="text-decoration-none h-100">
+                                        <div class="card">
+                                            <img src="@raider.photo" class="card-img-top" alt="@raider.Title">
+                                            <div class="city-Raiders-card-span d-flex position-relative ">
+                                                <span class="Raiders-imgtitle ">@raider.SubTitle</span>
+                                            </div>
+                                            <div class="city-Raiders-card-body card-body px-0 d-flex position-relative">
+                                                <h4 class="card-text overflow-hidden">@raider.Title</h4>
 
-                                    </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        }
-                </div>
+                            }
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                   
                 </div>
                 <!-- map -->
                 <div class="city-about-title ms-4">
@@ -194,7 +213,7 @@
                         </div>
                     </div>
                     <div class="city-map-wrap  overflow-hidden col-12 col-md-4 m-3 position-relative">
-                        <a href="#" class="d-inline-block h-100">
+                        <a class="d-inline-block h-100" data-bs-toggle="modal" data-bs-target="#map-modal">
                             <img src="https://cdn.kkday.com/pc-web/assets/img/bg_map.jpg"
                                 class="card-img rounded-3 align-top w-100 h-100 " alt="...">
                             <div class="city-whach-map position-absolute">
@@ -209,116 +228,106 @@
             <section>
                 <!-- 留言區 -->
                 <div class="city-Evaluation-wrap mx-2 d-flex flex-wrap">
-                    @foreach(var comment in @Model.CommentList)
-                {
-                    <div class="city-card-eva col-md-6 px-md-2">
-                        <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
-                            <div class="card-people-info d-flex p-2">
-                                <img src="https://picsum.photos/30/30/?random=60" class="people-img rounded-circle">
-                                <p class="align-items-center my-auto mx-2">@comment.Name</p>
-                            </div>
-                            <div class="city-evaluation-star my-3 px-2">
-                                <i class="icofont-favourite"></i>@(comment.RatingStar) · 體驗日期@(comment.UseDate) @(comment.PartnerType)
-                            </div>
-                            <div class="city-evaluaation-a mb-3 px-2">
-                                <a href="#">@comment.ProductName</a>
-                            </div>
-                            <img src="https://picsum.photos/300/200/?random=10" class="card-img-top rounded-0 px-2" alt="...">
-                            <div class="card-body">
-                                <p class="card-title fw-bolder">@comment.Title</p>
-                                <p class="card-text">@comment.Text</p>
-                                <p class="card-text"><small class="text-muted">於@(comment.CommentDate) 評價</small></p>
+                    @foreach(var comment in Model.CommentList)
+                    {
+                        <div class="city-card-eva col-md-6 px-md-2">
+                            <div class="card w-100 mb-2 bg-white p-1 rounded-3 pt-3 col">
+                                <div class="card-people-info d-flex p-2">
+                                    <img src="https://res.cloudinary.com/dtopk4fwn/image/upload/v1659535849/EndSars/Today/dxup4caic8ovbslwtdhq.jpg" class="people-img rounded-circle">
+                                    <p class="align-items-center my-auto mx-2">@comment.Name</p>
+                                </div>
+                                <div class="city-evaluation-star my-3 px-2">
+                                    <i class="icofont-favourite"></i>@(comment.RatingStar) · 體驗日期@(comment.UseDate) @(comment.PartnerType)
+                                </div>
+                                <div class="city-evaluaation-a mb-3 px-2">
+                                    <a href="~/Product/ProductInfo/@(comment.ProductId)">@comment.ProductName</a>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-title fw-bolder">@comment.Title</p>
+                                    <p class="card-text">@comment.Text</p>
+                                    <p class="card-text"><small class="text-muted">於@(comment.CommentDate) 評價</small></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-                
+                    }
                 </div>
             </section>
             <!-- 探索周邊城市 -->
             <section class="px-0">
                 <div class="city-explore-wrap">
-                    <h3 class="mx-4 my-3 fw-bolder ">探索@(Model.CurrentCityInfo.CityName)周邊城市</h3>
-                    <div class="city-explore-silder d-flex mt-4">
-                        <div class="city-explore-card ms-4 ">
-                            
-                            @foreach(var citycard in @Model.CityCardsList)
-                            {
-                                <a href="https://localhost:44338/Product/CityTour/@citycard.Id" class="text-decoration-none">
-                                    <div class="card me-3">
-                                        <img src="@citycard.CityImage" class="card-img-top" alt="@citycard.CityName">
-                                        <div class="city-explore-card-span d-flex position-relative ">
-                                            <span class="explore-imgtitle ">@citycard.CityName</span>
+                    <h3 class="mx-4 my-3 fw-bolder">探索@(Model.CurrentCityInfo.CityName)周邊城市</h3>
+                    <div class="city-explore-silder d-flex mt-4 position-relative">
+                        <div class="city-Featured-card d-flex w-100">
+                            <div class="swiper nearbycity-Swiper">
+                                <div class="city-explore-card swiper-wrapper">
+                                    @foreach(var citycard in Model.CityCardsList)
+                                    {
+                                        <div class="swiper-slide px-1">
+                                            <a href="~/Product/CityTour/@citycard.Id" class="text-decoration-none mx-2">
+                                                <div class="card position-relative">
+                                                    <img src="@citycard.CityImage" class="card-img-top" alt="@citycard.CityName">
+                                                    <div class="city-explore-card-span d-flex position-absolute">
+                                                        <span class="explore-imgtitle ">@citycard.CityName</span>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </div>
-                                </a>
-                            }
-
+                                    }
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
                         </div>
+                      
                     </div>
-                    <div class="city-keyword-wrap ">
-                        <h3 class="mx-4 my-3 fw-bolder ">其他人也搜尋了</h3>
-                        <div class="city-keyword-group d-flex flex-wrap mx-4">
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">台北101</a>
-
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">陽明山</a>
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">北投</a>
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">按摩</a>
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">九份</a>
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">台北市</a>
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">淡水</a>
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">台北 按摩</a>
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">台北 美食</a>
-                        
-                            <a href="#" type="button" class="btn btn-outline-secondary me-2 mb-2">新北</a>
-                        </div>
-                        
-                    </div>
+                    
                 </div>
             </section>
             
         </div>
     </div>
+    <partial name="_MapModalPartial"></partial>
 
-
-   @section topCSS{
-       <link rel="stylesheet" href="~/css/CityTour.css" />
-       <link rel="stylesheet" href="~/css/newcard.css"/>
-
-       @*<link rel="stylesheet" href="~/css/reset.css" />*@
-       <style>
-           footer ul li{
-               list-style: none;
-               
-           }
-           footer ul{
-               padding-left: 0px;
-           }
-           .city-Raiders-card-body h4{
-               color: #000;
-           }
-           @@media screen and (min-width: 360px){
+@section topCSS{
+    <link rel="stylesheet" href="~/css/CityTour.css" />
+    <link rel="stylesheet" href="~/css/newcard.css"/>
+    <link rel="stylesheet" href="~/css/google-map.css">
+    @*<link rel="stylesheet" href="~/css/reset.css" />*@
+    <style>
+        .card-people-info img{
+            width:40px;
+            height:40px;
+        }
+        body{
+            margin: 0;
+        }
+        footer ul li{
+            list-style: none; 
+        }
+        footer ul{
+            padding-left: 0px;
+        }
+        .city-Raiders-card-body h4{
+            color: #000;
+        }
+        @@media screen and (min-width: 360px){
    
-                .city-type-xl{
-                    display: none;
-                }
-           }
-           @@media screen and (min-width: 1200px){
-                .city-type-xl{
-                    display: block;
-                }
-           }
-       </style>
-        
-        
-       
-   }
+            .city-type-xl{
+                display: none;
+            }
+        }
+        @@media screen and (min-width: 1200px){
+            .city-type-xl{
+                display: block;
+            }
+        }
+    </style>
+}
+@section endJS{
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="~/js/google-map.js"></script>
+}
 
 

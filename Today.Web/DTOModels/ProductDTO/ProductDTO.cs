@@ -1,20 +1,39 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Today.Web.DTOModels.ProductDTO
 {
     public class ProductDTO
     {
-        //public class ProductRequestDTO
-        //{
-        //    public int ProductId { get; set; }
-        //}
-        //public class ProductResponseDTO
-        //{
-        //    public ProductInfo ProductInfo { get; set; }
-        //}
-        //public List<CategoryInfo> categoryList { get; set; }
-        public List<ProductInfo> productList { get; set; }
-        public List<CategoryInfo> cateoryList { get; set; }
+        public class ProductRequestDTO
+        {
+            public string SearchWord { get; set; }
+        }
+        public class ProductResponseDTO
+        {
+            public bool HasCityId { get; set; }
+            public int Id { get; set; }
+        }
+        #region 所需資料欄位
+        public IQueryable<ProductInfo> QueryProduct { get; set; }
+        public List<CategoryInfo> CategoryList { get; set; }
+        public List<ProductInfo> ProductList { get; set; }
+        #endregion
+
+        #region 首頁所需欄位
+        public List<CityInfo> CityList { get; set; }
+
+        public List<RecentlyInfo> RecentlyViewed { get; set; }
+        public List<ProductInfo> TopProduct { get; set; }
+        public List<ProductInfo> Featured { get; set; }
+        public List<ProductInfo> Paradise { get; set; }
+        public List<ProductInfo> AttractionTickets { get; set; }
+        public List<ProductInfo> Exhibition { get; set; }
+        public List<ProductInfo> Hotel { get; set; }
+        public List<ProductInfo> Taoyuan { get; set; }
+        public List<ProductInfo> TimeLimit { get; set; }
+        public List<ProductInfo> Evaluation { get; set; }
+        #endregion
 
         public class CategoryInfo
         {
@@ -45,6 +64,21 @@ namespace Today.Web.DTOModels.ProductDTO
         {
             public float RatingStar { get; set; }
             public int TotalGiveComment { get; set; }
+        }
+
+        public class RecentlyInfo
+        {
+            public int Id { get; set; }
+            public string ProductPhoto { get; set; }
+            public string ProductName { get; set; }
+            public decimal? Price { get; set; }
+        }
+
+        public class CityInfo
+        {
+            public int Id { get; set; }
+            public string CityName { get; set; }
+            public string CityImage { get; set; }
         }
     }
 

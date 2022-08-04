@@ -10,9 +10,9 @@ namespace Today.Model.Repositories
 {
     public class GenericRepository : IGenericRepository
     {
-        private readonly TodayDBContext _context;
+        private readonly TodayDbContext _context;
 
-        public GenericRepository(TodayDBContext context)
+        public GenericRepository(TodayDbContext context)
         {
             _context = context;
         }
@@ -38,6 +38,7 @@ namespace Today.Model.Repositories
 
         public void SavaChanges()
         {
+            
             _context.SaveChanges();
         }
 

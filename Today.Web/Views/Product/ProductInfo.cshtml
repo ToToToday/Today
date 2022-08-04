@@ -1,0 +1,832 @@
+﻿@using Newtonsoft.Json
+@model ProductInfoVM
+radio
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<div class="initial-nav bg-white w-100 position-fixed border-botto border-secondary d-lg-none">
+    <nav class=" nav nav-pills text-center px-2 py-2 align-items-center navbar navbar-expand-lg fixed-width">
+        <div class="selected-div col-12 d-flex">
+            <p class="selected-date col-6">
+                @*8月29號*@
+                @*選擇日期*@
+            </p>
+            <p class="selected-Program col-6">
+                @Model.ProductName
+            </p>
+        </div>
+        <ul class="col-4 d-flex">
+            <li class="nav-item ">
+                <i class="fa-solid fa-heart"></i>
+            </li>
+            <li class="nav-item">
+                <i class="fa-solid fa-comments"></i>
+            </li>
+        </ul>
+        <button class="col-8 btn text-white btn-Next-step" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom">
+            下一步
+        </button>
+        <div class="offcanvas offcanvas-bottom btn-Next-step-Window" tabindex="-1" id="offcanvasBottom1"
+             aria-labelledby="offcanvasBottomLabel1">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasBottomLabel1">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body small text-start btn-Next-step-Window-offcanvas">
+                <div>
+                    <h6>方案</h6>
+                    <p>精緻客房｜一泊三食</p>
+                </div>
+                <div>
+                    <h6>使用日期</h6>
+                    <p>8月14日(週日)</p>
+                </div>
+                <div class="select-quantity-div">
+                    <h6 class="select-quantity-title">
+                        選擇數量
+                    </h6>
+                    <div class="select-quantity-aldult col-12 d-flex flex-wrap ">
+                        <p class="col-8">
+                            成人
+                            <span class="col-6">12歲以上(含)</span>
+                            <br>
+                            <span class="col-12">TWD 600/每人</span>
+                        </p>
+                        <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                            <button class="select-quantity-btn-reduce">-</button>
+                            <p class="">0</p>
+                            <button class="select-quantity-btn-add">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div class="send-order-div d-flex col-12 p-2">
+                <div class="order-amount-div col-4 d-flex flex-wrap">
+                    <p class="amount col-12">
+                        <span>TWD</span>
+                        10000
+                    </p>
+                </div>
+                <input class="btn send-order-btn col-8 text-white " readonly value="確定送出">
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="row justify-content-center slideshow-phone p-0 m-0 d-flex d-lg-none">
+    <div id="carouselExampleIndicators1" class="productDetail-tour carousel slide row" data-bs-ride="true">
+        <div class="carousel-indicators p-0 ms-0">
+            @for (var item = 0; item < Model.PhtotList.Count(); item++)
+            {
+                int num = @item + 1;
+                if (item == 0)
+                {
+                    <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to=" @item" class="active" aria-current="true" aria-label="Slide @num"></button>
+                }
+                else
+                {
+                    <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to=" @item" aria-label="Slide @num"></button>
+                }
+            }
+        </div>
+        <div class="carousel-inner">
+            @for (var item = 0; item < (Model.PhtotList).Count(); item++)
+            {
+                if (item == 0)
+                {
+                    <div class="carousel-item active order-1">
+                        <img src="@Model.PhtotList[@item].PhotoUrl">
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item">
+                        <img src="@Model.PhtotList[@item].PhotoUrl ">
+                    </div>
+                }
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<div class="productDetail">
+    <div class="container">
+        <div class="row m-0">
+            <div class=" productDetail-path col-12 col-md-10 col-lg-9 d-inline-block text-nowrap flex-nowrap ">
+                <h2>
+                    <a href="">台灣</a>
+                </h2>
+                <span>></span>
+                <h2>
+                    <a href="">@Model.CityName</a>
+                </h2>
+                <span>></span>
+                <h3 class="col-12">
+                    <a class="product-name " href=""> @Model.ProductName</a>
+                </h3>
+            </div>
+            <div class="d-flex justify-content-end Product-number col-12 col-md-2 col-lg-3">
+                <a href="" class="">商品代碼#@Model.ProductId</a>
+            </div>
+        </div>
+        <div class="row slideshow p-0 m-0 d-none d-lg-flex">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    @for (var item = 0; item < Model.PhtotList.Count(); item++)
+                    {
+                        int num = @item + 1;
+                        if (item == 0)
+                        {
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to=" @item" class="active" aria-current="true" aria-label="Slide @num"></button>
+                        }
+                        else
+                        {
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to=" @item" aria-label="Slide @num"></button>
+                        }
+                    }
+                </div>
+                <div class="carousel-inner">
+                    @for (var item = 0; item < (Model.PhtotList).Count(); item++)
+                    {
+                        if (item == 0)
+                        {
+                            <div class="carousel-item active order-1">
+                                <img src="@Model.PhtotList[@item].PhotoUrl">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="carousel-item">
+                                <img src="@Model.PhtotList[@item].PhotoUrl ">
+                            </div>
+                        }
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="product d-flex">
+            <div class="prodInfo p-0 m-0 col-12 col-lg-8">
+                <div class=" product-name d-flex flex-wrap">
+                    <h3 class="col-12  col-lg-10">
+                        @Model.ProductName
+                    </h3>
+                    <div class="col-lg-2 product-heart m-auto text-center">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="order-quantity col-12 ">
+                        <p>
+                            <i class="fa-solid fa-star"></i>
+                            4.8 | (700) 300+ 個已訂購
+                        </p>
+                    </div>
+                    <div class="money col-12 d-lg-none">
+                        <p>
+                            <span>TW 762 </span>起
+                        </p>
+                    </div>
+                    <ul class="col-12 d-flex flex-wrap">
+                        @foreach (var ap in Model.ProgarmList[0].AboutProgramList)
+                        {
+                            <li class=" prodInfo-item me-2">
+                                @Html.Raw(@ap.IconClass)
+                                @ap.AboutProgramName
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+            <div class="initial-money col-lg-4 d-none d-lg-flex flex-wrap">
+                <div class="money col-12">
+                    <p class="col-12">
+                        <span>
+                            TWD 24,000
+                        </span>
+                        起
+                    </p>
+                    <a class=" d-flex col-12 Options-btn justify-content-center" href="#product-initial">
+                        選擇方案
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Details">
+    <div class="container d-flex flex-wrap">
+        <div class="product-infon col-12">
+            <div id="product-initial" class="product product-initial d-flex flex-wrap">
+                <h3 class="product-initial-btn col-12">
+                    選擇方案
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Details">
+    <div class="container d-flex flex-wrap">
+        <div class="product-infon col-12 col-md-12 col-lg-8 col-xl-8">
+            <div id="product-Description" class="product product-Description">
+                <h3 class="col-12">
+                    商品說明
+                </h3>
+                <div class="Description">
+                    @Html.Raw(@Model.ProductText)
+                </div>
+
+            </div>
+            <div id="purchase-Notes" class="product purchase-Notes">
+                <h3>
+                    購買須知
+                </h3>
+                @Html.Raw(@Model.ShoppingNotice)
+
+            </div>
+            <div id="how-use" class="product how-use">
+                <h3>
+                    如何使用方式
+                </h3>
+                @Html.Raw(@Model.HowUse)
+            </div>
+            <div id="Experience-location" class="product Experience-location">
+                <h3>
+                    體驗地點
+                </h3>
+                <h4>
+                    @Model.ProductlocationName
+                </h4>
+                <p class="address">
+                    地址:@Model.ProductLocationAddress
+                </p>
+
+            </div>
+            <div id="Cancellation-Policy" class="product Cancellation-Policy">
+                <h3>
+                    取消政策
+                </h3>
+                @Html.Raw(@Model.CancellationPolicy)
+            </div>
+            <div class="col-12 Evaluation d-flex flex-wrap">
+                <h3 class="col-12">
+                    評價
+                </h3>
+                <div class="Star col-8">
+                    <i class="fa-solid fa-star"></i>
+                    4.8 <span>(76)</span>
+                </div>
+                <a class="text-break col-4">
+                    更多評價 >
+                </a>
+                @foreach (var comment in @Model.MemberList)
+                {
+                    <div class="Evaluation-message col-12">
+                        <div class="message-img col-1">
+                            <div class="img-message-div">
+                                <img src="https://picsum.photos/300/200/?random=10">
+                            </div>
+                        </div>
+                        <div class="message col-10">
+                            <div class="Member-name">
+                                @comment.MemberName
+                            </div>
+                            <div class="Member-message-time">
+                                @comment.Data.ToString().Substring(0,11)
+                            </div>
+                            <div class="Member-star-div">
+                                @for (int s = 0; s < 5; s++)
+                                {
+                                    if (s <= @comment.Star)
+                                    {
+                                        <i class="Member-star fa-solid fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-star"></i>
+                                    }
+                                }
+                            </div>
+                            <div class="Member-message col-12">
+                                <div class="Member-message">
+                                    @Html.Raw(@comment.MembermMessageText)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="product-infon-a d-lg-flex col-lg-4 flex-wrap h-100 ">
+            <a class="col-lg-12" href="#product-initial">選擇方案</a>
+            <a class="col-lg-12" href="#product-Description">商品說明</a>
+            <a class="col-lg-12" href="#purchase-Notes">購買須知</a>
+            <a class="col-lg-12" href="#how-use">憑證使用</a>
+            <a class="col-lg-12" href="#Experience-location">體驗地點</a>
+            <a class="col-lg-12" href="#Cancellation-Policy">取消政策</a>
+        </div>
+    </div>
+</div>
+<template id="PrgramNameModel">
+    <div class="initial col-12">
+        <div class="initial-container  col-12 d-flex flex-wrap ">
+            <div class="col-12 col-lg-5 mb-2">
+                <h4>
+                    @*產品名稱*@
+                </h4>
+                <div class="remind d-inline-block ">
+                    @*productTag*@
+                    3天前可以免費取消
+                </div>
+            </div>
+            <input type="radio" class="btn-check " name="btnradio" autocomplete="">
+            <label class="btn initial_btn col-4 col-lg-2 order-2  " data-bs-toggle="collapse" >選擇</label>
+            <p class="initial-money col-8 col-lg-5 d-block mb-2">
+                @*所以方案價位*@
+                <span>
+                    起
+                </span>
+            </p>
+        </div>
+        <div class=" collapse">
+            <div class="Programcontext-div initial-Remark">
+            </div>
+            <div class="col-12  AboutProgram-ProgramInclude-div d-none d-lg-block">
+                <div class="col-12 d-flex AboutProgram-div">
+                    <h5 class="col-2 AboutProgram-h5 ">關於此方案</h5>
+                    <ul class="col-10 d-flex flex-wrap">
+                        @*關於此方案所以項目*@
+                    </ul>
+                </div>
+                <div class="col-12  ProgramInclude-div d-flex ">
+                    <h5 class="col-2 ProgramInclude-h5">費用包含與不包含</h5>
+                    <ul class="col-5 ProgramInclude-true-ul">
+                        @*方案包含*@
+                    </ul>
+                    <ul class="col-5 ProgramInclude-fals-ul">
+                        @*方案不包含*@
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 d-none d-lg-flex flex-wrap ">
+                <h5 class="col-12 my-2 ps-3">
+                    選擇日期、數量
+                </h5>
+                <div class="col-6 product-initial-div">
+                    <h6 class="product-initial-title col-12">
+                        選擇日期
+                    </h6>
+                    <input type="text" class="d-none"> @* <----月曆*@
+                </div>
+                <div class="lg-select-quantity-div col-6">
+                    <h6 class="select-quantity-title">
+                        選擇數量
+                    </h6>
+                    <div class="select-quantity-aldult col-12 d-flex flex-wrap">
+                        <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                            <p class="col-8 mt-auto UnitText">
+                                @*規格項目/價格/單位*@
+                            </p>
+                            <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                                @*數量加減、總和*@
+                                <button class="select-quantity-btn-reduce reduce">-</button>
+                                <p class="count">0</p>
+                                <button class="select-quantity-btn-add plus">+</button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between col-12 select-total-div ">
+                            <span>總金額</span>
+                            <p class="price">
+                                0
+                                @*總金額*@
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-cart-div col-12 d-flex">
+                    <input type="submit" class="shopping-cart-btn " value="加入購物車" />
+                    @*<a type="submit" class="asd-btn "  href="/Member/Checkout" >立即訂購</a>*@
+                    <input type="submit" class="asd-btn " value="立即訂購" href="/Member/Checkout" />
+                </div>
+            </div>
+        </div>
+        <button class="justify-content-center d-flex d-lg-none btn-Details btn btn-primary col-12"
+                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2"
+                aria-controls="offcanvasBottom">
+            查看方案詳情
+        </button>
+    </div>
+</template>
+
+<div class="btn-Details-Window offcanvas offcanvas-bottom " tabindex="-1"
+     id="offcanvasBottom2" aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close">
+        </button>
+    </div>
+    <div class="col-12 offcanvas-body small d-flex flex-wrap p-3">
+        <div class="col-12 iph-AboutProgram-ProgramInclude-div">
+            <div class=" d-flex flex-wrap iph-AboutProgram-div">
+                <h5 class="col-md-12 iph-AboutProgram-h5">關於此項目</h5>
+                <ul class="iph-AboutProgram-ul  col-12">
+                    <li></li>
+                    @*手機板方案關於*@
+                </ul>
+            </div>
+            <div class="col-12 d-flex flex-wrap iph-ProgramInclude-div ">
+                <h5 class="col-md-12 iph-ProgramInclude-h5">費用包含與不包含</h5>
+                <ul class="col-md-4 iph-ProgramInclude-true-ul ProgramInclude-true-ul">
+                    @*手機板方案包含*@
+                </ul>
+                @*<ul class="col-md-12 iph-ProgramInclude-fals-ul ProgramInclude-fals-ul">
+                手機板方案不包含
+                </ul>*@
+                <ul class="col-md-12 iph-ProgramInclude-fals-ul ProgramInclude-fals-ul">
+                    @*手機板方案不包含*@
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section topCSS{
+    <link rel="stylesheet" href="~/css/commodity.css" />
+    <link rel="stylesheet" href="~/css/reset.css" />
+}
+    @section endJS{
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!-- toastr v2.1.4 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    @*<script src="~/js/ProductInfo.js"></script>*@
+    <script>
+
+        //const ProductUrl = 'https:localhost:5001/api/Shop/AddCart'
+        //    let AddCart = new Vue({
+        //        el:'#AddCart',
+        //        data: {
+        //            aa: 0,
+        //            CreateCardData: {
+        //            ProductName : 'name',
+        //            ProgramTitle : 'title',
+        //            Path : 'Path',
+        //            DepartureDate : '2022-07-31',
+        //            Quantity : 0,
+        //            SpecificationId : 5,
+        //            ScreeningId : 3
+        //            }
+        //        },
+        //        methods: {
+        //            add(){
+        //                this.aa++;
+        //            },
+        //            min(){
+        //                if (this.aa > 0) {
+        //                    this.aa--;
+        //                }
+        //            },
+
+        //            CreateCard() {
+        //                axios.post(ProductUrl,this.CreateCardData)
+        //                    .then(res => {
+        //                        console.log(res)
+        //                        if (res.data.status == 200) {
+
+        //                            alert("insert success")
+        //                            $('createShopCard').model('hide')
+        //                        }
+        //                        else {
+        //                            alert("insert failed")
+        //                        }
+        //                    })
+
+        //            }
+        //        }
+        //    })
+
+
+        let product_initial = document.querySelector("#product-initial")
+        let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
+        //let body = document.querySelector("body")
+        let selectProgram = document.querySelector(".selected-Program");
+        pglist.forEach((pg, index) => {
+            product_initial.append(Addcard(index, pg.PrgarmText, pg.PrgramName, pg.ProgramSpecificationList, pg.AboutProgramList, pg.ProgramIncludeList, pg.DateList))
+        })
+
+        function Addcard(index, PrgarmText, name, ProgramSpecificationList, AboutProgramList, ProgramIncludeList, DateList) {
+            let programcard = PrgramNameModel.content.cloneNode(true);
+            programcard.querySelector("h4").innerText = name
+            programcard.querySelector("input.btn-check").id = `btn${index}`
+            programcard.querySelector("label.btn").for = `btn${index}`
+            programcard.querySelector(".initial-money").innerHTML = `${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`
+            programcard.querySelector(".Programcontext-div").innerHTML = PrgarmText
+
+            programcard.querySelector(".btn-check").id = `flush-heading${index}`
+            programcard.querySelector("label.initial_btn").setAttribute("data-bs-target",`#flush-collapse${index}`)
+            programcard.querySelector(".collapse").id = `flush-collapse${index}`
+
+            let datainput = programcard.querySelector(".product-initial-div>input")
+            console.log(datainput)
+            datainput.id = `myID${index}`
+            //CantuseDate 不可選購的日期
+            let CantuseDate = [];
+            DateList.forEach(d => {
+                CantuseDate.push(d.CantuseDate)
+            })
+            //引入月曆套件
+            const fp = flatpickr(datainput, {
+                disable: CantuseDate,
+                dateFormat: "Y-m-d",
+                inline: true,
+                mode: "range",
+                dateFormat: "Y-m-d H:i",
+            });
+            let getdata;
+
+            const BtnDetails = programcard.querySelector(".btn-Details")
+            //按下手機板查看方案詳情
+            BtnDetails.addEventListener("click", () => {
+                let model = document.querySelector(".btn-Details-Window")
+                model.querySelector(".offcanvas-title").innerText = name
+                console.log(AboutProgramList)
+
+                let ap_ul = model.querySelector(".iph-AboutProgram-ul>li")
+                ap_ul.innerHTML = ""
+                AboutProgramList.forEach((ap, id) => {
+                    if (AboutProgramList.length == 0) {
+                        programcard.querySelector(".iph-AboutProgram-div").innerHTML = ""
+                    }
+                    else {
+                        let ap_li = document.createElement("li")
+                        ap_li.innerHTML = ap.IconClass + ap.AboutProgramName
+                        ap_ul.append(ap_li)
+                    }
+                })
+                let true_ul = model.querySelector(".iph-ProgramInclude-true-ul")
+                let fals_ul = model.querySelector(".iph-ProgramInclude-fals-ul")
+                true_ul.innerHTML = ""
+                fals_ul.innerHTML = ""
+                ProgramIncludeList.forEach(pi => {
+                    let li = document.createElement("li")
+                    li.innerText = pi.Inciudetext
+                    if (pi.IsInclude == true) {
+                        true_ul.appendChild(li)
+                    }
+                    else {
+                        fals_ul.appendChild(li)
+                    }
+                })
+            })
+            //AboutProgram
+            if (AboutProgramList.length == 0) {
+                programcard.querySelector(".AboutProgram-div").innerHTML = ""
+            }
+            else {
+                AboutProgramList.forEach(ap => {
+                    let ap_ul = programcard.querySelector(".AboutProgram-div>ul")
+                    let ap_li = document.createElement("li")
+                    ap_li.innerHTML = ap.IconClass + ap.AboutProgramName
+                    console.log(ap_ul, ap_li)
+                    ap_ul.appendChild(ap_li)
+                })
+            }
+            //ProgramInclude
+            if (ProgramIncludeList.length == 0) {
+                programcard.querySelector(".ProgramInclude-div").innerHTML = ""
+            }
+            else {
+                ProgramIncludeList.forEach(pi => {
+                    let ul;
+                    if (pi.IsInclude == true) {
+                        ul = programcard.querySelector(".ProgramInclude-true-ul")
+                    }
+                    else {
+                        ul = programcard.querySelector(".ProgramInclude-fals-ul")
+                    }
+                    let li = document.createElement("li")
+                    console.log(li)
+                    li.innerText = pi.Inciudetext
+                    ul.appendChild(li)
+                })
+            }
+            //ProgramSpecification
+
+
+            let getSpecificationId;
+            let Array = [];
+
+            ProgramSpecificationList.forEach((ps, index) => {
+                programcard.querySelector(".UnitText-div>p").innerText = ps.Itemtext + ps.PorgarmUnitPrice + "/" + ps.UnitText
+
+                let num = 0;
+                let count = programcard.querySelector(".count")
+                let sum_price = programcard.querySelector(".price")
+                let obj = { SpecificationId: ps.SpecificationId, Quantity: num }
+                Array.push(obj)
+                programcard.querySelector(".plus").addEventListener("click", function() {
+                    num = parseInt(count.innerHTML, 10) + 1
+                    count.innerHTML = num
+                    sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
+                    Array[index].Quantity = num
+                    console.log(Array)
+                    console.log(obj)
+                })
+                programcard.querySelector(".reduce").addEventListener("click", function() {
+                    if (count.innerHTML > 0) {
+                        num = parseInt(count.innerHTML, 10) - 1
+                        count.innerHTML = num
+                        sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
+                        Array[index].Quantity = num
+                        console.log(Array)
+                        console.log(obj)
+                    }
+                })
+                if (num > 0) {
+                    getSpecificationId = ps.SpecificationId
+                }
+            });
+            //按下選擇按鈕---->選擇區快要顯示方案名稱、下一步後的方案規格要改變
+            //按下以選擇按鈕 --->
+            //按下一步按鈕 ---> 方案或日期未選擇需要防呆
+
+
+
+            //let addCart = document.querySelector("#AddCart");
+            //let data = {
+            //        ProductName : 'p',
+            //        ProgramTitle : 'title',
+            //        DepartureDate : departuredate,
+            //        Path : 'Path',
+            //        Quantity : 3,
+            //        UnitPrice : 100,
+            //        UnitText : 'UnitText',
+            //        SpecificationId : 5,
+            //        ScreenTime : '10:40',
+            //        ScreeningId : 3
+            //}
+            //programcard.querySelector(".shopping-cart-btn").addEventListener("click", function() {
+            //    AddCart(data);
+            //}
+            let  asd_btn= programcard.querySelector(".asd-btn")
+
+            asd_btn.addEventListener("click",()=>{
+            
+                getdata = datainput._flatpickr.selectedDates
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+
+                let url = "/api/Order/directCreateOrder";
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": "3000"
+                }
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        //MemberId: 1,
+                        SpecificationList: Array,
+                        DepartureDate: Departuredate,
+                        //ScreeningId : ,
+                    })
+                })
+                .then(res => {
+                    if (res.status == 200) {
+                        toastr.success("新增成功");
+                        return res.json()
+                    }
+                    else {
+                        toastr.error("新增失敗");
+                        //return res.text()
+                    }
+                })
+                .then(obj => {
+                    //console.log(obj)
+                    //Status 
+                    //Msg 
+                    //Result 
+                    window.location.href=`/Member/Checkout/${obj.result.id}`
+
+                })
+            })
+            let shoppingbtn = programcard.querySelector(".shopping-cart-btn")
+            shoppingbtn.addEventListener("click", function() {
+                //num2 = num
+                getdata = datainput._flatpickr.selectedDates
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                //console.log(getdata)
+                //console.log(departuredate)
+                //console.log(getSpecificationId)
+                let url = "/api/Shop/AddCart";
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": "3000"
+                }
+
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        //MemberId: int.Parse(User.Identity.Name),
+                        SpecificationList: Array,
+                        DepartureDate: Departuredate,
+                        //ScreeningId : 3,
+                        //SpecificationId: getSpecificationId,
+                        //ScreeningId : ,
+                        //ProductName : "p",
+                        //ProgramTitle : name,
+                        //DepartureDate : '2022-09-23',
+
+                    })
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            toastr.success("新增成功");
+                        }
+                        else {
+                            toastr.error("新增失敗");
+                            //return res.text()
+                        }
+                    })
+                //.then(text => {
+                //    alert(text);
+                //})
+
+            })
+
+            return programcard
+        }
+        let programlabel = document.querySelectorAll("label.btn")
+        let progarminput = document.querySelectorAll("input.btn-check")
+
+        programlabel.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+                if (progarminput[index].checked == true) {
+                    progarminput[index].checked = false
+                }
+                else {
+                    progarminput[index].checked = true
+                }
+                progarminput.forEach((b, i) => {
+                    if (b.checked == true) {
+                        programlabel[i].innerHTML = `<i class="fa-solid fa-circle-check "></i>己選擇`;
+                        //$(".collapse-plate")[i].slideToggle("slow");
+                    }
+                    else {
+                        programlabel[i].innerText = "選擇";
+                    }
+                })
+            })
+        })
+
+        //function AddCart(data) {
+        //    fetch('https://localhost:5001/api/Shop/AddCart',{
+        //    method:'POST',
+        //    headers:new Headers({'Content-Type':'application/json'}),
+        //        body: JSON.stringify(data)
+        //    })
+        //    .then(res => { return res.json() })
+        //    .then(res =>{
+        //        if (res.data.status === 200) {
+        //            alert("insert success")
+        //        }
+        //        else {
+        //            alert("insert failed")
+        //        }
+        //    })
+        //})
+        //彥蓉做的
+        //$(".plate").click(function() {
+        //    $(".collapse-plate").slideToggle("slow");
+        //});
+        //$('.Evaluation-message~div').hide();
+        //$(".text-break").click(function() {
+        //    $(".Evaluation-message~div").slideToggle("slow");
+        //});
+    </script>
+}

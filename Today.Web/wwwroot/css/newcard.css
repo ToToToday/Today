@@ -28,3 +28,9 @@
 [class*="fa-solid fa-star"]{
     color: #26bec9;
 }
+.orderby {
+    text-shadow: 0 1px 2px #e18d0e;
+    background: linear-gradient(45deg,#ffaf1e,#ffd56e);
+    bottom: 0;
+    left: 0;
+}

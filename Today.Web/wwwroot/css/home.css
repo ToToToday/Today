@@ -2,45 +2,8 @@
 .choose-limit{
     background-color: #ffffff;
 }
-.forward{
-    width: fit-content;
-    padding:  1px 8px;
-    top: 50%;
-    left: 0;
-}
-.afterward{
-    width: fit-content;
-    padding: 1px 8px;
-    top: 50%;
-    right: 0%;
-}
-/*.bundle{
-    border-radius: 6px;
-}
-.location-tag {
-    top: 10%;
-    left: 5%;
-}
-.heart {
-    top: 10%;
-    right: 5%;
-}*/
-/*.fixed-card img{
-    transition: transform 1s ease;
-}
-.fixed-card img:hover{
-    transform: scale(1.3);
-}*/
-/*.bundle span{
-    z-index: 10;
-}
-[class*="fa-solid fa-star"]{
-    color: #26bec9;
-}*/
-
-.user-info{
+.card-body{
     box-sizing: border-box;
-    width: 200px;
 }
 
 /* 分類 */
@@ -58,43 +21,15 @@
 }
 
 /* big-info */
-.main-introd-limit{
-    background: url("https://picsum.photos/2560/650/?random=10");
+.main-introd-limit {
+    background: url("https://cdn.kkday.com/pc-web/assets/img/home_banner/2.jpg");
+    height: 400px;
 }
 .main-introd-limit button{
     background-color: #22a7aa;
 }
 .main-introd-limit button:hover{
     opacity: 85%;
-}
-
-/* hot-action */
-.group-card, .row-card-group{
-    scroll-behavior: smooth;
-    overflow-y: hidden;
-    overflow-x: auto;
-    display: grid;
-    grid-auto-flow: column;
-    height: auto;
-}
-.group-card::-webkit-scrollbar, .row-card-group::-webkit-scrollbar{
-    display: none;
-}
-.group-card > div{
-    transform: translateX(0px);
-}
-.card{
-    width: calc(100% / 2 - 1rem * 1);
-}
-.card:hover{
-    opacity: 75%;
-}
-
-/* 最新 */
-.new-limit .event-details{
-    box-sizing: border-box;
-    top: 0;
-    left: 0;
 }
 
 /* city */
@@ -116,22 +51,15 @@
     box-sizing: border-box;
 }
 .group-card > div{
-    transition: all 1s ease;
+    transition: all 0.1s ease;
 }
 
 /* TOP 10 */
 .fixed-card{
     width: calc(100% - 1rem * 0.5 * 2);
 }
-.card-product-review:first-child{
+/*.card-product-review:first-child{
     border-right: 1px solid #ccc;
-}
-/*.card-tag span{
-    white-space: nowrap;
-    box-sizing: border-box;
-    background-color: #EEF7FE;
-    color: #51BAF8;
-    font-size: .5rem;
 }*/
 .hot-product-limit .orderby{
     text-shadow: 0 1px 2px #e18d0e;
@@ -149,10 +77,10 @@
 .choose-limit a:hover{
     opacity: 85%;
 }
-.choose-limit .car{
+/*.choose-limit .car{
     bottom: 0px;
     left: 0px;
-}
+}*/
 /* .choose-limit .car{
     bottom: -10px;
     left: 0px;
@@ -192,6 +120,7 @@
         width: calc(100% / 4 - 1rem * 0.5 * 2);
     }
     
+    /*其他選擇*/
     .other-selection-limit .title-icon{
         width: 25%;
         border-right: 1px solid rgb(48, 48, 219);
@@ -209,36 +138,24 @@
     .choose .reason, .choose .travel-pic{
         box-sizing: border-box;
     }
-    .choose-limit .car{
+    /*.choose-limit .car{
         bottom: -10px;
         left: 50px;
-    }
+    }*/
 }
 
 @media screen and (min-width: 992px) {
     .card{
         width: calc(100% / 6 - 1rem * 1);
     }
-    .choose-limit .car{
+    /*.choose-limit .car{
         bottom: -10px;
         left: 100px;
-    }
+    }*/
 }
 
 @media screen and (min-width: 1440px) {
     .category{
         height: 150px;
-    }
-    .forward{
-        width: fit-content;
-        padding:  1px 8px;
-        top: 50%;
-        left: 8%;
-    }
-    .afterward{
-        width: fit-content;
-        padding: 1px 8px;
-        top: 50%;
-        right: 8%;
     }
 }

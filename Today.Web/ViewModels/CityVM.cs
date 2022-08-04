@@ -40,6 +40,8 @@ namespace Today.Web.ViewModels
         }
         public class CityRaiderList
         {
+            public int RaiderId { get; set; }
+            public string photo { get; set; }
             public int CityId { get; set; }
             public string Title { get; set; }
             public string SubTitle { get; set; }
@@ -50,12 +52,13 @@ namespace Today.Web.ViewModels
             public int CityId { get; set; }
             public string Name { get; set; }
             public int RatingStar { get; set; }
-            public DateTime CommentDate { get; set; }
-            public DateTime UseDate { get; set; }
+            public string CommentDate { get; set; }
+            public string UseDate { get; set; }
             public string PartnerType { get; set; }
             public string ProductName { get; set; }
             public string Title { get; set; }
             public string Text { get; set; }
+            public int ProductId { get; set; }
         }
 
         public class CityCardList
