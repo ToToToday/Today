@@ -31,7 +31,7 @@
                         </div>
                         <div class="modal-footer border-top-0">
                             <button type="button" class="btn btn btn-light" data-bs-dismiss="modal">取消</button>
-                            <button  type="button" class="btn btn-primary footer-delete">刪除</button>
+                            <button type="button" class="btn btn-primary footer-delete">刪除</button>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <div class="check-control m-0 ps-0">
                             <label class="form-check-label" for="commodity-control">
                             </label>
-                            <input class="form-check-input " type="checkbox" id="commodity-control">
+                            <input class="form-check-input commodity-control" type="checkbox" id="commodity-control" value="@cart.ShoppingCartId">
                         </div>
                         <div class="card p-0 flex-grow-1">
                             <a href="#">
@@ -96,7 +96,7 @@
                         <span class="text-end">1件商品合計</span>
                         <span class=" fw-bolder mt-2">TWD @Model.ShopCartCardList.Select(s =>s.Sum).Sum()</span>
                     </div>
-                    <a class="fw-bolder mb-3 mx-3">前往結帳</a>
+                    <a class="caculate-input fw-bolder mb-3 mx-3" @*asp-action="Checkout"*@>前往結帳</a>
                 </div>
             </div>
         </div>
@@ -365,6 +365,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+
+
     <script>
         let createItem = document.querySelectorAll(".list .item")
         let emptyCart = document.querySelector(".empty-cart")
@@ -383,8 +391,8 @@
         let deleteAllCard = document.querySelector(".checkout button")
         
         console.log(deletebtnlist)
-        deletebtnlist.forEach((d,index) => {
-        console.log(d)
+        deletebtnlist.forEach((d, index) => {
+            console.log(d)
             d.addEventListener("click", () => {
                 document.querySelector(".footer-delete").value = deletebtnlist[index].value
             })
@@ -481,7 +489,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                        ShoppingCartId : parseInt(shoppingCardId)
+                    ShoppingCartId: parseInt(shoppingCardId)
                 })
             })
                 .then(res => {
@@ -498,6 +506,42 @@
         })
 
 
-    </script>
 
-}
+
+    </script>
+    <script>
+        let create_order_btn = document.querySelector(".caculate>a")
+        create_order_btn.addEventListener("click", () => {
+            let List = document.querySelectorAll("input.commodity-control:checked")
+            fetch("/api/Order/CreateOrder", {
+                method: 'Post',
+                cache: 'no-cache',
+                headers: new Headers({ 'Content-Type': 'application/json' }),
+                body: JSON.stringify({
+                    //加入產品詳細資訊
+                    ShoppingCradIdList: Array.from(List).map(x => parseInt(x.value))
+                })
+            })
+                .then(res => {
+                    if (res.status == 200) {
+                        toastr.success("新增成功");
+                        return res.json()
+                    }
+                    else {
+                        toastr.error("新增失敗");
+                        //return res.text()
+                    }
+                })
+                .then(obj => {
+                    //console.log(obj)
+                    //Status
+                    //Msg
+                    //Result
+                    window.location.href = `/Member/Checkout/${obj.result.id}`
+
+                })
+        })
+
+    </script>
+ }
+

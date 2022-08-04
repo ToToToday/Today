@@ -11,7 +11,7 @@ namespace Today.Web.DTOModels.ChenkoutDTO
         }
         public class ChenkoutResponseDTO
         {
-            public MemberInfo MemberDetail { get; set; }
+            public List<MemberInfo> MemberDetail { get; set; }
 
         }
 
@@ -22,7 +22,7 @@ namespace Today.Web.DTOModels.ChenkoutDTO
             public string PhoneNumber { get; set; }
             public string Email { get; set; }
         }
-        public OrderInfo OrderProductDetail { get; set; }
+        public List<OrderInfo> OrderProductDetail { get; set; }
 
         public class OrderInfo
         {
@@ -38,7 +38,7 @@ namespace Today.Web.DTOModels.ChenkoutDTO
 
 
         }
-        public OrderScreen SceenDetail { get; set; }
+        public List<OrderScreen> SceenDetail { get; set; }
 
         public class OrderScreen
         {

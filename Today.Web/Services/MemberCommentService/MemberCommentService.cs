@@ -20,7 +20,7 @@ namespace Today.Web.Services.MemberCommentService
 
         public DTOModels.MemberCommentDTO.MemberCommentResponseDTO ReadMemberComment(DTOModels.MemberCommentDTO.MemberCommentRequestDTO Id)
         {
-
+            var member = _repo.GetAll<Member>().Where(m => m.MemberId == Id.MemberId).Select(m => m.MemberName).First();
             var Order = _repo.GetAll<Order>().Where(m => m.MemberId == Id.MemberId);
             var OrderDetail = _repo.GetAll<OrderDetail>();
 
@@ -75,6 +75,7 @@ namespace Today.Web.Services.MemberCommentService
             var comment2 = _repo.GetAll<Today.Model.Models.Comment>().Where(cm => cm.MemberId == Id.MemberId).ToList();
             var result = new DTOModels.MemberCommentDTO.MemberCommentResponseDTO
             {
+                MemberName = member,
                 OrderInfo = new DTOModels.MemberCommentDTO.Order
                 {
                     OrderDtailList = Product.Select(p => new DTOModels.MemberCommentDTO.OrderDetailCard
@@ -121,7 +122,6 @@ namespace Today.Web.Services.MemberCommentService
                 CommentText = a.CommentText,
                 CommentDate = DateTime.Now,
                 OrderDetailsId = a.OrderDetailId,
-                CommentId = 17,
                 ProductId = a.ProductId,
                 MemberId = a.MemberId
             };
@@ -129,7 +129,7 @@ namespace Today.Web.Services.MemberCommentService
             {
                 _repo.Create(entity);
                 _repo.SavaChanges();
-                return "成功";
+                return "新增成功";
             }
             catch (Exception ex)
             {
@@ -148,6 +148,7 @@ namespace Today.Web.Services.MemberCommentService
             comment.CommentTitle = a.CommentTitle;
             comment.RatingStar = a.RatingStar;
             comment.CommentText = a.CommentText;
+                comment.CommentDate = DateTime.Now;
                 _repo.Update(comment);
                 _repo.SavaChanges();
                 return "修改成功";

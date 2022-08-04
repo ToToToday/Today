@@ -10,8 +10,5 @@ namespace Today.Web.Services.MemberService
 
         MemberResponseDTO GetMember(MemberRequestDTO MemberId);
         ResponseDTO UpdateMember(MemberResponseDTO input);
-
-        //ResponseDTO DeleteMember(MemberRequestDTO MemberId);
-
     }
 }

@@ -4,6 +4,7 @@ using Today.Web.DTOModels.CityDTO;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.CityDTO.CityDTO;
 using static Today.Web.DTOModels.CityDTO.RaiderDTO;
+using static Today.Web.DTOModels.ProductDTO.ProductDTO;
 
 namespace Today.Web.Services.CityService
 {
@@ -15,9 +16,7 @@ namespace Today.Web.Services.CityService
         List<RaiderCard> GetRaiderCard(CityRequestDTO request);
         List<CommentCard> GetAllComment(CityRequestDTO request);
         RaiderResponseDTO GetRaiders(RaiderRequestDTO request);
-        List<ProductCard> GetNewActiviy(CityRequestDTO request);
-        List<ProductCard> GetAboutProduct(CityRequestDTO request);
-        List<ProductCard> GetTopTen(CityRequestDTO request);
+        CityDTO GetAllCard(CityRequestDTO request);
 
     }
 }

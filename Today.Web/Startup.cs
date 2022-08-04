@@ -24,6 +24,7 @@ using Today.Web.Services.ProductInfoService;
 using Microsoft.OpenApi.Models;
 using Today.Web.Services.MemberCommentService;
 using Today.Web.Services.ShopCartService;
+using Today.Web.Services.OrderService;
 
 namespace Today.Web
 {
@@ -40,7 +41,7 @@ namespace Today.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<TodayDBContext>(options =>
+            services.AddDbContext<TodayDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
             });
@@ -51,6 +52,7 @@ namespace Today.Web
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
 
 
             // µù¥UDI
@@ -85,11 +87,12 @@ namespace Today.Web
 
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IClassifyService, ClassifyService>();
-            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IChenkoutService, ChenkoutService>();
             services.AddTransient<IEcpayService, EcpayService>();
             services.AddTransient<IProductInfoService, ProductInfoService>();
             services.AddTransient<IMemberCommentService, MemberCommentService>();
             services.AddTransient<IShopCartService, ShopCartService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,6 +123,7 @@ namespace Today.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //defaults: new { controller = "Products", action = "Index" ,id="Category"});
             });
         }
     }

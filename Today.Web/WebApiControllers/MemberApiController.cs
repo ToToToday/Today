@@ -29,13 +29,11 @@ namespace Today.Web.WebApiControllers
                 CityId = requestParam.CityId,
                 Age = requestParam.Age,
                 Phone = requestParam.Phone,
-                IdentityCard = requestParam.IdentityCard,
+                //IdentityCard = requestParam.IdentityCard,
                 Gender = requestParam.Gender,
             };
 
             var entity = _memberService.UpdateMember(inputDto);
-
-
 
             return Ok(entity);
         }
