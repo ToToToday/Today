@@ -389,11 +389,11 @@
                             <i class="icofont-lock"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="off" name="Password" required>
+                            <input class="inp-sty w-100"  id="password" placeholder="密碼" type="password" autocomplete="off" name="Password" required>
                         </div>
                     </div>
-                    <label class="d-flex">
-                        <input type="checkbox" class="me-2">
+                    <label class="d-flex" id="agree-label">
+                        <input id="checkAgree" type="checkbox" class="me-2">
                         <p>我已詳閱並同意<a class="text-color" href="#"> 使用者條款 </a>&<a class="text-color" href="#"> 隱私權保護政策 </a><span class="text-danger"> *</span></p>
                     </label>
                     <p class="google-recaptcha">
@@ -408,7 +408,7 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit">
+                        <button type="submit" class="btn btn-block w-100" id="signupSubmit">
                             註冊
                         </button>
                     </div>
@@ -423,7 +423,5 @@
     </div>
 </div>
 
-@*<partial name="_ValidationScriptsPartial"/>
-*@
 
 
