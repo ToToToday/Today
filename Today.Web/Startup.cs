@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,14 +12,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
+using Today.Web.Services.AccountService;
 using Today.Web.Services.CityService;
 using Today.Web.Services.locationService;
+using Today.Web.Services.MemberService;
 using Today.Web.Services.ProductService;
 using Today.Web.Services.ClassifyService;
 using Today.Web.Services.CheenkoutService;
 using Today.Web.Services.EcpayService;
 using Today.Web.Services.ProductInfoService;
 using Microsoft.OpenApi.Models;
+using Today.Web.Services.MemberCommentService;
+using Today.Web.Services.ShopCartService;
+using Today.Web.Services.OrderService;
 
 namespace Today.Web
 {
@@ -35,7 +41,7 @@ namespace Today.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<TodayDBContext>(options =>
+            services.AddDbContext<TodayDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("TodayDB"));
             });
@@ -46,11 +52,47 @@ namespace Today.Web
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
+
+
+            // 註冊DI
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<GenericRepository>();
+            services.AddScoped<IMemberService, MemberService>();
+            //services.AddScoped<IHttpContextAccessor, HttpContextAccessor>(); //(不要用，用內建方法【下面那行】)
+            services.AddHttpContextAccessor();
+
+            //Cookie
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    //全部寫得和預設值一樣
+
+                    //設定登入Action的路徑： 
+                    //options.LoginPath = new PathString("/Account/Login");
+
+                    ////設定 導回網址 的QueryString參數名稱：
+                    //options.ReturnUrlParameter = "ReturnUrl";
+
+                    ////設定登出Action的路徑： 
+                    //options.LogoutPath = new PathString("/Account/Logout");
+
+                    ////若權限不足，會導向的Action的路徑
+                    //options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                });
+
+
+            services.AddTransient<ILocationService, LocationService>();
+
+
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IClassifyService, ClassifyService>();
-            services.AddTransient<IChenkoutService, ChenkoutService> ();
+            services.AddTransient<IChenkoutService, ChenkoutService>();
             services.AddTransient<IEcpayService, EcpayService>();
             services.AddTransient<IProductInfoService, ProductInfoService>();
+            services.AddTransient<IMemberCommentService, MemberCommentService>();
+            services.AddTransient<IShopCartService, ShopCartService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +115,7 @@ namespace Today.Web
 
             app.UseRouting();
 
+            app.UseAuthentication(); //加
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -80,6 +123,7 @@ namespace Today.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //defaults: new { controller = "Products", action = "Index" ,id="Category"});
             });
         }
     }

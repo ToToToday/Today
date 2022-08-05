@@ -6,16 +6,15 @@ namespace Today.Web.Data
 {
     public class InitDB
     {
-        private readonly TodayDBContext _context;
+        private readonly TodayDbContext _context;
 
-        public InitDB():this(context: new TodayDBContext())
+        public InitDB():this(context: new TodayDbContext())
         {
-        }
 
-        public InitDB(TodayDBContext context)
+        }
+        public InitDB(TodayDbContext context)
         {
             _context = context;
-            
         }
         public void CreateBaseData()
         {

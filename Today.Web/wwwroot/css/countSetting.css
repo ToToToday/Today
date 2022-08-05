@@ -17,6 +17,8 @@
 }
 .page-head .nav-item{
     padding: 15px;
+    font-weight: bold;
+    font-size: 0.875rem;
 }
 .page-head .nav-item a{
     text-decoration: none;
@@ -55,9 +57,9 @@
 }
 
 /* 基本資料 */
- #profile{
+/* #profile{
     display: none;
-} 
+}*/ 
 .addtraveler {
     padding: 30px;
 }
@@ -87,9 +89,9 @@
 .addtraveler-text{
     margin-right: 5px;
 }
-/*#buddy .buddy-valid{
+#buddy .buddy-valid{
     display: none;
-}*/
+}
 
 
 @media screen and (min-width:768px) {

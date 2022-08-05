@@ -18,6 +18,38 @@ namespace Today.Web.Services.ProductService
         {
             _repo = repo;
         }
+        public ProductResponseDTO ConvertPages(ProductRequestDTO search)
+        {
+            var cityList = _repo.GetAll<City>();
+            var categoryList = _repo.GetAll<Category>();
+            //var productList = _repo.GetAll<Product>();
+
+            var selectCity = cityList.Where(c => c.CityName.Contains(search.SearchWord)).Select(c => c.CityId);
+            var selectCategory = categoryList.Where(c => c.CategoryName.Contains(search.SearchWord)).Select(c => c.CategoryId);
+
+            var result = new ProductResponseDTO();
+            int? cityId = (selectCity.Count() != 0) ? selectCity.First() : null;
+            int? categoryId = (selectCategory.Count() != 0) ? selectCategory.First() : null;
+            //var productId = productList.Where(p => p.ProductName.Contains(search.SearchWord)).Select(p => p.ProductId).ToList();
+
+            if (cityId != null && categoryId == null)
+            {
+                result.HasCityId = true;
+                result.Id = (int)cityId;
+            }
+            else if (categoryId != null && cityId == null)
+            {
+                result.HasCityId = false;
+                result.Id = (int)categoryId;
+            }
+            else
+            {
+                result.HasCityId = false;
+                result.Id = 0;
+            }
+
+            return result;
+        }
         
         public ProductDTO AllProduct()
         {
@@ -75,10 +107,16 @@ namespace Today.Web.Services.ProductService
                     ProductName = x.ProductName,
                     ProductPhoto = productPhotoList.Where(pp => pp.ProductId == x.ProductId).Select(x => x.Path).First(),
                     ChildCategoryName = productCategoryList.Where(pc => pc.ProductId == x.ProductId).Join(categoryList, pc => pc.CategoryId, c => c.CategoryId, (pc, c) => new { pc.ProductId, c.CategoryName }).Select(c => c.CategoryName).First(),
+                    CityId = x.CityId,
                     CityName = cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName).First(),
                     Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
                     Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
-                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId }).Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity }).Sum(n => n.Quantity),
+                    
+                    TotalOrder = programList.Where(program => program.ProductId == x.ProductId)
+                                            .Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId })
+                                            .Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity })
+                                            .Sum(n => n.Quantity),
+                    
                     Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
                 }),
                 CategoryList = allCategoryTemp

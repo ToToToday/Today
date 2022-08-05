@@ -18,11 +18,7 @@
             <div class="raiders-text-info col-md-8 px-0">
                 <p class="fw-bolder">@Html.Raw(@Model.RaiderPage.Text)</p>
                 <p>-</p>
-                @*<p>展覽門票輕鬆訂:</p>
-                <div class="raiders-product-link d-flex">
-                    <i class="icofont-link me-1 mt-1"></i>
-                    <a href="#" class="text-decoration-none fw-bold">神偷奶爸視界特展門票</a>
-                </div>*@
+               
             </div>
             <p><br></p>
             <p><br></p>
@@ -38,17 +34,19 @@
         </div>
     </div>
 </div>
-}
 
- @section topCSS{
-       <link rel="stylesheet" href="~/css/CityRaiders.css" />
-       <style>
-           footer ul li{
-               list-style: none;
+@section topCSS{
+    <link rel="stylesheet" href="~/css/CityRaiders.css" />
+    <style>
+        body{
+            margin: 0;
+        }
+        footer ul li{
+            list-style: none;
                
-           }
-           footer ul{
-               padding-left: 0px;
-           }
-        </style>
-   }
+        }
+        footer ul{
+            padding-left: 0px;
+        }
+    </style>
+}

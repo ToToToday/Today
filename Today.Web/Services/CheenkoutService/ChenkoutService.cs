@@ -13,7 +13,7 @@ namespace Today.Web.Services.CheenkoutService
         {
             _repo = repo;
         }
-        public MemberInfo GetOrderMember(ChenkoutRequestDTO request)
+        public List<MemberInfo> GetOrderMember(ChenkoutRequestDTO request)
         {
             var memberData = _repo.GetAll<Member>();
             var orderData = _repo.GetAll<Order>();
@@ -31,12 +31,12 @@ namespace Today.Web.Services.CheenkoutService
                 CityName = minfo.CityName,
                 PhoneNumber = minfo.Phone,
                 Email = minfo.Email
-            }).First();
+            }).ToList();
             
 
             return member;
         }
-        public OrderInfo GetOrderProduct(ChenkoutRequestDTO request)
+        public List<OrderInfo> GetOrderProduct(ChenkoutRequestDTO request)
         {
             var orderData = _repo.GetAll<Order>();
             var orderDetailData = _repo.GetAll<OrderDetail>();
@@ -63,7 +63,8 @@ namespace Today.Web.Services.CheenkoutService
                             join p in productData on
                             pg.ProductId equals p.ProductId
                             join pp in photoData on
-                            p.ProductId equals pp.ProductId
+                            p.ProductId equals pp.ProductId 
+                            where pp.Sort == 1
                             
                             select new { p.ProductName, p.ProductId, pp.Path, pg.Title, sp.UnitPrice, sp.Itemtext, sp.UnitText, od.DepartureDate, od.Quantity, od.Discount, o.OrderId };
             var orderResult = orderInfo.Where(or => or.OrderId == request.OrderId).Select(order => new OrderInfo
@@ -80,11 +81,11 @@ namespace Today.Web.Services.CheenkoutService
                 Quantity = order.Quantity,
 
 
-            }).First();
+            }).ToList();
 
             return orderResult;
         }
-        public OrderScreen GetOrderSceen(ChenkoutRequestDTO request)
+        public List<OrderScreen> GetOrderSceen(ChenkoutRequestDTO request)
         {
             var orderDetailData = _repo.GetAll<OrderDetail>();
             var SpecificationData = _repo.GetAll<ProgramSpecification>();
@@ -99,7 +100,7 @@ namespace Today.Web.Services.CheenkoutService
                 var screenResult = sData.Where(s => s.OrderId == request.OrderId).Select(s => new OrderScreen
                 {
                     Screen = s.Time
-                }).First();
+                }).ToList();
 
                 return screenResult;
             }

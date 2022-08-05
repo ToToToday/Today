@@ -1,9 +1,14 @@
+.active{
+    display: block;
+}
+.collapse-plate, .Evaluation-message ~ div {
+    display: none;
+}
 :root {
     --font-color: #138184;
     --font-color-Ash: #8a8a8a;
     --font-color-span: #26bec9;
 }
-
 .btn-close {
     display: inline-block;
 }
@@ -21,13 +26,24 @@
         border: #fff;
     }
 
-.asd-btn {
-    background-color: var(--font-color-span);
-}
+    .asd-btn {
+        background-color: var(--font-color-span);
+    }
 
 .shopping-cart-btn {
     background-color: cornflowerblue;
 }
+
+.icon-paper-plane:before {
+    color: currentcolor;
+    content: "\e094";
+}
+
+.fa-flash:before {
+    color: var(--font-color-span);
+    content: "\f0e7";
+}
+
 
 h5#offcanvasBottomLabel1 {
     text-align: initial;
@@ -41,7 +57,9 @@ html h5 {
 
 }
 
-
+.carousel-item > img {
+    height: 200px;
+}
 @media screen and (min-width: 768px) {
 
     .container {
@@ -140,7 +158,11 @@ h6.product-initial-title {
 .iph-AboutProgram-div {
     margin: 0 0 30px 0;
 }
-
+.Member-message {
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 20px;
+}
 .AboutProgram-div {
     padding: 10px 0;
     margin: 10px 0;
@@ -156,9 +178,7 @@ h6.product-initial-title {
     display: none;
 }
 
-html i {
-    font-size: 25px;
-}
+
 
 h2 {
     font-size: 1rem;
@@ -434,9 +454,6 @@ a.product-name {
         color: var(--font-color-Ash);
     }
 
-    .product-name ul {
-        border-bottom: 1px solid #f3e8e8;
-    }
 
     .product-name .Company-Culture {
         padding: 0 20px;
@@ -473,28 +490,36 @@ a.product-name {
             color: var(--font-color-Ash);
         }
 
-    .Evaluation .Evaluation-message {
-        margin: 10px 0;
-        padding: 10px 0;
-    }
-
         .Evaluation .Evaluation-message i {
             font-weight: normal;
         }
 
 div.Evaluation > a {
+    text-align:end;
     padding: 0 0 20px 0;
     color: var(--font-color-span);
     margin: auto 0 0 auto;
     font-weight: bold;
     border-bottom: 1px solid #f3e8e8;
+    cursor:pointer;
 }
 
-.Member-star-div:hover i {
+.message-img {
+    padding: 20px 0
+}
+.img-message-div {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+}
+i.Member-star.fa-solid.fa-star {
     color: var(--font-color-span);
-    -webkit-transition-duration: 2s;
-    transition-duration: 2s;
-    font-weight: 800;
+    font-weight: 900;
+}
+.img-message-div > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
 
 .selected-date, .selected-Program {
@@ -662,6 +687,10 @@ h5 {
 
 
 @media screen and (min-width: 992px) {
+
+    .carousel-item > img {
+        height: 450px;
+    }
     p.initial-money{
         margin: auto;
         text-align: end;

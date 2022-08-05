@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Today.Web.Services.AccountService;
+@using Today.Web.ViewModels.Account
+@inject IAccountService _accountService
+@{
+    var isAuthenticated = _accountService.IsAuthenticated();
 }
 
 <header class="nav-limit w-100 position-fixed border-bottom border-secondary">
@@ -6,67 +10,59 @@
         <div class="container-fluid px-2 px-md-4">
             <div class="inputlogo-group d-flex justify-content-start col-7 align-items-center">
                 <h1 class="w-25 me-3">
-                    <a href="#" class="align-top">
+                    <a href="~/Home/Index" class="align-top">
                         <img src="https://raw.githubusercontent.com/ToToToday/Today/main/LOGO.png" alt="Today" class="w-100">
                     </a>
                 </h1>
                 <div class="add-height" style="height: 48px;"></div>
-                <div class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")">
-                    <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、景點、體驗行程或活動名稱…"
-                            aria-label="Recipient's username" aria-describedby="search" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                    <button class="btn" type="button" id="search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <div class="search-box px-2 py-3 border rounded w-120 dropdown-menu dropdown-menu-start mt-2">
-                        <span class="title w-100 d-block mb-2">熱門目的地</span>
-                        <div class="seacrch-keywords d-flex flex-wrap flex-column" style="height: 200px;">
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">台南</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">高雄</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">桃園</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">平溪</a>
-                            <a class="px-3 py-2 border-end border-secondary text-black-50 text-decoration-none" href="#">彰化</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">苗栗</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none" href="#">雲林</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">台中</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">嘉義</a>
-                            <a class="px-3 py-2 text-black-50 text-decoration-none href=" #"">南投</a>
-                        </div>
+                <form class="input-group w-75 border-secondary border rounded-pill @(ReferenceEquals(ViewData["SearchBox"], "None")?"d-none":"d-flex")" method="post" action="/Home/Index">
+                    <input type="text" class="form-control border-0 ms-3" placeholder="輸入目的地、或活動類型…" aria-label="請輸入城市名稱" aria-describedby="search" name="searchword" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <button class="btn" type="submit" id="search-nav"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <div class="search-box px-2 py-3 border rounded w-110 dropdown-menu dropdown-menu-start mt-2">
+                        <span class="title w-100 d-block mb-2 fw-blod">熱門目的地</span>
+                        <ul class="seacrch-keywords">
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/22">澎湖<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/3">台北<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/17">花蓮<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/18">宜蘭<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/16">台東<i class="fa-brands fa-hotjar ms-2 text-danger"></i></a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/12">台南</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/13">高雄</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/4">桃園</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/8">彰化</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/6">苗栗</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/10">雲林</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/7">台中</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/11">嘉義</a></li>
+                        <li class="px-3 py-2"><a class="text-black-50 text-decoration-none" href="~/Product/CityTour/9">南投</a></li>
+                    </ul>
                     </div>
-                </div>
+                </form>
             </div>
-            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <!-- <span class="navbar-toggler-icon bg-black">
-                    </span> -->
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="bg-black"></span>
                 <span class="bg-black"></span>
                 <span class="bg-black"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav my-2 my-lg-0">
-                    <form method="get" asp-action="/Account/Login">
-                        @if (true)
+                    <form class="Auth" method="get" asp-action="/Account/Login">
+                        @if (isAuthenticated)
                         {
                             @*<div>成功</div>*@
                             <!--手機(已登入)-->
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center"  href="~/Member/CountSetting">
                                     <span class="big-headimg col-3">
-                                        <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle">
+                                        <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle">
                                     </span>
-                                    <p class="flex-grow-1">蝦毀</p>
+                                    <p class="flex-grow-1">帳號設定</p> @*@ViewData["MemberName"]*@
                                     <span class="setting-icon col-3 text-end">
                                         <i class="fa-solid fa-gear"></i>
                                     </span>
                                 </a>
                             </li>
-                            <li class="nav-item d-sm-block d-lg-none m-2">
+                            @*<li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex" href="#">
                                     <span class="member-icon col-3">
                                         <i class="fa-regular fa-gem"></i>
@@ -76,9 +72,9 @@
                                         <p class="member-level-display">白銀會員</p>
                                     </span>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/Coupon">
                                     <span class="ticket-icon col-3">
                                         <i class="fa-solid fa-ticket-simple"></i>
                                     </span>
@@ -86,16 +82,16 @@
                                     <p class="coupon-display col-3 text-end">0</p>
                                 </a>
                             </li>
-                            <li class="nav-item d-sm-block d-lg-none m-2">
+                            @*<li class="nav-item d-sm-block d-lg-none m-2">
                                 <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
                                     <span class="task-icon col-3">
                                         <i class="fa-solid fa-list-ul"></i>
                                     </span>
                                     <p class="task-title flex-grow-1">解任務，賺獎勵</p>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/MessageManage">
                                     <span class="message-icon col-3">
                                         <i class="fa-regular fa-comment-dots"></i>
                                     </span>
@@ -103,7 +99,7 @@
                                 </a>
                             </li>
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/MyCollect">
                                     <span class="collect-icon col-3">
                                         <i class="fa-regular fa-heart"></i>
                                     </span>
@@ -111,7 +107,7 @@
                                 </a>
                             </li>
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="#">
+                                <a class="nav-link text-secondary text-opacity-75 d-flex align-items-center" href="~/Member/OrderManage">
                                     <span class="order-icon col-3">
                                         <i class="fa-regular fa-rectangle-list"></i>
                                     </span>
@@ -134,22 +130,28 @@
                                     <p class="order-title flex-grow-1">常見問題與幫助</p>
                                 </a>
                             </li>
+                            <!-- 中型裝置(都存在) -->
+                            <li class="nav-item d-none d-lg-block m-auto">
+                                <a class="nav-link text-secondary text-opacity-75 me-4" href="~/Member/ShopCart">
+                                    <i class="fa-solid fa-cart-shopping fs-6"></i>
+                                </a>
+                            </li>
                             <!--中型裝置(以登入)-->
                             <li class="nav-item d-none d-lg-block">
-                                <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 <div class="user-info border rounded dropdown-menu py-0 dropdown-menu-end mt-0">
-                                    <a class="top-info text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                    <a class="top-info text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/CountSetting">
                                         <span class="big-headimg col-3">
-                                            <img src="https://picsum.photos/300/200/?random=10" alt="..." class="rounded-circle">
+                                            <img src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg" alt="..." class="rounded-circle">
                                         </span>
-                                        <p class="flex-grow-1">蝦毀</p>
+                                        <p class="flex-grow-1">帳號設定</p>
                                         <span class="setting-icon col-3 text-end">
                                             <i class="fa-solid fa-gear"></i>
                                         </span>
                                     </a>
                                     <hr class="dropdown-divider mx-0">
                                     <span class="body-info border-bottom border-secondary">
-                                        <a class="member-level text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        @*<a class="member-level text-black text-decoration-none d-flex align-items-center px-3 py-2">
                                             <span class="member-icon col-3">
                                                 <i class="fa-regular fa-gem"></i>
                                             </span>
@@ -157,36 +159,36 @@
                                                 <p class="member-level-title mb-1">我的會員禮遇</p>
                                                 <p class="member-level-display">白銀會員</p>
                                             </span>
-                                        </a>
-                                        <a class="discount-coupon text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        </a>*@
+                                        <a class="discount-coupon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/Coupon">
                                             <span class="ticket-icon col-3">
                                                 <i class="fa-solid fa-ticket-simple"></i>
                                             </span>
                                             <p class="coupon-title flex-grow-1">Today 折扣券</p>
                                             <p class="coupon-display col-3 text-end">0</p>
                                         </a>
-                                        <a class="task text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        @*<a class="task text-black text-decoration-none d-flex align-items-center px-3 py-2">
                                             <span class="task-icon col-3">
                                                 <i class="fa-solid fa-list-ul"></i>
                                             </span>
                                             <p class="task-title flex-grow-1">解任務，賺獎勵</p>
-                                        </a>
+                                        </a>*@
                                     </span>
-                                    <hr class="dropdown-divider mx-0">
+                                    @*<hr class="dropdown-divider mx-0">*@
                                     <span class="middle-info">
-                                        <a class="order text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        <a class="order-icon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/OrderManage">
                                             <span class="order-icon col-3">
                                                 <i class="fa-regular fa-rectangle-list"></i>
                                             </span>
                                             <p class="order-title flex-grow-1">訂單管理</p>
                                         </a>
-                                        <a class="message text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        <a class="message-icon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/MessageManage">
                                             <span class="message-icon col-3">
                                                 <i class="fa-regular fa-comment-dots"></i>
                                             </span>
                                             <p class="message-title flex-grow-1">訊息管理</p>
                                         </a>
-                                        <a class="collect text-black text-decoration-none d-flex align-items-center px-3 py-2">
+                                        <a class="collect-icon text-black text-decoration-none d-flex align-items-center px-3 py-2" href="~/Member/MyCollect">
                                             <span class="collect-icon col-3">
                                                 <i class="fa-regular fa-heart"></i>
                                             </span>
@@ -205,7 +207,7 @@
                             @*<div>失敗</div>*@
                             <!-- 手機(未登入) -->
                             <li class="nav-item d-sm-block d-lg-none m-2">
-                                <a class="nav-link text-secondary text-opacity-75" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <a class="nav-link shopping-cart text-secondary text-opacity-75" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     <i class="fa-solid fa-right-to-bracket"></i>
                                     登入
                                 </a>
@@ -223,8 +225,8 @@
                                 </a>
                             </li>
                             <!-- 中型裝置(都存在) -->
-                            <li class="nav-item d-none d-lg-block m-auto me-2">
-                                <a class="nav-link text-secondary text-opacity-75" href="#">
+                            <li class="nav-item d-none d-lg-block m-auto">
+                                <a class="nav-link text-secondary text-opacity-75" href="~/Member/ShopCart">
                                     <i class="fa-solid fa-cart-shopping fs-6"></i>
                                 </a>
                             </li>
@@ -238,13 +240,13 @@
             </div>
         </div>
     </nav>
-    <partial name="Layout/_NavBottomPartial"/>
+    <partial name="LayoutPartial/_NavBottomPartial"/>
 </header>
 
 <!-- 登入Model -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        <div class="modal-content position-relative">
+        <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
                     <i class="icofont-rounded-left"></i>
@@ -274,21 +276,28 @@
                 </div>
                 @*加 method="post" action="/Account/Login"*@
                 <form class="login-form form-horizontal" role="form" method="post" action="/Account/Login">
+                    @Html.AntiForgeryToken()
                     <p>Today會員帳號登入</p>
                     <div class="input-box d-flex">
                         <div class="icon-set">
                             <i class="icofont-envelope text-black-50"></i>
                         </div>
+                        <!-- 電子郵件 -->
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email">
-                        </div>
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="on" name="Email" required>
+                            @*<input asp-for="loginVM.Email" class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email"/>*@
+                            @*<span asp-validation-for="loginVM.Email" class="text-danger"></span>*@
+                      </div>
                     </div>
                     <div class="input-box d-flex">
                         <div class="icon-set">
                             <i class="icofont-lock text-black-50"></i>
                         </div>
+                        <!-- 密碼 -->
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="password" name="Password">
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="on" name="Password" required>
+                            @*<input asp-for="loginVM.Password" class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" />*@
+                            @*<span asp-validation-for="loginVM.Password" class="text-danger"></span>*@
                         </div>
                     </div>
                     <a class="forgot-password text-black-50" href="#">忘記密碼</a>
@@ -304,9 +313,7 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                data-bs-dismiss="modal">
+                        <button type="submit" class="btn btn-block w-100" @*data-bs-dismiss="modal"*@>
                             登入
                         </button>
                     </div>
@@ -323,22 +330,23 @@
                     </a>
                 </div>
                 <div id="dont-add" class="dont-add text-black-50">
-                    還未加入KKday嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">立即註冊！</a>
+                    還未加入Today嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">立即註冊！</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
 <!-- 註冊Model -->
 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
-        <div class="modal-content position-relative">
+        <div class="modal-content login-modal position-relative">
             <div class="modal-header login-modal position-relative">
                 <div class="left-icon position-absolute" data-bs-dismiss="modal">
                     <i class="icofont-rounded-left"></i>
                 </div>
-                <h5 class="modal-title" id="exampleModalLabel2">免費註冊</h5>
+                <h5 class="modal-title login-modal" id="exampleModalLabel2">免費註冊</h5>
             </div>
             <button type="button" class="btn-close position-absolute" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body login-modal">
@@ -363,15 +371,16 @@
                     <span class="or d-inline-block">或</span>
                 </div>
                 @*加 method="post" action="/Account/SignUp"*@
-                <form class="login-form" method="post" action="/Account/SignUp">
-                    <p>免費註冊 KKday 會員帳號</p>
+                <form class="login-form" role="form" method="post" action="/Account/SignUp">
+                    @Html.AntiForgeryToken()
+                    <p>免費註冊 Today 會員帳號</p>
                     <!-- 電子郵件 -->
                     <div class="input-box d-flex">
                         <div class="icon-set">
                             <i class="icofont-envelope"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email">
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="off" name="Email" required>
                         </div>
                     </div>
                     <!-- 密碼 -->
@@ -380,7 +389,7 @@
                             <i class="icofont-lock"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="password" name="Password">
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="off" name="Password" required>
                         </div>
                     </div>
                     <label class="d-flex">
@@ -399,16 +408,22 @@
                         apply.
                     </p>
                     <div class="btn-box">
-                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit"
-                                data-gtm-name="login-btn" data-gtm-channel="KKDAY"
-                                data-bs-dismiss="modal">
+                        <button type="submit" class="btn btn-block w-100" id="modal-login-btn-submit">
                             註冊
                         </button>
                     </div>
                 </form>
+                <div id="dont-add" class="dont-add text-black-50">
+                    還未登入Today嗎？<a id="register_show" class="text-black text-black-50" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">立即登入！</a>
+                </div>
 
-                <div class="footer login-modal text-color" data-bs-toggle="modal" data-bs-target="#staticBackdrop">登入KKday</div>
+                <div class="footer login-modal text-color" data-bs-toggle="modal" data-bs-target="#staticBackdrop">登入Today</div>
             </div>
         </div>
     </div>
 </div>
+
+@*<partial name="_ValidationScriptsPartial"/>
+*@
+
+
