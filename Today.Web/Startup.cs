@@ -25,6 +25,7 @@ using Microsoft.OpenApi.Models;
 using Today.Web.Services.MemberCommentService;
 using Today.Web.Services.ShopCartService;
 using Today.Web.Services.OrderService;
+using Today.Web.Services.BookService;
 
 namespace Today.Web
 {
@@ -53,6 +54,7 @@ namespace Today.Web
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IBookService, BookService>();
 
 
             // µù¥UDI
