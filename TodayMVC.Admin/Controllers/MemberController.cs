@@ -8,5 +8,9 @@ namespace TodayMVC.Admin.Controllers
         {
             return View();
         }
+        public IActionResult CommentManage()
+        {
+            return View();
+        }
     }
 }
