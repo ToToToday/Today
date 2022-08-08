@@ -84,160 +84,212 @@
             </div>
 
             <div class="col-12 col-lg-9 text">
-                <div class="card collection-card">
+                <div class="card collection-card main-block" id="container">
                     <div class="page-head">
                         <h2>我的收藏</h2>
-                    </div>
-
-                    <!-- 無收藏 -->
-                    <div class="page-text">
-                        <div class="collection-group">
-                            <div class="collection">
-                                <div class="collection-text">
-                                    <img src="https://cdn.kkday.com/pc-web/assets/img/empty_state/wish_list.svg"
-                                     width="140" height="140">
-                                    <h4>您目前沒有收藏清單！</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 有收藏，JS動態生成卡片 -->
-                    <div class="page-text-dynamic">
-                        <div class="card_detail_head d-flex">
-                            <div class="quantity">
-                                <strong class="text-info">2</strong>
-                                個行程在您的收藏
-                            </div>
-
-                            @*<div class="dropdown nation">
-                                <span>Sort by : </span>
-                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span>所有國家</span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item active">所有國家</a></li>
-                                    <li><a class="dropdown-item">台灣</a></li>
-                                </ul>
-                            </div>*@
-                        </div>
-
-                        <div class="card_detail shadow bg-body rounded">
-                            <div class="row g-0">
-                                <div class="col-md-4 ">
-                                    <div class="pic h-100">
-                                        <img class="img-fluid w-100 h-100 m-auto"
-                                         src="https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_101517/20220113021116_z1ha0/jpg">
-                                        <i class="fa-solid fa-heart btn-wish p-3 me-2"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 rounded-3 ">
-                                    <div class="card-body">
-                                        <h2 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h2>
-                                        <div class="card-point py-2 ">
-                                            <span class="label label-addational rounded-3 ">即買即用</span>
-                                            <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-                                            <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                        </div>
-                                        <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
-                                            Xpark 於 2022
-                                            年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                        </p>
-                                        <div class="prodduct-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                            <i class="fa-solid fa-location-dot"></i>
-                                            <div class="prodduct-listview_inco_info flex_item product-palce">
-                                                <p class="card-text d-flex ms-2">
-                                                    台灣 桃園</small>
-                                                </p>
-                                            </div>
-                                            <i class="fa-regular fa-calendar  ms-3"></i>
-                                            <div class="prodduct-listview_inco_info  product-time">
-                                                <p class="card-text ms-2">
-                                                    最早可預訂日期 : 今日</small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="footer  d-flex flex-wrap">
-                                            <div class="product_footer m-auto col-8 mt-3">
-                                                <i class="fa-solid fa-star "></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star-half"></i>
-
-                                                <span class="number">(366691)</span>
-                                                <i class="fa-solid fa-fire py-2">
-                                                    <span class="subscription">484K+ 個已訂購</span>
-                                                </i>
-                                            </div>
-                                            <div class="doller d-flex flex-wrap justify-content-end col-4 ps-2">
-                                                <p class="TWD-line text-decoration-line-through p-1 ">TWD 850</p>
-                                                <div class="discount me-1 p-1">73%OFF</div>
-                                                <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card_detail shadow bg-body rounded">
-                            <div class="row g-0">
-                                <div class="col-md-4 ">
-                                    <div class="pic h-100">
-                                        <img class="img-fluid w-100 h-100 m-auto"
-                                         src="https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_2460/20220217014308_QNoTt/jpg">
-                                        <i class="fa-solid fa-heart btn-wish p-3 me-2"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 rounded-3 ">
-                                    <div class="card-body">
-                                        <h2 class="card-title">【2022澎湖花火節】澎湖秘境跳島一日遊｜忘憂島浮潛＆無人島探險＆頭巾嶼＆南方四島（暑假保證有位）</h2>
-                                        <div class="card-point py-2 ">
-                                            <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                        </div>
-                                        <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">
-                                            現在預約澎湖忘憂島一日遊，帶您前往全台唯一國家海洋公園浮潛、水上活動，欣賞七彩珊瑚礁群！專業中文導覽，帶你從澎湖出發，踏上澎湖無人島探險特殊潮池景觀與離島網美秘境！
-                                        </p>
-                                        <div class="prodduct-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                            <i class="fa-solid fa-location-dot"></i>
-                                            <div class="prodduct-listview_inco_info flex_item product-palce">
-                                                <p class="card-text d-flex ms-2">
-                                                    台灣 澎湖</small>
-                                                </p>
-                                            </div>
-                                            <i class="fa-regular fa-calendar  ms-3"></i>
-                                            <div class="prodduct-listview_inco_info  product-time">
-                                                <p class="card-text ms-2">
-                                                    最早可預訂日期 : 2022-06-18</small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="footer  d-flex flex-wrap">
-                                            <div class="product_footer m-auto col-8 mt-3">
-                                                <i class="fa-solid fa-star "></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star-half"></i>
-
-                                                <span class="number">(331)</span>
-                                                <i class="fa-solid fa-fire py-2">
-                                                    <span class="subscription">1K+ 個已訂購</span>
-                                                </i>
-                                            </div>
-                                            <div class="doller d-flex flex-wrap justify-content-end col-4 ps-2 nocoupon">
-                                                <!-- <p class="TWD-line text-decoration-line-through p-1 ">TWD 3800</p> -->
-                                                <!-- <div class="discount me-1 p-1">73%OFF</div> -->
-                                                <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 3800</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+<template id="no-collection">
+    <div class="page-text">
+        <div class="collection-group">
+            <div class="collection">
+                <div class="collection-text">
+                    <img src="https://cdn.kkday.com/pc-web/assets/img/empty_state/wish_list.svg"
+                        width="140" height="140">
+                    <h4>您目前沒有收藏清單！</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="has-collection">
+    <div class="page-text-dynamic">
+        <div class="card_detail_head d-flex">
+            <div class="quantity">
+                <strong class="text-info">2</strong>
+                個行程在您的收藏
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="collection-card">
+    <div class="card_detail shadow bg-body rounded position-relative">
+        <a href="#">
+            <div class="row g-0">
+                <div class="col-md-4 ">
+                    <div class="pic h-100">
+                        <img class="img-fluid w-100 h-100 m-auto"
+                            src="https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_101517/20220113021116_z1ha0/jpg">
+                    </div>
+                </div>
+                <div class="col-md-8 rounded-3 ">
+                    <div class="card-body">
+                        <h2 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h2>
+                        <div class="card-point py-2 ">
+                        </div>
+                        <div class="prodduct-listview_inco_info d-flex flex-wrap my-2 me-2 align-item-center">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div class="prodduct-listview_inco_info flex_item product-palce">
+                                <p class="card-text d-flex ms-2 text-black-50">
+                                    <small>桃園</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="footer d-flex flex-wrap">
+                            <div class="product_footer m-auto col-8 mt-3">
+                                <i class="fa-solid fa-star "></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half"></i>
+
+                                <span class="number comment-number">(366691)</span>
+                                <i class="fa-solid fa-fire py-2">
+                                    <span class="subscription ordered">484K+ 個已訂購</span>
+                                </i>
+                            </div>
+                            <div class="doller d-flex flex-wrap flex-direction-column col-4 align-content-end">
+                                <p class="TWD-line text-decoration-line-through p-1 text-end w-100">TWD 850</p>
+                                <h4 class="TWD p-1 text-end w-100">TWD 550</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <i class="fa-solid fa-heart btn-wish position-absolute"></i>
+    </div>
+</template>
+
+<template id="product-tag">
+    <span class="label label-addational rounded-3 m-1">即買即用</span>
+</template>
+
+@section endJS{
+    <script>
+        let collectionlist = @Html.Raw(ViewData["Collection"])
+        let mainblock = document.querySelector(".collection-card.main-block")
+        let nocollectiontemplate = document.querySelector("#no-collection")
+        let hascollectiontemplate = document.querySelector("#has-collection")
+        let collectioncardtemplate = document.querySelector("#collection-card")
+        let producttagtemplate = document.querySelector("#product-tag")
+        let temp, cardheart, url, isfavorite, carddetail, count
+
+        if (collectionlist.length > 0) {
+            mainblock.append(getblock(collectionlist.length))
+        }
+        else{
+            mainblock.append(nocard())
+        }
+
+        function nocard() {
+            let nocollection = nocollectiontemplate.content.cloneNode(true)
+
+            return nocollection
+        }
+
+        function getblock(length) {
+            let block = hascollectiontemplate.content.cloneNode(true)
+
+            block.querySelector(".quantity .text-info").innerText = length
+            collectionlist.forEach((item, index) => {
+                block.querySelector(".page-text-dynamic").append(getcard(item))
+            })
+
+            return block
+        }
+
+        function getcard(target){
+            let collectioncard = collectioncardtemplate.content.cloneNode(true)
+
+            collectioncard.querySelector("a").href = `~/ProductInfo/${target.Id}`
+            collectioncard.querySelector("img").src = target.ProductPhoto
+            collectioncard.querySelector(".card-body .card-title").innerText = target.ProductName
+            target.Tags.forEach((item, index) => {
+                collectioncard.querySelector(".card-point").append(gettag(item))
+            })
+            collectioncard.querySelector(".product-palce .card-text small").innerText = target.CityName
+            collectioncard.querySelector(".footer .number.comment-number").innerText = `(${target.TotalGiveComment})`
+            collectioncard.querySelector(".footer .subscription.ordered").innerText = `${target.TotalOrder} 個已訂購`
+            if (target.OriginalPrice !== null){
+                collectioncard.querySelector(".doller .TWD-line").innerText = `TWD ${target.OriginalPrice}`
+            }
+            else{
+                collectioncard.querySelector(".doller .TWD-line").classList.toggle("d-none")
+            }
+            collectioncard.querySelector(".doller .TWD").innerText = `TWD ${target.Price}`
+
+            return collectioncard;
+        }
+
+        function gettag(target) {
+            let clonetag = producttagtemplate.content.cloneNode(true)
+
+            clonetag.querySelector(".label").innerText = target
+
+            return clonetag;
+        }
+
+        window.onload = function(){
+            carda = document.querySelectorAll(".card_detail a")
+            cardheart = document.querySelectorAll(".card_detail .fa-heart")
+            carddetail = document.querySelectorAll(".card_detail")
+            count = document.querySelector(".page-text-dynamic .text-info")
+            let cardheartcount = cardheart.length
+
+            cardheart.forEach((item, index) => {
+                item.addEventListener("click", function(event) {
+                    item.animate(heartscale, heartTiming)
+
+                    item.classList.toggle("fa-solid")
+                    item.classList.toggle("fa-regular")
+
+                    url = "/api/Collection/RemoveCollect"
+                    isfavorite = false
+
+                    fetch(url, {
+                        method: 'post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            ProductId: carda[index].href.substring(carda[index].href.lastIndexOf('/') + 1, carda[index].href.length),
+                            Favorite: isfavorite,
+                        })
+                    })
+                        .then(res => {
+                            if (res.status === 200) {
+                                console.log('OK')
+                            }
+                            else {
+                                console.log('Fail')
+                            }
+                        })
+
+                    if (isfavorite === false){
+                        carddetail[index].remove()
+                        cardheartcount--
+                        count.innerText = cardheartcount
+                    }
+                })
+            })
+        }
+
+        const heartscale = [
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.5)' },
+            { transform: 'scale(1)' },
+        ]
+
+        const heartTiming = {
+            duration: 1000,
+            iterations: 1
+        }
+    </script>
+}

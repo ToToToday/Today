@@ -53,9 +53,9 @@
 
 
 /* 無訂單 */
-.page-text{
+/*.page-text{
     display: none;
-}
+}*/
 /* 有訂單 */
 /* .page-text-dynamic{
     display: none;
@@ -125,13 +125,14 @@ p .card-text {
     text-shadow: 0 1px 2px #e18d0e;
     border-radius: 4px 4px 0 4px;
 }
-.fa-heart {
-    position: absolute;
-    right: 0;
-    color: #fff;
-    -webkit-text-stroke: 2px #ccc;
+.fa-solid.fa-heart {
+    color: #ff0000;
 }
-.fa-heart:hover {
+.fa-regular.fa-heart {
+    color: #fff;
+    -webkit-text-stroke: 1px #ccc;
+}
+.fa-regular.fa-heart:hover {
     color: #f00;
 }
 .text{
@@ -140,14 +141,27 @@ p .card-text {
 .nocoupon{
     align-items: flex-end;
 }
+.card_detail .fa-heart{
+    top: 7%;
+    right: 13%;
+}
+
+@media screen and (min-width: 375px){
+    .card_detail .fa-heart {
+        top: 7%;
+        right: 10%;
+    }
+}
 
 
-
-
-@media screen and (min-width:768px) {
+@media screen and (min-width: 768px) {
     .container .bigrow{
         padding-bottom: 250px;
-    }   
+    }
+    .card_detail .fa-heart {
+        top: 15%;
+        right: 5%;
+    }
 }
 
 @media screen and (min-width:992px) {

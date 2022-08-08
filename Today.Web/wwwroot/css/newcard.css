@@ -5,12 +5,29 @@
     z-index: 10;
 }
 .location-tag {
-    top: 10%;
-    left: 5%;
+    top: 7%;
+    left: 10%;
+    cursor: pointer;
 }
-.heart {
+span.heart {
+    top: 7%;
+    right: 10%;
+    cursor: pointer;
+}
+.fa-regular.fa-heart {
+    color: #fff;
+    -webkit-text-stroke: 1px #ccc;
+}
+.fa-regular.fa-heart:hover {
+    color: #f00;
+}
+.heart .fa-solid.fa-heart, .row-card .fa-solid.fa-heart{
+    color: #ff0000;
+}
+.row-card .fa-heart{
     top: 10%;
     right: 5%;
+    cursor: pointer;
 }
 .fixed-card img{
     transition: transform 1s ease;

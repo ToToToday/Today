@@ -32,7 +32,8 @@ namespace Today.Web.Controllers
         public IActionResult Index()
         {
             TempData["SearchMessage"] = string.Empty;
-            var homeproductSource = _productService.GetAllProductCard();
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+            var homeproductSource = _productService.GetAllProductCard(userId);
             var citySource = _productService.PopularCityCard().CityList;
             var categorySource = homeproductSource.CategoryList;
 
@@ -49,6 +50,7 @@ namespace Today.Web.Controllers
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
+                    Favorite = h.Favorite,
                     Price = (h.Price == null) ? null : h.Price
                 }).ToList(),
                 TopProduct = homeproductSource.TopProduct.Select(h => new ProductVM.ProductCardInfo()
@@ -57,6 +59,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -70,6 +73,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -83,6 +87,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -96,6 +101,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -109,6 +115,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -122,6 +129,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -135,6 +143,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -148,6 +157,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,

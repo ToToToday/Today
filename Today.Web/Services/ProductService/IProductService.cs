@@ -10,7 +10,7 @@ namespace Today.Web.Services.ProductService
     {
         ProductResponseDTO ConvertPages(ProductRequestDTO search);
         ProductDTO AllProduct();
-        ProductDTO GetAllProductCard();
+        ProductDTO GetAllProductCard(int user);
         ProductDTO PopularCityCard();
         abstract List<string> MaybeCategoryList(List<CategoryInfo> source, string target);
     }

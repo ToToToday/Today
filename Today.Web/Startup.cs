@@ -26,6 +26,7 @@ using Today.Web.Services.MemberCommentService;
 using Today.Web.Services.ShopCartService;
 using Today.Web.Services.OrderService;
 using Today.Web.Services.BookService;
+using Today.Web.Services.CollectService;
 
 namespace Today.Web
 {
@@ -55,6 +56,7 @@ namespace Today.Web
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IBookService, BookService>();
+            services.AddTransient<ICollectionService, CollectionService>();
 
 
             // µù¥UDI
@@ -124,7 +126,7 @@ namespace Today.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Member}/{action=MyCollect}/{id?}");
                 //defaults: new { controller = "Products", action = "Index" ,id="Category"});
             });
         }
