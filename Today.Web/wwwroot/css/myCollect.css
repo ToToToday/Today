@@ -232,11 +232,19 @@ p .card-text {
         color: #333333;
         font-size: 0.875rem;
     }
-    .page-menu .active,
-    .page-menu .active a{
+    .page-menu .list-item.active,
+    .page-menu .list-item.active a{
         color: #26bec9;
     }
-    .page-menu .active{
+    .page-menu .list-item.active{
+        border-left: #26bec9 solid 4px;
+    }
+    .page-menu .list-item:hover ~ a
+    /*,
+    .page-menu .list-item a*/ {
+        color: #26bec9;
+    }
+    .page-menu .list-item:hover {
         border-left: #26bec9 solid 4px;
     }
     .page-menu .active .list-item-text{
