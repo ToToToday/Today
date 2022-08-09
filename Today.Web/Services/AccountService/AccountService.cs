@@ -38,7 +38,7 @@ namespace Today.Web.Services.AccountService
             //檢核 (檢核欄位以外的邏輯)
             if (IsExistAccount(input.Email))
             {
-                result.Message = "Email已存在"; //去DB檢查
+                result.Message = "Email已存在或密碼有誤"; //去DB檢查
                 return result;
             }
 
@@ -106,7 +106,7 @@ namespace Today.Web.Services.AccountService
             }
             if (memberFound.Password != Encryption.SHA256(input.Password)) //(0630-註冊與cookie驗證，35:50)
             {
-                result.Message = "密碼錯誤";
+                result.Message = "帳號不存在或密碼有誤";
                 return result;
             }
 
@@ -198,7 +198,6 @@ namespace Today.Web.Services.AccountService
                 new Claim( ClaimTypes.Name , memberFound.MemberId.ToString() ),
                 //new Claim( ClaimTypes.Email , memberFound.Email),
             };
-
 
             //lv2 用上面的資訊集合，造一個ClaimsIdentity物件。
             //(用多項個資，組出【證件】)
