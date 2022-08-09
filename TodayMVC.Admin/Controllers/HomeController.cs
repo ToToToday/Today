@@ -15,7 +15,7 @@ namespace TodayMVC.Admin.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
+            _logger = logger; 
         }
 
         public IActionResult Index()
