@@ -9,7 +9,6 @@ using Today.Web.ViewModels;
 using Today.Web.DTOModels.ClassifyDTO;
 using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 using System;
-using PagedList;
 using System.Web;
 namespace Today.Web.Services.ClassifyService
 {

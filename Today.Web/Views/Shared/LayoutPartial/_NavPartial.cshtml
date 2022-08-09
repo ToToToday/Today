@@ -1,9 +1,9 @@
 ﻿@using Today.Web.Services.AccountService;
-@using Today.Web.ViewModels.Account
 @inject IAccountService _accountService
 @{
     var isAuthenticated = _accountService.IsAuthenticated();
 }
+
 
 <header class="nav-limit w-100 position-fixed border-bottom border-secondary">
     <nav class="navbar navbar-expand-lg fixed-width m-auto px-1 py-2">
@@ -243,6 +243,20 @@
     <partial name="LayoutPartial/_NavBottomPartial"/>
 </header>
 
+@using Today.Web.ViewModels.Account
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Authentication.Google
+@using Microsoft.AspNetCore.Authentication.Facebook
+@{
+    List<LoginOptionVM> loginOptions = new List<LoginOptionVM>
+    {
+        //new LoginOptionVM("電子郵件登入", CookieAuthenticationDefaults.AuthenticationScheme),
+        new LoginOptionVM("google", "Google登入","https://cdn.kkday.com/m-web/assets/img/sns/google.svg", GoogleDefaults.AuthenticationScheme),
+        new LoginOptionVM("fb", "臉書登入","https://cdn.kkday.com/m-web/assets/img/sns/facebook_white.svg", FacebookDefaults.AuthenticationScheme),
+        new LoginOptionVM("line", "Line登入","https://cdn.kkday.com/m-web/assets/img/sns/line_white.svg", "Line"),
+    };    
+}
+
 <!-- 登入Model -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-lg-down">
@@ -260,7 +274,14 @@
                 </div>
                 <p class="mb-3">使用社交平台帳戶登入</p>
                 <div class="All-icon">
-                    <a class="btn btn-circle" id="fb" href="#">
+                    @foreach(var loginOption in loginOptions)
+                    {
+                        <a class="btn btn-circle" id="@(loginOption.Id)" href="/Account/LoginOption/@(loginOption.Scheme)">
+                            <img src="@Html.Raw(loginOption.Image.Replace("\"", ""))" alt="@(loginOption.Id)">
+                        </a>
+                    }
+
+                    @*<a class="btn btn-circle" id="fb" href="#">
                         <img src="https://cdn.kkday.com/m-web/assets/img/sns/facebook_white.svg" alt="fb">
                     </a>
                     <a class="btn btn-circle" id="line" href="#">
@@ -268,7 +289,7 @@
                     </a>
                     <a class="btn btn-circle" id="google" href="#">
                         <img class="" src="https://cdn.kkday.com/m-web/assets/img/sns/google.svg" alt="google">
-                    </a>
+                    </a>*@
                 </div>
                 <div class="or-set position-relative">
                     <hr>
@@ -284,7 +305,7 @@
                         </div>
                         <!-- 電子郵件 -->
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="on" name="Email" required>
+                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="off" name="Email" required>
                             @*<input asp-for="loginVM.Email" class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email"/>*@
                             @*<span asp-validation-for="loginVM.Email" class="text-danger"></span>*@
                       </div>
@@ -295,12 +316,12 @@
                         </div>
                         <!-- 密碼 -->
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="on" name="Password" required>
+                            <input class="inp-sty w-100" placeholder="密碼" type="password" autocomplete="off" name="Password" required>
                             @*<input asp-for="loginVM.Password" class="inp-sty w-100" placeholder="密碼" type="password" size="3" autocomplete="password" name="Password" />*@
                             @*<span asp-validation-for="loginVM.Password" class="text-danger"></span>*@
                         </div>
                     </div>
-                    <a class="forgot-password text-black-50" href="#">忘記密碼</a>
+                    @*<a class="forgot-password text-black-50" href="#">忘記密碼</a>*@
                     <p class="google-recaptcha">
                         This site is protected by reCAPTCHA and the Google
                         <a href="https://policies.google.com/privacy" class="" target="_blank"
@@ -356,7 +377,14 @@
                 </div>
                 <p class="mb-3">使用社交平台帳戶登入</p>
                 <div class="All-icon">
-                    <a class="btn btn-circle" id="fb" href="#">
+                    @foreach(var loginOption in loginOptions)
+                    {
+                        <a class="btn btn-circle" id="@(loginOption.Id)" href="/Account/LoginOption/@(loginOption.Scheme)">
+                            <img src="@Html.Raw(loginOption.Image.Replace("\"", ""))" alt="@(loginOption.Id)">
+                        </a>
+                    }
+
+                    @*<a class="btn btn-circle" id="fb" href="#">
                         <img src="https://cdn.kkday.com/m-web/assets/img/sns/facebook_white.svg" alt="fb">
                     </a>
                     <a class="btn btn-circle" id="line" href="#">
@@ -364,7 +392,7 @@
                     </a>
                     <a class="btn btn-circle" id="google" href="#">
                         <img class="" src="https://cdn.kkday.com/m-web/assets/img/sns/google.svg" alt="google">
-                    </a>
+                    </a>*@
                 </div>
                 <div class="or-set position-relative">
                     <hr>
@@ -372,6 +400,15 @@
                 </div>
                 @*加 method="post" action="/Account/SignUp"*@
                 <form class="login-form" role="form" method="post" action="/Account/SignUp">
+                    @if (TempData["message"] != null)
+                    {
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <script type="text/javascript">
+                        var message = "@Html.Raw(TempData["message"])";
+                        alert(message);
+                    </script>
+                    }
+
                     @Html.AntiForgeryToken()
                     <p>免費註冊 Today 會員帳號</p>
                     <!-- 電子郵件 -->
