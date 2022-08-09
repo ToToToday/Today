@@ -79,5 +79,14 @@ namespace Today.Web.Services.MemberService
 
             return test;
         }
+        public string GetMemberName(MemberRequestDTO MemberId)
+        {
+            var result = _repo.GetAll<Member>()
+                .Where(m => m.MemberId == MemberId.MemberId)
+                .Select(m => m.MemberName)
+                .First();
+
+            return result;
+        }
     }
 }

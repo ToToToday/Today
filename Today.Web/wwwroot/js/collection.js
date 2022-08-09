@@ -5,10 +5,7 @@ productcollectheart.forEach((item, index) => {
     item.addEventListener("click", function (event) {
         item.animate(heartscale, heartTiming)
 
-        item.classList.toggle("fa-solid")
-        item.classList.toggle("fa-regular")
-
-        if (item.classList.contains("fa-regular")) {
+        if (item.classList.contains("fa-solid")) {
             url = "/api/Collection/RemoveCollect"
             isfavorite = false
         }
@@ -30,6 +27,8 @@ productcollectheart.forEach((item, index) => {
             .then(res => {
                 if (res.status === 200) {
                     console.log('OK')
+                    item.classList.toggle("fa-solid")
+                    item.classList.toggle("fa-regular")
                 }
                 else {
                     console.log('Fail')

@@ -126,7 +126,7 @@ namespace Today.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Member}/{action=MyCollect}/{id?}");
+                    pattern: "{controller=Product}/{action=Classify}/{id?}");
                 //defaults: new { controller = "Products", action = "Index" ,id="Category"});
             });
         }

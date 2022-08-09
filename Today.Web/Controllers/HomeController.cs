@@ -4,9 +4,11 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
 using Today.Web.Data;
+using Today.Web.DTOModels.MemberDTO;
 using Today.Web.DTOModels.ProductDTO;
 using Today.Web.Models;
 using Today.Web.Services.CityService;
+using Today.Web.Services.MemberService;
 using Today.Web.Services.ProductService;
 using Today.Web.ViewModels;
 
@@ -21,18 +23,29 @@ namespace Today.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
         private readonly ICityService _cityService;
+        private readonly IMemberService _memberService;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService, ICityService cityService)
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICityService cityService, IMemberService memberService)
         {
             _logger = logger;
             _productService = productService;
             _cityService = cityService;
+            _memberService = memberService;
         }
         [HttpGet]
         public IActionResult Index()
         {
             TempData["SearchMessage"] = string.Empty;
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+            //TempData["UserName"] = string.Empty;
+            //if (userId != 0)
+            //{
+            //    var request = new MemberDTO.MemberRequestDTO()
+            //    {
+            //        MemberId = int.Parse(User.Identity.Name)
+            //    };
+            //    TempData["UserName"] = _memberService.GetMemberName(request);
+            //}
             var homeproductSource = _productService.GetAllProductCard(userId);
             var citySource = _productService.PopularCityCard().CityList;
             var categorySource = homeproductSource.CategoryList;

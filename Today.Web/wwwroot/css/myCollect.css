@@ -128,11 +128,11 @@ p .card-text {
 .fa-solid.fa-heart {
     color: #ff0000;
 }
-.fa-regular.fa-heart {
+.main-block .fa-regular.fa-heart {
     color: #fff;
     -webkit-text-stroke: 1px #ccc;
 }
-.fa-regular.fa-heart:hover {
+.main-block .fa-regular.fa-heart:hover {
     color: #f00;
 }
 .text{
@@ -237,15 +237,14 @@ p .card-text {
         color: #26bec9;
     }
     .page-menu .list-item.active{
-        border-left: #26bec9 solid 4px;
+        border-left: #26bec9 solid 3px;
     }
-    .page-menu .list-item:hover ~ a
-    /*,
-    .page-menu .list-item a*/ {
-        color: #26bec9;
+    .page-menu .list-item:hover a {
+        color: #138184;
     }
     .page-menu .list-item:hover {
-        border-left: #26bec9 solid 4px;
+        border-left: #138184 solid 3px;
+        color: #138184;
     }
     .page-menu .active .list-item-text{
         margin-left: -4px;

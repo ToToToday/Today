@@ -121,6 +121,17 @@ namespace Today.Web.Controllers
         }
         public IActionResult MyCollect()
         {
+            var request = new MemberDTO.MemberRequestDTO()
+            {
+                MemberId = int.Parse(User.Identity.Name)
+            };
+            var memberName = _memberService.GetMemberName(request);
+
+            var memberNameInfo = new MemberVM.MemberInfo
+            {
+                MemberName = memberName
+            };
+
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             var dataSource = _collectionService.GetAllCollect(userId);
 
@@ -139,9 +150,10 @@ namespace Today.Web.Controllers
                 OriginalPrice = (d.Prices == null || d.Prices.OriginalPrice == d.Prices.Price) ? null : d.Prices.OriginalPrice,
                 Price = (d.Prices == null) ? null : d.Prices.Price
             }).ToList();
+
             ViewData["Collection"] = JsonConvert.SerializeObject(result.CollectionList);
 
-            return View();
+            return View(memberNameInfo);
         }
 
         [HttpGet]//請求
@@ -157,7 +169,9 @@ namespace Today.Web.Controllers
                     ScreeningId = s.ScreenId,
                     SpecificationId = s.SpecificationId,
                     ShoppingCartId = s.ShopCartId,
+                    ProductId = s.ProductId,
                     ProductName = s.ProductName,
+                    Favorite = s.Favorite,
                     ProgramTitle = s.ProgramTitle,
                     Path = s.ProductPhoto,
                     DepartureDate = s.DepartureDate,

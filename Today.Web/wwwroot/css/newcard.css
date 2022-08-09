@@ -5,23 +5,19 @@
     z-index: 10;
 }
 .location-tag {
-    top: 7%;
+    top: 6%;
     left: 10%;
     cursor: pointer;
 }
 span.heart {
-    top: 7%;
+    top: 6%;
     right: 10%;
     cursor: pointer;
 }
-.fa-regular.fa-heart {
-    color: #fff;
-    -webkit-text-stroke: 1px #ccc;
-}
-.fa-regular.fa-heart:hover {
+.swiper-slide .fa-regular.fa-heart:hover {
     color: #f00;
 }
-.heart .fa-solid.fa-heart, .row-card .fa-solid.fa-heart{
+.swiper-slide .fa-solid.fa-heart {
     color: #ff0000;
 }
 .row-card .fa-heart{
