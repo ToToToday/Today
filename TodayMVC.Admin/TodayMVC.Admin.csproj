@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Manager\" />
-    <Folder Include="WebApiControllers\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
