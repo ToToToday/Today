@@ -86,7 +86,7 @@
                 <div class="check-control">
                     <input class="form-check-input input" type="checkbox" id="checkout-control" value=""
                            aria-label="...">
-                    <label class="form-check-label " for="checkout-control">全選 (1)</label>
+                    <label class="form-check-label" for="checkout-control" value="">全選 (1)</label>
                     <span>
                         <button type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除已選項目</button>
                     </span>
@@ -94,14 +94,14 @@
                 <div class="caculate m-0">
                     <div class="total mb-3">
                         <span class="text-end">1件商品合計</span>
-                        <span class=" fw-bolder mt-2">TWD 28000</span>
+                        <span class=" fw-bolder mt-2">TWD @Model.ShopCartCardList.Select(s =>s.Sum).Sum()</span>
                     </div>
                     <a class="caculate-input fw-bolder mb-3 mx-3" @*asp-action="Checkout"*@>前往結帳</a>
                 </div>
             </div>
         </div>
 
-        <a href="#">繼續購物<i class="fa-solid fa-angle-right"></i></a>
+        <a href="~/Home/Index">繼續購物<i class="fa-solid fa-angle-right"></i></a>
 
 
         <div class="reconfirmation p-0">
@@ -356,11 +356,14 @@
 }
 
     @section endJS{
-
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>*@
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
 
 
@@ -373,23 +376,20 @@
     <script>
         let createItem = document.querySelectorAll(".list .item")
         let emptyCart = document.querySelector(".empty-cart")
-        //let time = document.querySelector(".time + span")
-        //let confirmItem = document.querySelectorAll(".reconfirmation .item")
+        let checkout = document.querySelector(".checkout")
+
         let reconfirmation = document.querySelector(".reconfirmation")
         let shoppingGroup = document.querySelector(".shopping-group")
         let deleteCard = document.querySelector(".modal .btn-primary")
-        //const fp = flatpickr(datainput, {
-        //        disable: CantuseDate,
-        //        dateFormat: "Y-m-d",
-        //        inline: true,
-        //        mode: "range",
-        //        dateFormat: "Y-m-d H:i",
-        //    });
-        //let datainput = document.querySelector(".product-initial-div>input")
-        //let getdata
-        //getdata = datainput._flatpickr.selectedDates
-        //let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+        
+        let CheckItem = document.querySelectorAll(".item input[type='checkbox']")
+        let Check = document.querySelectorAll(".item input[type='checkbox']:checked")
+        let CheckAll = document.querySelector(".checkout .check-control input[type='checkbox']")
+        //let label = document.querySelector(".checkout [for='checkout-control']")
+
         let deletebtnlist = document.querySelectorAll(".text-end>button")
+        let deleteAllCard = document.querySelector(".checkout button")
+        
         console.log(deletebtnlist)
         deletebtnlist.forEach((d, index) => {
             console.log(d)
@@ -406,7 +406,72 @@
         }
         else {
             reconfirmation.classList.add("d-none")
+            checkout.classList.remove("d-none")
         }
+
+        
+        CheckAll.addEventListener("click", () => {
+            if (CheckAll.checked){
+                CheckItem.forEach((item, index) => {
+                    item.checked = true
+                    //label.value = CheckItem.length
+                })
+            }
+            else{
+                CheckItem.forEach((item, index) => {
+                    item.checked = false
+                })
+            }
+            //for (var i = 0; i <= CheckItem.length; i++) {
+            //    if (CheckItem[i].checked) {
+            //        CheckItem[i].checked = false
+                    
+            //    }
+            //    else{
+            //        CheckItem[i].checked = true
+                    
+            //    }
+
+            //    //if (CheckItem.l) {
+
+            //    //}
+
+            //}
+
+
+        })
+
+        //Check.forEach((item, index) => {
+        //    item.addEventListener("click", function(event) {
+                if (Check.length < CheckItem.length && CheckAll.checked == true) {
+                    CheckAll.checked = false
+                    //CheckAll.removeAttribute("checked")
+                    
+                }
+        //    })
+        //})
+
+        
+
+        
+
+        //let CardArray = []
+        
+        for (var i = 0; i < CheckItem.length; i++) {
+
+
+            if (CheckItem[i].checked = true) {
+
+                CheckAll.checked = true
+                
+            }
+
+                
+
+        }
+
+
+
 
         deleteCard.addEventListener("click", function() {
 
@@ -432,10 +497,10 @@
                         //toastr.success("刪除成功");
                         window.location.reload();
                     }
-                    //else {
-                    //    toastr.error("刪除失敗");
-                    //    //return res.text()
-                    //}
+                    else {
+                        toastr.error("刪除失敗");
+                        //return res.text()
+                    }
 
                 })
         })

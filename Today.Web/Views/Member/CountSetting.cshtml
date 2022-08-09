@@ -118,7 +118,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="age" class="form-label">年齡</label>
-                                        <input class="form-control" id="age" value="@Model.Age" required>
+                                        <input class="form-control" id="age" minlength="2" maxlength="2" value="@Model.Age" required>
                                         <div class="invalid-feedback mb-3">
                                             Please provide a valid age.
                                         </div>
@@ -147,7 +147,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="phone" class="form-label">電話號碼</label>
-                                    <input type="tel" class="form-control" id="phone" value=@Model.Phone required>
+                                    <input type="tel" class="form-control" id="phone" minlength="10" maxlength="10" value=@Model.Phone required>
                                     <div class="invalid-feedback">
                                         Please provide a valid phone.
                                     </div>
@@ -175,7 +175,7 @@
     </div>
 </div>
 
-@section Scripts{
+@section endJS{
     <script>
         toastr.options = {
             "closeButton": true,

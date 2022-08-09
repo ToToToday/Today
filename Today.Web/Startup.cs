@@ -83,6 +83,30 @@ namespace Today.Web
 
                     ////若權限不足，會導向的Action的路徑
                     //options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                })
+                //加各家OAuth
+                .AddGoogle(options => {
+                    var provider = "Google";
+                    options.ClientId = Configuration[$"Authentication:{provider}:ClientId"];
+                    options.ClientSecret = Configuration[$"Authentication:{provider}:ClientSecret"];
+
+                    //options.CallbackPath = "/signin-google";
+                })
+                .AddFacebook(options =>
+                {
+                    var provider = "FB";
+                    options.AppId = Configuration[$"Authentication:{provider}:ClientId"];
+                    options.AppSecret = Configuration[$"Authentication:{provider}:ClientSecret"];
+
+                    //options.CallbackPath = "/signin-facebook";
+                })
+                .AddLine(options =>
+                {
+                    var provider = "Line";
+                    options.ClientId = Configuration[$"Authentication:{provider}:ClientId"];
+                    options.ClientSecret = Configuration[$"Authentication:{provider}:ClientSecret"];
+
+                    //options.CallbackPath = "/signin-line";
                 });
 
 
