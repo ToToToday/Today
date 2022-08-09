@@ -20,9 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DTOModels\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Views\Manager\" />
-    <Folder Include="WebApiControllers\" />
     <Folder Include="Services\" />
+    <Folder Include="WebApiControllers\" />
   </ItemGroup>
 
   <ItemGroup>

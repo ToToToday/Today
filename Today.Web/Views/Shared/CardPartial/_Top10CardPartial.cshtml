@@ -4,12 +4,12 @@
 
 @foreach(var item in Model)
 {
-    <div class="swiper-slide px-1">
+    <div class="swiper-slide productcard px-1">
         <div class="hot-product-card fixed-card mx-2 h-100">
             <a href="~/Product/ProductInfo/@item.Id" class="text-decoration-none text-black">
                 <div class="bundle position-relative overflow-hidden" style="height: 153px;">
-                    <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
-                    <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>
+                    @*<span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+                    <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>*@
                     <span class="orderby position-absolute text-white py-1 px-2 rounded">TOP@(index)</span>
                     <img src="@item.ProductPhoto" class="card-img-top rounded w-100 h-100" alt="@item.ProductName">
                 </div>
@@ -36,6 +36,8 @@
                     </div>
                 </div>
             </a>
+            <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+            <span class="heart position-absolute text-white"><i class="@(item.Favorite == true ? "fa-solid" : "fa-regular") fa-heart"></i></span>
         </div>
     </div>
     index++;

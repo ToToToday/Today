@@ -40,34 +40,34 @@
             <div class="container">
                 @foreach (var cart in Model.ShopCartCardList)
                 {
-                    <div class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
+                    <div class="item d-flex flex-row createShopCard px-2 px-md-4">
+                        <div class="check-control m-0 ps-0 pe-3">
                             <label class="form-check-label" for="commodity-control">
                             </label>
                             <input class="form-check-input commodity-control" type="checkbox" id="commodity-control" value="@cart.ShoppingCartId">
                         </div>
-                        <div class="card p-0 flex-grow-1">
-                            <a href="#">
+                        <div class="card p-0 m-0 row-cols-auto flex-grow-1">
+                            <span class="product-img col">
                                 <img src="@cart.Path">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row flex-grow-1">
+                            </span>
+                            <div class="card-body col p-0 px-2 w-100">
+                                <div class="row w-100">
                                     <div class="col-lg-6 m-0">
-                                        <a href="#">
+                                        <a href="~/Product/ProductInfo/@cart.ProductId">
                                             <h4 v-model="CreateCardData.ProductName" class="card-title fw-bolder">@cart.ProductName</h4>
                                         </a>
                                         <p class="card-text p-0">@cart.ProgramTitle</p>
                                     </div>
                                     <div class="col-lg-3 d-flex flex-column flex-lg-row">
-                                        <div class="time">
+                                        <div class="time p-1 my-auto">
                                             <span class="d-lg-inline-block">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
                                             <span class=" mt-1 m-0 p-0">時間: @cart.ScreenTime</span>
                                         </div>
-                                        <span class="text-nowrap d-inline-block">@(cart.UnitText)x@(cart.Quantity)</span>
+                                        <span class="text-nowrap d-inline-block p-1 my-auto">@(cart.UnitText)x@(cart.Quantity)</span>
                                     </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD @cart.Sum</span>
-                                        <i class="fa-regular fa-heart"></i>
+                                    <div class="col-lg-3 text-end d-lg-flex flex-lg-nowrap p-1 justify-content-between">
+                                        <span class=" fw-bold text-nowrap m-auto">TWD @cart.Sum</span>
+                                        <i class="@(cart.Favorite == true ? "fa-solid" : "fa-regular") fa-heart m-auto"></i>
                                         <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <i class="fa-regular fa-trash-can ms-2"></i>
                                         </button>
@@ -82,7 +82,7 @@
 
 
 
-            <div class="checkout d-none">
+            <div class="checkout px-2 px-md-4">
                 <div class="check-control">
                     <input class="form-check-input input" type="checkbox" id="checkout-control" value=""
                            aria-label="...">
@@ -542,6 +542,57 @@
                 })
         })
 
+    </script>
+    <script>
+        let shopcarta = document.querySelectorAll(".createShopCard a")
+        let shopcartcollectheart = document.querySelectorAll(".createShopCard .fa-heart")
+
+        shopcartcollectheart.forEach((item, index) => {
+            item.addEventListener("click", function (event) {
+                item.animate(heartscale, heartTiming)
+
+                if (item.classList.contains("fa-solid")) {
+                    url = "/api/Collection/RemoveCollect"
+                    isfavorite = false
+                }
+                else {
+                    url = "/api/Collection/AddCollect"
+                    isfavorite = true
+                }
+
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ProductId: shopcarta[index].href.substring(shopcarta[index].href.lastIndexOf('/') + 1, shopcarta[index].href.length),
+                        Favorite: isfavorite,
+                    })
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            console.log('OK')
+                            item.classList.toggle("fa-solid")
+                            item.classList.toggle("fa-regular")
+                        }
+                        else {
+                            console.log('Fail')
+                        }
+                    })
+            })
+        })
+
+        const heartscale = [
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.5)' },
+            { transform: 'scale(1)' },
+        ];
+
+        const heartTiming = {
+            duration: 1000,
+            iterations: 1
+        }
     </script>
  }
 

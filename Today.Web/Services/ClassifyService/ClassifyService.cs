@@ -21,7 +21,7 @@ namespace Today.Web.Services.ClassifyService
         }
         public ClassifyDTO GetClassifyPages(ClassifyRequestDTO input)
         {
-
+            var memeberId = input.MemberId;
             var result = new ClassifyDTO()
             {
                 CategoryList = new List<CategoryDestinations>(),
@@ -47,7 +47,7 @@ namespace Today.Web.Services.ClassifyService
                 .Skip(10 * (input.Page - 1))
                 .Take(10)
                 .ToList()
-            );
+            , memeberId);
 
 
             var category = _repo.GetAll<Category>().ToList();
@@ -112,13 +112,13 @@ namespace Today.Web.Services.ClassifyService
                 .Skip(10 * (input.Page - 1))
                 .Take(10)
                 .ToList()
-            );
+            , input.MemberId);
 
             return result;
         }
 
 
-        private List<ClassifyDTO.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product)
+        private List<ClassifyDTO.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product, int memberId)
         {
 
             var result = new List<ClassifyDTO.ClassifyCardInfo>();
@@ -131,6 +131,7 @@ namespace Today.Web.Services.ClassifyService
             var Tag = _repo.GetAll<Tag>();
 
             var comment = _repo.GetAll<Today.Model.Models.Comment>();
+            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == memberId).Select(c => c.ProductId);
 
 
             product.ForEach(p => result.Add(
@@ -146,51 +147,55 @@ namespace Today.Web.Services.ClassifyService
             {
                 p.Path = _repo.GetAll<ProductPhoto>().First(ph => ph.ProductId == p.ProductId).Path.ToString();
                 p.CityName = _repo.GetAll<City>().First(c => c.CityId == p.CityId).CityName.ToString();
-
+                p.Favorite = favoriteList.Contains(p.ProductId);
                 p.TagText = _repo.GetAll<Tag>()
                     .Where(t => _repo.GetAll<ProductTag>().Where(pt => pt.ProductId == p.ProductId)
                     .Select(pt => pt.TagId)
                     .Contains(t.TagId))
                     .Select(t => t.TagText).ToList();
+                p.TotalComment = comment.Where(c => c.ProductId == p.ProductId).Count();
+                p.RatingStar = (comment.Where(c => c.ProductId == p.ProductId)
+                    .Count() != 0) ? (float)comment.Where(c => c.ProductId == p.ProductId)
+                    .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == p.ProductId).Count() : 0;
             });
-            var commentdata = product.Select(x => new
-            {
-                ProductId = x.ProductId,
-                TotalComment = comment.Where(c => c.ProductId == x.ProductId).Count(),
-                AvgStar = (comment.Where(c => c.ProductId == x.ProductId)
-                    .Count() != 0) ? (float)comment.Where(c => c.ProductId == x.ProductId)
-                    .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == x.ProductId).Count() : 0
-            });
+            //var commentdata = product.Select(x => new
+            //{
+            //    ProductId = x.ProductId,
+            //    TotalComment = comment.Where(c => c.ProductId == x.ProductId).Count(),
+            //    AvgStar = (comment.Where(c => c.ProductId == x.ProductId)
+            //        .Count() != 0) ? (float)comment.Where(c => c.ProductId == x.ProductId)
+            //        .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == x.ProductId).Count() : 0
+            //});
 
-            var tempproduct = string.Empty;
-            var temptag = new List<string>();
+            //var tempproduct = string.Empty;
+            //var temptag = new List<string>();
 
-            foreach (var item in result)
-            {
-                if (tempproduct == "" || tempproduct != item.ProductName)
-                {
-                    temptag.Clear();
-                    tempproduct = item.ProductName;
-                    temptag.Add(item.TagText.ToString());
-                }
-                else
-                {
-                    temptag.Add(item.TagText.ToString());
-                    var totalstartemp = commentdata.Where(x => x.ProductId == item.ProductId).Select(x => x.AvgStar).First();
-                    var totalComment = commentdata.Where(x => x.ProductId == item.ProductId).Select(x => x.TotalComment).First();
-                    result.Add(new ClassifyDTO.ClassifyCardInfo()
-                    {
-                        ProductId = item.ProductId,
-                        CityId = item.CityId,
-                        CityName = item.CityName,
-                        Path = item.Path,
-                        ProductName = item.ProductName,
-                        TagText = temptag,
-                        RatingStar = totalstartemp,
-                        TotalComment = totalComment
-                    });
-                }
-            }
+            //foreach (var item in result)
+            //{
+            //    if (tempproduct == "" || tempproduct != item.ProductName)
+            //    {
+            //        temptag.Clear();
+            //        tempproduct = item.ProductName;
+            //        temptag.Add(item.TagText.ToString());
+            //    }
+            //    else
+            //    {
+            //        temptag.Add(item.TagText.ToString());
+            //        var totalstartemp = commentdata.Where(x => x.ProductId == item.ProductId).Select(x => x.AvgStar).First();
+            //        var totalComment = commentdata.Where(x => x.ProductId == item.ProductId).Select(x => x.TotalComment).First();
+            //        result.Add(new ClassifyDTO.ClassifyCardInfo()
+            //        {
+            //            ProductId = item.ProductId,
+            //            CityId = item.CityId,
+            //            CityName = item.CityName,
+            //            Path = item.Path,
+            //            ProductName = item.ProductName,
+            //            TagText = temptag,
+            //            RatingStar = totalstartemp,
+            //            TotalComment = totalComment
+            //        });
+            //    }
+            //}
             return result;
         }
 
