@@ -326,7 +326,7 @@
                                     <h4 class="card-title_group align-self-center ms-1 d-flex flex-wrap">
                                         <span class="experience-itinerary text-dark align-self-center mx-1 fw-normal">7991</span>項體驗行程
                                     </h4>
-                                    @*<span class="chip rounded-pill border border-secondary d-flex align-items-center">
+                                    <span class="chip rounded-pill border border-secondary d-flex align-items-center">
                                         <span class="">飯店</span>
                                         <button type="button" class="btn-close" disabled=""
                                                 aria-label="Close"></button>
@@ -363,7 +363,7 @@
                                     </span>
                                     <span class="chip-clear rounded-pill d-flex align-items-center ">
                                         <a href="#" class="a text-decoration-none text-light">清除所有</a>
-                                    </span>*@
+                                    </span>
                                 </div>
                             </div>
                             <div class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
@@ -408,7 +408,7 @@
                                     <div class="pic h-100">
                                         <img class="img-fluid w-100 h-100 m-auto"
                                              :src="item.path">
-                                        <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
+                                        @*<i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>*@
                                     </div>
                                 </div>
                                 <div class="col-md-8 rounded-3 ">
@@ -450,6 +450,8 @@
                                 </div>
                             </div>
                         </a>
+                        <i class="fa-solid fa-heart btn-wish" v-if="item.favorite"></i>
+                        <i class="fa-regular fa-heart btn-wish" v-else></i>
                     </div>
 
                 </div>
@@ -553,11 +555,12 @@
     <link rel="stylesheet" href="~/css/MoneyRange.css">
 }
 
-    @section endJS{
+@section endJS{
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="~/js/calendar.js"></script>
+    @*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
 
     @*vue*@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
@@ -577,6 +580,7 @@
                         productName: '',
                         tagText: [],
                         cityName: '',
+                        favorite: false
                     },
                     {
                         productId: '1',
@@ -587,6 +591,7 @@
                         cityName: '',
                         ratingStar: 5,
                         totalComment: 1,
+                        favorite: false
                     },
                 ]
             },
@@ -602,8 +607,8 @@
                 //this.cardCount = @Model.CardCount
             },
         })
-
     </script>
+    @*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
 
     <script type="text/javascript">
         $(function() {
@@ -624,7 +629,7 @@
             });
         });
     </script>
-    }
+}
 
 
     <script>
@@ -668,32 +673,7 @@
 
                     document.querySelector('#destFilter').focus();
                 })
-                .then(test => {
-                    $('.chip').remove();
-                    $('.chip-clear').remove();
-                    let outside=document.querySelector('.chip-group')
-                    let filter=document.querySelectorAll('.filter')
-                    let array=Array.from(selfformchecked).map(x => x.value)
-                    for (let i = 0; i < array.length;i++)
-                    {
-                        let area=document.createElement('span');
-                        area.setAttribute('class','chip rounded-pill border border-secondary d-flex align-items-center');
-                        let text=document.createElement('span');
-                        text.innerHTML=filter[array[i]-13].innerText
-                        let X=document.createElement('button');
-                        X.setAttribute('class','btn-close');
-                        X.setAttribute('aria-label','Close');
-                        area.append(text);
-                        area.append(X);
-                        outside.append(area);
-                    }
-                    if(array.length>=1)
-                    {
-                        $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
-                    }
-                })
         }
+
     </script>
-    
-}
  

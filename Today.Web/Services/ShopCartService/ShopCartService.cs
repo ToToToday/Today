@@ -29,8 +29,7 @@ namespace Today.Web.Services.ShopCartService
 
             var shoppingCart =  _repo.GetAll<ShoppingCart>().Where(m => m.MemberId == Id.MemberId).ToList();
             if(shoppingCart == null) return null;
-
-
+            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == Id.MemberId).Select(x => x.ProductId);
 
             var spec = _repo.GetAll<ProgramSpecification>();
 
@@ -83,17 +82,18 @@ namespace Today.Web.Services.ShopCartService
       
             var cartPhoto = newProduct.Join(photo, pd => pd.ProductId, pp => pp.ProductId, (pd, pp) => new
             {
-                pd.MemberId,
-                pd.ShoppingCartId,
-                pd.ScreeningId,
-                pd.DepartureDate,
-                pd.Quantity,
-                pd.UnitPrice,
-                pd.UnitText,
-                pd.Title,
-                pd.ProductName,
-                pd.ProductId,
-                pp.Path
+                MemberId = pd.MemberId,
+                ShoppingCartId = pd.ShoppingCartId,
+                ScreeningId = pd.ScreeningId,
+                DepartureDate = pd.DepartureDate,
+                Quantity = pd.Quantity,
+                UnitPrice = pd.UnitPrice,
+                UnitText = pd.UnitText,
+                Title = pd.Title,
+                ProductName = pd.ProductName,
+                ProductId = pd.ProductId,
+                Favorite = favoriteList.Contains(pd.ProductId),
+                Path = pp.Path
             }).ToList();
 
 
@@ -112,6 +112,8 @@ namespace Today.Web.Services.ShopCartService
                 pp.UnitText,
                 pp.Title,
                 pp.ProductName,
+                pp.ProductId,
+                pp.Favorite,
                 pp.Path,
                 sc.Time
             }).ToList();
@@ -124,11 +126,13 @@ namespace Today.Web.Services.ShopCartService
                 ShopCartId = c.ShoppingCartId,
                 SpecificationId = c.SpecificationId,
                 ProductName = c.ProductName,
+                Favorite = c.Favorite,
                 ProgramTitle = c.Title,
                 DepartureDate = c.DepartureDate,
                 Quantity = c.Quantity,
                 ScreenTime = c.Time,
                 ProductPhoto = c.Path,
+                ProductId = c.ProductId,
                 UnitPrice = c.UnitPrice,
                 UnitText = c.UnitText,
             }).ToList();

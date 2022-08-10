@@ -52,7 +52,7 @@ btn_submit.addEventListener('click', function () {
             return res.json()
         }).then(res => {
             console.log(res)
-            toastr['success']('資料更新')
+            toastr['success']('資料已更新')
         })
 });
 

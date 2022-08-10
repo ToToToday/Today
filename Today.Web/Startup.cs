@@ -25,6 +25,8 @@ using Microsoft.OpenApi.Models;
 using Today.Web.Services.MemberCommentService;
 using Today.Web.Services.ShopCartService;
 using Today.Web.Services.OrderService;
+using Today.Web.Services.BookService;
+using Today.Web.Services.CollectService;
 
 namespace Today.Web
 {
@@ -53,6 +55,8 @@ namespace Today.Web
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<ICollectionService, CollectionService>();
 
 
             // 註冊DI
@@ -79,6 +83,30 @@ namespace Today.Web
 
                     ////若權限不足，會導向的Action的路徑
                     //options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                })
+                //加各家OAuth
+                .AddGoogle(options => {
+                    var provider = "Google";
+                    options.ClientId = Configuration[$"Authentication:{provider}:ClientId"];
+                    options.ClientSecret = Configuration[$"Authentication:{provider}:ClientSecret"];
+
+                    //options.CallbackPath = "/signin-google";
+                })
+                .AddFacebook(options =>
+                {
+                    var provider = "FB";
+                    options.AppId = Configuration[$"Authentication:{provider}:ClientId"];
+                    options.AppSecret = Configuration[$"Authentication:{provider}:ClientSecret"];
+
+                    //options.CallbackPath = "/signin-facebook";
+                })
+                .AddLine(options =>
+                {
+                    var provider = "Line";
+                    options.ClientId = Configuration[$"Authentication:{provider}:ClientId"];
+                    options.ClientSecret = Configuration[$"Authentication:{provider}:ClientSecret"];
+
+                    //options.CallbackPath = "/signin-line";
                 });
 
 

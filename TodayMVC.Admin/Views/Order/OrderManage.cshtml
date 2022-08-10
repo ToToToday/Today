@@ -1,0 +1,30 @@
+﻿
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+    <div id="app">
+       <template>
+            <el-table :data="tableData" style="width: 100%; overflow: hidden;" height="50vh">
+            <el-table-column prop="id" label="ID" align="center" width="100" />
+            <el-table-column prop="name" label="Name" align="center" width="100" />
+            <el-table-column prop="class" label="Class" />
+            <el-table-column prop="date" label="Date" />
+            <el-table-column label="Action" align="center">
+              <template slot-scope="scope">
+                <el-button type="danger" @@click="delCheck(scope.row.id)">DELETE</el-button>
+                <el-button type="warning" @@click="openEditDialog(scope.row)">EDIT</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+      </template>
+   </div>
+
+
+</div>
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    <script>
+       
+    </script>
+}

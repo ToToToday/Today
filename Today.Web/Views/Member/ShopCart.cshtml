@@ -40,34 +40,34 @@
             <div class="container">
                 @foreach (var cart in Model.ShopCartCardList)
                 {
-                    <div id="createShopCard" class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
+                    <div class="item d-flex flex-row createShopCard px-2 px-md-4">
+                        <div class="check-control m-0 ps-0 pe-3">
                             <label class="form-check-label" for="commodity-control">
                             </label>
                             <input class="form-check-input commodity-control" type="checkbox" id="commodity-control" value="@cart.ShoppingCartId">
                         </div>
-                        <div class="card p-0">
-                            <a href="#">
+                        <div class="card p-0 m-0 row-cols-auto flex-grow-1">
+                            <span class="product-img col">
                                 <img src="@cart.Path">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row">
+                            </span>
+                            <div class="card-body col p-0 px-2 w-100">
+                                <div class="row w-100">
                                     <div class="col-lg-6 m-0">
-                                        <a href="#">
+                                        <a href="~/Product/ProductInfo/@cart.ProductId">
                                             <h4 v-model="CreateCardData.ProductName" class="card-title fw-bolder">@cart.ProductName</h4>
                                         </a>
                                         <p class="card-text p-0">@cart.ProgramTitle</p>
                                     </div>
                                     <div class="col-lg-3 d-flex flex-column flex-lg-row">
-                                        <div class="time">
+                                        <div class="time p-1 my-auto">
                                             <span class="d-lg-inline-block">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
                                             <span class=" mt-1 m-0 p-0">時間: @cart.ScreenTime</span>
                                         </div>
-                                        <span class="text-nowrap d-inline-block">@(cart.UnitText)x@(cart.Quantity)</span>
+                                        <span class="text-nowrap d-inline-block p-1 my-auto">@(cart.UnitText)x@(cart.Quantity)</span>
                                     </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD @cart.Sum</span>
-                                        <i class="fa-regular fa-heart"></i>
+                                    <div class="col-lg-3 text-end d-lg-flex flex-lg-nowrap p-1 justify-content-between">
+                                        <span class=" fw-bold text-nowrap m-auto">TWD @cart.Sum</span>
+                                        <i class="@(cart.Favorite == true ? "fa-solid" : "fa-regular") fa-heart m-auto"></i>
                                         <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <i class="fa-regular fa-trash-can ms-2"></i>
                                         </button>
@@ -82,11 +82,11 @@
 
 
 
-            <div class="checkout">
+            <div class="checkout px-2 px-md-4">
                 <div class="check-control">
                     <input class="form-check-input input" type="checkbox" id="checkout-control" value=""
                            aria-label="...">
-                    <label class="form-check-label " for="checkout-control">全選 (1)</label>
+                    <label class="form-check-label" for="checkout-control" value="">全選 (1)</label>
                     <span>
                         <button type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除已選項目</button>
                     </span>
@@ -94,14 +94,14 @@
                 <div class="caculate m-0">
                     <div class="total mb-3">
                         <span class="text-end">1件商品合計</span>
-                        <span class=" fw-bolder mt-2">TWD 28000</span>
+                        <span class=" fw-bolder mt-2">TWD @Model.ShopCartCardList.Select(s =>s.Sum).Sum()</span>
                     </div>
                     <a class="caculate-input fw-bolder mb-3 mx-3" @*asp-action="Checkout"*@>前往結帳</a>
                 </div>
             </div>
         </div>
 
-        <a href="#">繼續購物<i class="fa-solid fa-angle-right"></i></a>
+        <a href="~/Home/Index">繼續購物<i class="fa-solid fa-angle-right"></i></a>
 
 
         <div class="reconfirmation p-0">
@@ -356,11 +356,14 @@
 }
 
     @section endJS{
-
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>*@
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
 
 
@@ -373,23 +376,20 @@
     <script>
         let createItem = document.querySelectorAll(".list .item")
         let emptyCart = document.querySelector(".empty-cart")
-        //let time = document.querySelector(".time + span")
-        //let confirmItem = document.querySelectorAll(".reconfirmation .item")
+        let checkout = document.querySelector(".checkout")
+
         let reconfirmation = document.querySelector(".reconfirmation")
         let shoppingGroup = document.querySelector(".shopping-group")
         let deleteCard = document.querySelector(".modal .btn-primary")
-        //const fp = flatpickr(datainput, {
-        //        disable: CantuseDate,
-        //        dateFormat: "Y-m-d",
-        //        inline: true,
-        //        mode: "range",
-        //        dateFormat: "Y-m-d H:i",
-        //    });
-        //let datainput = document.querySelector(".product-initial-div>input")
-        //let getdata
-        //getdata = datainput._flatpickr.selectedDates
-        //let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+        
+        let CheckItem = document.querySelectorAll(".item input[type='checkbox']")
+        let Check = document.querySelectorAll(".item input[type='checkbox']:checked")
+        let CheckAll = document.querySelector(".checkout .check-control input[type='checkbox']")
+        //let label = document.querySelector(".checkout [for='checkout-control']")
+
         let deletebtnlist = document.querySelectorAll(".text-end>button")
+        let deleteAllCard = document.querySelector(".checkout button")
+        
         console.log(deletebtnlist)
         deletebtnlist.forEach((d, index) => {
             console.log(d)
@@ -406,7 +406,72 @@
         }
         else {
             reconfirmation.classList.add("d-none")
+            checkout.classList.remove("d-none")
         }
+
+        
+        CheckAll.addEventListener("click", () => {
+            if (CheckAll.checked){
+                CheckItem.forEach((item, index) => {
+                    item.checked = true
+                    //label.value = CheckItem.length
+                })
+            }
+            else{
+                CheckItem.forEach((item, index) => {
+                    item.checked = false
+                })
+            }
+            //for (var i = 0; i <= CheckItem.length; i++) {
+            //    if (CheckItem[i].checked) {
+            //        CheckItem[i].checked = false
+                    
+            //    }
+            //    else{
+            //        CheckItem[i].checked = true
+                    
+            //    }
+
+            //    //if (CheckItem.l) {
+
+            //    //}
+
+            //}
+
+
+        })
+
+        //Check.forEach((item, index) => {
+        //    item.addEventListener("click", function(event) {
+                if (Check.length < CheckItem.length && CheckAll.checked == true) {
+                    CheckAll.checked = false
+                    //CheckAll.removeAttribute("checked")
+                    
+                }
+        //    })
+        //})
+
+        
+
+        
+
+        //let CardArray = []
+        
+        for (var i = 0; i < CheckItem.length; i++) {
+
+
+            if (CheckItem[i].checked = true) {
+
+                CheckAll.checked = true
+                
+            }
+
+                
+
+        }
+
+
+
 
         deleteCard.addEventListener("click", function() {
 
@@ -432,10 +497,10 @@
                         //toastr.success("刪除成功");
                         window.location.reload();
                     }
-                    //else {
-                    //    toastr.error("刪除失敗");
-                    //    //return res.text()
-                    //}
+                    else {
+                        toastr.error("刪除失敗");
+                        //return res.text()
+                    }
 
                 })
         })
@@ -477,6 +542,57 @@
                 })
         })
 
+    </script>
+    <script>
+        let shopcarta = document.querySelectorAll(".createShopCard a")
+        let shopcartcollectheart = document.querySelectorAll(".createShopCard .fa-heart")
+
+        shopcartcollectheart.forEach((item, index) => {
+            item.addEventListener("click", function (event) {
+                item.animate(heartscale, heartTiming)
+
+                if (item.classList.contains("fa-solid")) {
+                    url = "/api/Collection/RemoveCollect"
+                    isfavorite = false
+                }
+                else {
+                    url = "/api/Collection/AddCollect"
+                    isfavorite = true
+                }
+
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ProductId: shopcarta[index].href.substring(shopcarta[index].href.lastIndexOf('/') + 1, shopcarta[index].href.length),
+                        Favorite: isfavorite,
+                    })
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            console.log('OK')
+                            item.classList.toggle("fa-solid")
+                            item.classList.toggle("fa-regular")
+                        }
+                        else {
+                            console.log('Fail')
+                        }
+                    })
+            })
+        })
+
+        const heartscale = [
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.5)' },
+            { transform: 'scale(1)' },
+        ];
+
+        const heartTiming = {
+            duration: 1000,
+            iterations: 1
+        }
     </script>
  }
 

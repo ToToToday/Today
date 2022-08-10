@@ -1,38 +1,49 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Linq;
 using Today.Web.Data;
+using Today.Web.DTOModels.MemberDTO;
 using Today.Web.DTOModels.ProductDTO;
 using Today.Web.Models;
 using Today.Web.Services.CityService;
+using Today.Web.Services.MemberService;
 using Today.Web.Services.ProductService;
 using Today.Web.ViewModels;
 
 namespace Today.Web.Controllers
 {
-    //[Authorize(Roles = "A")] //限制「具備A角色」才可拜訪******
-    //[Authorize(Roles = "B")]
-    //[Authorize(Roles = "A,B")] //限制「具備A角色 或 B角色」才可拜訪
-
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
         private readonly ICityService _cityService;
+        private readonly IMemberService _memberService;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService, ICityService cityService)
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICityService cityService, IMemberService memberService)
         {
             _logger = logger;
             _productService = productService;
             _cityService = cityService;
+            _memberService = memberService;
         }
         [HttpGet]
         public IActionResult Index()
         {
             TempData["SearchMessage"] = string.Empty;
-            var homeproductSource = _productService.GetAllProductCard();
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+            //TempData["UserName"] = string.Empty;
+            //if (userId != 0)
+            //{
+            //    var request = new MemberDTO.MemberRequestDTO()
+            //    {
+            //        MemberId = int.Parse(User.Identity.Name)
+            //    };
+            //    TempData["UserName"] = _memberService.GetMemberName(request);
+            //}
+            var homeproductSource = _productService.GetAllProductCard(userId);
             var citySource = _productService.PopularCityCard().CityList;
             var categorySource = homeproductSource.CategoryList;
 
@@ -49,6 +60,7 @@ namespace Today.Web.Controllers
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
+                    Favorite = h.Favorite,
                     Price = (h.Price == null) ? null : h.Price
                 }).ToList(),
                 TopProduct = homeproductSource.TopProduct.Select(h => new ProductVM.ProductCardInfo()
@@ -57,6 +69,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -70,6 +83,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -83,6 +97,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -96,6 +111,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -109,6 +125,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -122,6 +139,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -135,6 +153,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -148,6 +167,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
+                    Favorite = h.Favorite,
                     Tags = h.Tags,
                     Rating = h.Rating.RatingStar,
                     TotalGiveComment = h.Rating.TotalGiveComment,
