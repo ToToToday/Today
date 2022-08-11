@@ -20,8 +20,8 @@
             </p>
         </div>
         <ul class="col-4 d-flex">
-            <li class="nav-item ">
-                <i class="fa-solid fa-heart"></i>
+            <li class="nav-item">
+                <i class="@(Model.Favorite == true ? "text-danger" : "") fa-solid fa-heart"></i>
             </li>
             <li class="nav-item">
                 <i class="fa-solid fa-comments"></i>
@@ -202,8 +202,8 @@
                     <h3 class="col-12  col-lg-10">
                         @Model.ProductName
                     </h3>
-                    <div class="col-lg-2 product-heart m-auto text-center">
-                        <i class="fa-solid fa-heart"></i>
+                    <div class="col-lg-2 product-heart m-auto text-centerinitial-nav">
+                        <i class="@(Model.Favorite == true ? "fa-solid" : "fa-regular") fa-heart"></i>
                     </div>
                     <div class="order-quantity col-12 ">
                         <p>
@@ -771,7 +771,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        MemberId: 1,
+                        //MemberId: 1,
                         SpecificationList: Array,
                         DepartureDate: Departuredate,
                     })

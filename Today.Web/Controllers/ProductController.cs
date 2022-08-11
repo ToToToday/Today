@@ -54,13 +54,14 @@ namespace Today.Web.Controllers
 
         public IActionResult ProductInfo(int id) //商品頁面
         {
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             if (id <= 0)
             {
                 return Content("找不到商品");
             }
             else
             {
-                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id, MemberId = userId });
                 ;
                 var productinfo = new ProductInfoVM
                 {
@@ -70,6 +71,7 @@ namespace Today.Web.Controllers
                     CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy,
                     HowUse = productPagesServiceDTO.ProductInfo.HowUse,
                     ProductName = productPagesServiceDTO.ProductInfo.ProductName,
+                    Favorite = productPagesServiceDTO.ProductInfo.Favorite,
                     CityName = productPagesServiceDTO.ProductInfo.CityName,
                     Producttag = productPagesServiceDTO.ProductInfo.ProductTag,
                     ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
@@ -150,10 +152,12 @@ namespace Today.Web.Controllers
         //[HttpGet("~/[controller]/[action]/{categoryId}")]
         public IActionResult Classify(int id) //楊 分類
         {
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             var categoryshow = new ClassifyRequestDTO
             {
                 CategoryId = id,
                 Page = 1,
+                MemberId = userId
             };
 
             var classPages = _classifyService.GetClassifyPages(categoryshow);
@@ -167,6 +171,7 @@ namespace Today.Web.Controllers
                 {
                     ProductId = c.ProductId,
                     ProductName = c.ProductName,
+                    Favorite = c.Favorite,
                     CityId = c.CityId,
                     CityName = c.CityName,
                     Path = c.Path,
@@ -206,11 +211,12 @@ namespace Today.Web.Controllers
             return View();
         }
         public IActionResult CityTour(int id) //各城市導覽頁b 
-
         {
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             var cityRequest = new CityRequestDTO
             {
-                CityId = id
+                CityId = id,
+                MemberId = userId
             };
             var CityDetail = _cityServices.GetCity(cityRequest);
             var CityAllCard = _cityServices.GetAllCity(cityRequest);
@@ -260,6 +266,7 @@ namespace Today.Web.Controllers
                     Id = newp.Id,
                     ProductPhoto = newp.ProductPhoto,
                     ProductName = newp.ProductName,
+                    Favorite = newp.Favorite,
                     Tags = newp.Tags,
                     CityName = newp.CityName,
                     OriginalPrice = (newp.Prices == null || newp.Prices.OriginalPrice == newp.Prices.Price) ? null : newp.Prices.OriginalPrice,
@@ -273,6 +280,7 @@ namespace Today.Web.Controllers
                     Id = aboutp.Id,
                     ProductPhoto = aboutp.ProductPhoto,
                     ProductName = aboutp.ProductName,
+                    Favorite = aboutp.Favorite,
                     Tags = aboutp.Tags,
                     CityName = aboutp.CityName,
                     OriginalPrice = (aboutp.Prices == null || aboutp.Prices.OriginalPrice == aboutp.Prices.Price) ? null : aboutp.Prices.OriginalPrice,
@@ -286,6 +294,7 @@ namespace Today.Web.Controllers
                     Id = top.Id,
                     ProductPhoto = top.ProductPhoto,
                     ProductName = top.ProductName,
+                    Favorite = top.Favorite,
                     Tags = top.Tags,
                     CityName = top.CityName,
                     OriginalPrice = (top.Prices == null || top.Prices.OriginalPrice == top.Prices.Price) ? null : top.Prices.OriginalPrice,

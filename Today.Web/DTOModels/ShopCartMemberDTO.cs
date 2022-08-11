@@ -21,6 +21,7 @@ namespace Today.Web.DTOModels
                 public int ProgramId { get; set; }
                 public int ProductId { get; set; }
                 public int MemberId { get; set; }
+                public bool Favorite { get; set; }
                 public string ProductName { get; set; }
                 public string ProgramTitle { get; set; }
                 public DateTime DepartureDate { get; set; }

@@ -111,12 +111,10 @@ namespace Today.Web.Services.ProductService
                     CityName = cityList.Where(c => c.CityId == x.CityId).Select(c => c.CityName).First(),
                     Tags = productTagList.Where(pt => pt.ProductId == x.ProductId).Join(tagList, pt => pt.TagId, t => t.TagId, (pt, t) => new { pt.ProductId, t.TagText }).Select(x => x.TagText).ToList(),
                     Rating = new RatingInfo() { RatingStar = (commentList.Where(comment => comment.ProductId == x.ProductId).Count() != 0) ? (float)commentList.Where(comment => comment.ProductId == x.ProductId).Sum(comment => comment.RatingStar) / commentList.Where(comment => comment.ProductId == x.ProductId).Count() : 0, TotalGiveComment = commentList.Where(comment => comment.ProductId == x.ProductId).Count() },
-                    
                     TotalOrder = programList.Where(program => program.ProductId == x.ProductId)
                                             .Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId })
                                             .Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity })
                                             .Sum(n => n.Quantity),
-                    
                     Prices = programList.Where(program => program.ProductId == x.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault()
                 }),
                 CategoryList = allCategoryTemp
@@ -126,29 +124,119 @@ namespace Today.Web.Services.ProductService
             return result;
         }
 
-        public ProductDTO GetAllProductCard()
+        public ProductDTO GetAllProductCard(int user)
         {
-            var dataSource = AllProduct().QueryProduct;
-            var categorySource = AllProduct().CategoryList;
+            var dataSource = AllProduct();
+            var productSource = dataSource.QueryProduct;
+            var categorySource = dataSource.CategoryList;
+            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == user).Select(c => c.ProductId);
 
             var result = new ProductDTO
             {
-                RecentlyViewed = dataSource.Take(3).Select(x => new ProductDTO.RecentlyInfo
+                RecentlyViewed = productSource.Take(3).Select(x => new ProductDTO.RecentlyInfo
                 {
                     Id = x.Id,
                     ProductName = x.ProductName,
                     ProductPhoto = x.ProductPhoto,
+                    Favorite = favoriteList.Contains(x.Id),
                     Price = (x.Prices == null) ? null : x.Prices.Price
                 }).ToList(),
-                TopProduct = dataSource.OrderByDescending(x => x.TotalOrder).Take(10).ToList(),
-                Featured = dataSource.Where(x => x.CityName.Contains("台北") || x.CityName.Contains("台南")).Take(8).ToList(),
-                Paradise = dataSource.Where(x => x.ChildCategoryName.Contains("樂園")).Take(8).ToList(),
-                AttractionTickets = dataSource.Where(x => MaybeCategoryList(categorySource, "景點").Contains(x.ChildCategoryName)).Take(8).ToList(),
-                Exhibition = dataSource.Where(x => MaybeCategoryList(categorySource, "展覽").Contains(x.ChildCategoryName)).Take(8).ToList(),
-                Hotel = dataSource.Where(x => MaybeCategoryList(categorySource, "住宿").Contains(x.ChildCategoryName)).Take(8).ToList(),
-                Taoyuan = dataSource.Where(x => x.CityName.Contains("桃園")).Take(8).ToList(),
+                TopProduct = productSource.OrderByDescending(x => x.TotalOrder).Take(10).Select(x => new ProductInfo { 
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                Featured = productSource.Where(x => x.CityName.Contains("台北") || x.CityName.Contains("台南")).Take(8).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                Paradise = productSource.Where(x => x.ChildCategoryName.Contains("樂園")).Take(8).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                AttractionTickets = productSource.Where(x => MaybeCategoryList(categorySource, "景點").Contains(x.ChildCategoryName)).Take(8).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                Exhibition = productSource.Where(x => MaybeCategoryList(categorySource, "展覽").Contains(x.ChildCategoryName)).Take(8).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                Hotel = productSource.Where(x => MaybeCategoryList(categorySource, "住宿").Contains(x.ChildCategoryName)).Take(8).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                Taoyuan = productSource.Where(x => x.CityName.Contains("桃園")).Take(8).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
                 //TimeLimit =
-                Evaluation = dataSource.OrderByDescending(x => x.Rating.RatingStar).ThenByDescending(x => x.Rating.TotalGiveComment).Take(8).ToList()
+                Evaluation = productSource.OrderByDescending(x => x.Rating.RatingStar).ThenByDescending(x => x.Rating.TotalGiveComment).Take(8).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList()
             };
 
             return result;

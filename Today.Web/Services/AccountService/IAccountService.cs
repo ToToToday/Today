@@ -1,4 +1,5 @@
-﻿using Today.Model.Models;
+﻿using System.Threading.Tasks;
+using Today.Model.Models;
 using Today.Web.DTOModels.AccountDTO;
 
 namespace Today.Web.Services.AccountService
@@ -8,6 +9,7 @@ namespace Today.Web.Services.AccountService
         CreateAccountOutputDTO CreateAccount(CreateAccountInputDTO input); //創建賬戶
         LoginAccountOutputDTO LoginAccount(LoginAccountInputDTO input); //登錄帳號
         void LogoutAccount(); //登出帳號
+        Task<Login3rdPartyOutputDto> LoginAccountAsync(Login3rdPartyInputDto input);
 
 
         //一開始通常先想到這個(常用的通用方法)
@@ -36,5 +38,11 @@ namespace Today.Web.Services.AccountService
         /// </summary>
         /// <returns></returns>
         bool IsAuthenticated();
+
+        /// <summary>
+        /// 取得當前網站會員Id
+        /// </summary>
+        /// <returns></returns>
+        int GetMemberId();
     }
 }

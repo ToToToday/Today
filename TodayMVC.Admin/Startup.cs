@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,9 +9,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
+using TodayMVC.Admin.Repositories;
+using TodayMVC.Admin.Repositories.DapperMemberRepositories;
+using TodayMVC.Admin.Services.MemberService;
 
 namespace TodayMVC.Admin
 {
@@ -37,6 +42,17 @@ namespace TodayMVC.Admin
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodayAdmin", Version = "v1" });
             });
+            services.AddScoped<IDbConnection, SqlConnection>(serviceProvider =>
+            {
+                SqlConnection conn = new SqlConnection();
+                conn.ConnectionString = Configuration.GetConnectionString("TodayDB");
+                return conn;
+            });
+
+            services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
+            services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
+            services.AddTransient<IMemberService, MemberService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

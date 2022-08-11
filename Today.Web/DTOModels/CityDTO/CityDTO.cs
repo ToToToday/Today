@@ -10,6 +10,7 @@ namespace Today.Web.DTOModels.CityDTO
         public class CityRequestDTO
         {
             public int CityId { get; set; }
+            public int MemberId { get; set; }
         }
 
         public class CityResponseDTO

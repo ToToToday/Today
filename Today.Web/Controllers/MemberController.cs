@@ -19,7 +19,8 @@ using Today.Web.Models;
 using Today.Web.Services.ShopCartService;
 using static Today.Web.DTOModels.ShopCartMemberDTO;
 using static Today.Web.ViewModels.ShopCartVM;
-
+using Today.Web.Services.CollectService;
+using static Today.Web.ViewModels.ProductVM;
 
 namespace Today.Web.Controllers
 {
@@ -31,13 +32,15 @@ namespace Today.Web.Controllers
         private readonly IGenericRepository _genericRepository;
         private readonly IMemberCommentService _membercommentservic;
         private readonly IShopCartService _shopCartService;
-        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService membercommentservic,IShopCartService shopCartService)
+        private readonly ICollectionService _collectionService;
+        public MemberController(IChenkoutService chenkoutService, IMemberService memberService, IGenericRepository genericRepository, IMemberCommentService membercommentservic, IShopCartService shopCartService, ICollectionService collectionService)
         {
             _chenkoutService = chenkoutService;
             _memberService = memberService;
             _genericRepository = genericRepository;
             _membercommentservic = membercommentservic;
             _shopCartService = shopCartService;
+            _collectionService = collectionService;
         }
 
         //請求 
@@ -76,12 +79,10 @@ namespace Today.Web.Controllers
             return View(memberSelectInfo);
         }
 
-
         public IActionResult Coupon()
         {
             return View();
         }
-        
         public IActionResult OrderManage()
         {
             var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = int.Parse(User.Identity.Name) });
@@ -119,8 +120,41 @@ namespace Today.Web.Controllers
         }
         public IActionResult MyCollect()
         {
-            return View();
+            var request = new MemberDTO.MemberRequestDTO()
+            {
+                MemberId = int.Parse(User.Identity.Name)
+            };
+            var memberName = _memberService.GetMemberName(request);
+
+            var memberNameInfo = new MemberVM.MemberInfo
+            {
+                MemberName = memberName
+            };
+
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+            var dataSource = _collectionService.GetAllCollect(userId);
+
+            var result = new ProductVM { CollectionList = new List<ProductCardInfo>() };
+            result.CollectionList = dataSource.Select(d => new ProductCardInfo
+            {
+                Id = d.Id,
+                ProductPhoto = d.ProductPhoto,
+                ProductName = d.ProductName,
+                CityName = d.CityName,
+                Favorite = d.Favorite,
+                Tags = d.Tags,
+                Rating = d.Rating.RatingStar,
+                TotalGiveComment = d.Rating.TotalGiveComment,
+                TotalOrder = d.TotalOrder,
+                OriginalPrice = (d.Prices == null || d.Prices.OriginalPrice == d.Prices.Price) ? null : d.Prices.OriginalPrice,
+                Price = (d.Prices == null) ? null : d.Prices.Price
+            }).ToList();
+
+            ViewData["Collection"] = JsonConvert.SerializeObject(result.CollectionList);
+
+            return View(memberNameInfo);
         }
+
         [HttpGet]//請求
         public IActionResult ShopCart()
         {
@@ -134,7 +168,9 @@ namespace Today.Web.Controllers
                     ScreeningId = s.ScreenId,
                     SpecificationId = s.SpecificationId,
                     ShoppingCartId = s.ShopCartId,
+                    ProductId = s.ProductId,
                     ProductName = s.ProductName,
+                    Favorite = s.Favorite,
                     ProgramTitle = s.ProgramTitle,
                     Path = s.ProductPhoto,
                     DepartureDate = s.DepartureDate,
