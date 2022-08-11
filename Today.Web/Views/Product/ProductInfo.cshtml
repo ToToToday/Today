@@ -483,50 +483,6 @@ radio
     @*<script src="~/js/ProductInfo.js"></script>*@
     <script>
 
-        //const ProductUrl = 'https:localhost:5001/api/Shop/AddCart'
-        //    let AddCart = new Vue({
-        //        el:'#AddCart',
-        //        data: {
-        //            aa: 0,
-        //            CreateCardData: {
-        //            ProductName : 'name',
-        //            ProgramTitle : 'title',
-        //            Path : 'Path',
-        //            DepartureDate : '2022-07-31',
-        //            Quantity : 0,
-        //            SpecificationId : 5,
-        //            ScreeningId : 3
-        //            }
-        //        },
-        //        methods: {
-        //            add(){
-        //                this.aa++;
-        //            },
-        //            min(){
-        //                if (this.aa > 0) {
-        //                    this.aa--;
-        //                }
-        //            },
-
-        //            CreateCard() {
-        //                axios.post(ProductUrl,this.CreateCardData)
-        //                    .then(res => {
-        //                        console.log(res)
-        //                        if (res.data.status == 200) {
-
-        //                            alert("insert success")
-        //                            $('createShopCard').model('hide')
-        //                        }
-        //                        else {
-        //                            alert("insert failed")
-        //                        }
-        //                    })
-
-        //            }
-        //        }
-        //    })
-
-
         let product_initial = document.querySelector("#product-initial")
         let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
         //let body = document.querySelector("body")

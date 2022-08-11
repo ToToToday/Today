@@ -113,6 +113,7 @@ h1 {
 }
 .shopping-cart .card img{
     width: 120px;
+    height:85px;
     border-radius: 5px;
 }
 .shopping-cart .card-body{
@@ -202,7 +203,6 @@ i{
     padding: 5px 0;
     display: flex;
     align-items: flex-end;
-    /*margin-top:17px;*/
     font-size:1rem;
 }
 .checkout .check-control span::before{
@@ -244,8 +244,6 @@ i{
     color: white;
     text-decoration: none;
     display: inline-block;
-/*    width: 75px;
-    height: 40px;*/
     padding: 14px 13px;
     border-radius: 5px;
 }
@@ -420,8 +418,6 @@ i{
         padding: 0 5px;
     }
     .caculate a{
-        /*width: 80px;
-        height: 40px;*/
         padding: 14px;
     }
     .cart-recommend .card{
@@ -469,9 +465,6 @@ i{
     .list .empty-cart a{
         padding: 10px 24px;
     }
-    /*.shopping-cart div{
-        margin-top: 20px;
-    }*/
     .shopping-cart .card-body .row div{
         padding: 0 15px;
     }
