@@ -1,161 +1,16 @@
-﻿@model Today.Web.ViewModels.ClassifyVM
-
-@using System.Web;
+﻿@using System.Web;
 @using Newtonsoft.Json
+@using Today.Web.ViewModels
+@model ClassifyVM
+@{
+    var cityJson = JsonConvert.SerializeObject(Model.ClassifyCardList);
+    var categoryJson = JsonConvert.SerializeObject(Model.CategoryList);
+}
+
 
 <!-- 導覽列 -->
 @*導覽列下的三個BUTTON*@
-<div class="container city-filter-wrap position-fixed pt-2">
-    <div class="sidebar d-flex mx-0 px-3 bg-white">
-        <!-- 第一版 目的地-->
-        <div class="city-filter-btn d-flex">
-            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
-                目的地<i class="fa-solid fa-caret-down ms-2"></i>
-            </button>
-        </div>
-        <!-- 目的地-展開 -->
-        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
-            aria-labelledby="offcanvasBottomLabel">
-            <!-- 目的地-導覽列 -->
-            <div class="offcanvas-header border-bottom">
-                <button id="button-demo" type="button" class="btn-clean-destination text-reset border-0 bg-white"
-                    aria-label="Close">清除</button>
-                <h5 class="offcanvas-title m-auto" id="offcanvasBottomLabell">目的地</h5>
-                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
-            </div>
-            <div class="offcanvas-body small">
-                <div class="filter-group rounded pt-3 mb-3">
-                    <!-- 搜尋input -->
-                    <div class="input-group">
-                        <div
-                            class="input-group-text d-flex fa-solid fa-magnifying-glass bg-white ms-1 rounded-pill w-100">
-                            <input class="form-control search border-0 ms-2" type="search" placeholder="搜尋目的地 ">
-                        </div>
-                    </div>
 
-                    <div class="accordion-item border-0">
-                        <!-- checkbox標題 -->
-                        <div class="accordion-header text-dark mt-3 ms-2 me-1" id="headingOne">
-                            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                台灣
-                            </h2>
-                        </div>
-                        <!-- checkbox內文 -->
-                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body-input m-2">
-                                @foreach (var item in Model.ClassifyCardList)
-                                {
-                                    <div class="form-check pb-2">
-                                        <label class="form-check-label ms-1 mt-1">
-                                            <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
-                                            value="@item.CityId"
-                                            onchange="postAndChangePages(); makePill( this);">@item.CityId
-                                        </label>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 第二個版 更多條件 -->
-        <div class="city-filter-btn d-flex ps-1">
-            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#moreconditions" aria-controls="moreconditions">
-                更多條件<i class="fa-solid fa-caret-down ms-2"></i>
-            </button>
-        </div>
-        <!-- 更多條件-展開 -->
-        <div class="offcanvas offcanvas-bottom rounded-top" tabindex="-1" id="moreconditions"
-            aria-labelledby="offcanvasBottomLabel">
-            <!-- 更多條件-導覽列 -->
-            <div class="offcanvas-header border-bottom">
-                <button type="button" class="btn-clean-destination text-reset border-0 bg-white"
-                    aria-label="Close">清除</button>
-                <h5 class="moreconditions offcanvas-title m-auto" id="offcanvasBottomLabell">更多條件</h5>
-                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
-            </div>
-            <!-- 裡面內文 -->
-            <div class="offcanvas-body small p-0">
-                <!-- 使用日 -->
-                <div class="filter-group rounded">
-                    <div class="filter-block">
-                        <!-- 使用日-請選擇使用日 -->
-                        <dib class="accordion-header" id="Attractions">
-                            <h4 class=" collapsed fw-normal border-bottom d-flex " data-bs-target="#collapsedayofuse"
-                                aria-expanded="false">
-                                <input type="button" name="datefilter" value="請選出發日期"
-                                    class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder lh-lg"
-                                    placeholder="篩選出發日期" id="collapsedayofuse" line-height: 2;">
-                                @*<span class="fs-6 px-3 py-2 ms-1 w-100 d-flex justify-content-between
-                                    align-items-center ">
-                                    請選擇使用日
-                                    </span>*@
-                            </h4>
-                        </dib>
-                    </div>
-                </div>
-                <!-- 更多條件 -->
-                <div class="filter-group rounded mb-1">
-                    <div class="filter-block ">
-                        <!-- 更多條件-所有商品類別 -->
-                        <div class="accordion-header " id="Attractions">
-                            <h4 class="accordion-button collapsed fw-normal " data-bs-toggle="collapse"
-                                data-bs-target="#collapseAttractiontickets1" aria-expanded="false">
-                                所有商品類別
-                            </h4>
-                        </div>
-                        <!-- 更多條件-所有商品類別-類別內容 -->
-                        <div id="collapseAttractiontickets1" class="accordion-collapse collapse px-2"
-                            data-bs-parent="#accordionExample">
-                            <partial name="ClassifyCollapsePartial/_CollapsePartial" for="CategoryList" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 第三個版 排序 -->
-        <div class="city-filter-btn d-flex ps-1">
-            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#sort" aria-controls="sort">
-                排序<i class="fa-solid fa-caret-down ms-2"></i>
-            </button>
-        </div>
-        <!-- 排序-展開 -->
-        <div class="sort offcanvas offcanvas-bottom" tabindex="-1" id="sort" aria-labelledby="offcanvasBottomLabel">
-            <!-- 排序-導覽列 -->
-            <div class="offcanvas-header border-bottom">
-                <button type="button" class="btn-clean-destination text-reset border-0 bg-white"
-                    aria-label="Close">清除</button>
-                <h5 class="offcanvas-title m-auto" id="offcanvasBottomLabell">排序</h5>
-                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
-            </div>
-            <!-- 排序-內文 -->
-            <div class="offcanvas-body small px-0">
-                <div class="accordion-item border-0 ">
-                    <div class="form-check mb-2 py-2 border-bottom d-flex align-items-center justify-content-between">
-                        <label class="form-check-label ms-2 mt-1 " for="Taipei">KKday 推薦</label>
-                        <i class="fa-solid fa-check me-4"></i>
-                    </div>
-                    <div class="form-check mb-2 py-2 border-bottom d-flex align-items-center justify-content-between">
-                        <label class="form-check-label ms-2 mt-1" for="Taichung">熱門程度 : 高至低</label>
-                        <i class="fa-solid fa-check me-4"></i>
-                    </div>
-                    <div class="form-check mb-2 py-2 d-flex align-items-center justify-content-between">
-                        <label class="form-check-label ms-2 mt-1" for="Kaohsiung">價格 : 低至高</label>
-                        <i class="fa-solid fa-check me-4"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container-fluid-ProductList ">
     <section class="container m-auto">
@@ -184,17 +39,32 @@
                         <!-- 台灣checkbox -->
                         <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body ">
-                                @foreach (var item in Model.ClassifyCardList)
-                                {
-                                    <div class="form-check pb-2">
-                                        <label class="form-check-label ms-1 mt-1 cityfilter">
-                                            <input class="form-check-input mt-0 city_PC selfform-city shadow-none"
-                                            type="checkbox" value="@item.CityId" @* my-cityname="@item.CityName" *@
-                                            onchange="postAndChangePages()">@item.CityName
+                            <div class="accordion-body-input m-2">
+                                <div class="form-check pb-2">
+
+                                    <div v-for="(city,idx) in allFilter.cities" class="form-check pb-2">
+                                        <label class="form-check-label ms-1 mt-1">
+                                            <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                        :value="city.CityId" 
+                                        v-model="city.Checked" 
+                                        v-on:change="filterPost(1)">{{city.CityName}}
                                         </label>
                                     </div>
-                                }
+
+                                    @* @foreach (var item in Model.ClassifyCardList)
+                                    {
+                                    <div class="form-check pb-2">
+                                    <label class="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
+                                    </label>
+                                    </div>
+                                    } *@
+
+
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -204,8 +74,8 @@
                     <div class="filter-block py-3 ps-3">
                         <h4>所有商品類別</h4>
                     </div>
-                    <!-- 景點門票 -->
-                    <partial name="ClassifyCollapsePartial/_CollapsePartial" for="CategoryList" />
+                    <!-- 商品類別checkbox -->
+                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue"  /> @*for="CategoryList"*@
                 </div>
                 <!-- 篩選出發日期 -->
                 <div class="filter-group date rounded ">
@@ -310,53 +180,67 @@
                             <div class="card-body text-secondary">
                                 <div class="chip-group d-flex flex-wrap">
                                     <h4 class="card-title_group align-self-center ms-1 d-flex flex-wrap">
-                                        <span
-                                            class="experience-itinerary text-dark align-self-center mx-1 fw-normal">7991</span>項體驗行程
+                                        <span class="experience-itinerary text-dark align-self-center mx-1 fw-normal">{{cardCount}}</span>項體驗行程
                                     </h4>
                                     @*<span class="rounded-pill border border-secondary d-flex align-items-center">
                                         <span class="">飯店</span>
                                         <button type="button" class="btn-close" disabled="" aria-label="Close"></button>
-                                        </span>
-
-                                        <span class="chip-clear rounded-pill d-flex align-items-center ">
-                                        <a href="#" class="a text-decoration-none text-light">清除所有</a>
-                                        </span>*@
+                                    </span>*@
+                                    <span v-for="(city,idx) in allFilter.cities.filter(x => x.Checked)"
+                                        class="rounded-pill border border-secondary d-flex align-items-center">
+                                        <span class="" >{{city.CityName}}</span>
+                                        <button v-on:click="cancel(city)" type="button" class="btn-close" aria-label="Close"></button>
+                                    </span>
+                                    <span v-for="(childCategory,idx) in allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x).filter(x => x.Checked)"
+                                        class="rounded-pill border border-secondary d-flex align-items-center">
+                                        <span class="">{{childCategory.CategoryName}}</span>
+                                        <button v-on:click="cancel(childCategory)" type="button" class="btn-close" aria-label="Close"></button>
+                                    </span>
+                                    <span v-if="allFilter.cities.some(x=> x.Checked)
+                                        ||allFilter.categories.some(ca=> ca.ChildCategory.some(x=> x.Checked) )
+                                        "
+                                        class="chip-clear rounded-pill d-flex align-items-center ">
+                                        <a href="#" class="a text-decoration-none text-light"
+                                            v-on:click="cancelAll()"
+                                        >清除所有</a>
+                                    </span>
                                 </div>
                             </div>
-                            <div
-                                class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
-                                <h5 class=" me-2">排序 : </h5>
-                                <div class="sort">
-                                    <i class="fa-regular fa-thumbs-up"></i>
-                                    <a href="#" class="text-decoration-none">
-                                        <span class="sort">Today推薦</span>
-                                    </a>
-                                </div>
-                                <div class="sort">
+                        </div>
+                        <div
+                            class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
+                            <h5 class=" me-2">排序 : </h5>
+                            <div class="sort">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                                <a href="#" class="text-decoration-none">
+                                    <span class="sort">Today推薦</span>
+                                </a>
+                            </div>
+                            <div class="sort">
+                                <span class="span_divider mx-1 "> | </span>
+                                <i class="fa-solid fa-fire"></i>
+                                <a href="#" class="text-decoration-none">
+                                    <span class="sort">熱門程度</span>
+                                </a>
+                            </div>
+                            <div class="sort">
+                                <span class="span_divider mx-1 "> | </span>
+                                <i class="fa-solid fa-star "></i>
+                                <a href="#" class="text-decoration-none">
+                                    <span class="sort">用戶評價</span>
                                     <span class="span_divider mx-1 "> | </span>
-                                    <i class="fa-solid fa-fire"></i>
-                                    <a href="#" class="text-decoration-none">
-                                        <span class="sort">熱門程度</span>
-                                    </a>
-                                </div>
-                                <div class="sort">
-                                    <span class="span_divider mx-1 "> | </span>
-                                    <i class="fa-solid fa-star "></i>
-                                    <a href="#" class="text-decoration-none">
-                                        <span class="sort">用戶評價</span>
-                                        <span class="span_divider mx-1 "> | </span>
-                                    </a>
-                                </div>
-                                <div class="sort">
-                                    <a href="#" class="text-decoration-none">
-                                        <i class="fa-solid fa-dollar-sign"></i>
-                                        <span class="sort">價格 : 低到高</span>
-                                    </a>
-                                </div>
+                                </a>
+                            </div>
+                            <div class="sort">
+                                <a href="#" class="text-decoration-none">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                    <span class="sort">價格 : 低到高</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+            
                 <!-- 橫向卡牌 -->
                 <div class="container_card">
                     <div v-for="(item,idx) in productCards" class="card_detail mb-3">
@@ -378,9 +262,7 @@
                                         <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
                                             <i class="fa-solid fa-location-dot"></i>
                                             <div class="product-listview_inco_info flex_item product-palce">
-                                                <p class="card-text d-flex ms-2">
-                                                    {{item.cityName}}
-                                                </p>
+                                                <p class="card-text d-flex ms-2"> {{item.cityName}} </p>
                                             </div>
                                             @*<i class="fa-regular fa-calendar ms-3"></i>
                                                 <div class="product-listview_inco_info product-time">
@@ -420,14 +302,13 @@
                     <div v-for="(x,i) in Math.ceil(cardCount/10)">
                         <label v-if="x == page" class="click_num btn  me-2 "
                             style="border: 1px solid #ccc; background-color: #26bec9;">
-                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x"
-                                checked>
+                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" checked>
                             {{x}}
                         </label>
 
-                        <label v-else class="click_num btn  me-2 ">
+                        <label v-else class="click_num btn me-2 ">
                             <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x"
-                                v-on:change='choosePage(x)'>
+                                v-on:change='filterPost(x)'>
                             {{x}}
                         </label>
                     </div>
@@ -450,35 +331,148 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="~/js/calendar.js"></script>
 @*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
+<script src="~/js/date.js"></script>
 
 @*vue*@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
 @*<script src="https://unpkg.com/vue@next"></script>*@
-<script>
-    let jsObj = @Html.Raw(Model.CategoryList)
 
+<script>
+    function filterGet() {
+        const request = new Request("/api/ClassifyApi/Classify");
+        fetch(request)
+    }
+    @* let p = document.querySelectorAll(".click_num")
+    for (let i = 0; i < p.length; i++) {
+        p[i].addEventListener("click", function () {
+            p[i].classList.add("btn-info")
+        })
+    } *@
+
+    //function makePill(cityInput) { //參數area , targetInput
+    //    //create
+    //    let dom = document.createElement('');
+
+    //    dom.innerText = cityInput.parentElement ?? .innerText //拿到label文字
+
+
+    //    //append
+    //    let area = document.createElement('span');
+    //    area.append(dom)
+    //    //之後再改 不確定的area 參數指定areai
+
+    //    //綁事件
+    //@* dom的xx 按了 要 把target取消勾選 *@
+    //}
+
+
+</script>
+
+
+<script>
     const classifyCardVue = new Vue({
         // 掛載位置
         el: '#classifyCard',
         // 資料, state
         data: {
-            //篩選區
-            allFilter: jsObj.map(x => ({}, {})    )
-            //{
-            //    cities:[
-            //        { id:5 , text:'新竹' , checked:true},
-            //        { id:6 , text:'桃園' , checked:false},
-            //        { id:7 , text:'雲林' , checked:false},
-            //        { id:8 , text:'台北' , checked:true},
-            //    ],
-            //    classifies:[
-            //        {id:13 , text:'高鐵' , checked:true},
-            //        {id:14 , text:'民宿' , checked:false},
-            //    ]
-            //},
+            //篩選區 
+            allFilter: {
+                cities: [
+                    { CityId: 1, CityName: '基隆', checked: false },
+                    { CityId: 2, CityName: '新北', checked: false },
+                    { CityId: 3, CityName: '台北', checked: false },
+                    { CityId: 4, CityName: '桃園', checked: false },
+                    { CityId: 5, CityName: '新竹', checked: false },
+                    { CityId: 6, CityName: '苗栗', checked: false },
+                    { CityId: 7, CityName: '台中', checked: false },
+                    { CityId: 8, CityName: '彰化', checked: false },
+                    { CityId: 9, CityName: '南投', checked: false },
+                    { CityId: 10,CityName: '雲林', checked: false },
+                    { CityId: 11,CityName: '嘉義', checked: false },
+                    { CityId: 12,CityName: '台南', checked: false },
+                    { CityId: 13,CityName: '高雄', checked: false },
+                    { CityId: 14,CityName: '墾丁', checked: false },
+                    { CityId: 15,CityName: '屏東', checked: false },
+                    { CityId: 16,CityName: '台東', checked: false },
+                    { CityId: 17,CityName: '花蓮', checked: false },
+                    { CityId: 18,CityName: '宜蘭', checked: false },
+                    { CityId: 19,CityName: '綠島', checked: false },
+                    { CityId: 20,CityName: '蘭嶼', checked: false },
+                    { CityId: 21,CityName: '小琉球', checked: false },
+                    { CityId: 22,CityName: '澎湖', checked: false },
+                    { CityId: 23,CityName: '金門', checked: false },
+                    { CityId: 24,CityName: '馬祖', checked: false },
+                ],
+                categories: [
+                    {
+                        ProductCategoryId: 1,
+                        CategoryName: "住宿",
+                        ChildCategory: [
+                            {
+                                ProductCategoryId: 13,
+                                CategoryName: "高鐵假期",
+                                ChildCategory: null
+                            },
+                            {
+                                ProductCategoryId: 14,
+                                CategoryName: "飯店",
+                                ChildCategory: null
+                            },
+                        ]
+                    },
+                    @* { id: 13, text: "高鐵假期", checked: false },
+                    { id: 14, text: "飯店", checked: false }, *@
+                    @* { id: 15, text: "渡假村", checked: false },
+                    { id: 16, text: "民宿", checked: false },
+                    { id: 17, text: "景點門票", checked: false },
+                    { id: 18, text: "主題樂園", checked: false },
+                    { id: 19, text: "博物館 & 美術館", checked: false },
+                    { id: 20, text: "水族館 & 動物園", checked: false },
+                    { id: 21, text: "歷史景點", checked: false },
+                    { id: 22, text: "親子旅行", checked: false },
+                    { id: 23, text: "半 / 一日遊", checked: false },
+                    { id: 24, text: "多日遊", checked: false },
+                    { id: 25, text: "線上旅遊", checked: false },
+                    { id: 26, text: "單車旅遊", checked: false },
+                    { id: 27, text: "郵船觀光", checked: false },
+                    { id: 28, text: "郵輪假期", checked: false },
+                    { id: 29, text: "離島旅遊", checked: false },
+                    { id: 30, text: "台灣水上活動", checked: false },
+                    { id: 31, text: "冒險 & 極限運動", checked: false },
+                    { id: 32, text: "雪地活動", checked: false },
+                    { id: 33, text: "露營", checked: false },
+                    { id: 34, text: "遠足 & 登山", checked: false },
+                    { id: 35, text: "觀光農場", checked: false },
+                    { id: 36, text: "水上活動", checked: false },
+                    { id: 37, text: "高鐵假期", checked: false },
+                    { id: 38, text: "立榮假期", checked: false },
+                    { id: 39, text: "日本交通巴士", checked: false },
+                    { id: 40, text: "台灣租車自價", checked: false },
+                    { id: 41, text: "交通票卷", checked: false },
+                    { id: 42, text: "租車自駕", checked: false },
+                    { id: 43, text: "專車服務", checked: false },
+                    { id: 44, text: "機場接駁", checked: false },
+                    { id: 45, text: "Spa & 按摩", checked: false },
+                    { id: 46, text: "美容 & 沙龍", checked: false },
+                    { id: 47, text: "溫泉", checked: false },
+                    { id: 48, text: "伴手禮", checked: false },
+                    { id: 49, text: "運動賽事", checked: false },
+                    { id: 50, text: "娛樂表演", checked: false },
+                    { id: 51, text: "展覽", checked: false },
+                    { id: 52, text: "WiFi / SIM卡", checked: false },
+                    { id: 53, text: "質感手作", checked: false },
+                    { id: 54, text: "工作坊 & 課程", checked: false },
+                    { id: 55, text: "文化體驗", checked: false },
+                    { id: 56, text: "手作調料表", checked: false },
+                    { id: 57, text: "旅遊文件申請服務", checked: false },
+                    { id: 58, text: "行李運送 / 寄存服務", checked: false },
+                    { id: 59, text: "專業攝影服務", checked: false },
+                    { id: 60, text: "旅行裝備與相關服務", checked: false } *@
+                ],
+            },
             //卡列表區
             page: 1,
-            cardCount: 1,
+            cardCount: 7991,
             productCards: [
                 {
                     //href: '',
@@ -501,7 +495,7 @@
                         originalPrice: '',
                         price: '',
                     },
-                    favorite: false
+                    favorite: false,
                 },
                 {
                     productId: '1',
@@ -520,335 +514,201 @@
                 },
             ]
         },
-        methods: {
-            //pageRadio
-            choosePage(page) {
-                filterPost(page)
-            },
-        },
         mounted() {
-            this.choosePage(1)
+            let cityList = @Html.Raw(cityJson);
+            let categoryList = @Html.Raw(categoryJson);
+            //console.log(cityList)
+            //console.log(categoryList)
+
+            this.allFilter.cities = cityList.map(x => 
+                ({
+                    CityId:x.CityId,
+                    CityName:x.CityName,
+                    Checked:false,
+                })
+            )
+            this.allFilter.categories = categoryList
+            .map( x => {
+                //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
+                x.ChildCategory.forEach( child => child.Checked = false)
+
+                return x;
+            })
+
+            this.filterPost(1)
+
+
             //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
-            //this.cardCount = @Model.CardCount
+        },
+
+        methods: {
+            cancelAll(){
+                this.allFilter.cities.forEach( c=> c.Checked = false)
+                this.allFilter.categories.forEach( ca=> {
+                    ca.ChildCategory.forEach( child=> {child.Checked = false})
+                })
+                this.filterPost(1)
+            },
+            //pageRadio
+            cancel(target) {
+                console.log('取消',target)
+                target.Checked = false
+                this.filterPost(1)
+            },
+            async filterPost(page) {
+                //var citiesChecked = document.querySelectorAll('input.city_PC:checked')
+                //var selfformchecked = document.querySelectorAll('input.selfform-check:checked')
+                //var citiescategorieschecked = document.querySelectorAll('input.selfform-city:checked')
+
+                fetch("/api/ClassifyApi/Classify", {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json;charset=utf-8',
+                    },
+                    body: JSON.stringify({
+                        @* cities: Array.from(citiesChecked).map(x => x.value),  *@
+                        cities: this.allFilter.cities.filter(x => x.Checked).map(x => x.CityId),
+                        categories: this.allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x)
+                            .filter(x => x.Checked).map(x => x.ProductCategoryId),
+
+                        @* categories: Array.from(selfformchecked).map(x => x.value), *@
+                        //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
+                        page: page,
+                    })
+                })
+                    .then(resp => resp.json())
+                    .then(JSobj => {
+                        console.log(JSobj)
+                        //重新處理DOM
+                        if (classifyCardVue.cardCount != JSobj.cardCount)
+                            classifyCardVue.cardCount = JSobj.cardCount
+                        //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
+                        classifyCardVue.page = page;
+
+                        classifyCardVue.productCards =
+                            JSobj.classifyCardList.map(x => {
+                                x.href = `/Product/ProductInfo/${x.productId}`
+                                return x;
+                            })
+                        document.querySelector('#destFilter').focus();
+                    })
+                @* OriginalPrice/Price *@
+                .then(() => {
+                    let OriginalPrice = document.querySelectorAll('.OriginalPrice')
+                    let Price = document.querySelectorAll('.Price')
+                    OriginalPrice.forEach((item, index) => {
+                        if (item.innerText === Price[index].innerText) {
+                            item.classList.add("d-none")
+                        }
+                    })
+                })
+
+                @* categories *@
+                    @* .then(() => {
+                                            $('.chip').remove();
+                                            $('.chip-clear').remove();
+                                            let selfform_city = document.querySelector('.selfform-city')
+                                            let outside = document.querySelector('.chip-group')
+                                            let filter = document.querySelectorAll('.filter')
+                                            let cityfilter = document.querySelectorAll('.cityfilter')
+                                            let citiescategories = Array.from(citiescategorieschecked).map(x => x.value)
+                                            let cities = Array.from(citiesChecked).map(x => x.value)
+
+                                            for (let i = 0; i < cities.length; i++) {
+                                            let area = document.createElement('span');
+                                            area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
+                                            let text = document.createElement('span');
+                                            text.innerHTML = cityfilter[i].innerText
+                                            let X = document.createElement('button');
+                                            X.setAttribute('class', 'btn-close');
+                                            X.setAttribute('aria-label', 'Close');
+                                            //
+                                            //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
+                                            //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
+                                            //
+                                            area.append(text);
+                                            area.append(X);
+                                            outside.append(area);
+                                            }
+
+                                            if (cities.length >= 1) {
+                                            $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
+                                            let span = document.querySelectorAll(".chip")
+                                            let closebtn = document.querySelectorAll(".chip .btn-close")
+                                            closebtn.forEach((item, index) => {
+                                            item.addEventListener("click", function (event) {
+                                            span[index].remove()
+                                            })
+                                            })
+                                            let chip_clear = document.querySelector(".chip-clear")
+                                            chip_clear.addEventListener("click", () => {
+                                            window.location.reload()
+                                            })
+                                            }
+
+                                            }) *@
+
+                @* let btn_clean_destination = document.querySelector(".btn-clean-destination")
+                btn_clean_destination.addEventListener("click", () => {
+                    for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
+                        document.querySelectorAll('.city_PC')[i].checked = false
+                    } 
+                })*@
+                //全選
+                //let allform_check = document.querySelector(".allform-check")
+                //let selfform_check = document.querySelector(".selfform-check")
+                //    allform_check.addEventListener("click",()=>{
+                //            for (let i = 0; i < document.querySelectorAll('.selfform-check').length; i++) {
+                //                document.querySelectorAll('.selfform-check')[i].checked = true
+                //                }
+                //        }
+                //    )
+
+                //let btn_finish = document.querySelector(".btn-finish-destination")
+                //    btn_finish.addEventListener("click",()=>{
+                //            for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
+                //                document.querySelectorAll('.city_PC')[i].checked = true
+                //                }
+                //    }
+                //)
+
+                //let selfform_check_label = document.querySelector(".self-form-check-label").innerText
+                //let chip = document.querySelector(".chip").innerText
+                //    selfform_check_label.addEventListener("click",()=>{
+                //        if (selfform_check_label == true) {//按鈕已選中
+                //            chip.style.backgroundColor = "red";
+                //            chip.removeAttribute("disabled");//移除disabled
+                //        }
+                //        else {
+                //            chip.disadled = "disabled";
+                //        }
+                //    })
+
+                //function show() {
+                //    obj = document.getElementsByName("checkboxs");
+                //    chipname =document.querySelector(".chipname")
+                //    check_value = [];
+                //        for (i in obj) {
+                //            if (obj[i].checked) {
+                //                chipname.style.backgroundColor = "red";
+                //                chipname.removeAttribute("disabled");//移除disabled
+
+                //                    check_value.push(obj[i].value);
+                //            }
+                //            else {
+                //                chipname.disadled = "disabled";
+                //            }
+                //        }
+                //        //show.check_value
+                //        alert(check_value);
+                //}
+
+            }
+
         },
     })
 </script>
 
 
-@*日期篩選*@
-<script type="text/javascript">
-    $(function () {
-        $('input[name="datefilter"]').daterangepicker({
-            autoUpdateInput: false,
-            locale: {
-                cancelLabel: 'Clear'
-            }
-        });
 
-        $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-        });
-
-        $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
-            $(this).val('');
-        });
-    });
-</script>
 }
-
-<script>
-    function filterGet() {
-        const request = new Request("/api/ClassifyApi/Classify");
-        fetch(request)
-    }
-    let p = document.querySelectorAll(".click_num")
-    for (let i = 0; i < p.length; i++) {
-        p[i].addEventListener("click", function () {
-            p[i].classList.add("btn-info")
-        })
-    }
-    async function postAndChangePages() {
-        await filterPost(1);
-    }
-
-    function makePill(cityInput) { //參數area , targetInput
-        //create
-        let dom = document.createElement('');
-
-        dom.innerText = cityInput.parentElement ?? .innerText //拿到label文字
-
-
-        //append
-        let area = document.createElement('span');
-        area.append(dom)
-        //之後再改 不確定的area 參數指定areai
-
-
-        //綁事件
-    @* dom的xx 按了 要 把target取消勾選 *@
-
-
-    }
-
-    async function filterPost(page) {
-        var citiesChecked = document.querySelectorAll('input.city_PC:checked')
-        var selfformchecked = document.querySelectorAll('input.selfform-check:checked')
-        //var citiescategorieschecked = document.querySelectorAll('input.selfform-city:checked')
-
-        fetch("/api/ClassifyApi/Classify", {
-            method: 'post',
-            headers: {
-                'content-type': 'application/json;charset=utf-8',
-            },
-            body: JSON.stringify({
-                cities: Array.from(citiesChecked).map(x => x.value), //allFilter.cities.filter(x => x.checked).map(x => x.id)
-                categories: Array.from(selfformchecked).map(x => x.value),
-                //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
-                page: page,
-            })
-        })
-            .then(resp => resp.json())
-            .then(JSobj => {
-                console.log(JSobj)
-                //重新處理DOM
-                if (classifyCardVue.cardCount != JSobj.cardCount)
-                    classifyCardVue.cardCount = JSobj.cardCount
-
-                classifyCardVue.productCards =
-                    JSobj.classifyCardList.map(x => {
-                        x.href = `/Product/ProductInfo/${x.productId}`
-                        document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
-                        return x;
-                    })
-                classifyCardVue.page = page;
-                document.querySelector('#destFilter').focus();
-            })
-    @* OriginalPrice/Price *@
-                .then(() => {
-            let OriginalPrice = document.querySelectorAll('.OriginalPrice')
-            let Price = document.querySelectorAll('.Price')
-            OriginalPrice.forEach((item, index) => {
-                if (item.innerText === Price[index].innerText) {
-                    item.classList.add("d-none")
-                }
-            })
-        })
-
-    @* categories *@
-        .then(() => {
-            $('.chip').remove();
-            $('.chip-clear').remove();
-            let selfform_city = document.querySelector('.selfform-city')
-            let outside = document.querySelector('.chip-group')
-            let filter = document.querySelectorAll('.filter')
-            let cityfilter = document.querySelectorAll('.cityfilter')
-            let citiescategories = Array.from(citiescategorieschecked).map(x => x.value)
-            let cities = Array.from(citiesChecked).map(x => x.value)
-
-            //for (let i = 0; i < citiescategories.length; i++) {
-            //    let area = document.createElement('span');
-            //    area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
-            //    let text = document.createElement('span');
-            //    text.innerHTML = filter[citiescategories[i] - 13].innerText
-            //    //text.innerHTML=filter[cities[i]-13].innerText
-            //    let X = document.createElement('button');
-            //    X.setAttribute('class', 'btn-close');
-            //    X.setAttribute('aria-label', 'Close');
-            //    //
-            //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-            //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-            //    //
-            //    area.append(text);
-            //    area.append(X);
-            //    outside.append(area);
-            //}
-            for (let i = 0; i < cities.length; i++) {
-                let area = document.createElement('span');
-                area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
-                let text = document.createElement('span');
-                text.innerHTML = cityfilter[i].innerText
-                let X = document.createElement('button');
-                X.setAttribute('class', 'btn-close');
-                X.setAttribute('aria-label', 'Close');
-                //
-                //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //
-                area.append(text);
-                area.append(X);
-                outside.append(area);
-            }
-
-            //if (citiescategories.length >= 1) {
-            //    $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
-            //    let span = document.querySelectorAll(".chip")
-            //    let closebtn = document.querySelectorAll(".chip .btn-close")
-            //    closebtn.forEach((item, index) => {
-            //        item.addEventListener("click", function (event) {
-            //            span[index].remove()
-            //        })
-            //    })
-            //    let chip_clear = document.querySelector(".chip-clear")
-            //    chip_clear.addEventListener("click", () => {
-            //        window.location.reload()
-            //    })
-            //}
-            if (cities.length >= 1) {
-                $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
-                let span = document.querySelectorAll(".chip")
-                let closebtn = document.querySelectorAll(".chip .btn-close")
-                closebtn.forEach((item, index) => {
-                    item.addEventListener("click", function (event) {
-                        span[index].remove()
-                    })
-                })
-                let chip_clear = document.querySelector(".chip-clear")
-                chip_clear.addEventListener("click", () => {
-                    window.location.reload()
-                })
-            }
-
-        })
-    @* city *@
-        //.then(() => {
-        //    $('.chip').remove();
-        //    $('.chip-clear').remove();
-        //    let outsidee = document.querySelector('.chip-group')
-        //    let filter = document.querySelectorAll('.filter')
-        //    let cities = Array.from(citiesChecked).map(x => x.value)
-        //    for (let i = 0; i < cities.length; i++) {
-        //        let areaa = document.createElement('span');
-        //        areaa.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
-        //        let textt = document.createElement('span');
-        //        textt.innerHTML = filter[cities[i] - 27].innerText
-        //        //text.innerHTML=filter[cities[i]-13].innerText
-        //        let X = document.createElement('button');
-        //        X.setAttribute('class', 'btn-close');
-        //        X.setAttribute('aria-label', 'Close');
-        //        //
-        //        //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-        //        //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-        //        //
-        //        areaa.append(textt);
-        //        areaa.append(X);
-        //        outsidee.append(areaa);
-        //    }
-        //    if (cities.length >= 1) {
-        //        $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
-        //        let span = document.querySelectorAll(".chip")
-        //        let closebtn = document.querySelectorAll(".chip .btn-close")
-        //        closebtn.forEach((item, index) => {
-        //            item.addEventListener("click", function (event) {
-        //                span[index].remove()
-        //            })
-        //        })
-        //        let chip_clear = document.querySelector(".chip-clear")
-        //        chip_clear.addEventListener("click", () => {
-        //            window.location.reload()
-        //        })
-        //    }
-        //})
-    }
-    let btn_clean_destination = document.querySelector(".btn-clean-destination")
-    btn_clean_destination.addEventListener("click", () => {
-        for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
-            document.querySelectorAll('.city_PC')[i].checked = false
-        }
-        //  toastr.options = {
-        //    positionClass: 'toast-top-center',
-        //  }
-        //  $('#button-demo').click(function(){
-        //toastr.success('.city_PC');
-        //  });
-
-        //toastr.options = {
-        // // 參數設定[註1]
-        // "closeButton": false, // 顯示關閉按鈕
-        // "debug": false, // 除錯
-        // "newestOnTop": false,  // 最新一筆顯示在最上面
-        // "progressBar": true, // 顯示隱藏時間進度條
-        // "positionClass": "toast-top-center", // 位置的類別
-        // "preventDuplicates": false, // 隱藏重覆訊息
-        // "onclick": null, // 當點選提示訊息時，則執行此函式
-        // "showDuration": "300", // 顯示時間(單位: 毫秒)
-        // "hideDuration": "1000", // 隱藏時間(單位: 毫秒)
-        // "timeOut": "5000", // 當超過此設定時間時，則隱藏提示訊息(單位: 毫秒)
-        // "extendedTimeOut": "1000", // 當使用者觸碰到提示訊息時，離開後超過此設定時間則隱藏提示訊息(單位: 毫秒)
-        // "showEasing": "swing", // 顯示動畫時間曲線
-        // "hideEasing": "linear", // 隱藏動畫時間曲線
-        // "showMethod": "fadeIn", // 顯示動畫效果
-        // "hideMethod": "fadeOut" // 隱藏動畫效果
-        //}
-        //toastr.success( "Success" );
-        //toastr.warning( "Warning" );
-        //toastr.error( "Error" );
-
-
-
-        //window.location.reload()
-        //document.querySelectorAll('#offcanvasBottom').style.visibility='visible'
-
-        //document.querySelectorAll('#offcanvasBottom').classList.add('show')
-        //visibility: visible;
-    })
-            //全選
-        //let allform_check = document.querySelector(".allform-check")
-        //let selfform_check = document.querySelector(".selfform-check")
-        //    allform_check.addEventListener("click",()=>{
-        //            for (let i = 0; i < document.querySelectorAll('.selfform-check').length; i++) {
-        //                document.querySelectorAll('.selfform-check')[i].checked = true
-        //                }
-        //        }
-        //    )
-
-        //let btn_finish = document.querySelector(".btn-finish-destination")
-        //    btn_finish.addEventListener("click",()=>{
-        //            for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
-        //                document.querySelectorAll('.city_PC')[i].checked = true
-        //                }
-        //    }
-        //)
-
-        //let selfform_check_label = document.querySelector(".self-form-check-label").innerText
-        //let chip = document.querySelector(".chip").innerText
-        //    selfform_check_label.addEventListener("click",()=>{
-        //        if (selfform_check_label == true) {//按鈕已選中
-        //            chip.style.backgroundColor = "red";
-        //            chip.removeAttribute("disabled");//移除disabled
-        //        }
-        //        else {
-        //            chip.disadled = "disabled";
-        //        }
-        //    })
-
-            //function show() {
-            //    obj = document.getElementsByName("checkboxs");
-            //    chipname =document.querySelector(".chipname")
-            //    check_value = [];
-            //        for (i in obj) {
-            //            if (obj[i].checked) {
-            //                chipname.style.backgroundColor = "red";
-            //                chipname.removeAttribute("disabled");//移除disabled
-
-            //                    check_value.push(obj[i].value);
-            //            }
-            //            else {
-            //                chipname.disadled = "disabled";
-            //            }
-            //        }
-            //        //show.check_value
-            //        alert(check_value);
-            //}
-
-
-        //let chip_clear = document.querySelector(".chip-clear")
-        //    chip_clear.addEventListener("click",()=>{
-        //            //for (let i = 0; i < document.querySelectorAll('.selfform-check').length; i++) {
-        //            //    document.querySelectorAll('.selfform-check')[i].checked = false
-        //            // }
-        //             window.location.reload()
-        //        }
-        //    )
-
-
-</script>
