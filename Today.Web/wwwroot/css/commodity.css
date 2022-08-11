@@ -182,9 +182,7 @@ h6.product-initial-title {
     margin: auto;
 }
 
-.flatpickr-input {
-    display: none;
-}
+
 
 
 
@@ -712,6 +710,9 @@ h5 {
 
 @media screen and (min-width: 992px) {
 
+    .flatpickr-input {
+        display: none;
+    }
     .carousel-item > img {
         height: 450px;
     }

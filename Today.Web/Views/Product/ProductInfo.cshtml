@@ -48,7 +48,7 @@
         </div>
         <div>
             <h6>使用日期</h6>
-            <input id="iphdate" />
+            <input id="iphdate"placeholder="選擇日期.."/>
         </div>
         <div class="select-quantity-div">
             <h6 class="select-quantity-title">
@@ -423,18 +423,10 @@
                     <h6 class="select-quantity-title">
                         選擇數量
                     </h6>
+                    <div class="col-12 lg-select-quantity-UnitText">
+
+                    </div>
                     <div class="select-quantity-aldult col-12 d-flex flex-wrap">
-                        @*                        <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
-                        <p class="col-8 mt-auto UnitText">
-
-                        </p>
-                        <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-
-                        <button class="select-quantity-btn-reduce reduce">-</button>
-                        <p class="count">0</p>
-                        <button class="select-quantity-btn-add plus">+</button>
-                        </div>
-                        </div>*@
                         <div class="d-flex justify-content-between col-12 select-total-div ">
                             <span>總金額</span>
                             <p class="price">
@@ -504,7 +496,8 @@
     <!-- toastr v2.1.4 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
+    <script src="~/js/flatpickr.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script>
         let money = document.querySelector(".initial-money p")
@@ -573,12 +566,12 @@
         })
 
         function INSPECTION() {
-                getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
+                getdata = iphdate._flatpickr.selectedDates
                 if (getdata.length == 0) {
                     return "Datelength"
                 }
                 let AllQuantity = 0;
-                Array.forEach(sp => {
+                myArray.forEach(sp => {
                     if (sp.Quantity > 0) {
                         AllQuantity++
                     }
@@ -587,12 +580,11 @@
                     return "Quantity"
                 }
             }
-
-        let Array = []
+        let myArray = []
         btn_Next_step.addEventListener("click",()=>{
 
             let cantusedateiph = [];
-            pglist[btn_next_step.value].datelist.foreach(d => {
+            pglist[btn_Next_step.value].DateList.forEach(d => {
                 cantusedateiph.push(d.cantusedate)
             })
             //引入月曆套件
@@ -600,7 +592,7 @@
                 mindate: "today",
                 disable: cantusedateiph,
                 dateformat: "y-m-d",
-                inline: true,
+                //inline: true,
                 mode: "range",
             });
              document.querySelectorAll(".select-quantity-div > .UnitText-div").forEach( (p ,index) => {
@@ -611,23 +603,23 @@
                 let id = p.querySelector("input").value
                 let sum_price = document.querySelector(".amount")
                 let obj = { SpecificationId: id, Quantity: num }
-                Array.push(obj)
+                myArray.push(obj)
 
                 plus.addEventListener("click", () => {
                     num = parseInt(count.innerHTML, 10) + 1
                     count.innerHTML = num
-                    Array[index].Quantity = num
+                    myArray[index].Quantity = num
                     console.log(sum_price.innerText)
                     sum_price.innerHTML = parseInt(sum_price.innerText) + (parseInt(pglist[btn_Next_step.value].ProgramSpecificationList[index].PorgarmUnitPrice, 10) * parseInt(num, 10))
                     console.log(sum_price.innerText)
-                    console.log(Array)
+                    console.log(myArray)
                 })
                 reduce.addEventListener("click", () => {
                     if (count.innerHTML > 0) {
                         sum_price.innerHTML = parseInt(sum_price.innerText) - (parseInt(pglist[btn_Next_step.value].ProgramSpecificationList[index].PorgarmUnitPrice, 10) * parseInt(num, 10))
                         num = parseInt(count.innerHTML, 10) - 1
                         count.innerHTML = num
-                        Array[index].Quantity = num
+                        myArray[index].Quantity = num
                     }
                 })
 
@@ -662,7 +654,7 @@
                     },
                     body: JSON.stringify({
                         MemberId: 0,
-                        SpecificationList: Array,
+                        SpecificationList: myArray,
                         DepartureDate: Departuredate,
                         //DepartureDate: "2022-08-09",
                     })
@@ -695,9 +687,7 @@
 
         progarmList.forEach((pg, index) => {
 
-            let Array = []
-
-            console.log(Array)
+            let myArray = []
             pg.querySelectorAll(".UnitText-div").forEach((div, i) => {
 
                 //let id = pg[index].querySelector(".UnitText-div>input").value
@@ -708,23 +698,23 @@
                 let id = div.querySelector("input").value
                 let sum_price = pg.querySelector(".price")
                 let obj = { SpecificationId: id, Quantity: num }
-                Array.push(obj)
+                myArray.push(obj)
 
                 plus.addEventListener("click", () => {
                     num = parseInt(count.innerHTML, 10) + 1
                     count.innerHTML = num
-                    Array[i].Quantity = num
+                    myArray[i].Quantity = num
                     console.log(sum_price.innerText)
                     sum_price.innerHTML = parseInt(sum_price.innerText) + (parseInt(pglist[index].ProgramSpecificationList[i].PorgarmUnitPrice, 10) * parseInt(num, 10))
                     console.log(sum_price.innerText)
-                    console.log(Array)
+                    console.log(myArray)
                 })
                 reduce.addEventListener("click", () => {
                     if (count.innerHTML > 0) {
                         sum_price.innerHTML = parseInt(sum_price.innerText) - (parseInt(pglist[index].ProgramSpecificationList[i].PorgarmUnitPrice, 10) * parseInt(num, 10))
                         num = parseInt(count.innerHTML, 10) - 1
                         count.innerHTML = num
-                        Array[i].Quantity = num
+                        myArray[i].Quantity = num
                     }
                 })
             })
@@ -735,7 +725,7 @@
                     return "Datelength"
                 }
                 let AllQuantity = 0;
-                Array.forEach(sp => {
+                myArray.forEach(sp => {
                     if (sp.Quantity > 0) {
                         AllQuantity++
                     }
@@ -772,7 +762,7 @@
                     },
                     body: JSON.stringify({
                         //MemberId: 1,
-                        SpecificationList: Array,
+                        SpecificationList: myArray,
                         DepartureDate: Departuredate,
                     })
                 })
@@ -794,7 +784,6 @@
 
                     })
             })
-
             let shoppingbtn = pg.querySelector(".shopping-cart-btn")
             shoppingbtn.addEventListener("click", function() {
                 let INSPECTIONText = "";
@@ -821,7 +810,7 @@
                     },
                     body: JSON.stringify({
                         MemberId: 0,
-                        SpecificationList: Array,
+                        SpecificationList: myArray,
                         DepartureDate: Departuredate,
                     })
                 })
@@ -839,6 +828,7 @@
    
         function Addcard(index, PrgarmText, name, ProgramSpecificationList, AboutProgramList, ProgramIncludeList, DateList) {
             let programcard = PrgramNameModel.content.cloneNode(true);
+            console.log(programcard)
             programcard.querySelector("h4").innerText = name
             programcard.querySelector("input.btn-check").id = `btn${index}`
             programcard.querySelector("label.btn").for = `btn${index}`
@@ -856,8 +846,19 @@
             }
 
             let datainput = programcard.querySelector(".product-initial-div>input")
+
+
             datainput.id = `myID${index}`
             console.log(datainput)
+
+            //let xxx = myArray.prototype.slice.call( [datainput] ).filter(
+            //    (function(e){return e instanceof HTMLElement})
+            //)
+            //let xxx = [datainput].slice()
+            //.filter(
+            //    (function(e){return e instanceof HTMLElement})
+            //)
+
             //CantuseDate 不可選購的日期
             let CantuseDate = [];
             DateList.forEach(d => {
@@ -937,11 +938,10 @@
                 })
             }
             //ProgramSpecification
-            let Array = [];
             let getSpecificationId;
             if (ProgramSpecificationList.count != 0) {
                 ProgramSpecificationList.forEach((ps, index) => {
-                    let select_quantity_div = programcard.querySelector(".lg-select-quantity-div")
+                    let select_quantity_div = programcard.querySelector(".lg-select-quantity-UnitText")
                     let UnitText_div = `
                                           <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
                                                   <input class="d-none" value = "${ps.SpecificationId}" />
