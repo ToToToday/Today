@@ -83,7 +83,6 @@ namespace Today.Web.Controllers
         {
             return View();
         }
-        
         public IActionResult OrderManage()
         {
             var DTO = _membercommentservic.ReadMemberComment(new DTOModels.MemberCommentDTO.MemberCommentRequestDTO { MemberId = int.Parse(User.Identity.Name) });

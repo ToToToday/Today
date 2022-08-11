@@ -240,5 +240,10 @@ namespace Today.Web.Services.AccountService
             return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
         }
 
+        public int GetMemberId()
+        {
+            return int.Parse(_httpContextAccessor.HttpContext.User.Identity.Name);
+        }
+
     }
 }
