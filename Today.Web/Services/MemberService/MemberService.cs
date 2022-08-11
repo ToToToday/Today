@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Today.Model.Models;
 using Today.Model.Repositories;
+using Today.Web.DTOModels.MemberDTO;
+using Today.Web.Services.AccountService;
 using static Today.Web.DTOModels.MemberDTO.MemberDTO;
 
 namespace Today.Web.Services.MemberService
@@ -10,9 +12,11 @@ namespace Today.Web.Services.MemberService
     public class MemberService : IMemberService
     {
         private readonly IGenericRepository _repo;
-        public MemberService(IGenericRepository repo)
+        private readonly IAccountService _accountService;
+        public MemberService(IGenericRepository repo, IAccountService accountService)
         {
-            _repo = repo;
+           _repo = repo;
+            _accountService = accountService;
         }
 
         public List<CityRegion> AllCityList()
@@ -79,6 +83,7 @@ namespace Today.Web.Services.MemberService
 
             return test;
         }
+
         public string GetMemberName(MemberRequestDTO MemberId)
         {
             var result = _repo.GetAll<Member>()
@@ -87,6 +92,17 @@ namespace Today.Web.Services.MemberService
                 .First();
 
             return result;
+        }
+
+        public int GetLongWayName()
+        {
+            var memberId = _accountService.GetMemberId();
+            var result = _repo.GetAll<LoginWay>()
+                .Where(l => l.MemberId == memberId)
+                .Select(l => l.LongWayName)
+                .FirstOrDefault();
+
+            return result == default? 1: result;
         }
     }
 }

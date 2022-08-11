@@ -51,7 +51,7 @@ btn_submit.addEventListener('click', function () {
         .then(res => {
             return res.json()
         }).then(res => {
-            console.log(res)
+            //console.log(res)
             toastr['success']('資料已更新')
         })
 });

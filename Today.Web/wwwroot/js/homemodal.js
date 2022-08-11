@@ -1,4 +1,6 @@
-﻿let submit = document.querySelector("#signupSubmit")
+﻿//註冊modal的 checkbox的勾選(防呆)
+
+let submit = document.querySelector("#signupSubmit")
 let agreelabel = document.querySelector("#agree-label")
 let agreebox = agreelabel.querySelector("#checkAgree")
 let password = document.querySelector("#password")
