@@ -1,6 +1,12 @@
 ﻿@using Newtonsoft.Json
 @model ProductInfoVM
-radio
+@{
+    decimal Stars = 0;
+    if (@Model.MemberList.Count != 0)
+    {
+        Stars = (decimal)@Model.MemberList.Select(s => s.Star).Sum() / (decimal)@Model.MemberList.Count;
+    }
+}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 <div class="initial-nav bg-white w-100 position-fixed border-botto border-secondary d-lg-none">
     <nav class=" nav nav-pills text-center px-2 py-2 align-items-center navbar navbar-expand-lg fixed-width">
@@ -10,7 +16,7 @@ radio
                 @*選擇日期*@
             </p>
             <p class="selected-Program col-6">
-                @Model.ProductName
+
             </p>
         </div>
         <ul class="col-4 d-flex">
@@ -25,54 +31,60 @@ radio
                 data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom">
             下一步
         </button>
-        <div class="offcanvas offcanvas-bottom btn-Next-step-Window" tabindex="-1" id="offcanvasBottom1"
-             aria-labelledby="offcanvasBottomLabel1">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasBottomLabel1">精緻客房｜一泊三食｜8 晚防疫旅館專案</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body small text-start btn-Next-step-Window-offcanvas">
-                <div>
-                    <h6>方案</h6>
-                    <p>精緻客房｜一泊三食</p>
+    </nav>
+</div>
+<div class="offcanvas offcanvas-bottom btn-Next-step-Window" tabindex="-1" id="offcanvasBottom1"
+     aria-labelledby="offcanvasBottomLabel1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel1">@Model.ProductName</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body small text-start btn-Next-step-Window-offcanvas">
+        <div>
+            <h6>方案</h6>
+            <p class="selected-Program"></p>
+        </div>
+        <div>
+            <h6>使用日期</h6>
+            <input id="iphdate" />
+        </div>
+        <div class="select-quantity-div">
+            <h6 class="select-quantity-title">
+                選擇數量
+            </h6>
+            <div class="select-quantity-aldult col-12 d-flex flex-wrap">
+                @*                <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                <p class="col-8 mt-auto UnitText">
+
+                </p>
+                <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+
+                <button class="select-quantity-btn-reduce reduce">-</button>
+                <p class="count">0</p>
+                <button class="select-quantity-btn-add plus">+</button>
                 </div>
-                <div>
-                    <h6>使用日期</h6>
-                    <p>8月14日(週日)</p>
-                </div>
-                <div class="select-quantity-div">
-                    <h6 class="select-quantity-title">
-                        選擇數量
-                    </h6>
-                    <div class="select-quantity-aldult col-12 d-flex flex-wrap ">
-                        <p class="col-8">
-                            成人
-                            <span class="col-6">12歲以上(含)</span>
-                            <br>
-                            <span class="col-12">TWD 600/每人</span>
-                        </p>
-                        <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                            <button class="select-quantity-btn-reduce">-</button>
-                            <p class="">0</p>
-                            <button class="select-quantity-btn-add">+</button>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                </div>
-            </div>
-            <div class="send-order-div d-flex col-12 p-2">
-                <div class="order-amount-div col-4 d-flex flex-wrap">
-                    <p class="amount col-12">
-                        <span>TWD</span>
-                        10000
-                    </p>
-                </div>
-                <input class="btn send-order-btn col-8 text-white " readonly value="確定送出">
+                </div>*@
+                @*                <div class="d-flex justify-content-between col-12 select-total-div ">
+                <span>總金額</span>
+                <p class="price">
+                0
+                總金額
+                </p>
+                </div>*@
             </div>
         </div>
-    </nav>
+    </div>
+    <div class="send-order-div d-flex col-12 p-2">
+        <div class="order-amount-div col-4 d-flex flex-wrap">
+            <p class="amount col-12">
+                0
+            </p>
+        </div>
+        <input class="btn send-order-btn col-8 text-white " readonly value="確定送出">
+    </div>
+
 </div>
 <div class="row justify-content-center slideshow-phone p-0 m-0 d-flex d-lg-none">
     <div id="carouselExampleIndicators1" class="productDetail-tour carousel slide row" data-bs-ride="true">
@@ -196,7 +208,7 @@ radio
                     <div class="order-quantity col-12 ">
                         <p>
                             <i class="fa-solid fa-star"></i>
-                            4.8 | (700) 300+ 個已訂購
+                            @Stars | (@Model.MemberList.Count) 評論
                         </p>
                     </div>
                     <div class="money col-12 d-lg-none">
@@ -292,50 +304,53 @@ radio
                 </h3>
                 <div class="Star col-8">
                     <i class="fa-solid fa-star"></i>
-                    4.8 <span>(76)</span>
+                    @Stars
+                    <span>(@Model.MemberList.Count)</span>
                 </div>
-                <a class="text-break col-4">
-                    更多評價 >
-                </a>
-                @foreach (var comment in @Model.MemberList)
-                {
-                    <div class="Evaluation-message col-12">
-                        <div class="message-img col-1">
-                            <div class="img-message-div">
-                                <img src="https://picsum.photos/300/200/?random=10">
+                @*                <a class="text-break col-4">
+                更多評價 >
+                </a>*@
+                <div class="Evaluation-message-div col-12">
+                    @foreach (var comment in @Model.MemberList)
+                    {
+                        <div class="Evaluation-message col-12 d-flex">
+                            <div class="message-img col-1  mt-4 me-4">
+                                <div class="img-message-div">
+                                    <img src="https://picsum.photos/300/200/?random=10">
+                                </div>
                             </div>
-                        </div>
-                        <div class="message col-10">
-                            <div class="Member-name">
-                                @comment.MemberName
-                            </div>
-                            <div class="Member-message-time">
-                                @comment.Data.ToString().Substring(0,11)
-                            </div>
-                            <div class="Member-star-div">
-                                @for (int s = 0; s < 5; s++)
-                                {
-                                    if (s <= @comment.Star)
+                            <div class="message col-10 mt-4">
+                                <div class="Member-name">
+                                    @comment.MemberName
+                                </div>
+                                <div class="Member-message-time">
+                                    @comment.Data.ToString().Substring(0,11)
+                                </div>
+                                <div class="Member-star-div my-2">
+                                    @for (int s = 0; s < 5; s++)
                                     {
-                                        <i class="Member-star fa-solid fa-star"></i>
+                                        if (s < @comment.Star)
+                                        {
+                                            <i class="Member-star fa-solid fa-star"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa-solid fa-star"></i>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <i class="fa-solid fa-star"></i>
-                                    }
-                                }
-                            </div>
-                            <div class="Member-message col-12">
-                                <div class="Member-message">
-                                    @Html.Raw(@comment.MembermMessageText)
+                                </div>
+                                <div class="Member-message col-12">
+                                    <div class="Member-message">
+                                        @Html.Raw(@comment.MembermMessageText)
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
-        <div class="product-infon-a d-lg-flex col-lg-4 flex-wrap h-100 ">
+        <div class="product-infon-a-lg product-infon-a d-lg-flex col-lg-4 d-none flex-wrap h-100 ">
             <a class="col-lg-12" href="#product-initial">選擇方案</a>
             <a class="col-lg-12" href="#product-Description">商品說明</a>
             <a class="col-lg-12" href="#purchase-Notes">購買須知</a>
@@ -345,9 +360,17 @@ radio
         </div>
     </div>
 </div>
+<div class="product-infon-a-iph product-infon-a d-lg-none d-flex ">
+    <a href="#product-initial">選擇方案</a>
+    <a href="#product-Description">商品說明</a>
+    <a href="#purchase-Notes">購買須知</a>
+    <a href="#how-use">憑證使用</a>
+    <a class="d-none" href="#Experience-location">體驗地點</a>
+    <a class="d-none" href="#Cancellation-Policy">取消政策</a>
+</div>
 <template id="PrgramNameModel">
     <div class="initial col-12">
-        <div class="initial-container  col-12 d-flex flex-wrap ">
+        <div class="initial-container  col-12 d-flex flex-wrap " data-bs-toggle="collapse">
             <div class="col-12 col-lg-5 mb-2">
                 <h4>
                     @*產品名稱*@
@@ -358,7 +381,7 @@ radio
                 </div>
             </div>
             <input type="radio" class="btn-check " name="btnradio" autocomplete="">
-            <label class="btn initial_btn col-4 col-lg-2 order-2  " data-bs-toggle="collapse" >選擇</label>
+            <label class="btn initial_btn col-4 col-lg-2 order-2">選擇</label>
             <p class="initial-money col-8 col-lg-5 d-block mb-2">
                 @*所以方案價位*@
                 <span>
@@ -401,17 +424,17 @@ radio
                         選擇數量
                     </h6>
                     <div class="select-quantity-aldult col-12 d-flex flex-wrap">
-                        <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
-                            <p class="col-8 mt-auto UnitText">
-                                @*規格項目/價格/單位*@
-                            </p>
-                            <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
-                                @*數量加減、總和*@
-                                <button class="select-quantity-btn-reduce reduce">-</button>
-                                <p class="count">0</p>
-                                <button class="select-quantity-btn-add plus">+</button>
-                            </div>
+                        @*                        <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                        <p class="col-8 mt-auto UnitText">
+
+                        </p>
+                        <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+
+                        <button class="select-quantity-btn-reduce reduce">-</button>
+                        <p class="count">0</p>
+                        <button class="select-quantity-btn-add plus">+</button>
                         </div>
+                        </div>*@
                         <div class="d-flex justify-content-between col-12 select-total-div ">
                             <span>總金額</span>
                             <p class="price">
@@ -469,108 +492,392 @@ radio
     </div>
 </div>
 
+
+
+
 @section topCSS{
     <link rel="stylesheet" href="~/css/commodity.css" />
     <link rel="stylesheet" href="~/css/reset.css" />
-}
+    }
     @section endJS{
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <!-- toastr v2.1.4 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    @*<script src="~/js/ProductInfo.js"></script>*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script>
-
-        //const ProductUrl = 'https:localhost:5001/api/Shop/AddCart'
-        //    let AddCart = new Vue({
-        //        el:'#AddCart',
-        //        data: {
-        //            aa: 0,
-        //            CreateCardData: {
-        //            ProductName : 'name',
-        //            ProgramTitle : 'title',
-        //            Path : 'Path',
-        //            DepartureDate : '2022-07-31',
-        //            Quantity : 0,
-        //            SpecificationId : 5,
-        //            ScreeningId : 3
-        //            }
-        //        },
-        //        methods: {
-        //            add(){
-        //                this.aa++;
-        //            },
-        //            min(){
-        //                if (this.aa > 0) {
-        //                    this.aa--;
-        //                }
-        //            },
-
-        //            CreateCard() {
-        //                axios.post(ProductUrl,this.CreateCardData)
-        //                    .then(res => {
-        //                        console.log(res)
-        //                        if (res.data.status == 200) {
-
-        //                            alert("insert success")
-        //                            $('createShopCard').model('hide')
-        //                        }
-        //                        else {
-        //                            alert("insert failed")
-        //                        }
-        //                    })
-
-        //            }
-        //        }
-        //    })
-
-
+        let money = document.querySelector(".initial-money p")
+        let money_iph = document.querySelector(".money")
         let product_initial = document.querySelector("#product-initial")
         let pglist = @Html.Raw(ViewData["ProgramSpecification"]);
-        //let body = document.querySelector("body")
-        let selectProgram = document.querySelector(".selected-Program");
+        let selectProgram = document.querySelectorAll(".selected-Program");
+        let programlabel = document.querySelectorAll("label.btn")
+        let progarminput = document.querySelectorAll("input.btn-check")
+        let offcanvasBottom1 = document.querySelector("#offcanvasBottom1")
+        let btn_Next_step = document.querySelector(".btn-Next-step")
+        let iphdate = document.querySelector("#iphdate")
         pglist.forEach((pg, index) => {
             product_initial.append(Addcard(index, pg.PrgarmText, pg.PrgramName, pg.ProgramSpecificationList, pg.AboutProgramList, pg.ProgramIncludeList, pg.DateList))
         })
 
+        ////手機板確認放案介面
+        //let Next_step_Window = document.querySelector("#iph-btn-Next-step-Window")
+        //let offcanvasBottom1 = document.querySelector("#offcanvasBottom1")
+        //按下以選擇按鈕 --->
+        let selectprogarmList = document.querySelectorAll("label.btn")
+        let progarminputList = document.querySelectorAll("input.btn-check")
+        selectprogarmList.forEach((b, i) => {
+            b.addEventListener("click", () => {
+                if (progarminputList[i].checked == true) {
+                    progarminputList[i].checked = false
+                    selectProgram[0].innerText = ""
+                }
+                else {
+                    progarminputList[i].checked = true
+                }
+                progarminputList.forEach((p, index) => {
+                    if (p.checked == true) {
+                        selectProgram[0].innerText = p.value;
+                        selectprogarmList[index].innerHTML = `<i class="fa-solid fa-circle-check "></i>己選擇`;
+
+                        let selected_Program = offcanvasBottom1.querySelector(".selected-Program")
+
+                        selected_Program.innerText = p.value
+                        btn_Next_step.value = index
+                        pglist[index].ProgramSpecificationList.forEach(ps => {
+
+                            let select_quantity_div = document.querySelector(".select-quantity-div")
+                            select_quantity_div.innerHTML = ""
+                            let UnitText_div = `
+                                                <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                                                        <input class="d-none" value = "${ps.SpecificationId}" />
+                                                        <p class="col-8 mt-auto UnitText">
+                                                         ${ps.Itemtext + ps.PorgarmUnitPrice + "/" + ps.UnitText}
+                                                        </p>
+                                                        <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                                                            <button class="select-quantity-btn-reduce reduce">-</button>
+                                                            <p class="count">0</p>
+                                                            <button class="select-quantity-btn-add plus">+</button>
+                                                        </div>
+                                                    </div> `
+                            select_quantity_div.innerHTML += UnitText_div
+
+                        })
+                    }
+                    else {
+                        selectprogarmList[index].innerText = `選擇`;
+                    }
+                })
+            })
+        })
+
+        function INSPECTION() {
+                getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
+                if (getdata.length == 0) {
+                    return "Datelength"
+                }
+                let AllQuantity = 0;
+                Array.forEach(sp => {
+                    if (sp.Quantity > 0) {
+                        AllQuantity++
+                    }
+                })
+                if (AllQuantity == 0) {
+                    return "Quantity"
+                }
+            }
+
+        let Array = []
+        btn_Next_step.addEventListener("click",()=>{
+
+            let cantusedateiph = [];
+            pglist[btn_next_step.value].datelist.foreach(d => {
+                cantusedateiph.push(d.cantusedate)
+            })
+            //引入月曆套件
+            const fp = flatpickr(iphdate, {
+                mindate: "today",
+                disable: cantusedateiph,
+                dateformat: "y-m-d",
+                inline: true,
+                mode: "range",
+            });
+             document.querySelectorAll(".select-quantity-div > .UnitText-div").forEach( (p ,index) => {
+                let num = 0;
+                let plus = p.querySelector(".plus")
+                let reduce = p.querySelector(".reduce")
+                let count = p.querySelector(".count")
+                let id = p.querySelector("input").value
+                let sum_price = document.querySelector(".amount")
+                let obj = { SpecificationId: id, Quantity: num }
+                Array.push(obj)
+
+                plus.addEventListener("click", () => {
+                    num = parseInt(count.innerHTML, 10) + 1
+                    count.innerHTML = num
+                    Array[index].Quantity = num
+                    console.log(sum_price.innerText)
+                    sum_price.innerHTML = parseInt(sum_price.innerText) + (parseInt(pglist[btn_Next_step.value].ProgramSpecificationList[index].PorgarmUnitPrice, 10) * parseInt(num, 10))
+                    console.log(sum_price.innerText)
+                    console.log(Array)
+                })
+                reduce.addEventListener("click", () => {
+                    if (count.innerHTML > 0) {
+                        sum_price.innerHTML = parseInt(sum_price.innerText) - (parseInt(pglist[btn_Next_step.value].ProgramSpecificationList[index].PorgarmUnitPrice, 10) * parseInt(num, 10))
+                        num = parseInt(count.innerHTML, 10) - 1
+                        count.innerHTML = num
+                        Array[index].Quantity = num
+                    }
+                })
+
+            })
+
+
+        })
+
+         let chckbtn =  document.querySelector(".send-order-btn")          
+          chckbtn.addEventListener("click",()=>{
+                 let INSPECTIONText = "";
+                INSPECTIONText = INSPECTION()
+                if (INSPECTION() == "Datelength") {
+                    alert("請選擇日期")
+                    return
+                }
+                else if (INSPECTION() == "Quantity") {
+                    alert("請選擇數量")
+                    return
+                }
+                let  getdata = iphdate._flatpickr.selectedDates
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                let url = "/api/Shop/AddCart";
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": "3000"
+                }
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        MemberId: 0,
+                        SpecificationList: Array,
+                        DepartureDate: Departuredate,
+                        //DepartureDate: "2022-08-09",
+                    })
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            toastr.success("新增成功");
+                        }
+                        else {
+                            toastr.error("新增失敗");
+                        }
+                    })
+          })
+        //抓方案價錢最小的
+        let allprogarm = document.querySelectorAll(".product-initial .initial .initial-money ")
+        let u;
+        allprogarm.forEach((p, index) => {
+            let l = p.innerText.length - 1
+            if (index == 0) {
+                u = parseInt(p.innerText.substring(0, l))
+            }
+            if (u > parseInt(p.innerText.substring(0, l))) {
+                u = parseInt(p.innerText.substring(0, l))
+            }
+        })
+        money.innerHTML = `<p class = "col-12"><span>${u}</span>起</p>`
+        money_iph.innerHTML = `<p class = "col-12"><span>${u}</span>起</p>`
+
+        let progarmList = document.querySelectorAll(".initial")
+
+        progarmList.forEach((pg, index) => {
+
+            let Array = []
+
+            console.log(Array)
+            pg.querySelectorAll(".UnitText-div").forEach((div, i) => {
+
+                //let id = pg[index].querySelector(".UnitText-div>input").value
+                let num = 0;
+                let plus = div.querySelector(".plus")
+                let reduce = div.querySelector(".reduce")
+                let count = div.querySelector(".count")
+                let id = div.querySelector("input").value
+                let sum_price = pg.querySelector(".price")
+                let obj = { SpecificationId: id, Quantity: num }
+                Array.push(obj)
+
+                plus.addEventListener("click", () => {
+                    num = parseInt(count.innerHTML, 10) + 1
+                    count.innerHTML = num
+                    Array[i].Quantity = num
+                    console.log(sum_price.innerText)
+                    sum_price.innerHTML = parseInt(sum_price.innerText) + (parseInt(pglist[index].ProgramSpecificationList[i].PorgarmUnitPrice, 10) * parseInt(num, 10))
+                    console.log(sum_price.innerText)
+                    console.log(Array)
+                })
+                reduce.addEventListener("click", () => {
+                    if (count.innerHTML > 0) {
+                        sum_price.innerHTML = parseInt(sum_price.innerText) - (parseInt(pglist[index].ProgramSpecificationList[i].PorgarmUnitPrice, 10) * parseInt(num, 10))
+                        num = parseInt(count.innerHTML, 10) - 1
+                        count.innerHTML = num
+                        Array[i].Quantity = num
+                    }
+                })
+            })
+
+            function INSPECTION() {
+                getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
+                if (getdata.length == 0) {
+                    return "Datelength"
+                }
+                let AllQuantity = 0;
+                Array.forEach(sp => {
+                    if (sp.Quantity > 0) {
+                        AllQuantity++
+                    }
+                })
+                if (AllQuantity == 0) {
+                    return "Quantity"
+                }
+            }
+            let asd_btn = pg.querySelector(".asd-btn")
+            asd_btn.addEventListener("click", () => {
+
+                let INSPECTIONText = "";
+
+                INSPECTIONText = INSPECTION()
+                if (INSPECTION() == "Datelength") {
+                    alert("請選擇日期")
+                    return
+                }
+                else if (INSPECTION() == "Quantity") {
+                    alert("請選擇數量")
+                    return
+                }
+                let getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                let url = "/api/Order/directCreateOrder";
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": "3000"
+                }
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        MemberId: 1,
+                        SpecificationList: Array,
+                        DepartureDate: Departuredate,
+                    })
+                })
+                    .then(res => {
+                        if (res.status == 200) {
+                            toastr.success("新增成功");
+                            return res.json()
+                        }
+                        else {
+                            toastr.error("新增失敗");
+                        }
+                    })
+                    .then(obj => {
+                        //console.log(obj)
+                        //Status
+                        //Msg
+                        //Result
+                        window.location.href = `/Member/Checkout/${obj.result.id}`
+
+                    })
+            })
+
+            let shoppingbtn = pg.querySelector(".shopping-cart-btn")
+            shoppingbtn.addEventListener("click", function() {
+                let INSPECTIONText = "";
+                INSPECTIONText = INSPECTION()
+                if (INSPECTION() == "Datelength") {
+                    alert("請選擇日期")
+                    return
+                }
+                else if (INSPECTION() == "Quantity") {
+                    alert("請選擇數量")
+                    return
+                }
+                getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                let url = "/api/Shop/AddCart";
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": "3000"
+                }
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        MemberId: 0,
+                        SpecificationList: Array,
+                        DepartureDate: Departuredate,
+                    })
+                })
+                    .then(res => {
+                        if (res.status === 200) {
+                            toastr.success("新增成功");
+                        }
+                        else {
+                            toastr.error("新增失敗");
+                        }
+                    })
+            })
+        })
+        let lg_select_quantity = document.querySelectorAll(".lg-select-quantity-div .select-quantity-btn")
+   
         function Addcard(index, PrgarmText, name, ProgramSpecificationList, AboutProgramList, ProgramIncludeList, DateList) {
             let programcard = PrgramNameModel.content.cloneNode(true);
             programcard.querySelector("h4").innerText = name
             programcard.querySelector("input.btn-check").id = `btn${index}`
             programcard.querySelector("label.btn").for = `btn${index}`
-            programcard.querySelector(".initial-money").innerHTML = `${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`
             programcard.querySelector(".Programcontext-div").innerHTML = PrgarmText
 
             programcard.querySelector(".btn-check").id = `flush-heading${index}`
-            programcard.querySelector("label.initial_btn").setAttribute("data-bs-target",`#flush-collapse${index}`)
+            programcard.querySelector(".btn-check").value = name
+
+            programcard.querySelector(".initial-container").setAttribute("data-bs-target", `#flush-collapse${index}`)
             programcard.querySelector(".collapse").id = `flush-collapse${index}`
+            console.log(ProgramSpecificationList.length)
+            if (ProgramSpecificationList.length > 0) {
+                console.log(`${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`)
+                programcard.querySelector(".initial-money").innerHTML = `${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`
+            }
 
             let datainput = programcard.querySelector(".product-initial-div>input")
-            console.log(datainput)
             datainput.id = `myID${index}`
+            console.log(datainput)
             //CantuseDate 不可選購的日期
             let CantuseDate = [];
             DateList.forEach(d => {
                 CantuseDate.push(d.CantuseDate)
             })
-            //引入月曆套件
+            console.log(CantuseDate)
             const fp = flatpickr(datainput, {
+                minDate: "today",
                 disable: CantuseDate,
                 dateFormat: "Y-m-d",
                 inline: true,
                 mode: "range",
-                dateFormat: "Y-m-d H:i",
             });
             let getdata;
-
+            //選擇日期
             const BtnDetails = programcard.querySelector(".btn-Details")
             //按下手機板查看方案詳情
             BtnDetails.addEventListener("click", () => {
                 let model = document.querySelector(".btn-Details-Window")
                 model.querySelector(".offcanvas-title").innerText = name
-                console.log(AboutProgramList)
 
                 let ap_ul = model.querySelector(".iph-AboutProgram-ul>li")
                 ap_ul.innerHTML = ""
@@ -608,7 +915,6 @@ radio
                     let ap_ul = programcard.querySelector(".AboutProgram-div>ul")
                     let ap_li = document.createElement("li")
                     ap_li.innerHTML = ap.IconClass + ap.AboutProgramName
-                    console.log(ap_ul, ap_li)
                     ap_ul.appendChild(ap_li)
                 })
             }
@@ -626,207 +932,34 @@ radio
                         ul = programcard.querySelector(".ProgramInclude-fals-ul")
                     }
                     let li = document.createElement("li")
-                    console.log(li)
                     li.innerText = pi.Inciudetext
                     ul.appendChild(li)
                 })
             }
             //ProgramSpecification
-
-
-            let getSpecificationId;
             let Array = [];
-
-            ProgramSpecificationList.forEach((ps, index) => {
-                programcard.querySelector(".UnitText-div>p").innerText = ps.Itemtext + ps.PorgarmUnitPrice + "/" + ps.UnitText
-
-                let num = 0;
-                let count = programcard.querySelector(".count")
-                let sum_price = programcard.querySelector(".price")
-                let obj = { SpecificationId: ps.SpecificationId, Quantity: num }
-                Array.push(obj)
-                programcard.querySelector(".plus").addEventListener("click", function() {
-                    num = parseInt(count.innerHTML, 10) + 1
-                    count.innerHTML = num
-                    sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
-                    Array[index].Quantity = num
-                    console.log(Array)
-                    console.log(obj)
-                })
-                programcard.querySelector(".reduce").addEventListener("click", function() {
-                    if (count.innerHTML > 0) {
-                        num = parseInt(count.innerHTML, 10) - 1
-                        count.innerHTML = num
-                        sum_price.innerText = parseInt(ps.PorgarmUnitPrice, 10) * parseInt(num, 10)
-                        Array[index].Quantity = num
-                        console.log(Array)
-                        console.log(obj)
-                    }
-                })
-                if (num > 0) {
-                    getSpecificationId = ps.SpecificationId
-                }
-            });
-            //按下選擇按鈕---->選擇區快要顯示方案名稱、下一步後的方案規格要改變
-            //按下以選擇按鈕 --->
-            //按下一步按鈕 ---> 方案或日期未選擇需要防呆
-
-
-
-            //let addCart = document.querySelector("#AddCart");
-            //let data = {
-            //        ProductName : 'p',
-            //        ProgramTitle : 'title',
-            //        DepartureDate : departuredate,
-            //        Path : 'Path',
-            //        Quantity : 3,
-            //        UnitPrice : 100,
-            //        UnitText : 'UnitText',
-            //        SpecificationId : 5,
-            //        ScreenTime : '10:40',
-            //        ScreeningId : 3
-            //}
-            //programcard.querySelector(".shopping-cart-btn").addEventListener("click", function() {
-            //    AddCart(data);
-            //}
-            let  asd_btn= programcard.querySelector(".asd-btn")
-
-            asd_btn.addEventListener("click",()=>{
-            
-                getdata = datainput._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
-
-                let url = "/api/Order/directCreateOrder";
-                toastr.options = {
-                    "positionClass": "toast-top-center",
-                    "timeOut": "3000"
-                }
-                fetch(url, {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        MemberId: 1,
-                        SpecificationList: Array,
-                        DepartureDate: Departuredate,
-                        //ScreeningId : ,
-                    })
-                })
-                .then(res => {
-                    if (res.status == 200) {
-                        toastr.success("新增成功");
-                        return res.json()
-                    }
-                    else {
-                        toastr.error("新增失敗");
-                        //return res.text()
-                    }
-                })
-                .then(obj => {
-                    //console.log(obj)
-                    //Status 
-                    //Msg 
-                    //Result 
-                    window.location.href=`/Member/Checkout/${obj.result.id}`
-
-                })
-            })
-            let shoppingbtn = programcard.querySelector(".shopping-cart-btn")
-            shoppingbtn.addEventListener("click", function() {
-                //num2 = num
-                getdata = datainput._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
-                //console.log(getdata)
-                //console.log(departuredate)
-                //console.log(getSpecificationId)
-                let url = "/api/Shop/AddCart";
-                toastr.options = {
-                    "positionClass": "toast-top-center",
-                    "timeOut": "3000"
-                }
-
-                fetch(url, {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        MemberId: 1,
-                        SpecificationList: Array,
-                        DepartureDate: Departuredate,
-                        //ScreeningId : 3,
-                        //SpecificationId: getSpecificationId,
-                        //ScreeningId : ,
-                        //ProductName : "p",
-                        //ProgramTitle : name,
-                        //DepartureDate : '2022-09-23',
-
-                    })
-                })
-                    .then(res => {
-                        if (res.status === 200) {
-                            toastr.success("新增成功");
-                        }
-                        else {
-                            toastr.error("新增失敗");
-                            //return res.text()
-                        }
-                    })
-                //.then(text => {
-                //    alert(text);
-                //})
-
-            })
-
+            let getSpecificationId;
+            if (ProgramSpecificationList.count != 0) {
+                ProgramSpecificationList.forEach((ps, index) => {
+                    let select_quantity_div = programcard.querySelector(".lg-select-quantity-div")
+                    let UnitText_div = `
+                                          <div class="col-12 d-flex flex-wrap  mb-2 UnitText-div">
+                                                  <input class="d-none" value = "${ps.SpecificationId}" />
+                                                  <p class="col-8 mt-auto UnitText">
+                                                   ${ps.Itemtext + ps.PorgarmUnitPrice + "/" + ps.UnitText}
+                                                  </p>
+                                                  <div class="select-quantity-btn col-4 d-flex flex-wrap justify-content-between">
+                                                      <button class="select-quantity-btn-reduce reduce">-</button>
+                                                      <p class="count">0</p>
+                                                      <button class="select-quantity-btn-add plus">+</button>
+                                                  </div>
+                                              </div> `
+                    select_quantity_div.innerHTML += UnitText_div
+              
+                });
+            }
+  
             return programcard
         }
-        let programlabel = document.querySelectorAll("label.btn")
-        let progarminput = document.querySelectorAll("input.btn-check")
-
-        programlabel.forEach((btn, index) => {
-            btn.addEventListener("click", () => {
-                if (progarminput[index].checked == true) {
-                    progarminput[index].checked = false
-                }
-                else {
-                    progarminput[index].checked = true
-                }
-                progarminput.forEach((b, i) => {
-                    if (b.checked == true) {
-                        programlabel[i].innerHTML = `<i class="fa-solid fa-circle-check "></i>己選擇`;
-                        //$(".collapse-plate")[i].slideToggle("slow");
-                    }
-                    else {
-                        programlabel[i].innerText = "選擇";
-                    }
-                })
-            })
-        })
-
-        //function AddCart(data) {
-        //    fetch('https://localhost:5001/api/Shop/AddCart',{
-        //    method:'POST',
-        //    headers:new Headers({'Content-Type':'application/json'}),
-        //        body: JSON.stringify(data)
-        //    })
-        //    .then(res => { return res.json() })
-        //    .then(res =>{
-        //        if (res.data.status === 200) {
-        //            alert("insert success")
-        //        }
-        //        else {
-        //            alert("insert failed")
-        //        }
-        //    })
-        //})
-        //彥蓉做的
-        //$(".plate").click(function() {
-        //    $(".collapse-plate").slideToggle("slow");
-        //});
-        //$('.Evaluation-message~div').hide();
-        //$(".text-break").click(function() {
-        //    $(".Evaluation-message~div").slideToggle("slow");
-        //});
     </script>
-}
+    }
