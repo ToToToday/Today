@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+
+    <style>
+        .pill{
+            border: 1px solid #000;
+        }
+
+        .w-50{
+            width: 40%;
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- 溝選區 -->
+        <div class="w-50">
+            <ul v-for="(filter,idx) in allFilter">
+                <li v-for="(x,idx) in filter">
+                    <label class="pill" >
+                        <input type="checkbox" 
+                        :value="x.id"
+                        v-model="x.checked">
+                        {{x.text}}  
+                    </label>
+                </li>
+            </ul>            
+            <!-- <ul>
+                <li v-for="(city,idx) in allFilter.cities">
+                    <label class="pill" >
+                        <input type="checkbox" 
+                        :value="city.id"
+                        v-model="city.checked">
+                        {{city.text}}  
+                    </label>
+                </li>
+            </ul> -->
+            <!-- <ul >
+                <li v-for="(classify,idx) in allFilter.classifies">
+                    <label class="pill" >
+                        <input type="checkbox" 
+                        :value="classify.id" 
+                        v-model="classify.checked">
+                        {{classify.text}}
+                    </label>
+                </li>
+            </ul>         -->
+        </div>
+
+        <!-- 膠囊區 -->
+        <div class="w-50">
+            <span v-for="(filter,idx) in allFilter">
+                <span class="pill" v-for="(x,idx) in filter.filter(x => x.checked)">
+                    {{x.text}} <button v-on:click="cancel(x)">X</button> </span>
+            </span>
+            <!-- <span >
+                <span class="pill" v-for="(city,idx) in allFilter.cities.filter(x => x.checked)">
+                    {{city.text}} <button v-on:click="cancel(city)">X</button> </span>
+            </span>
+            <span>
+                <span class="pill" v-for="(classify,idx) in allFilter.classifies.filter(x => x.checked)">
+                    {{classify.text}}<button v-on:click="cancel(classify)" >X</button></span>
+            </span> -->
+        </div>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                allFilter:{
+                    cities:[
+                        { id:5 , text:'新竹' , checked:true},
+                        { id:6 , text:'桃園' , checked:false},
+                        { id:7 , text:'雲林' , checked:false},
+                        { id:8 , text:'台北' , checked:true},
+                    ],
+                    classifies:[
+                        {id:13 , text:'高鐵' , checked:true},
+                        {id:14 , text:'民宿' , checked:false},
+                    ],
+                    days:[
+                        {id:1 , text:'1日' , checked:false},
+                        {id:2 , text:'2日' , checked:false},
+                    ],
+                    
+                },
+            },
+            methods:{
+                cancel( target ){
+                    target.checked = false
+                }
+            }
+        })
+    </script>
+</body>
+</html>

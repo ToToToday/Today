@@ -26,7 +26,7 @@ namespace Today.Web.Services.ClassifyService
         }
         public ClassifyDTO GetClassifyPages(ClassifyRequestDTO input)
         {
-            var memeberId = input.MemberId;
+            var memberId = input.MemberId;
             var result = new ClassifyDTO()
             {
                 CategoryList = new List<ClassifyDTO.CategoryDestinations>(),
@@ -52,7 +52,7 @@ namespace Today.Web.Services.ClassifyService
                 .Skip(10 * (input.Page - 1))
                 .Take(10)
                 .ToList()
-            , memeberId);
+            , memberId);
 
 
             var category = _repo.GetAll<Category>().ToList();
@@ -116,7 +116,7 @@ namespace Today.Web.Services.ClassifyService
             return result;
         }
 
-        private List<ClassifyVM.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product)
+        private List<ClassifyVM.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product, int memberId)
         {
             var result = new List<ClassifyVM.ClassifyCardInfo>();
 
@@ -147,7 +147,7 @@ namespace Today.Web.Services.ClassifyService
             //        });
             //    });
 
-            var comment = _repo.GetAll<Today.Model.Models.Comment>();
+            
             var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == memberId).Select(c => c.ProductId);
 
             //});
