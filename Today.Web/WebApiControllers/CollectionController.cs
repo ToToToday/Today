@@ -22,6 +22,7 @@ namespace Today.Web.WebApiControllers
         {
             request.MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             request.Time = DateTime.UtcNow.AddHours(8);
+
             _collectionService.CreateCollect(request);
 
             try
