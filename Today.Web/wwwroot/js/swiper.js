@@ -1,4 +1,6 @@
 ﻿var explorecityswiper = new Swiper(".explorecity-Swiper", {
+    preloadImages: false,
+    lazy: true,
     slidesPerView: 1,
     breakpoints: {
         768: {
@@ -11,6 +13,8 @@
     }
 });
 var recentlyswiper = new Swiper(".recently-Swiper", {
+    preloadImages: false,
+    lazy: true,
     slidesPerView: 1,
     breakpoints: {
         320: {
@@ -29,6 +33,8 @@ var recentlyswiper = new Swiper(".recently-Swiper", {
     }
 });
 var swiper = new Swiper(".mySwiper", {
+    preloadImages: false,
+    lazy: true,
     slidesPerView: 1,
     breakpoints: {
         320: {
@@ -50,6 +56,8 @@ var swiper = new Swiper(".mySwiper", {
     }
 });
 var nearbycityswiper = new Swiper(".nearbycity-Swiper", {
+    preloadImages: false,
+    lazy: true,
     slidesPerView: 1,
     breakpoints: {
         320: {
