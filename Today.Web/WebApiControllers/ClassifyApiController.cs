@@ -11,7 +11,7 @@ using Today.Model.Repositories;
 using System.Threading.Tasks;
 using Today.Model.Models;
 
-namespace Today.Web.Controllers
+namespace Today.Web.WebApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -93,7 +93,14 @@ namespace Today.Web.Controllers
 
             var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
 
-            return Ok(classifyCardList);
+
+            var result = new ClassifyVM()
+            {
+                ClassifyCardList = classifyCardList.ClassifyCardList,
+                CardCount = classifyCardList.CardCount,
+            };
+
+            return Ok(result);
         }
 
     }

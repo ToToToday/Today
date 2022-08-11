@@ -7,9 +7,14 @@ using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.ViewModels;
 using Today.Web.DTOModels.ClassifyDTO;
-using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 using System;
 using System.Web;
+using Today.Web.Services.ProductService;
+using Comment = Today.Model.Models.Comment;
+using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
+using static Today.Web.ViewModels.ClassifyVM;
+using static Today.Web.ViewModels.ClassifyVM.ClassifyCardInfo;
+
 namespace Today.Web.Services.ClassifyService
 {
     public class ClassifyService : IClassifyService
@@ -21,10 +26,10 @@ namespace Today.Web.Services.ClassifyService
         }
         public ClassifyDTO GetClassifyPages(ClassifyRequestDTO input)
         {
-            var memeberId = input.MemberId;
+            var memberId = input.MemberId;
             var result = new ClassifyDTO()
             {
-                CategoryList = new List<CategoryDestinations>(),
+                CategoryList = new List<ClassifyDTO.CategoryDestinations>(),
 
             };
 
@@ -47,7 +52,7 @@ namespace Today.Web.Services.ClassifyService
                 .Skip(10 * (input.Page - 1))
                 .Take(10)
                 .ToList()
-            , memeberId);
+            , memberId);
 
 
             var category = _repo.GetAll<Category>().ToList();
@@ -60,7 +65,7 @@ namespace Today.Web.Services.ClassifyService
                 {
                     ProductCategoryId = cy.CategoryId,
                     CategoryName = cy.CategoryName,
-                    ChildCategory = new List<CategoryDestinations>()
+                    ChildCategory = new List<ClassifyDTO.CategoryDestinations>()
                 };
                 foreach (var group in categoryGroup)
                 {
@@ -68,7 +73,7 @@ namespace Today.Web.Services.ClassifyService
                     {
                         foreach (var item in group)
                         {
-                            var x = new CategoryDestinations()
+                            var x = new ClassifyDTO.CategoryDestinations()
                             {
                                 ProductCategoryId = item.CategoryId,
                                 CategoryName = item.CategoryName,
@@ -79,19 +84,13 @@ namespace Today.Web.Services.ClassifyService
                 }
                 result.CategoryList.Add(mainTemp);
             }
-
-
-
             return result;
         }
-
         public ClassifyDTO GetClassifyMatchedProducts(FilterDTO input)
         {
             var result = new ClassifyDTO() { };
 
-
             var productList = _repo.GetAll<Product>();
-
             if (input.CityFilterList.Any())
             {
                 productList = productList.Where(p => input.CityFilterList.Contains(p.CityId));
@@ -117,22 +116,41 @@ namespace Today.Web.Services.ClassifyService
             return result;
         }
 
-
-        private List<ClassifyDTO.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product, int memberId)
+        private List<ClassifyVM.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product, int memberId)
         {
-
-            var result = new List<ClassifyDTO.ClassifyCardInfo>();
-
+            var result = new List<ClassifyVM.ClassifyCardInfo>();
 
             var productPhoto1 = _repo.GetAll<ProductPhoto>().Where(pp => product.Select(p => p.ProductId).Contains(pp.ProductId));
             var city = _repo.GetAll<City>().Where(c => product.Select(p => p.CityId).Contains(c.CityId));
-
             var productTag = _repo.GetAll<ProductTag>();
             var Tag = _repo.GetAll<Tag>();
+            var comment = _repo.GetAll<Model.Models.Comment>();
+            var programList = _repo.GetAll<Model.Models.Program>();
+            var orderDetailList = _repo.GetAll<OrderDetail>();
+            var specificationList = _repo.GetAll<ProgramSpecification>();
+            var UnitPriceList = new List<ClassifyVM.ClassifyCardInfo>();
+            //product.ForEach(p =>
+            //{
+            //    programList.Where(pg => pg.ProductId == p.ProductId)
+            //    .ToList()
+            //    .ForEach(pg =>
+            //    {
+            //        UnitPriceList.Add(new ClassifyDTO.ClassifyCardInfo
+            //        {
+            //            ProductId = pg.ProductId,
+            //            UnitPrice = specificationList.Where(sp => pg.ProgramId == sp.ProgramId)
+            //                                        .OrderBy(sp => sp.UnitPrice)
+            //                                        .FirstOrDefault().UnitPrice,
+            //            OriginalPrice = specificationList.Where(sp => pg.ProgramId == sp.ProgramId)
+            //                                        .OrderBy(sp => sp.UnitPrice)
+            //                                        .FirstOrDefault().OriginalUnitPrice
+            //        });
+            //    });
 
-            var comment = _repo.GetAll<Today.Model.Models.Comment>();
+            
             var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == memberId).Select(c => c.ProductId);
 
+            //});
 
             product.ForEach(p => result.Add(
                 new ClassifyCardInfo
@@ -141,7 +159,6 @@ namespace Today.Web.Services.ClassifyService
                     ProductName = p.ProductName,
                     CityId = p.CityId,
                 }));
-
 
             result.ForEach(p =>
             {
@@ -153,51 +170,22 @@ namespace Today.Web.Services.ClassifyService
                     .Select(pt => pt.TagId)
                     .Contains(t.TagId))
                     .Select(t => t.TagText).ToList();
-                p.TotalComment = comment.Where(c => c.ProductId == p.ProductId).Count();
+                //p.UnitPrice = UnitPriceList.Where(u => u.ProductId == p.ProductId).Select(u => u.UnitPrice).First();
+                //p.OriginalPrice = UnitPriceList.Where(u => u.ProductId == p.ProductId).Select(u => u.OriginalPrice).First();
                 p.RatingStar = (comment.Where(c => c.ProductId == p.ProductId)
-                    .Count() != 0) ? (float)comment.Where(c => c.ProductId == p.ProductId)
-                    .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == p.ProductId).Count() : 0;
+                                       .Count() != 0) ? (float)comment.Where(c => c.ProductId == p.ProductId)
+                                       .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == p.ProductId).Count() : 0;
+                p.TotalComment = comment.Where(c => c.ProductId == p.ProductId).Count();
+                p.TotalOrder = programList.Where(program => program.ProductId == p.ProductId)
+                                    .Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId })
+                                    .Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity })
+                                    .Sum(n => n.Quantity);
+                p.Prices = programList.Where(program => program.ProductId == p.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault();
             });
-            //var commentdata = product.Select(x => new
-            //{
-            //    ProductId = x.ProductId,
-            //    TotalComment = comment.Where(c => c.ProductId == x.ProductId).Count(),
-            //    AvgStar = (comment.Where(c => c.ProductId == x.ProductId)
-            //        .Count() != 0) ? (float)comment.Where(c => c.ProductId == x.ProductId)
-            //        .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == x.ProductId).Count() : 0
-            //});
-
-            //var tempproduct = string.Empty;
-            //var temptag = new List<string>();
-
-            //foreach (var item in result)
-            //{
-            //    if (tempproduct == "" || tempproduct != item.ProductName)
-            //    {
-            //        temptag.Clear();
-            //        tempproduct = item.ProductName;
-            //        temptag.Add(item.TagText.ToString());
-            //    }
-            //    else
-            //    {
-            //        temptag.Add(item.TagText.ToString());
-            //        var totalstartemp = commentdata.Where(x => x.ProductId == item.ProductId).Select(x => x.AvgStar).First();
-            //        var totalComment = commentdata.Where(x => x.ProductId == item.ProductId).Select(x => x.TotalComment).First();
-            //        result.Add(new ClassifyDTO.ClassifyCardInfo()
-            //        {
-            //            ProductId = item.ProductId,
-            //            CityId = item.CityId,
-            //            CityName = item.CityName,
-            //            Path = item.Path,
-            //            ProductName = item.ProductName,
-            //            TagText = temptag,
-            //            RatingStar = totalstartemp,
-            //            TotalComment = totalComment
-            //        });
-            //    }
-            //}
             return result;
-        }
-
+         }
     }
 }
+
+
+
