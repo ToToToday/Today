@@ -21,7 +21,7 @@ namespace Today.Web.Services.MemberCommentService
         public DTOModels.MemberCommentDTO.MemberCommentResponseDTO ReadMemberComment(DTOModels.MemberCommentDTO.MemberCommentRequestDTO Id)
         {
             var member = _repo.GetAll<Member>().Where(m => m.MemberId == Id.MemberId).Select(m => m.MemberName).First();
-            var Order = _repo.GetAll<Order>().Where(m => m.MemberId == Id.MemberId);
+            var Order = _repo.GetAll<Order>().Where(m => m.MemberId == Id.MemberId&&m.Status==2);
             var OrderDetail = _repo.GetAll<OrderDetail>();
 
             var ods = OrderDetail.Join(Order, od => od.OrderId, o => o.OrderId, (od, o) =>

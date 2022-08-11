@@ -3,12 +3,12 @@
 
 @foreach(var item in Model)
 {
-    <div class="swiper-slide px-1">
-        <div class="row-card col-12 col-md-6 col-xl-4" style="height: 153px;">
+    <div class="swiper-slide productcard px-1">
+        <div class="row-card col-12 col-md-6 col-xl-4 position-relative" style="height: 153px;">
             <a href="~/Product/ProductInfo/@item.Id" class="text-decoration-none text-black">
                 <div class="row g-0 overflow-hidden">
                     <div class="col-4 overflow-hidden" style="height: 153px;">
-                        <img src="@item.ProductPhoto" class="rounded-start align-top w-100 h-100" alt="@item.ProductName">
+                        <img data-src="@item.ProductPhoto" class="rounded-start align-top w-100 h-100 swiper-lazy" alt="@item.ProductName">
                     </div>
                     <div class="col-8">
                         <div class="card-body h-100 d-flex flex-wrap justify-content-end align-items-between">
@@ -17,13 +17,14 @@
                                     <i class="fa-solid fa-bolt-lightning"></i>
                                     @item.ProductName
                                 </h5>
-                                <i class="fa-regular fa-heart"></i>
+                                @*<i class="fa-regular fa-heart"></i>*@
                             </div>
-                            <p class="card-text text-end fs-6"><span>TWD</span>@item.Price</p>
+                            <p class="card-text text-end fs-6 fw-bolder"><span class="fw-bold">TWD</span>@item.Price</p>
                         </div>
                     </div>
                 </div>
              </a>
+             <i class="@(item.Favorite == true ? "fa-solid" : "fa-regular") fa-heart position-absolute"></i>
         </div>
     </div>
 }
