@@ -44,7 +44,6 @@ namespace Today.Web.ViewModels
         public List<CategoryFilter> CategoryFilterList { get; set; }
         public List<CityFilter> CityFilterList { get; set; }
         public int Page { get; set; }
-
         public class CategoryFilter
         {
             public int ProductId { get; set; }

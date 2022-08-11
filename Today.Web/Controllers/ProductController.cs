@@ -162,29 +162,7 @@ namespace Today.Web.Controllers
             var result = new ClassifyVM()
             {
                 ClassifyCardList = cardsource,
-                //.Select(c => new ClassifyVM.ClassifyCardInfo
-                //{
-                //    ProductId = c.ProductId,
-                //    ProductName = c.ProductName,
-                //    CityId = c.CityId,
-                //    CityName = c.CityName,
-                //    Path = c.Path,
-                //    TagText = c.TagText,
-                //    //UnitPrice = c.UnitPrice,
-                //    RatingStar = c.RatingStar,
-                //    TotalComment = c.TotalComment,
-                //    //OriginalPrice = c.OriginalPrice,
-                //    TotalOrder = c.TotalOrder,
-                //    Prices = {
-                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //            Price=(c.Prices == null) ? null : c.Prices.Price,
-                //    }
-                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //}).ToList(),
-
                 CardCount = classPages.CardCount,
-
                 CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
                 {
                     ProductCategoryId = x.ProductCategoryId,
@@ -196,7 +174,6 @@ namespace Today.Web.Controllers
                     }).ToList()
                 }).ToList()
             };
-
             return View(result);
         }
 

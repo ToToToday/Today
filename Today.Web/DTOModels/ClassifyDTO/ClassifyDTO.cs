@@ -15,9 +15,6 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int Page { get; set; }
             public int MemberId { get; set; }
         }
-
-
-
         public class RatingInfo
         {
             public int ProductId { get; set; }
@@ -36,7 +33,6 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int ProductCategoryId { get; set; }
             public string CategoryName { get; set; }
             public List<CategoryDestinations> ChildCategory { get; set; }
-
         }
     }
     public class FilterDTO
@@ -45,19 +41,5 @@ namespace Today.Web.DTOModels.ClassifyDTO
         public List<int> CityFilterList { get; set; }
         public int Page { get; set; }
         public int MemberId { get; set; }
-
-
-
-        //public List<CategoryFilter> CategoryFilterList { get; set; }
-        //public List<CityFilter> CityFilterList { get; set; }
-
-        //public class CategoryFilter
-        //{
-        //    public int CategoryId { get; set; }
-        //}
-        //public class CityFilter
-        //{
-        //    public int CityId { get; set; }
-        //}
     }
 }

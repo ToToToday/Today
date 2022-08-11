@@ -7,7 +7,6 @@
     var categoryJson = JsonConvert.SerializeObject(Model.CategoryList);
 }
 
-
 <!-- 導覽列 -->
 @*導覽列下的三個BUTTON*@
 <div class="container city-filter-wrap position-fixed pt-2">
@@ -203,7 +202,6 @@
     </div>
 </div>
 
-
 <div class="container-fluid-ProductList ">
     <section class="container m-auto">
         <div class="container row p-0 m-0" id="classifyCard">
@@ -211,29 +209,21 @@
             <div class="col-lg-3 product-filter px-3 pt-3">
                 <!-- 篩選目的地 -->
                 <div class="filter-group rounded pt-3 mb-3">
-                    <div class="filter-block py-2 pb-3 ps-3 ">
+                    <div class="filter-block py-2 pb-3 ps-3">
                         <h4>篩選目的地</h4>
                     </div>
                     <div class="input-group d-flex pt-1 pb-2 ps-2">
-                        <div class="input-group-text fa-solid fa-magnifying-glass border-end-0 bg-white ms-1">
-                        </div>
-                        <input id="destFilter" name="searchword"
-                            class="form-control search border-start-0 me-4 shadow-none" type="text"
-                            placeholder="搜尋目的地 ">
+                        <div class="input-group-text fa-solid fa-magnifying-glass border-end-0 bg-white ms-1"></div>
+                        <input id="destFilter" name="searchword"class="form-control search border-start-0 me-4 shadow-none" type="text"placeholder="搜尋目的地">
                     </div>
-                    <div class="accordion-item ">
+                    <div class="accordion-item">
                         <div class="accordion-header" id="headingOne">
-                            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                台灣
-                            </h2>
+                            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">台灣</h2>
                         </div>
                         <!-- 台灣checkbox -->
-                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
+                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body-input m-2">
                                 <div class="form-check pb-2">
-
                                     <div v-for="(city,idx) in allFilter.cities" class="form-check pb-2">
                                         <label class="form-check-label ms-1 mt-1">
                                             <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
@@ -242,21 +232,7 @@
                                         v-on:change="filterPost(1)">{{city.CityName}}
                                         </label>
                                     </div>
-
-                                    @* @foreach (var item in Model.ClassifyCardList)
-                                    {
-                                    <div class="form-check pb-2">
-                                    <label class="form-check-label ms-1 mt-1">
-                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
-                                    value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
-                                    </label>
-                                    </div>
-                                    } *@
-
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -267,7 +243,7 @@
                         <h4>所有商品類別</h4>
                     </div>
                     <!-- 商品類別checkbox -->
-                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue"  /> @*for="CategoryList"*@
+                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue"/> 
                 </div>
                 <!-- 篩選出發日期 -->
                 <div class="filter-group date rounded ">
@@ -316,68 +292,18 @@
                         </div>
                     </div>
                 </div>
-                <!-- 行程時間 -->
-                <div class="filter-group rounded">
-                    <div class="filter-block mt-3">
-                        <div class="accordion-item">
-                            <div class="accordion-header " id="headingThree">
-                                <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                    data-bs-target="#journeytime" aria-expanded="false">
-                                    行程時間
-                                </h2>
-                            </div>
-                            <div id="journeytime" class="accordion-collapse collapse show"
-                                data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="lessthanfourhours">
-                                        <label class="form-check-label ms-1 mt-1" for="lessthanfourhours">
-                                            少於 4 小時
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="fourhours-oneday">
-                                        <label class="form-check-label ms-1 mt-1" for="fourhours-oneday">
-                                            4 小時 - 1 日
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="oneday-twoday">
-                                        <label class="form-check-label ms-1 mt-1" for="oneday-twoday">
-                                            1 日 - 2 日
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="morethantwodays">
-                                        <label class="form-check-label ms-1 mt-1" for="morethantwodays">
-                                            2 日以上
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!--右側欄 -->
             <div class="col-lg-9 pt-3 p-2">
                 <!-- 體驗行程 -->
                 <div class="card-board mb-3 border-0">
                     <div class="card-board mb-3 border-0">
-                        <div class="card-board mb-3 border-0">
+                        <div class="card-board mb-1 border-0">
                             <div class="card-body text-secondary">
                                 <div class="chip-group d-flex flex-wrap">
                                     <h4 class="card-title_group align-self-center ms-1 d-flex flex-wrap">
                                         <span class="experience-itinerary text-dark align-self-center mx-1 fw-normal">{{cardCount}}</span>項體驗行程
                                     </h4>
-                                    @*<span class="rounded-pill border border-secondary d-flex align-items-center">
-                                        <span class="">飯店</span>
-                                        <button type="button" class="btn-close" disabled="" aria-label="Close"></button>
-                                    </span>*@
                                     <span v-for="(city,idx) in allFilter.cities.filter(x => x.Checked)"
                                         class="rounded-pill border border-secondary d-flex align-items-center">
                                         <span class="" >{{city.CityName}}</span>
@@ -388,19 +314,13 @@
                                         <span class="">{{childCategory.CategoryName}}</span>
                                         <button v-on:click="cancel(childCategory)" type="button" class="btn-close" aria-label="Close"></button>
                                     </span>
-                                    <span v-if="allFilter.cities.some(x=> x.Checked)
-                                        ||allFilter.categories.some(ca=> ca.ChildCategory.some(x=> x.Checked) )
-                                        "
-                                        class="chip-clear rounded-pill d-flex align-items-center ">
-                                        <a href="#" class="a text-decoration-none text-light"
-                                            v-on:click="cancelAll()"
-                                        >清除所有</a>
+                                    <span v-if="allFilter.cities.some(x=> x.Checked)||allFilter.categories.some(ca=> ca.ChildCategory.some(x=> x.Checked))"class="chip-clear rounded-pill d-flex align-items-center ">
+                                        <a href="#" class="a text-decoration-none text-light" v-on:click="cancelAll()">清除所有</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
+                        <div class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
                             <h5 class=" me-2">排序 : </h5>
                             <div class="sort">
                                 <i class="fa-regular fa-thumbs-up"></i>
@@ -432,7 +352,6 @@
                         </div>
                     </div>
                 </div>
-            
                 <!-- 橫向卡牌 -->
                 <div class="container_card">
                     <div v-for="(item,idx) in productCards" class="card_detail mb-3">
@@ -441,15 +360,13 @@
                                 <div class="col-md-4 ">
                                     <div class="pic h-100">
                                         <img class="img-fluid w-100 h-100 m-auto" :src="item.path">
-                                        @*<i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>*@
                                     </div>
                                 </div>
                                 <div class="col-md-8 rounded-3 ">
                                     <div class="card-body">
                                         <h4 class="card-title text-dark">{{item.productName}}</h4>
                                         <div class="card-point py-2 ">
-                                            <span v-for="t in  item.tagText"
-                                                class="label label-addational rounded-3 ">{{(t)}}</span>
+                                            <span v-for="t in  item.tagText" class="label label-addational rounded-3 ">{{(t)}}</span>
                                         </div>
                                         <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
                                             <i class="fa-solid fa-location-dot"></i>
@@ -463,7 +380,7 @@
                                                 </p>
                                                 </div>*@
                                         </div>
-                                        <div class="footer  d-flex flex-wrap">
+                                        <div class="footer d-flex flex-wrap">
                                             <div class="product_footer m-auto col-8 mt-3">
                                                 <i class="fa-solid fa-star"></i>{{item.ratingStar}}
                                                 <span class="number">{{(item.totalComment)}}</span>
@@ -473,13 +390,10 @@
                                                 </i>
                                             </div>
 
-                                            <div
-                                                class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
+                                            <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
                                                 <p class="TWD-line OriginalPrice text-decoration-line-through m-0 mx-1">
                                                     TWD {{item.prices.originalPrice}}</p>
-                                                @*<div class="discount mx-1 ms-2 p-1">73%OFF</div>*@
-                                                <h4 class="TWD d-flex Price justify-content-end p-1 mt-1 text-derk">TWD
-                                                    {{item.prices.price}}</h4>
+                                                <h4 class="TWD d-flex Price justify-content-end p-1 mt-1 text-derk">TWD {{item.prices.price}}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -487,21 +401,15 @@
                             </div>
                         </a>
                     </div>
-
                 </div>
                 <!-- 頁數切換 -->
                 <div class=" page btn-group d-flex " role="group" aria-label="Basic radio toggle button group">
                     <div v-for="(x,i) in Math.ceil(cardCount/10)">
-                        <label v-if="x == page" class="click_num btn  me-2 "
-                            style="border: 1px solid #ccc; background-color: #26bec9;">
-                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" checked>
-                            {{x}}
+                        <label v-if="x == page" class="click_num btn me-2" style="border: 1px solid #ccc; background-color: #26bec9;">
+                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" checked>{{x}}
                         </label>
-
                         <label v-else class="click_num btn me-2 ">
-                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x"
-                                v-on:change='filterPost(x)'>
-                            {{x}}
+                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" v-on:change='filterPost(x)'>{{x}}
                         </label>
                     </div>
                 </div>
@@ -534,12 +442,6 @@
         const request = new Request("/api/ClassifyApi/Classify");
         fetch(request)
     }
-    @* let p = document.querySelectorAll(".click_num")
-    for (let i = 0; i < p.length; i++) {
-        p[i].addEventListener("click", function () {
-            p[i].classList.add("btn-info")
-        })
-    } *@
 
     //function makePill(cityInput) { //參數area , targetInput
     //    //create
@@ -556,8 +458,6 @@
     //    //綁事件
     //@* dom的xx 按了 要 把target取消勾選 *@
     //}
-
-
 </script>
 
 
@@ -572,28 +472,28 @@
                 cities: [
                     { CityId: 1, CityName: '基隆', checked: false },
                     { CityId: 2, CityName: '新北', checked: false },
-                    { CityId: 3, CityName: '台北', checked: false },
-                    { CityId: 4, CityName: '桃園', checked: false },
-                    { CityId: 5, CityName: '新竹', checked: false },
-                    { CityId: 6, CityName: '苗栗', checked: false },
-                    { CityId: 7, CityName: '台中', checked: false },
-                    { CityId: 8, CityName: '彰化', checked: false },
-                    { CityId: 9, CityName: '南投', checked: false },
-                    { CityId: 10,CityName: '雲林', checked: false },
-                    { CityId: 11,CityName: '嘉義', checked: false },
-                    { CityId: 12,CityName: '台南', checked: false },
-                    { CityId: 13,CityName: '高雄', checked: false },
-                    { CityId: 14,CityName: '墾丁', checked: false },
-                    { CityId: 15,CityName: '屏東', checked: false },
-                    { CityId: 16,CityName: '台東', checked: false },
-                    { CityId: 17,CityName: '花蓮', checked: false },
-                    { CityId: 18,CityName: '宜蘭', checked: false },
-                    { CityId: 19,CityName: '綠島', checked: false },
-                    { CityId: 20,CityName: '蘭嶼', checked: false },
-                    { CityId: 21,CityName: '小琉球', checked: false },
-                    { CityId: 22,CityName: '澎湖', checked: false },
-                    { CityId: 23,CityName: '金門', checked: false },
-                    { CityId: 24,CityName: '馬祖', checked: false },
+                    //{ CityId: 3, CityName: '台北', checked: false },
+                    //{ CityId: 4, CityName: '桃園', checked: false },
+                    //{ CityId: 5, CityName: '新竹', checked: false },
+                    //{ CityId: 6, CityName: '苗栗', checked: false },
+                    //{ CityId: 7, CityName: '台中', checked: false },
+                    //{ CityId: 8, CityName: '彰化', checked: false },
+                    //{ CityId: 9, CityName: '南投', checked: false },
+                    //{ CityId: 10,CityName: '雲林', checked: false },
+                    //{ CityId: 11,CityName: '嘉義', checked: false },
+                    //{ CityId: 12,CityName: '台南', checked: false },
+                    //{ CityId: 13,CityName: '高雄', checked: false },
+                    //{ CityId: 14,CityName: '墾丁', checked: false },
+                    //{ CityId: 15,CityName: '屏東', checked: false },
+                    //{ CityId: 16,CityName: '台東', checked: false },
+                    //{ CityId: 17,CityName: '花蓮', checked: false },
+                    //{ CityId: 18,CityName: '宜蘭', checked: false },
+                    //{ CityId: 19,CityName: '綠島', checked: false },
+                    //{ CityId: 20,CityName: '蘭嶼', checked: false },
+                    //{ CityId: 21,CityName: '小琉球', checked: false },
+                    //{ CityId: 22,CityName: '澎湖', checked: false },
+                    //{ CityId: 23,CityName: '金門', checked: false },
+                    //{ CityId: 24,CityName: '馬祖', checked: false },
                 ],
                 categories: [
                     {
@@ -723,13 +623,10 @@
             .map( x => {
                 //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
                 x.ChildCategory.forEach( child => child.Checked = false)
-
                 return x;
             })
 
             this.filterPost(1)
-
-
             //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
         },
 
@@ -797,48 +694,48 @@
 
                 @* categories *@
                     @* .then(() => {
-                                            $('.chip').remove();
-                                            $('.chip-clear').remove();
-                                            let selfform_city = document.querySelector('.selfform-city')
-                                            let outside = document.querySelector('.chip-group')
-                                            let filter = document.querySelectorAll('.filter')
-                                            let cityfilter = document.querySelectorAll('.cityfilter')
-                                            let citiescategories = Array.from(citiescategorieschecked).map(x => x.value)
-                                            let cities = Array.from(citiesChecked).map(x => x.value)
+                        $('.chip').remove();
+                        $('.chip-clear').remove();
+                        let selfform_city = document.querySelector('.selfform-city')
+                        let outside = document.querySelector('.chip-group')
+                        let filter = document.querySelectorAll('.filter')
+                        let cityfilter = document.querySelectorAll('.cityfilter')
+                        let citiescategories = Array.from(citiescategorieschecked).map(x => x.value)
+                        let cities = Array.from(citiesChecked).map(x => x.value)
 
-                                            for (let i = 0; i < cities.length; i++) {
-                                            let area = document.createElement('span');
-                                            area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
-                                            let text = document.createElement('span');
-                                            text.innerHTML = cityfilter[i].innerText
-                                            let X = document.createElement('button');
-                                            X.setAttribute('class', 'btn-close');
-                                            X.setAttribute('aria-label', 'Close');
-                                            //
-                                            //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                                            //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                                            //
-                                            area.append(text);
-                                            area.append(X);
-                                            outside.append(area);
-                                            }
+                        for (let i = 0; i < cities.length; i++) {
+                        let area = document.createElement('span');
+                        area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
+                        let text = document.createElement('span');
+                        text.innerHTML = cityfilter[i].innerText
+                        let X = document.createElement('button');
+                        X.setAttribute('class', 'btn-close');
+                        X.setAttribute('aria-label', 'Close');
+                        //
+                        //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
+                        //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
+                        //
+                        area.append(text);
+                        area.append(X);
+                        outside.append(area);
+                        }
 
-                                            if (cities.length >= 1) {
-                                            $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
-                                            let span = document.querySelectorAll(".chip")
-                                            let closebtn = document.querySelectorAll(".chip .btn-close")
-                                            closebtn.forEach((item, index) => {
-                                            item.addEventListener("click", function (event) {
-                                            span[index].remove()
-                                            })
-                                            })
-                                            let chip_clear = document.querySelector(".chip-clear")
-                                            chip_clear.addEventListener("click", () => {
-                                            window.location.reload()
-                                            })
-                                            }
+                        if (cities.length >= 1) {
+                        $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
+                        let span = document.querySelectorAll(".chip")
+                        let closebtn = document.querySelectorAll(".chip .btn-close")
+                        closebtn.forEach((item, index) => {
+                        item.addEventListener("click", function (event) {
+                        span[index].remove()
+                        })
+                        })
+                        let chip_clear = document.querySelector(".chip-clear")
+                        chip_clear.addEventListener("click", () => {
+                        window.location.reload()
+                        })
+                        }
 
-                                            }) *@
+                        }) *@
 
                 @* let btn_clean_destination = document.querySelector(".btn-clean-destination")
                 btn_clean_destination.addEventListener("click", () => {

@@ -23,8 +23,13 @@ body {
     margin: 0px;
     margin: auto;
 }
-
-
+.rounded-pill {
+    padding: 5px;
+    margin: 5px 5px;
+}
+:focus:not(:focus-visible) {
+    outline: 0;
+}
 .form-check {
     /* margin: 0 20px;
     padding: 10px 20px; */

@@ -30,7 +30,6 @@ namespace Today.Web.Services.ClassifyService
             var result = new ClassifyDTO()
             {
                 CategoryList = new List<ClassifyDTO.CategoryDestinations>(),
-
             };
 
             var categoryList = _repo.GetAll<Category>();
@@ -129,28 +128,7 @@ namespace Today.Web.Services.ClassifyService
             var orderDetailList = _repo.GetAll<OrderDetail>();
             var specificationList = _repo.GetAll<ProgramSpecification>();
             var UnitPriceList = new List<ClassifyVM.ClassifyCardInfo>();
-            //product.ForEach(p =>
-            //{
-            //    programList.Where(pg => pg.ProductId == p.ProductId)
-            //    .ToList()
-            //    .ForEach(pg =>
-            //    {
-            //        UnitPriceList.Add(new ClassifyDTO.ClassifyCardInfo
-            //        {
-            //            ProductId = pg.ProductId,
-            //            UnitPrice = specificationList.Where(sp => pg.ProgramId == sp.ProgramId)
-            //                                        .OrderBy(sp => sp.UnitPrice)
-            //                                        .FirstOrDefault().UnitPrice,
-            //            OriginalPrice = specificationList.Where(sp => pg.ProgramId == sp.ProgramId)
-            //                                        .OrderBy(sp => sp.UnitPrice)
-            //                                        .FirstOrDefault().OriginalUnitPrice
-            //        });
-            //    });
-
-            
             var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == memberId).Select(c => c.ProductId);
-
-            //});
 
             product.ForEach(p => result.Add(
                 new ClassifyCardInfo
@@ -170,8 +148,6 @@ namespace Today.Web.Services.ClassifyService
                     .Select(pt => pt.TagId)
                     .Contains(t.TagId))
                     .Select(t => t.TagText).ToList();
-                //p.UnitPrice = UnitPriceList.Where(u => u.ProductId == p.ProductId).Select(u => u.UnitPrice).First();
-                //p.OriginalPrice = UnitPriceList.Where(u => u.ProductId == p.ProductId).Select(u => u.OriginalPrice).First();
                 p.RatingStar = (comment.Where(c => c.ProductId == p.ProductId)
                                        .Count() != 0) ? (float)comment.Where(c => c.ProductId == p.ProductId)
                                        .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == p.ProductId).Count() : 0;
