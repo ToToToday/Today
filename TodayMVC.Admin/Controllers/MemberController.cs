@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using TodayMVC.Admin.Services.MemberService;
+using static TodayMVC.Admin.ViewModels.MemberVM;
 
 namespace TodayMVC.Admin.Controllers
 {
