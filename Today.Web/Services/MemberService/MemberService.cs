@@ -100,9 +100,9 @@ namespace Today.Web.Services.MemberService
             var result = _repo.GetAll<LoginWay>()
                 .Where(l => l.MemberId == memberId)
                 .Select(l => l.LongWayName)
-                .First();
+                .FirstOrDefault();
 
-            return result;
+            return result == default? 1: result;
         }
     }
 }

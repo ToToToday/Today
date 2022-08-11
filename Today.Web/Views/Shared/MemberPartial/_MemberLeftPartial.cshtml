@@ -17,7 +17,7 @@
             <div class="aside-box-text name">@Model</div>
             <hr>
             <div class="account-group">
-                @if(longWayType == (int)AllEnum.LoginWayType.Google)
+               @if(longWayType == (int)AllEnum.LoginWayType.Google)
                 {
                     <div class="account d-flex" >
                         <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/google.svg" alt="">
@@ -37,13 +37,13 @@
                         <i class="icofont-check-circled text-info"></i>
                     </div>
                 }
-                @if(longWayType == (int)AllEnum.LoginWayType.Line)
+                @if (longWayType == (int)AllEnum.LoginWayType.Line)
                 {
                     <div class="account d-flex">
                         <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/line.svg" width="20" height="20" alt="">
-                    <div class="channel-name flex-grow-1">
-                    <div>Line</div>
-                    </div>
+                        <div class="channel-name flex-grow-1">
+                            <div>Line</div>
+                        </div>
                         <i class="icofont-check-circled text-info"></i>
                     </div>
                 }
