@@ -89,7 +89,7 @@ namespace Today.Web.Controllers
                 //c.Cities.Select(x => new FilterDTO.CityFilter { CityId = x}).ToList(),
                 Page = c.Page,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
-            };
+        };
 
             var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
 

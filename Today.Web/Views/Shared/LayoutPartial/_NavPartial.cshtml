@@ -305,7 +305,7 @@
                         </div>
                         <!-- 電子郵件 -->
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="off" name="Email" required>
+                            <input class="inp-sty w-100" id="loginEmail" placeholder="電子郵件" type="email" autocomplete="off" name="Email" required>
                             @*<input asp-for="loginVM.Email" class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="email" name="Email"/>*@
                             @*<span asp-validation-for="loginVM.Email" class="text-danger"></span>*@
                       </div>
@@ -400,15 +400,6 @@
                 </div>
                 @*加 method="post" action="/Account/SignUp"*@
                 <form class="login-form" role="form" method="post" action="/Account/SignUp">
-                    @if (TempData["message"] != null)
-                    {
-                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                    <script type="text/javascript">
-                        var message = "@Html.Raw(TempData["message"])";
-                        alert(message);
-                    </script>
-                    }
-
                     @Html.AntiForgeryToken()
                     <p>免費註冊 Today 會員帳號</p>
                     <!-- 電子郵件 -->
@@ -417,7 +408,7 @@
                             <i class="icofont-envelope"></i>
                         </div>
                         <div class="input-set flex-grow-1">
-                            <input class="inp-sty w-100" placeholder="電子郵件" type="email" autocomplete="off" name="Email" required>
+                            <input class="inp-sty w-100" id="signupEmail" placeholder="電子郵件" type="email" autocomplete="off" name="Email" required>
                         </div>
                     </div>
                     <!-- 密碼 -->

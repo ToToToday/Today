@@ -57,15 +57,11 @@ namespace Today.Web.Controllers
             if (!outputDto.IsSuccess)
             {
                 //手動增加模型的Error 錯誤訊息
-                ModelState.AddModelError(string.Empty, outputDto.Message);
+                //ModelState.AddModelError(string.Empty, outputDto.Message);
                 //return View(requestParam); //體貼地將資料填回去
 
-                //return Content("資料輸入有誤，請再次確認!");
-                if (outputDto != null) 
-                {
-                    TempData["message"] = "此帳號已被註冊";
-                }
-                return View("SignUp");
+                TempData["SignUpError"] = outputDto.Message;
+                TempData["SignUpEmail"] = requestParam.Email;
             }
 
             //最後 回傳View到首頁
@@ -141,11 +137,11 @@ namespace Today.Web.Controllers
         public IActionResult Login([FromForm] LoginVM requestParam) //收資料，資料庫寫入
         {
             //1. 內建的 模型檢核 機制   (檢核欄位)  //後端檢核：顧及正確   //前端檢核：顧及消費者體驗
-            if (!ModelState.IsValid)
-            {
-                return Content("輸入不合規");
-                //return View(requestParam);//體貼地將資料填回去
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Content("輸入不合規");
+            //    //return View(requestParam);//體貼地將資料填回去
+            //}
 
             //2. 輸出 = service 方法(輸入)
             //參數型別 Mapping(映射) 成input型別
@@ -162,9 +158,12 @@ namespace Today.Web.Controllers
             if (!outputDto.IsSuccess)
             {
                 //手動增加模型的Error 錯誤訊息
-                ModelState.AddModelError(string.Empty, outputDto.Message);
-                return Content("輸入不合規");
+                //ModelState.AddModelError(string.Empty, outputDto.Message);
+                //return Content("輸入不合規");
                 //return View(requestParam); //體貼地將資料填回去
+
+                TempData["LoginError"] = outputDto.Message;
+                TempData["LoginEmail"] = requestParam.Email;
             }
 
             //最後

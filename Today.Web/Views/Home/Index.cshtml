@@ -528,6 +528,7 @@
     <link rel="stylesheet" href="~/css/newcard.css"/>
 }
 
+
 @section endJS{
     <script src="~/js/collection.js"></script>
     <script>
@@ -548,6 +549,26 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
+
+        let signUpError = '@Html.Raw(TempData["SignUpError"])';
+        let loginError = '@Html.Raw(TempData["LoginError"])';
+        document.querySelector('#signupEmail').value = '@Html.Raw(TempData["SignUpEmail"])';
+        document.querySelector('#loginEmail').value = '@Html.Raw(TempData["LoginEmail"])';
+ 
+        if (signUpError != "") {
+            toastr['error'](signUpError, '錯誤')
+            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop2'), {})
+            myModal.show()
+        }
+        if (loginError != "") {
+            toastr['error'](loginError, '錯誤')
+            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {})
+            myModal.show()
+        }
+
+    </script>
+
+    <script>
         let result = '@Html.Raw(TempData["SearchMessage"])'.replace(/\"/g, "")
 
         window.onload = function(){

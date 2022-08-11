@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Manager\" />
+    <Folder Include="WebApiControllers\" />
   </ItemGroup>
 
   <ItemGroup>
