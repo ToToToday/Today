@@ -1,0 +1,73 @@
+﻿<div class="container-fluid">
+
+    <!-- Page Heading -->
+    @*<h1 class="h3 mb-4 text-gray-800">Blank Page</h1>*@
+@*    <div class="page-text-dynamic">
+        <div class="card_detail_head d-flex">
+            <div class="quantity">
+                <strong class="text-info">2</strong>
+                個成員
+            </div>
+        </div>
+    </div>*@
+
+</div>
+
+@*<template>
+  <div>
+    <b-table striped hover :items="items" :fields="fields"></b-table>
+  </div>
+</template>*@
+
+@*<script>
+  export default {
+    data() {
+      return {
+        // Note 'isActive' is left out and will not appear in the rendered table
+        fields: [
+          {
+            key: 'last_name',
+            sortable: true
+          },
+          {
+            key: 'first_name',
+            sortable: false
+          },
+          {
+            key: 'age',
+            label: 'Person age',
+            sortable: true,
+            // Variant applies to the whole column, including the header and footer
+            variant: 'danger'
+          }
+        ],
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ]
+      }
+    }
+  }
+</script>*@
+
+<script>
+    window.onload = function(){
+        let url = "/api/MemberApi/GetMemberList"
+        fetch(url, {
+            method: 'Get',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+                    console.log('OK')
+                }
+                else {
+                    console.log('Fail')
+                }
+            })
+    }
+</script>

@@ -48,12 +48,12 @@ h1 {
     margin: 0;
     padding: 0;
 }
-.list div{
+/*.list div{
     padding: 0 5px 0 15px;
     margin-top: 17px;
-}
+}*/
 .list .item{
-    margin:15px 0;
+    padding:15px 0;
 }
 .reconfirmation div {
     padding: 0 5px 0 12px;
@@ -314,7 +314,7 @@ i{
     transform: scale(1.2);
     transition: All 1s;
 }
-.fa-heart:not(.shopping-cart.fa-heart){
+/*.fa-heart:not(.shopping-cart.fa-heart){
     color: transparent;
     -webkit-text-stroke: 2px #ccc;
 }
@@ -322,6 +322,13 @@ i{
     transform: scale(1.4);
     color: red;
     -webkit-text-stroke: 1px red;
+}*/
+.createShopCard .fa-solid.fa-heart {
+    color: #ff0000;
+}
+
+.createShopCard .fa-regular.fa-heart:hover {
+    color: #f00;
 }
 .cart-recommend .card .card-footer{
     background-color: var(--todaygift-bgc);

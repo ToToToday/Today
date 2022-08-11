@@ -145,11 +145,46 @@ namespace Today.Web.Services.CityService
         public CityDTO GetAllCard(CityRequestDTO request)
         {
             var dataSource = _productService.AllProduct().QueryProduct;
+            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == request.MemberId).Select(c => c.ProductId);
+
             var result = new CityDTO()
             {
-                TopProductList = dataSource.Where(p => p.CityId == request.CityId).OrderByDescending(p => p.TotalOrder).Take(10).ToList(),
-                NewProductList = dataSource.Where(p => p.CityId == request.CityId).OrderByDescending(p => p.Id).Take(10).ToList(),
-                AboutProductList = dataSource.Where(p => p.CityId == request.CityId).OrderBy(x => Guid.NewGuid()).Take(10).ToList()
+                TopProductList = dataSource.Where(p => p.CityId == request.CityId).OrderByDescending(p => p.TotalOrder).Take(10).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                NewProductList = dataSource.Where(p => p.CityId == request.CityId).OrderByDescending(p => p.Id).Take(10).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList(),
+                AboutProductList = dataSource.Where(p => p.CityId == request.CityId).OrderBy(x => Guid.NewGuid()).Take(10).Select(x => new ProductInfo
+                {
+                    Id = x.Id,
+                    ProductPhoto = x.ProductPhoto,
+                    ProductName = x.ProductName,
+                    CityName = x.CityName,
+                    Favorite = favoriteList.Contains(x.Id),
+                    Tags = x.Tags,
+                    Rating = x.Rating,
+                    TotalOrder = x.TotalOrder,
+                    Prices = x.Prices
+                }).ToList()
             };
             return result;
         }

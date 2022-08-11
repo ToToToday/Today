@@ -14,8 +14,8 @@ radio
             </p>
         </div>
         <ul class="col-4 d-flex">
-            <li class="nav-item ">
-                <i class="fa-solid fa-heart"></i>
+            <li class="nav-item">
+                <i class="@(Model.Favorite == true ? "text-danger" : "") fa-solid fa-heart"></i>
             </li>
             <li class="nav-item">
                 <i class="fa-solid fa-comments"></i>
@@ -190,8 +190,8 @@ radio
                     <h3 class="col-12  col-lg-10">
                         @Model.ProductName
                     </h3>
-                    <div class="col-lg-2 product-heart m-auto text-center">
-                        <i class="fa-solid fa-heart"></i>
+                    <div class="col-lg-2 product-heart m-auto text-centerinitial-nav">
+                        <i class="@(Model.Favorite == true ? "fa-solid" : "fa-regular") fa-heart"></i>
                     </div>
                     <div class="order-quantity col-12 ">
                         <p>
@@ -784,5 +784,87 @@ radio
         //$(".text-break").click(function() {
         //    $(".Evaluation-message~div").slideToggle("slow");
         //});
+        let localhref = location.href
+        let productcollectheartphone = document.querySelector(".initial-nav .fa-heart")
+        let productcollectheartnote = document.querySelector(".product-heart .fa-heart")
+
+        productcollectheartphone.addEventListener("click", function (event) {
+            productcollectheartphone.animate(heartscale, heartTiming)
+
+            productcollectheartphone.classList.toggle("text-danger")
+
+            if (!productcollectheartphone.classList.contains("text-danger")) {
+                url = "/api/Collection/RemoveCollect"
+                isfavorite = false
+            }
+            else {
+                url = "/api/Collection/AddCollect"
+                isfavorite = true
+            }
+
+            fetch(url, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ProductId: localhref.substring(localhref.lastIndexOf('/') + 1, localhref.length),
+                    Favorite: isfavorite,
+                })
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        console.log('OK')
+                    }
+                    else {
+                        console.log('Fail')
+                    }
+                })
+        })
+
+        productcollectheartnote.addEventListener("click", function (event) {
+            productcollectheartnote.animate(heartscale, heartTiming)
+
+            if (productcollectheartnote.classList.contains("fa-solid")) {
+                url = "/api/Collection/RemoveCollect"
+                isfavorite = false
+            }
+            else {
+                url = "/api/Collection/AddCollect"
+                isfavorite = true
+            }
+
+            fetch(url, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ProductId: localhref.substring(localhref.lastIndexOf('/') + 1, localhref.length),
+                    Favorite: isfavorite,
+                })
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        console.log('OK')
+                        productcollectheartnote.classList.toggle("fa-solid")
+                        productcollectheartnote.classList.toggle("fa-regular")
+                    }
+                    else {
+                        console.log('Fail')
+                    }
+                })
+        })
+
+        const heartscale = [
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.5)' },
+            { transform: 'scale(1)' },
+        ];
+
+        const heartTiming = {
+            duration: 1000,
+            iterations: 1
+        }
     </script>
 }

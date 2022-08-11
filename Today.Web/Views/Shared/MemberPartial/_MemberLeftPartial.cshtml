@@ -1,0 +1,86 @@
+﻿@using Today.Web.Services.MemberService
+@using Today.Web.CommonEnum
+@inject IMemberService memberService
+@{
+    var longWayType = memberService.GetLongWayName();
+}
+
+<div class="col-12 col-lg-3 aside">
+    <div class="page-aside">
+        <div class="card aside-box">
+            <div class="editor-logo">
+                <img class="rounded-circle" src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg">
+                <div class="icon-bg rounded-circle">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+            </div>
+            <div class="aside-box-text name">@Model</div>
+            <hr>
+            <div class="account-group">
+                @if(longWayType == (int)AllEnum.LoginWayType.Google)
+                {
+                    <div class="account d-flex" >
+                        <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/google.svg" alt="">
+                    <div class="channel-name flex-grow-1">
+                    <div>Google</div>
+                    </div>
+                        <i class="icofont-check-circled text-info"></i>
+                    </div>
+                }
+                @if(longWayType == (int)AllEnum.LoginWayType.Facebook)
+                {
+                    <div class="account d-flex">
+                        <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/facebook.svg" width="20" height="20" alt="">
+                    <div class="channel-name flex-grow-1">
+                    <div>Facebook</div>
+                    </div>
+                        <i class="icofont-check-circled text-info"></i>
+                    </div>
+                }
+                @if(longWayType == (int)AllEnum.LoginWayType.Line)
+                {
+                    <div class="account d-flex">
+                        <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/line.svg" width="20" height="20" alt="">
+                    <div class="channel-name flex-grow-1">
+                    <div>Line</div>
+                    </div>
+                        <i class="icofont-check-circled text-info"></i>
+                    </div>
+                }
+            </div>
+        </div>
+        <ul class="card page-menu">
+            <li class="list-item @(ReferenceEquals(ViewData["MemberPage"], "CountSetting") ? "active" : "")">
+                <div class="list-item-text d-flex flex-nowrap align-item-center">
+                    <i class="icofont-gear-alt"></i>
+                    <a href="~/Member/CountSetting" class="flex-grow-1">帳號設定</a>
+                </div>
+            </li>
+            <li class="list-item @(ReferenceEquals(ViewData["MemberPage"], "Coupon") ? "active" : "")">
+                <div class="list-item-text d-flex flex-nowrap align-item-center">
+                    <i class="icofont-ticket"></i>
+                    <a class="flex-grow-1 d-flex flex-nowrap justify-content-between" href="~/Member/Coupon">Today折扣卷<span class="text-warning">0</span></a>
+                    
+                </div>
+            </li>
+            <li class="list-item @(ReferenceEquals(ViewData["MemberPage"], "OrderManage") ? "active" : "")">
+                <div class="list-item-text d-flex flex-nowrap align-item-center">
+                    <i class="icofont-ui-file"></i>
+                    <a href="~/Member/OrderManage" class="flex-grow-1">訂單管理</a>
+                </div>
+            </li>
+            <li class="list-item @(ReferenceEquals(ViewData["MemberPage"], "Message") ? "active" : "")">
+                <div class="list-item-text d-flex flex-nowrap align-item-center">
+                    <i class="icofont-ello"></i>
+                    <a href="~/Member/MessageManage" class="flex-grow-1">訊息管理</a>
+                </div>
+            </li>
+            <li class="list-item @(ReferenceEquals(ViewData["MemberPage"], "MyCollect") ? "active" : "")">
+                <div class="list-item-text d-flex flex-nowrap align-item-center">
+                    <i class="icofont-hype-machine"></i>
+                    <a href="~/Member/MyCollect" class="flex-grow-1">我的收藏</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
