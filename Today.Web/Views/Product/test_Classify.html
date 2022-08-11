@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+
+    <style>
+        .pill{
+            border: 1px solid #000;
+        }
+
+        .w-50{
+            width: 40%;
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- 溝選區 -->
+        <div class="w-50">
+            <div v-for="(filter,idx) in allFilter">
+                <div v-for="(x,idx) in filter">
+                    <label class="pill" >
+                        <input type="checkbox" 
+                        :value="x.id"
+                        v-model="x.checked">
+                        {{x.text}}  
+                    </label>
+                </div>
+            </div>            
+            <!-- <ul>
+                <li v-for="(city,idx) in allFilter.cities">
+                    <label class="pill" >
+                        <input type="checkbox" 
+                        :value="city.id"
+                        v-model="city.checked">
+                        {{city.text}}  
+                    </label>
+                </li>
+            </ul> -->
+            <!-- <ul >
+                <li v-for="(classify,idx) in allFilter.classifies">
+                    <label class="pill" >
+                        <input type="checkbox" 
+                        :value="classify.id" 
+                        v-model="classify.checked">
+                        {{classify.text}}
+                    </label>
+                </li>
+            </ul>         -->
+        </div>
+
+        <!-- 膠囊區 -->
+        <div class="w-50">
+            <span v-for="(filter,idx) in allFilter">
+                <span class="pill" v-for="(x,idx) in filter.filter(x => x.checked)">
+                    {{x.text}} <button v-on:click="cancel(x)">X</button> </span>
+            </span>
+            <!-- <span >
+                <span class="pill" v-for="(city,idx) in allFilter.cities.filter(x => x.checked)">
+                    {{city.text}} <button v-on:click="cancel(city)">X</button> </span>
+            </span>
+            <span>
+                <span class="pill" v-for="(classify,idx) in allFilter.classifies.filter(x => x.checked)">
+                    {{classify.text}}<button v-on:click="cancel(classify)" >X</button></span>
+            </span> -->
+        </div>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el:'#app',
+            data:{
+                allFilter:{
+                    cities:[
+                        { id:5 , text:'新竹' , checked:true},
+                        { id:6 , text:'桃園' , checked:false},
+                        { id:7 , text:'雲林' , checked:false},
+                        { id:8 , text:'台北' , checked:true},
+                    ],
+                    classifies:[
+                        {id:13 , text:'高鐵' , checked:true},
+                        {id:14 , text:'民宿' , checked:false},
+                    ],
+                    days:[
+                        {id:1 , text:'1日' , checked:false},
+                        {id:2 , text:'2日' , checked:false},
+                    ],
+                    
+                },
+            },
+            methods:{
+                cancel( target ){
+                    target.checked = false
+                }
+            }
+        })
+    </script>
+</body>
+</html>
+
+<div class="container city-filter-wrap position-fixed pt-2">
+    <div class="sidebar d-flex mx-0 px-3 bg-white">
+        <!-- 第一版 目的地-->
+        <div class="city-filter-btn d-flex">
+            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+                目的地<i class="fa-solid fa-caret-down ms-2"></i>
+            </button>
+        </div>
+        <!-- 目的地-展開 -->
+        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
+            aria-labelledby="offcanvasBottomLabel">
+            <!-- 目的地-導覽列 -->
+            <div class="offcanvas-header border-bottom">
+                <button id="button-demo" type="button" class="btn-clean-destination text-reset border-0 bg-white"
+                    aria-label="Close">清除</button>
+                <h5 class="offcanvas-title m-auto" id="offcanvasBottomLabell">目的地</h5>
+                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
+            </div>
+            <div class="offcanvas-body small">
+                <div class="filter-group rounded pt-3 mb-3">
+                    <!-- 搜尋input -->
+                    <div class="input-group">
+                        <div
+                            class="input-group-text d-flex fa-solid fa-magnifying-glass bg-white ms-1 rounded-pill w-100">
+                            <input class="form-control search border-0 ms-2" type="search" placeholder="搜尋目的地 ">
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0">
+                        <!-- checkbox標題 -->
+                        <div class="accordion-header text-dark mt-3 ms-2 me-1" id="headingOne">
+                            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                台灣
+                            </h2>
+                        </div>
+                        <!-- checkbox內文 --> 000
+                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body-input m-2">
+                                @foreach (var item in Model.ClassifyCardList)
+                                {
+                                    <div class="form-check pb-2">
+                                        <label class="form-check-label ms-1 mt-1">
+                                            <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox" value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
+                                        </label>@*makePill(this);*@
+                                    </div>
+                                }
+
+                                @* <div v-for="(city,idx) in allFilter.cities">
+                                    <label class="pill">
+                                    <input type="checkbox" :value="city.id" v-model="city.checked">{{city.text}}
+                                    </label>
+                                    </div>
+                                    <div v-for="(classify,idx) in allFilter.classifies">
+                                    <label class="pill">
+                                    <input type="checkbox" :value="classify.id" v-model="classify.checked">
+                                    {{classify.text}}
+                                    </label>
+                                    </div> *@
+
+                                @* <div class="form-check pb-2">
+                                    <div v-for="(item,idx) in cities">
+                                    <div v-for="(x,idx) in item">
+                                    <label cla ss="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    :value="x.id" v-model="x.checked">{{x.text}}
+                                    </label>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="form-check pb-2">
+                                    <div v-for="(item,idx) in cities">
+                                    <div v-for="(x,idx) in item">
+                                    <label cla ss="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    :value="x.id" v-model="x.checked">{{x.text}}
+                                    </label>
+                                    </div>
+                                    </div>
+                                    </div> *@
+                                @* @foreach (var item in Model.ClassifyCardList)
+                                    {
+                                    <div class="form-check pb-2">
+                                    <label class="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
+                                    </label>
+                                    makePill(this);
+                                    </div>
+                                    } *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二個版 更多條件 -->
+        <div class="city-filter-btn d-flex ps-1">
+            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#moreconditions" aria-controls="moreconditions">
+                更多條件<i class="fa-solid fa-caret-down ms-2"></i>
+            </button>
+        </div>
+        <!-- 更多條件-展開 -->
+        <div class="offcanvas offcanvas-bottom rounded-top" tabindex="-1" id="moreconditions"
+            aria-labelledby="offcanvasBottomLabel">
+            <!-- 更多條件-導覽列 -->
+            <div class="offcanvas-header border-bottom">
+                <button type="button" class="btn-clean-destination text-reset border-0 bg-white"
+                    aria-label="Close">清除</button>
+                <h5 class="moreconditions offcanvas-title m-auto" id="offcanvasBottomLabell">更多條件</h5>
+                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
+            </div>
+            <!-- 裡面內文 -->
+            <div class="offcanvas-body small p-0">
+                <!-- 使用日 -->
+                <div class="filter-group rounded">
+                    <div class="filter-block">
+                        <!-- 使用日-請選擇使用日 -->
+                        <dib class="accordion-header" id="Attractions">
+                            <h4 class=" collapsed fw-normal border-bottom d-flex " data-bs-target="#collapsedayofuse"
+                                aria-expanded="false">
+                                <input type="button" name="datefilter" value="請選出發日期"
+                                    class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder lh-lg"
+                                    placeholder="篩選出發日期" id="collapsedayofuse" line-height: 2;">
+                                @*<span class="fs-6 px-3 py-2 ms-1 w-100 d-flex justify-content-between
+                                    align-items-center ">
+                                    請選擇使用日
+                                    </span>*@
+                            </h4>
+                        </dib>
+                    </div>
+                </div>
+                <!-- 更多條件 -->
+                <div class="filter-group rounded mb-1">
+                    <div class="filter-block ">
+                        <!-- 更多條件-所有商品類別 -->
+                        <div class="accordion-header " id="Attractions">
+                            <h4 class="accordion-button collapsed fw-normal " data-bs-toggle="collapse"
+                                data-bs-target="#collapseAttractiontickets1" aria-expanded="false">
+                                所有商品類別
+                            </h4>
+                        </div>
+                        <!-- 更多條件-所有商品類別-類別內容 -->
+                        <div id="collapseAttractiontickets1" class="accordion-collapse collapse px-2"
+                            data-bs-parent="#accordionExample">
+                            <partial name="ClassifyCollapsePartial/_CollapsePartial" for="CategoryList" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三個版 排序 -->
+        <div class="city-filter-btn d-flex ps-1">
+            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sort" aria-controls="sort">
+                排序<i class="fa-solid fa-caret-down ms-2"></i>
+            </button>
+        </div>
+        <!-- 排序-展開 -->
+        <div class="sort offcanvas offcanvas-bottom" tabindex="-1" id="sort" aria-labelledby="offcanvasBottomLabel">
+            <!-- 排序-導覽列 -->
+            <div class="offcanvas-header border-bottom">
+                <button type="button" class="btn-clean-destination text-reset border-0 bg-white"
+                    aria-label="Close">清除</button>
+                <h5 class="offcanvas-title m-auto" id="offcanvasBottomLabell">排序</h5>
+                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
+            </div>
+            <!-- 排序-內文 -->
+            <div class="offcanvas-body small px-0">
+                <div class="accordion-item border-0 ">
+                    <div class="form-check mb-2 py-2 border-bottom d-flex align-items-center justify-content-between">
+                        <label class="form-check-label ms-2 mt-1 " for="Taipei">KKday 推薦</label>
+                        <i class="fa-solid fa-check me-4"></i>
+                    </div>
+                    <div class="form-check mb-2 py-2 border-bottom d-flex align-items-center justify-content-between">
+                        <label class="form-check-label ms-2 mt-1" for="Taichung">熱門程度 : 高至低</label>
+                        <i class="fa-solid fa-check me-4"></i>
+                    </div>
+                    <div class="form-check mb-2 py-2 d-flex align-items-center justify-content-between">
+                        <label class="form-check-label ms-2 mt-1" for="Kaohsiung">價格 : 低至高</label>
+                        <i class="fa-solid fa-check me-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

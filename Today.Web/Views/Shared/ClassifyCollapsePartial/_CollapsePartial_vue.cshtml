@@ -1,0 +1,31 @@
+﻿    <div  v-for="(category,idx) in allFilter.categories"
+        class="accordion-item">
+        <div class="accordion-header " id="Attractions">
+            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+            :data-bs-target="'#collapseAttractiontickets'+idx" 
+            aria-expanded="false">
+                {{category.CategoryName}}
+            </h2>
+        </div>
+        <div :id="'collapseAttractiontickets'+idx" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+@*                <div class="allform-check pb-2">
+                    <label class="form-check-label allform-check ms-1 mt-1" >
+                        <input class="form-check-input mt-0 " type="checkbox" value="" id="all">全部
+                    </label>
+                </div>*@
+
+
+                <div v-for="(childCategory,idx) in category.ChildCategory"
+                class=" form-check pb-2">
+                    <label class="self-form-check-label ms-1 mt-1 filter">
+                        <input class="form-check-input mt-0 selfform-check selfform-city shadow-none" type="checkbox" name="checkboxs" 
+                        :value="childCategory.ProductCategoryId" 
+                        v-model="childCategory.Checked"
+                        v-on:change="filterPost(1)" />
+                        {{childCategory.CategoryName}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>

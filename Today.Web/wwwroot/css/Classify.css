@@ -94,7 +94,7 @@ h2 {
     background-color: #666;
     border: 1px solid #666;
     padding: 10px;
-    margin: 0px 5px 15px;
+    /*margin: 0px 5px 15px;*/
 }
 
 
@@ -110,6 +110,7 @@ span.sort:hover {
 /* #offcanvas-bottom {
     height: 18rem;
 } */
+
 
 
 @media screen and (max-width: 991px) {
@@ -132,29 +133,29 @@ span.sort:hover {
     }
 
     #offcanvasBottom {
-        height: 38rem;
+        height: 70%;
     }
 
 /*    #moreconditions {
         height: 38rem;
     }*/
     #moreconditions {
-        height: 38rem!important;
+        height: 70%;
     }
 
 }
 
 @media screen and (min-width: 576px) {
     #sort {
-        height: 18rem;
+        height: 60%
     }
 
     #offcanvasBottom {
-        height: 38rem;
+        height: 60%
     }
 
     #moreconditions {
-        height: 38rem;
+        height: 60%
     }
 }
 
@@ -183,11 +184,11 @@ span.sort:hover {
     }
 
     #offcanvasBottom {
-        height: 35rem;
+        height: 60%;
     }
 
     #moreconditions {
-        height: 52rem;
+        height: 60%;
     }
 }
 
@@ -376,11 +377,11 @@ h5 .card-title_group {
     }
 
     #offcanvasBottom {
-        height: 38rem;
+        height: 60%;
     }
 
     #moreconditions {
-        height: 38rem;
+        height: 60%;
     }
 
     .scroll-to-top:hover {
