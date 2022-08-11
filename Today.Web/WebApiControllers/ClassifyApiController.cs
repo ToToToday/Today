@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,7 +92,14 @@ namespace Today.Web.WebApiControllers
 
             var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
 
-            return Ok(classifyCardList);
+
+            var result = new ClassifyVM()
+            {
+                ClassifyCardList = classifyCardList.ClassifyCardList,
+                CardCount = classifyCardList.CardCount,
+            };
+
+            return Ok(result);
         }
 
     }

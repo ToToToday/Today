@@ -15,17 +15,16 @@
         </div>
         <div id="collapseAttractiontickets@(index)" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                @*<div class="allform-check pb-2">
-            <label class="form-check-label ms-1 mt-1" for="all">
-            <input class="form-check-input mt-0" type="checkbox" value="" id="all">全部
-            </label>
-            </div>*@
+@*                <div class="allform-check pb-2">
+                    <label class="form-check-label allform-check ms-1 mt-1" >
+                        <input class="form-check-input mt-0 " type="checkbox" value="" id="all">全部
+                    </label>
+                </div>*@
                 @foreach (var item1 in item.ChildCategory)
                 {
                     <div class=" form-check pb-2">
-                        <label class="form-check-label ms-1 mt-1">
-                            <input class="form-check-input mt-0 selfform-check shadow-none" type="checkbox" value="@item1.ProductCategoryId" onchange="postAndChangePages()" />
-                            @item1.CategoryName
+                        <label class="self-form-check-label ms-1 mt-1 filter" onclick="show()">
+                            <input class="form-check-input mt-0 selfform-check selfform-city shadow-none" type="checkbox" name="checkboxs" value="@item1.ProductCategoryId" onchange="postAndChangePages()" />@item1.CategoryName
                         </label>
                     </div>
                 }

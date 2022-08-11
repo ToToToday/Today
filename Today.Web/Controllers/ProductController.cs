@@ -20,7 +20,6 @@ using static Today.Web.DTOModels.CityDTO.RaiderDTO;
 using static Today.Web.ViewModels.ProductInfoVM;
 using Today.Web.DTOModels.ProductInfoDTO;
 using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
-
 using static Today.Web.DTOModels.ShopCartMemberDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO.ShopCartMemberResponseDTO;
 using static Today.Web.ViewModels.ShopCartVM;
@@ -35,8 +34,8 @@ namespace Today.Web.Controllers
         private readonly IProductInfoService _productInfoService;
         private readonly IClassifyService _classifyService;
         private readonly IShopCartService _shopCartService;
-        
-        
+
+
         public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService, IShopCartService shopCartService)
         {
             _productInfoService = productInfoService;
@@ -131,23 +130,19 @@ namespace Today.Web.Controllers
                     }).ToList()
                 };
 
-                
+
 
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
-               
+
 
 
                 return View(productinfo);
-                
 
-                
+
+
             }
 
         }
-        //public JsonResult GetCountyDDL(string cityId)
-
-        //[HttpGet("{categoryId}")]
-        //[HttpGet("~/[controller]/[action]/{categoryId}")]
         public IActionResult Classify(int id) //楊 分類
         {
             var categoryshow = new ClassifyRequestDTO
@@ -160,22 +155,29 @@ namespace Today.Web.Controllers
             var cardsource = classPages.ClassifyCardList;
             var categorysource = classPages.CategoryList;
 
-
             var result = new ClassifyVM()
             {
-                ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
-                {
-                    ProductId = c.ProductId,
-                    ProductName = c.ProductName,
-                    CityId = c.CityId,
-                    CityName = c.CityName,
-                    Path = c.Path,
-                    TagText = c.TagText,
-                    UnitPrice = c.UnitPrice,
-                    RatingStar = (int)c.RatingStar,
-                    TotalComment = c.TotalComment,
-                    Evaluation = c.Evaluation
-                }).ToList(),
+                ClassifyCardList = cardsource,
+                //.Select(c => new ClassifyVM.ClassifyCardInfo
+                //{
+                //    ProductId = c.ProductId,
+                //    ProductName = c.ProductName,
+                //    CityId = c.CityId,
+                //    CityName = c.CityName,
+                //    Path = c.Path,
+                //    TagText = c.TagText,
+                //    //UnitPrice = c.UnitPrice,
+                //    RatingStar = c.RatingStar,
+                //    TotalComment = c.TotalComment,
+                //    //OriginalPrice = c.OriginalPrice,
+                //    TotalOrder = c.TotalOrder,
+                //    Prices = {
+                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
+                //            Price=(c.Prices == null) ? null : c.Prices.Price,
+                //    }
+                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
+                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
+                //}).ToList(),
 
                 CardCount = classPages.CardCount,
 
@@ -190,7 +192,6 @@ namespace Today.Web.Controllers
                     }).ToList()
                 }).ToList()
             };
-
 
             return View(result);
         }
