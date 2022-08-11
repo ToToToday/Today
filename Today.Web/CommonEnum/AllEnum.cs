@@ -22,7 +22,7 @@ namespace Today.Web.CommonEnum
         public enum LoginWayType
         {
             [Description("Google")]
-             Google= 3,
+            Google= 3,
             [Description("Facebook")]
             Facebook = 2,
             [Description("Line")]
