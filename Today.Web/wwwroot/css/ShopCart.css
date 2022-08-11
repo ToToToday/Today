@@ -48,12 +48,12 @@ h1 {
     margin: 0;
     padding: 0;
 }
-.list div{
+/*.list div{
     padding: 0 5px 0 15px;
     margin-top: 17px;
-}
+}*/
 .list .item{
-    margin:15px 0;
+    padding:15px 0;
 }
 .reconfirmation div {
     padding: 0 5px 0 12px;
@@ -113,6 +113,7 @@ h1 {
 }
 .shopping-cart .card img{
     width: 120px;
+    height:85px;
     border-radius: 5px;
 }
 .shopping-cart .card-body{
@@ -202,7 +203,6 @@ i{
     padding: 5px 0;
     display: flex;
     align-items: flex-end;
-    /*margin-top:17px;*/
     font-size:1rem;
 }
 .checkout .check-control span::before{
@@ -244,8 +244,6 @@ i{
     color: white;
     text-decoration: none;
     display: inline-block;
-/*    width: 75px;
-    height: 40px;*/
     padding: 14px 13px;
     border-radius: 5px;
 }
@@ -316,7 +314,7 @@ i{
     transform: scale(1.2);
     transition: All 1s;
 }
-.fa-heart:not(.shopping-cart.fa-heart){
+/*.fa-heart:not(.shopping-cart.fa-heart){
     color: transparent;
     -webkit-text-stroke: 2px #ccc;
 }
@@ -324,6 +322,13 @@ i{
     transform: scale(1.4);
     color: red;
     -webkit-text-stroke: 1px red;
+}*/
+.createShopCard .fa-solid.fa-heart {
+    color: #ff0000;
+}
+
+.createShopCard .fa-regular.fa-heart:hover {
+    color: #f00;
 }
 .cart-recommend .card .card-footer{
     background-color: var(--todaygift-bgc);
@@ -420,8 +425,6 @@ i{
         padding: 0 5px;
     }
     .caculate a{
-        /*width: 80px;
-        height: 40px;*/
         padding: 14px;
     }
     .cart-recommend .card{
@@ -469,9 +472,6 @@ i{
     .list .empty-cart a{
         padding: 10px 24px;
     }
-    /*.shopping-cart div{
-        margin-top: 20px;
-    }*/
     .shopping-cart .card-body .row div{
         padding: 0 15px;
     }

@@ -19,7 +19,7 @@
                 <a href="~/Home/Index" class="btn">跟著Today一起探索世界</a>
             </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteCard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog px-3">
                     <div class="modal-content px-2 pb-3">
                         <div class="modal-header border-bottom-0">
@@ -40,35 +40,35 @@
             <div class="container">
                 @foreach (var cart in Model.ShopCartCardList)
                 {
-                    <div class="item d-flex flex-row">
-                        <div class="check-control m-0 ps-0">
+                    <div class="item d-flex flex-row createShopCard px-2 px-md-4">
+                        <div class="check-control m-0 ps-0 pe-3">
                             <label class="form-check-label" for="commodity-control">
                             </label>
-                            <input class="form-check-input commodity-control" type="checkbox" id="commodity-control" value="@cart.ShoppingCartId">
+                            <input class="form-check-input commodity-control" checked="" type="checkbox" id="commodity-control" value="@cart.ShoppingCartId">
                         </div>
-                        <div class="card p-0 flex-grow-1">
-                            <a href="#">
+                        <div class="card p-0 m-0 row-cols-auto flex-grow-1">
+                            <span class="product-img col">
                                 <img src="@cart.Path">
-                            </a>
-                            <div class="card-body px-2 mt-0">
-                                <div class="row flex-grow-1">
+                            </span>
+                            <div class="card-body col p-0 px-2 w-100">
+                                <div class="row w-100">
                                     <div class="col-lg-6 m-0">
-                                        <a href="#">
+                                        <a href="~/Product/ProductInfo/@cart.ProductId">
                                             <h4 v-model="CreateCardData.ProductName" class="card-title fw-bolder">@cart.ProductName</h4>
                                         </a>
                                         <p class="card-text p-0">@cart.ProgramTitle</p>
                                     </div>
                                     <div class="col-lg-3 d-flex flex-column flex-lg-row">
-                                        <div class="time">
+                                        <div class="time p-1 my-auto">
                                             <span class="d-lg-inline-block">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
                                             <span class=" mt-1 m-0 p-0">時間: @cart.ScreenTime</span>
                                         </div>
-                                        <span class="text-nowrap d-inline-block">@(cart.UnitText)x@(cart.Quantity)</span>
+                                        <span class="text-nowrap d-inline-block p-1 my-auto">@(cart.UnitText)x@(cart.Quantity)</span>
                                     </div>
-                                    <div class="col-lg-3 text-end">
-                                        <span class=" fw-bold text-nowrap">TWD @cart.Sum</span>
-                                        <i class="fa-regular fa-heart"></i>
-                                        <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <div class="col-lg-3 text-end d-lg-flex flex-lg-nowrap p-1 justify-content-between">
+                                        <span class=" fw-bold text-nowrap m-auto">TWD <span class="price">@cart.Sum</span></span>
+                                        <i class="@(cart.Favorite == true ? "fa-solid" : "fa-regular") fa-heart m-auto"></i>
+                                        <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#deleteCard">
                                             <i class="fa-regular fa-trash-can ms-2"></i>
                                         </button>
                                     </div>
@@ -80,23 +80,39 @@
             </div>
 
 
-
+            <div class="modal fade" id="deleteAllCard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog px-3">
+                    <div class="modal-content px-2 pb-3">
+                        <div class="modal-header border-bottom-0">
+                            <h5 class="fw-bolder fs-4" id="exampleModalLabel">刪除商品</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start py-3 border-bottom-0">
+                            您確定要刪除所選商品嗎？
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn btn-light" data-bs-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary footer-delete">刪除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="checkout d-none">
                 <div class="check-control">
-                    <input class="form-check-input input" type="checkbox" id="checkout-control" value=""
+                    <input class="form-check-input input" checked="" type="checkbox" id="checkout-control" value=""
                            aria-label="...">
-                    <label class="form-check-label" for="checkout-control" value="">全選 (1)</label>
+                    <label class="form-check-label" for="checkout-control" value=""></label>
                     <span>
-                        <button type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除已選項目</button>
+                        <button type="button" class="p-0 m-0 bg-transparent border-0 footer-allDelete" data-bs-toggle="modal" data-bs-target="#deleteAllCard">刪除已選項目</button>
                     </span>
                 </div>
                 <div class="caculate m-0">
                     <div class="total mb-3">
-                        <span class="text-end">1件商品合計</span>
+                        <span class="text-end"></span>
                         <span class=" fw-bolder mt-2">TWD @Model.ShopCartCardList.Select(s =>s.Sum).Sum()</span>
                     </div>
-                    <a class="caculate-input fw-bolder mb-3 mx-3" @*asp-action="Checkout"*@>前往結帳</a>
+                    <a class="caculate-input fw-bolder mb-3 mx-3">前往結帳</a>
                 </div>
             </div>
         </div>
@@ -355,16 +371,13 @@
     <link rel="stylesheet" href="~/css/root.css">
 }
 
-    @section endJS{
-    @*<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <!-- toastr v2.1.4 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>*@
+@section endJS{
+    
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    @*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>*@
+    
 
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
@@ -373,175 +386,6 @@
         crossorigin="anonymous"></script>
 
 
-    <script>
-        let createItem = document.querySelectorAll(".list .item")
-        let emptyCart = document.querySelector(".empty-cart")
-        let checkout = document.querySelector(".checkout")
-
-        let reconfirmation = document.querySelector(".reconfirmation")
-        let shoppingGroup = document.querySelector(".shopping-group")
-        let deleteCard = document.querySelector(".modal .btn-primary")
-        
-        let CheckItem = document.querySelectorAll(".item input[type='checkbox']")
-        let Check = document.querySelectorAll(".item input[type='checkbox']:checked")
-        let CheckAll = document.querySelector(".checkout .check-control input[type='checkbox']")
-        //let label = document.querySelector(".checkout [for='checkout-control']")
-
-        let deletebtnlist = document.querySelectorAll(".text-end>button")
-        let deleteAllCard = document.querySelector(".checkout button")
-        
-        console.log(deletebtnlist)
-        deletebtnlist.forEach((d, index) => {
-            console.log(d)
-            d.addEventListener("click", () => {
-                document.querySelector(".footer-delete").value = deletebtnlist[index].value
-            })
-        })
-        if (createItem.length == 0) {
-            emptyCart.classList.remove("d-none")
-            reconfirmation.classList.add("d-none")
-            //if (time.contains(getdata.getFullYear())) {
-            //    shoppingGroup.classList.remove(reconfirmation)
-            //}
-        }
-        else {
-            reconfirmation.classList.add("d-none")
-            checkout.classList.remove("d-none")
-        }
-
-        
-        CheckAll.addEventListener("click", () => {
-            if (CheckAll.checked){
-                CheckItem.forEach((item, index) => {
-                    item.checked = true
-                    //label.value = CheckItem.length
-                })
-            }
-            else{
-                CheckItem.forEach((item, index) => {
-                    item.checked = false
-                })
-            }
-            //for (var i = 0; i <= CheckItem.length; i++) {
-            //    if (CheckItem[i].checked) {
-            //        CheckItem[i].checked = false
-                    
-            //    }
-            //    else{
-            //        CheckItem[i].checked = true
-                    
-            //    }
-
-            //    //if (CheckItem.l) {
-
-            //    //}
-
-            //}
-
-
-        })
-
-        //Check.forEach((item, index) => {
-        //    item.addEventListener("click", function(event) {
-                if (Check.length < CheckItem.length && CheckAll.checked == true) {
-                    CheckAll.checked = false
-                    //CheckAll.removeAttribute("checked")
-                    
-                }
-        //    })
-        //})
-
-        
-
-        
-
-        //let CardArray = []
-        
-        for (var i = 0; i < CheckItem.length; i++) {
-
-
-            if (CheckItem[i].checked = true) {
-
-                CheckAll.checked = true
-                
-            }
-
-                
-
-        }
-
-
-
-
-        deleteCard.addEventListener("click", function() {
-
-            let shoppingCardId = document.querySelector(".footer-delete").value
-
-            toastr.options = {
-                "positionClass": "toast-top-center",
-                "timeOut": "3000"
-            }
-
-            let url = "/api/Shop/DeleteCard";
-            fetch(url, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ShoppingCartId: parseInt(shoppingCardId)
-                })
-            })
-                .then(res => {
-                    if (res.status === 200) {
-                        //toastr.success("刪除成功");
-                        window.location.reload();
-                    }
-                    else {
-                        toastr.error("刪除失敗");
-                        //return res.text()
-                    }
-
-                })
-        })
-
-
-
-
-    </script>
-    <script>
-        let create_order_btn = document.querySelector(".caculate>a")
-        create_order_btn.addEventListener("click", () => {
-            let List = document.querySelectorAll("input.commodity-control:checked")
-            fetch("/api/Order/CreateOrder", {
-                method: 'Post',
-                cache: 'no-cache',
-                headers: new Headers({ 'Content-Type': 'application/json' }),
-                body: JSON.stringify({
-                    //加入產品詳細資訊
-                    ShoppingCradIdList: Array.from(List).map(x => parseInt(x.value))
-                })
-            })
-                .then(res => {
-                    if (res.status == 200) {
-                        toastr.success("新增成功");
-                        return res.json()
-                    }
-                    else {
-                        toastr.error("新增失敗");
-                        //return res.text()
-                    }
-                })
-                .then(obj => {
-                    //console.log(obj)
-                    //Status
-                    //Msg
-                    //Result
-                    window.location.href = `/Member/Checkout/${obj.result.id}`
-
-                })
-        })
-
-    </script>
+    <script src="~/js/shopcart.js"></script>
  }
 

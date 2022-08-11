@@ -30,6 +30,7 @@ namespace Today.Web.ViewModels
             public int Id { get; set; }
             public string ProductPhoto { get; set; }
             public string ProductName { get; set; }
+            public bool Favorite { get; set; }
             public string CityName { get; set; }
             public List<string> Tags { get; set; }
             public float Rating { get; set; }

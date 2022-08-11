@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Today.Model.Models;
 
 namespace Today.Web.ViewModels
@@ -9,20 +10,35 @@ namespace Today.Web.ViewModels
         public List<ClassifyCardInfo> ClassifyCardList { get; set; }
         public int CardCount { get; set; }
         public List<CategoryDestinations> CategoryList { get; set; }
+
         public class ClassifyCardInfo
         {
             public int ProductId { get; set; }
             public string ProductName { get; set; }
+            public bool Favorite { get; set; }
             public string Path { get; set; }
+
+
             public List<string> TagText { get; set; }
+            public float RatingStar { get; set; }
+
+
             public int CityId { get; set; }
             public string CityName { get; set; }
             public bool IsIsland { get; set; }
             public decimal UnitPrice { get; set; }
             public int RatingStar { get; set; }
             public int TotalComment { get; set; }
-            public decimal Evaluation { get; set; }
+            public int TotalOrder { get; set; }
+            public PriceInfo Prices { get; set; }
+            public class PriceInfo
+            {
+                public decimal? OriginalPrice { get; set; }
+                public decimal? Price { get; set; }
+            }
         }
+
+
         public class CategoryDestinations
         {
             public int ProductCategoryId { get; set; }
@@ -34,13 +50,13 @@ namespace Today.Web.ViewModels
     {
         public List<CategoryFilter> CategoryFilterList { get; set; }
         public List<CityFilter> CityFilterList { get; set; }
-        //public List<int> MinPrice { get; set; }
-        //public List<int> MaxPrice { get; set; }
+        public int Page { get; set; }
+
         public class CategoryFilter
         {
             public int ProductId { get; set; }
         }
-        public class CityFilter
+
         {
             public int CityId { get; set; }
             public string CityName { get; set; }

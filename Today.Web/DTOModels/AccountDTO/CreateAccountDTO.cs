@@ -6,10 +6,13 @@
         public string Email { get; set; }
         public string Password { get; set; }
     }
-
-    public class CreateAccountOutputDTO
+    public class CreateAccountOutputDTO : BaseOutputDTO
     {
-        public bool IsSuccess { get; set; } //true / false
-        public string Message { get; set; } //null / 人看的錯誤訊息
     }
+
+    //public class CreateAccountOutputDTO
+    //{
+    //    public bool IsSuccess { get; set; } //true / false
+    //    public string Message { get; set; } //null / 人看的錯誤訊息
+    //}
 }

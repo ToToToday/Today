@@ -35,8 +35,8 @@ namespace Today.Web.Controllers
         private readonly IProductInfoService _productInfoService;
         private readonly IClassifyService _classifyService;
         private readonly IShopCartService _shopCartService;
-        
-        
+
+
         public ProductController(ICityService cityServices, ILocationService locationServices, IProductService productService, IClassifyService classifyService, IProductInfoService productInfoService, IShopCartService shopCartService)
         {
             //_productInfoService = productInfoService;
@@ -54,13 +54,14 @@ namespace Today.Web.Controllers
 
         public IActionResult ProductInfo(int id) //商品頁面
         {
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             if (id <= 0)
             {
                 return Content("找不到商品");
             }
             else
             {
-                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id });
+                var productPagesServiceDTO = _productInfoService.GetProduct(new ProductInfoDTO.ProductInfoRequstDTO { ProductId = id, MemberId = userId });
                 ;
                 var productinfo = new ProductInfoVM
                 {
@@ -70,6 +71,7 @@ namespace Today.Web.Controllers
                     CancellationPolicy = productPagesServiceDTO.ProductInfo.CancellationPolicy,
                     HowUse = productPagesServiceDTO.ProductInfo.HowUse,
                     ProductName = productPagesServiceDTO.ProductInfo.ProductName,
+                    Favorite = productPagesServiceDTO.ProductInfo.Favorite,
                     CityName = productPagesServiceDTO.ProductInfo.CityName,
                     Producttag = productPagesServiceDTO.ProductInfo.ProductTag,
                     ProductlocationName = productPagesServiceDTO.ProductInfo.ProductLocationName,
@@ -131,29 +133,27 @@ namespace Today.Web.Controllers
                     }).ToList()
                 };
 
-                
+
 
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
-               
+
 
 
                 return View(productinfo);
-                
 
-                
+
+
             }
 
         }
-        //public JsonResult GetCountyDDL(string cityId)
-
-        //[HttpGet("{categoryId}")]
-        //[HttpGet("~/[controller]/[action]/{categoryId}")]
-        public IActionResult Classify([FromQuery] List<string> typeDate,int id) //楊 分類
+        public IActionResult Classify([FromQuery] List<string> typeDate, int id) //楊 分類
         {
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             var categoryshow = new ClassifyRequestDTO
             {
                 CategoryId = id,
                 Page = 1,
+                MemberId = userId
                 RealDate = typeDate
             };
 
@@ -161,22 +161,29 @@ namespace Today.Web.Controllers
             var cardsource = classPages.ClassifyCardList;
             var categorysource = classPages.CategoryList;
 
-
             var result = new ClassifyVM()
             {
-                ClassifyCardList = cardsource.Select(c => new ClassifyVM.ClassifyCardInfo
-                {
-                    ProductId = c.ProductId,
-                    ProductName = c.ProductName,
-                    CityId = c.CityId,
-                    CityName = c.CityName,
-                    Path = c.Path,
-                    TagText = c.TagText,
-                    UnitPrice = c.UnitPrice,
-                    RatingStar = (int)c.RatingStar,
-                    TotalComment = c.TotalComment,
-                    Evaluation = c.Evaluation
-                }).ToList(),
+                ClassifyCardList = cardsource,
+                //.Select(c => new ClassifyVM.ClassifyCardInfo
+                //{
+                //    ProductId = c.ProductId,
+                //    ProductName = c.ProductName,
+                //    CityId = c.CityId,
+                //    CityName = c.CityName,
+                //    Path = c.Path,
+                //    TagText = c.TagText,
+                //    //UnitPrice = c.UnitPrice,
+                //    RatingStar = c.RatingStar,
+                //    TotalComment = c.TotalComment,
+                //    //OriginalPrice = c.OriginalPrice,
+                //    TotalOrder = c.TotalOrder,
+                //    Prices = {
+                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
+                //            Price=(c.Prices == null) ? null : c.Prices.Price,
+                //    }
+                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
+                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
+                //}).ToList(),
 
                 CardCount = classPages.CardCount,
 
@@ -191,7 +198,6 @@ namespace Today.Web.Controllers
                     }).ToList()
                 }).ToList()
             };
-
 
             return View(result);
         }
@@ -208,9 +214,11 @@ namespace Today.Web.Controllers
         }
         public IActionResult CityTour(int id) //各城市導覽頁b 
         {
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             var cityRequest = new CityRequestDTO
             {
-                CityId = id
+                CityId = id,
+                MemberId = userId
             };
             var CityDetail = _cityServices.GetCity(cityRequest);
             var CityAllCard = _cityServices.GetAllCity(cityRequest);
@@ -284,6 +292,7 @@ namespace Today.Web.Controllers
                     Id = newp.Id,
                     ProductPhoto = newp.ProductPhoto,
                     ProductName = newp.ProductName,
+                    Favorite = newp.Favorite,
                     Tags = newp.Tags,
                     CityName = newp.CityName,
                     OriginalPrice = (newp.Prices == null || newp.Prices.OriginalPrice == newp.Prices.Price) ? null : newp.Prices.OriginalPrice,
@@ -297,6 +306,7 @@ namespace Today.Web.Controllers
                     Id = aboutp.Id,
                     ProductPhoto = aboutp.ProductPhoto,
                     ProductName = aboutp.ProductName,
+                    Favorite = aboutp.Favorite,
                     Tags = aboutp.Tags,
                     CityName = aboutp.CityName,
                     OriginalPrice = (aboutp.Prices == null || aboutp.Prices.OriginalPrice == aboutp.Prices.Price) ? null : aboutp.Prices.OriginalPrice,
@@ -310,6 +320,7 @@ namespace Today.Web.Controllers
                     Id = top.Id,
                     ProductPhoto = top.ProductPhoto,
                     ProductName = top.ProductName,
+                    Favorite = top.Favorite,
                     Tags = top.Tags,
                     CityName = top.CityName,
                     OriginalPrice = (top.Prices == null || top.Prices.OriginalPrice == top.Prices.Price) ? null : top.Prices.OriginalPrice,

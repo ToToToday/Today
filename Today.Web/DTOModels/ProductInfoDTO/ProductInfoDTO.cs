@@ -8,6 +8,7 @@ namespace Today.Web.DTOModels.ProductInfoDTO
         public class ProductInfoRequstDTO
         {
             public int ProductId { get; set; }
+            public int MemberId { get; set; }
         }
         public class ProductInfoResponseDTO
         {
@@ -17,6 +18,7 @@ namespace Today.Web.DTOModels.ProductInfoDTO
         {
             public int ProductId { get; set; }
             public string ProductName { get; set; }
+            public bool Favorite { get; set; }
             public string CityName { get; set; }
             public string ProductTag { get; set; }
             public List<Photo> PhtotList { get; set; }
