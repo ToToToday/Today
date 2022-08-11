@@ -66,9 +66,9 @@
                                         <span class="text-nowrap d-inline-block p-1 my-auto">@(cart.UnitText)x@(cart.Quantity)</span>
                                     </div>
                                     <div class="col-lg-3 text-end d-lg-flex flex-lg-nowrap p-1 justify-content-between">
-                                        <span class=" fw-bold text-nowrap m-auto">TWD @cart.Sum</span>
+                                        <span class=" fw-bold text-nowrap m-auto">TWD <span class="price">@cart.Sum</span></span>
                                         <i class="@(cart.Favorite == true ? "fa-solid" : "fa-regular") fa-heart m-auto"></i>
-                                        <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#deleteCard">
                                             <i class="fa-regular fa-trash-can ms-2"></i>
                                         </button>
                                     </div>
