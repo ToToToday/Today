@@ -15,10 +15,9 @@ namespace Today.Web.ViewModels
             public string ProductName { get; set; }
             public string Path { get; set; }
             public List<string> TagText { get; set; }
-
-
             public int CityId { get; set; }
             public string CityName { get; set; }
+            public bool IsIsland { get; set; }
             public decimal UnitPrice { get; set; }
             public int RatingStar { get; set; }
             public int TotalComment { get; set; }

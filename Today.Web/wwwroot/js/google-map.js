@@ -4,10 +4,20 @@ let map_card_h5 = document.querySelectorAll(".map-h5");
 let mapmodal = document.querySelector('#map-modal')
 //let modal = bootstrap.Modal.getOrCreateInstance(modalEl)
 //初始化地圖
+let map_lat = 23.7625225;
+let map_long = 121.0302279;
+let map_zoom = 8
+if (window.location.pathname.includes("City"))
+{
+    map_lat = json_city_location[0].City_Latitude;
+    map_long = json_city_location[0].City_Longtitude;
+    map_zoom = 10.5
+}
+
 let map = L.map('google-big-map',
     {
-        center: [23.7625225, 121.0302279],
-        zoom: 8,
+        center: [map_lat, map_long],
+        zoom: map_zoom,
         wheelPxPerZoomLevel: 80,
         tapTolerance: 10
     })
@@ -56,6 +66,8 @@ function createCard(index)  //創造卡片
     cloneContent.querySelector('h5').innerText = json_location[index].ProductName;
     cloneContentPhone.querySelector('h5').innerText = json_location[index].ProductName;
 
+    cloneContent.querySelector('.star-amount').innerText = json_location[index].RatingStar;
+    cloneContent.querySelector('.star-amount').innerText = json_location[index].RatingStar;
 
     cloneContent.querySelector('.google-map-product-item').href = `/Product/ProductInfo/${json_location[index].ProductId}`
     cloneContentPhone.querySelector('.google-map-product-item').href = `/Product/ProductInfo/${json_location[index].ProductId}`
@@ -63,6 +75,8 @@ function createCard(index)  //創造卡片
     cloneContent.querySelector('img').src = json_location[index].Path;
     cloneContentPhone.querySelector('img').src = json_location[index].Path;
 
+    cloneContent.querySelector('.map-price').innerText = `TWD ${json_location[index].Price}`
+    cloneContentPhone.querySelector('.map-price').innerText = `TWD ${json_location[index].Price}`
 
     map_product_list.append(cloneContent);
     map_product_list_phone.append(cloneContentPhone);

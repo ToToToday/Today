@@ -7,9 +7,8 @@
     font-weight: 700;
 }
 
-.Parent-child-hotel-banner 
-{
-    height:18.5rem;
+.Parent-child-hotel-banner {
+    height: 23rem;
     width: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -38,13 +37,18 @@
     z-index:21;
 }
 @media screen and (max-width:768px) {
-    .Parent-child-search 
-    {
+    .Parent-child-hotel-banner {
+        height: 23rem;
+    }
+    .Parent-child-search {
         display: none;
     }
 }
 @media screen and (min-width:768px)
 {
+    .Parent-child-hotel-banner {
+        height: 21rem;
+    }
     .Parent-child-search
     {
         display: none;
@@ -60,6 +64,9 @@
 }
 @media screen and (min-width:992px)
 {
+    .Parent-child-hotel-banner {
+        height: 23rem;
+    }
     .offIsland-type-button-collapse {
         margin-top: 0;
         margin-bottom: 0;

@@ -9,17 +9,22 @@ namespace Today.Web.DTOModels.ClassifyDTO
         public int CardCount { get; set; }
         public List<CategoryDestinations> CategoryList { get; set; }
 
+        public List<DateCantbeUse> DateCantbeUseList { get; set; }
+
+                
         public class ClassifyRequestDTO
         {
             public int CategoryId { get; set; }
             //public int CityId { get; set; }
             public int Page { get; set; }
+            public List<string> RealDate { get; set; }
         }
 
         public class ClassifyCardInfo
         {
             public int ProductId { get; set; }
             public string ProductName { get; set; }
+            public bool IsIsland { get; set; }
             public string Path { get; set; }
             public int CityId { get; set; }
             public string CityName { get; set; }
@@ -34,9 +39,13 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int ProductCategoryId { get; set; }
             public string CategoryName { get; set; }
             public List<CategoryDestinations> ChildCategory { get; set; }
-
         }
-
+        public class DateCantbeUse
+        {
+            public int ProgramId { get; set; }
+            public int ProgramDateId { get; set; }
+ 
+        }
     }
     public class FilterDTO
     {

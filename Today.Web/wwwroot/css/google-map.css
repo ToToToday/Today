@@ -77,7 +77,7 @@
 .star
 {
     position: absolute;
-    bottom:5px;
+    bottom:-5px;
     left:5px;
 }
 .google-local-mark-common
@@ -92,8 +92,9 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.star-list{
-    text-align:left;
+.star-list {
+    text-align: left;
+    
 }
 .bind-map-price {
     position: absolute;
@@ -184,7 +185,9 @@
     .star-list, .google-map-card-button {
         display: block;
     }
-    
+    .star-list {
+        margin-top: 0.5rem;
+    }
     .map-h5
     {
         font-size:0.8rem;

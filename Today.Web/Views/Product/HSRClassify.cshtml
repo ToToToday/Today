@@ -652,25 +652,177 @@
   <script>
         let json_location = @Html.Raw(@ViewData["locationJson"]); //將 json純文字 解碼 成 js的json
    </script>
+
    <script src="~/js/google-map.js"></script>
 
     <script src="~/js/show_city.js"></script>
-   <script type="text/javascript">
-           $(function () {
-      $('input[name="datefilter"]').daterangepicker({
-        autoUpdateInput: false,
-        locale: {
-          cancelLabel: 'Clear'
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    @*<script src="https://unpkg.com/vue@next"></script>*@
+    <script>
+        const classifyCardVue = new Vue({
+            // 掛載位置
+            el: '#classifyCard',
+            // 資料, state
+            data: {
+                page: 1,
+                cardCount: 1,
+                productCards: [
+                    {
+                        href: '',
+                        path: '',
+                        productName: '',
+                        tagText: [],
+                        cityName: '',
+                    },
+                    {
+                        productId: '1',
+                        href: '',
+                        path: '',
+                        productName: '',
+                        tagText: [],
+                        cityName: '',
+                        ratingStar: 5,
+                        totalComment: 1,
+                    },
+                ]
+            },
+            methods: {
+                //pageRadio
+                choosePage(page) {
+                    filterPost(page)
+                },
+            },
+            mounted() {
+                this.choosePage(1)
+                //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
+                //this.cardCount = @Model.CardCount
+            },
+        })
+
+    </script>
+     <script type="text/javascript">
+        var All_search =  window.location.search; 
+        //Url 解碼 , 當輸入的東西有中文時候 , window.location.href 會自動將中文字 進行編碼 , 所以需要解碼
+        All_search = decodeURI(All_search)
+        if (All_search  != '') 
+        {
+            All_search  = All_search.substring(1,All_search.length);
         }
-      });
+         let queryString=["typeDate","City","Fprice","Eprice"]
+         function UrlSearch(input,inputnum)
+          {
+              let queryName= queryString[inputnum]
+              if(All_search=='')
+              {
+                  window.location.search = `${queryName}=` + input;
+              }
+              else if(!All_search.includes(`${queryName}`))
+              {
+                  window.location.search = `${queryName}=` + input + "&" +  All_search;
+              }
+              else if(All_search.includes(`${queryName}`)) //要是搜尋路徑存在時候
+              {
+                  let params = new URLSearchParams(All_search);
+                  let get_Date = params.get(`${queryName}`); //取的 typeDate 的值
+                  All_search = All_search.replace(`${queryName}=${get_Date}`,`${queryName}=${input}`);
+                  window.location.search = All_search ;
+              }
+          }
+         function DownUrl(inputnum)    //取消單個Url 
+         {
+             let queryName= queryString[inputnum];
+             let params = new URLSearchParams(All_search);
+             let get_Date = params.get(`${queryName}`); 
+             All_search = All_search.replace(`${queryName}=${get_Date}`,'');
+             window.location.search = All_search ;
+         }
+        const Today = new Date()
+        let startDay = Today.getDate()<10 ?  ('0' + Today.getDate()) :  Today.getDate();
+        let startMonth =  (Today.getMonth() +1)<10 ?('0' + (Today.getMonth() +1)) :  (Today.getMonth() +1);
+        let startYear =  Today.getFullYear();
 
-      $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
-        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      });
+        let startDate = startMonth + '/' + startDay + '/' + startYear;
+        let endDate = startMonth + '/' + startDay + '/' + startYear;
 
-      $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
-        $(this).val('');
-      });
+        if(All_search.includes("typeDate"))
+        {
+            let params = new URLSearchParams(All_search);
+            let get_Date = params.get("typeDate"); //取的 typeDate 的值
+            let finalDate = get_Date.split(',')
+            startDate = finalDate[0];
+            endDate =finalDate[1];
+        }
+        $(function() 
+        {
+            $('input[name="datefilter"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                },
+                minDate: moment(),
+                startDate :startDate,
+                endDate :  endDate 
+            });
 
-    });</script>
+            $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+
+            //$(".drp-buttons>.applyBtn").on('click', () => { PostDate }); 
+            document.querySelectorAll(".drp-buttons>.applyBtn").forEach( (Applybtn,i)=>
+            {
+                Applybtn.addEventListener('click', () => { 
+                    var drap_select = document.querySelectorAll("span.drp-selected");
+                    var splitDate = drap_select[i].innerText.split(' - ');
+                    //PostDate(splitDate);
+                    UrlSearch(splitDate,0);
+                })
+            });
+            document.querySelectorAll('.cancelBtn').forEach( item =>{
+                item.addEventListener('click',()=>{
+                     item.value ="篩選出發日期";
+                     startDate = startMonth + '/' + startDay + '/' + startYear;
+                     endDate = startMonth + '/' + startDay + '/' + startYear;
+                     DownUrl(0);
+                })
+            })
+        });
+        //function PostDate(dateRange)
+        //{
+        //    let dateRangeList = []
+        //    dateRange.forEach(d =>{
+        //       let data =  d.substring(6,10) + '-' +  d.substring(0,2) + '-' +d.substring(3, 5)
+        //       console.log(data)
+        //       dateRangeList.push(data)
+        //    })
+            
+        //    fetch("/api/apiDate/Date", {
+        //        method: 'POST',
+        //        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        //        //body 轉json
+        //        body: JSON.stringify({
+        //             dateRange : dateRange,
+        //        })
+        //    })
+
+        //    .then((response) => {
+        //        if (response.status == 200) {
+        //            console.log("成功");
+        //            return response.json();
+        //        }
+        //    })
+
+        //    .catch((error) => {
+        //        console.log("失敗")
+        //    })
+
+        //}
+
+    </script>
+     <script src="~/js/cityChoose.js"></script>
+
   }
