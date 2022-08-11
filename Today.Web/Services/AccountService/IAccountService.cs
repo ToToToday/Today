@@ -38,5 +38,11 @@ namespace Today.Web.Services.AccountService
         /// </summary>
         /// <returns></returns>
         bool IsAuthenticated();
+
+        /// <summary>
+        /// 取得當前網站會員Id
+        /// </summary>
+        /// <returns></returns>
+        int GetMemberId();
     }
 }
