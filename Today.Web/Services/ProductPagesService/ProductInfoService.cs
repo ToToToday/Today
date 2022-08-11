@@ -34,6 +34,7 @@ namespace Today.Web.Services.ProductInfoService
             var locationSource = _repo.GetAll<Location>().First(loc => loc.ProductId == source.ProductId);
             var productPhotoSource = _repo.GetAll<ProductPhoto>().Where(p => p.ProductId == source.ProductId).ToList();
             var programSource = _repo.GetAll<Model.Models.Program>().Where(p => p.ProductId == source.ProductId).ToList();
+            var favorite = (_repo.GetAll<Collect>().Where(c => c.ProductId == requst.ProductId && c.MemberId == requst.MemberId).Count() > 0) ? true : false;
 
             var result = new ProductInfoResponseDTO
             {
@@ -43,6 +44,7 @@ namespace Today.Web.Services.ProductInfoService
                     ProductIsdeleted = source.Isdeleted,
                     ProductId = source.ProductId,
                     ProductName = source.ProductName,
+                    Favorite = favorite,
                     ProductDesc = source.Illustrate,
                     HowUse = source.HowUse,
                     CancellationPolicy = source.CancellationPolicy,

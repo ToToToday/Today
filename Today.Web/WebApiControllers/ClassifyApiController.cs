@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +88,8 @@ namespace Today.Web.WebApiControllers
                 CityFilterList = c.Cities,
                 //c.Cities.Select(x => new FilterDTO.CityFilter { CityId = x}).ToList(),
                 Page = c.Page,
-            };
+                MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
+        };
 
             var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
 

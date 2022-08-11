@@ -1,7 +1,9 @@
 ﻿using Ecpay;
 using Ecpay.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.ProjectServer.Client;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Today.Web.Services.EcpayService;
 using static Today.Web.DTOModels.EcpayDTO.EcpayDTO;
@@ -29,6 +31,7 @@ namespace Today.Web.WebApiControllers
         [HttpGet("checkout")]
         public IActionResult CheckOut()
         {
+           
             var id = (int)TempData["OrderId"];
             var service = new
             {
@@ -36,9 +39,30 @@ namespace Today.Web.WebApiControllers
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = "https://9a4d-220-141-63-234.jp.ngrok.io/Ecpay/callback",
-                ClientUrl = "https://9a4d-220-141-63-234.jp.ngrok.io/Home/Index" //之後改主頁網址
+                ServerUrl = "https://todayweb.azurewebsites.net/Ecpay/callback",
+                ClientUrl = "https://todayweb.azurewebsites.net/Home/Index" //之後改主頁網址
             };
+            var pName = TempData["OrderProduct"];
+            var pPrice = TempData["OrderPrice"];
+            var pQuantity = TempData["OrderQuantity"];
+
+            var itemList = new List<Item>();
+            IList pNameList = (IList)pName;
+            IList pPriceList = (IList)pPrice;
+            IList pQuantityList = (IList)pQuantity;
+            for (int i = 0; i < pNameList.Count; i++)
+            {
+                itemList.Add(
+                new Item
+                {
+                    Name = pNameList[i].ToString() /*TempData["OrderProduct"].ToString()*/,
+                    Price = (int)pPriceList[i]/*(int)TempData["OrderPrice"]*/,
+                    Quantity = (int)pQuantityList[i] /*(int)TempData ["OrderQuantity"]*/
+                });
+            }
+                
+
+
             var transaction = new
             {
                 No = id.ToString(),//"test00003"
@@ -46,16 +70,8 @@ namespace Today.Web.WebApiControllers
                 Date = DateTime.UtcNow.AddHours(8), //DateTime.Now
                 Method = EPaymentMethod.Credit,
 
-                Item = new List<Item>
-                {
-                    new Item
-                    {
-
-                        Name = TempData["OrderProduct"].ToString(),
-                        Price = (int)TempData["OrderPrice"],
-                        Quantity = (int)TempData ["OrderQuantity"]
-                    }
-                }
+                Item = itemList,
+                
             };
             IPayment payment = new PaymentConfiguration()
                 .Send.ToApi(

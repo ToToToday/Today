@@ -23,10 +23,7 @@
                 @foreach (var item1 in item.ChildCategory)
                 {
                     <div class=" form-check pb-2">
-                        <label class="form-check-label ms-1 mt-1">
-                            <input class="form-check-input mt-0 selfform-check shadow-none" type="checkbox" value="@item1.ProductCategoryId" onchange="postAndChangePages()" />
-                            @item1.CategoryName
-                        </label>
+                        <label class="form-check-label ms-1 mt-1 filter"><input class="form-check-input mt-0 selfform-check shadow-none" type="checkbox" value="@item1.ProductCategoryId" onchange="postAndChangePages()"/>@item1.CategoryName</label>
                     </div>
                 }
             </div>

@@ -1,5 +1,7 @@
 ﻿@model Today.Web.ViewModels.MemberVM.MemberInfo
-
+@{
+    ViewData["MemberPage"] = "CountSetting";
+}
 @section topCSS{
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/countSetting.css">
@@ -7,7 +9,8 @@
 
     <div class="container">
         <div class="row container-row">
-            <div class="col-12 col-lg-3 aside">
+            <partial name="MemberPartial/_MemberLeftPartial" for="MemberName"></partial>
+            @*<div class="col-12 col-lg-3 aside">
                 <div class="page-aside">
                     <div class="card aside-box">
                         <div class="editor-logo">
@@ -17,7 +20,6 @@
                             </div>
                         </div>
                         <div class="aside-box-text name">@Model.MemberName</div>
-                        @*<div class="aside-box-text level">VVIP</div>*@
                         <hr>
                         <div class="account-group">
                             <div class="account d-flex">
@@ -64,8 +66,8 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-
+            </div>*@
+           
             <div class="col-12 col-lg-9 text">
                 <div class="card">
                     <div class="page-head">
@@ -116,7 +118,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="age" class="form-label">年齡</label>
-                                        <input class="form-control" id="age" value="@Model.Age" required>
+                                        <input class="form-control" id="age" minlength="2" maxlength="2" value="@Model.Age" required>
                                         <div class="invalid-feedback mb-3">
                                             Please provide a valid age.
                                         </div>
@@ -145,7 +147,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="phone" class="form-label">電話號碼</label>
-                                    <input type="tel" class="form-control" id="phone" value=@Model.Phone required>
+                                    <input type="tel" class="form-control" id="phone" minlength="10" maxlength="10" value=@Model.Phone required>
                                     <div class="invalid-feedback">
                                         Please provide a valid phone.
                                     </div>
@@ -173,7 +175,7 @@
     </div>
 </div>
 
-@section Scripts{
+@section endJS{
     <script>
         toastr.options = {
             "closeButton": true,
@@ -194,4 +196,5 @@
         }
     </script>
     <script src="~/js/accountSetting.js"></script>
+    <script src="~/js/memberleftselect.js"></script>
 }
