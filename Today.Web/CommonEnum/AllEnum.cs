@@ -19,7 +19,15 @@ namespace Today.Web.CommonEnum
             business = 5,
         }
 
-
+        public enum LoginWayType
+        {
+            [Description("Google")]
+             Google= 3,
+            [Description("Facebook")]
+            Facebook = 2,
+            [Description("Line")]
+            Line = 4,
+        }
 
     }
 }

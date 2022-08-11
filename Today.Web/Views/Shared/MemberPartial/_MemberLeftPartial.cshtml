@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Today.Web.Services.MemberService
+@using Today.Web.CommonEnum
+@inject IMemberService memberService
+@{
+    var longWayType = memberService.GetLongWayName();
 }
 
 <div class="col-12 col-lg-3 aside">
@@ -13,14 +17,36 @@
             <div class="aside-box-text name">@Model</div>
             <hr>
             <div class="account-group">
-                <div class="account d-flex">
-                    <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/google.svg"
-                        alt="">
+                @if(longWayType == (int)AllEnum.LoginWayType.Google)
+                {
+                    <div class="account d-flex" >
+                        <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/google.svg" alt="">
                     <div class="channel-name flex-grow-1">
-                        <div>Google</div>
+                    <div>Google</div>
                     </div>
-                    <i class="icofont-check-circled text-info"></i>
-                </div>
+                        <i class="icofont-check-circled text-info"></i>
+                    </div>
+                }
+                @if(longWayType == (int)AllEnum.LoginWayType.Facebook)
+                {
+                    <div class="account d-flex">
+                        <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/facebook.svg" width="20" height="20" alt="">
+                    <div class="channel-name flex-grow-1">
+                    <div>Facebook</div>
+                    </div>
+                        <i class="icofont-check-circled text-info"></i>
+                    </div>
+                }
+                @if(longWayType == (int)AllEnum.LoginWayType.Line)
+                {
+                    <div class="account d-flex">
+                        <img class="channel-icon" src="https://cdn.kkday.com/pc-web/assets/img/sns/line.svg" width="20" height="20" alt="">
+                    <div class="channel-name flex-grow-1">
+                    <div>Line</div>
+                    </div>
+                        <i class="icofont-check-circled text-info"></i>
+                    </div>
+                }
             </div>
         </div>
         <ul class="card page-menu">
