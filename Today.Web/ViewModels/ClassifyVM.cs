@@ -15,6 +15,7 @@ namespace Today.Web.ViewModels
         {
             public int ProductId { get; set; }
             public string ProductName { get; set; }
+            public bool Favorite { get; set; }
             public string Path { get; set; }
             public int CityId { get; set; }
             public string CityName { get; set; }

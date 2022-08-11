@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,17 @@ namespace Today.Model.Repositories
 {
     public class GenericRepository : IGenericRepository
     {
-        private readonly TodayDBContext _context;
+        private readonly TodayDbContext _context;
 
-        public GenericRepository(TodayDBContext context)
+        public GenericRepository(TodayDbContext context)
         {
             _context = context;
         }
-        public void Create<T>(T value) where T : class
+        public EntityEntry<T> Create<T>(T value) where T : class
         {
-            _context.Entry(value).State = EntityState.Added;
+            EntityEntry<T> e = _context.Entry<T>(value);
+            e.State = EntityState.Added;
+            return e;
         }
         public void Update<T>(T value) where T : class
         {

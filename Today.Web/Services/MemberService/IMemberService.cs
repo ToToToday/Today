@@ -10,5 +10,6 @@ namespace Today.Web.Services.MemberService
 
         MemberResponseDTO GetMember(MemberRequestDTO MemberId);
         ResponseDTO UpdateMember(MemberResponseDTO input);
+        string GetMemberName(MemberRequestDTO MemberId);
     }
 }

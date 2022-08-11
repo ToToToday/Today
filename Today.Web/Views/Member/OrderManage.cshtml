@@ -1,4 +1,7 @@
 ﻿@model MemberCommentVM
+@{
+    ViewData["MemberPage"] = "OrderManage";
+}
 @section topCSS{
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/orderManage.css">
@@ -6,17 +9,17 @@
 
     <div class="container">
         <div class="row bigrow">
-            <div class="col-12 col-lg-3 aside">
+            <partial name="MemberPartial/_MemberLeftPartial" for="MemberName"></partial>
+            @*<div class="col-12 col-lg-3 aside">
                 <div class="page-aside">
                     <div class="card aside-box">
                         <div class="editor-logo">
-                            <img class="rounded-circle" src="https://picsum.photos/200/200/?random=10">
+                            <img class="rounded-circle" src="https://i.pinimg.com/564x/da/43/ce/da43ce9051ba362be3755ba38fc4936e.jpg">
                             <div class="icon-bg rounded-circle">
                                 <i class="fa-solid fa-camera"></i>
                             </div>
                         </div>
-                        <div class="aside-box-text name">盧致文</div>
-                        <div class="aside-box-text level">白銀會員</div>
+                        <div class="aside-box-text name">@Model.MemberName</div>
                         <hr>
                         <div class="account-group">
                             <div class="account d-flex">
@@ -33,56 +36,37 @@
                         <li class="list-item active">
                             <div class="list-item-text">
                                 <i class="icofont-gear-alt"></i>
-                                <a href="#">帳號設定</a>
+                                <a href="~/Member/CountSetting">帳號設定</a>
                             </div>
                         </li>
-                        <!-- <li class="list-item">
-                            <div class="list-item-text">
-                                <i class="icofont-diamond"></i>
-                                <a href="#">我的會籍禮遇</a>
-                            </div>
-                        </li> -->
                         <li class="list-item">
                             <div class="list-item-text d-flex">
                                 <i class="icofont-ticket"></i>
-                                <a class="flex-grow-1" href="#">KKday折扣卷</a>
+                                <a class="flex-grow-1" href="~/Member/Coupon">Today折扣卷</a>
                                 <span class="text-warning">0</span>
                             </div>
                         </li>
-                        <!-- <li class="list-item">
-                            <div class="list-item-text d-flex">
-                                <i class="icofont-copyright"></i>
-                                <a class="flex-grow-1" href="#">KKday Points</a>
-                                <span class="text-warning">0</span>
-                            </div>
-                        </li>
-                        <li class="list-item">
-                            <div class="list-item-text">
-                                <i class="icofont-flag-alt-1"></i>
-                                <a href="#">解任務，賺獎勵</a>
-                            </div>
-                        </li> -->
                         <li class="list-item">
                             <div class="list-item-text">
                                 <i class="icofont-ui-file"></i>
-                                <a href="#">訂單管理</a>
+                                <a href="~/Member/OrderManage">訂單管理</a>
                             </div>
                         </li>
                         <li class="list-item">
                             <div class="list-item-text">
                                 <i class="icofont-ello"></i>
-                                <a href="#">訊息管理</a>
+                                <a href="~/Member/MessageManage">訊息管理</a>
                             </div>
                         </li>
                         <li class="list-item">
                             <div class="list-item-text">
                                 <i class="icofont-hype-machine"></i>
-                                <a href="#">我的收藏</a>
+                                <a href="~/Member/MyCollect">我的收藏</a>
                             </div>
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>*@
 
             <div class="col-12 col-lg-9 text">
                 <div class="card order-card">
@@ -91,7 +75,7 @@
                     </div>
 
                     <!-- 無訂單 -->
-                    <div class="page-text">
+                    <div class="page-text d-none">
                         <div class="order-group">
                             <div class="order">
                                 <div class="order-text">
@@ -111,60 +95,9 @@
 
                         @*}*@
                     </div>
-
-                    <!-- 無折扣 -->
-                    <!-- <div class="card_detail shadow bg-body rounded">
-                            <div class="row g-0">
-                                <div class="col-md-4 ">
-                                    <div class="pic h-100">
-                                        <img class="img-fluid w-100 h-100 m-auto"
-                                            src="https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_2460/20220217014308_QNoTt/jpg">
-                                        <i class="fa-solid fa-heart btn-wish p-3 me-2"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 rounded-3 ">
-                                    <div class="card-body">
-                                        <h2 class="card-title">【2022澎湖花火節】澎湖秘境跳島一日遊｜忘憂島浮潛＆無人島探險＆頭巾嶼＆南方四島（暑假保證有位）</h2>
-                                        <div class="card-point py-2 ">
-                                            <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                        </div>
-                                        <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">現在預約澎湖忘憂島一日遊，帶您前往全台唯一國家海洋公園浮潛、水上活動，欣賞七彩珊瑚礁群！專業中文導覽，帶你從澎湖出發，踏上澎湖無人島探險特殊潮池景觀與離島網美秘境！
-                                        </p>
-                                        <div class="prodduct-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                            <i class="fa-solid fa-location-dot"></i>
-                                            <div class="prodduct-listview_inco_info flex_item product-palce">
-                                                <p class="card-text d-flex ms-2">台灣 澎湖</small>
-                                                </p>
-                                            </div>
-                                            <i class="fa-regular fa-calendar  ms-3"></i>
-                                            <div class="prodduct-listview_inco_info  product-time">
-                                                <p class="card-text ms-2">最早可預訂日期 : 2022-06-18</small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="footer  d-flex flex-wrap">
-                                            <div class="product_footer m-auto col-8 mt-3">
-                                                <i class="fa-solid fa-star "></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star-half"></i>
-
-                                                <span class="number">(331)</span>
-                                                <i class="fa-solid fa-fire py-2">
-                                                    <span class="subscription">1K+ 個已訂購</span></i>
-                                            </div>
-                                            <div class="doller d-flex flex-wrap justify-content-end col-4 ps-2 nocoupon">
-                                                <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 3800</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                        </div>
                 </div>
             </div>
-        </div>
     </div>
 
 
@@ -192,7 +125,7 @@
                             @*@comm.Title*@
                         </p>
 
-                        <p class="card-text lh-base comm-orderid">
+                        <p class="card-text lh-base comm-orderid pb-2">
                             <i class="icofont-tag"></i>
                             訂單編號：#@*@comm.OrderId*@
                         </p>
@@ -203,24 +136,14 @@
                                 <div class="day">@*@comm.DepartureDate.GetDateTimeFormats('M')[0].ToString()*@</div>
                             </div>
                         </div>
-
-                        <div class="TWD p-1 mt-1 lh-base">TWD @*@comm.UnitPrice*@</div>
-
-                        <div class="footer d-flex flex-wrap align-items-center">
-                            <!-- Button trigger modal -->
-                            <button type="button" id="commitBtn" class="btn btn-white text-dark comment flex-grow-1 shadow-none p-0"
+                        <div class="footer d-flex flex-wrap position-relative justify-content-between">
+                            <div class="TWD mt-1 lh-base">TWD @*@comm.UnitPrice*@</div>
+                            <button type="button" id="commitBtn" class="btn btn-white text-dark comment shadow-none p-0"
                                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <i class="icofont-notepad"></i>
                                 給予評論
                             </button>
-
-                            <div class="order-btn">
-                                <a id="order-list-order-receipt-1" data-toggle="modal" class="btn btn-light border-secondary">寄送報帳收據</a>
-
-                                <a id="order-list-order-contact-1" href="#" class="btn btn-info text-light">聯絡客服</a>
-                            </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -295,8 +218,31 @@
         </div>
     </div>
 
-    @section Scripts{
+ @section Scripts{
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="~/lib/Ckeditor5SimpleUpload/build/ckeditor.js" type="text/javascript"></script>
+    <script src="~/js/memberleftselect.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
     <script>
         //template
         let index = 0;
@@ -305,6 +251,11 @@
         let template_card = document.querySelector("#template-card")
         let page_text_dynamic = document.querySelector(".page-text-dynamic")
         let template_list = @Html.Raw(ViewData["OrderManageCard"])
+        //先判斷尚無購買任何商品的情況
+        if(template_list.OrderDtailList.length==0)
+        {
+            document.querySelector('.page-text').classList.remove("d-none")
+        }
             template_list.OrderDtailList.forEach((x, index) => {
                 let clone_card = template_card.content.cloneNode(true);
                 clone_card.querySelector(".commm-productname").innerText = x.ProductName
@@ -313,6 +264,16 @@
                 clone_card.querySelector(".day").innerText = x.DepartureDate.slice(0, 10)
                 clone_card.querySelector(".TWD").innerText = "TWD" + x.UnitPrice
                 clone_card.querySelector(".comm-path").src = x.Path
+                //template:判斷已出發或未出發
+                let date = new Date();
+                let date1 = new Date(date.toISOString().split('T')[0]);
+                let date2 = new Date(clone_card.querySelector(".day").innerText);
+                if (date1 < date2) {
+                    clone_card.querySelector(".togo>span").innerHTML = "未出發"
+                }
+                else {
+                    clone_card.querySelector(".togo>span").innerHTML = "已出發"
+                }
                 //template:給予評論按鈕
                 clone_card.querySelector("#commitBtn").addEventListener("click", () => {
                     document.querySelector('.alert-danger').classList.add("d-none")
@@ -444,13 +405,14 @@
                     ProductId: productid,
                 }),
             })
-                .then(resp => {
-                    if (resp.ok) {
-                        return resp.text()
-                    }
-                }).then(text => {
-                    alert(text);
-                })
+            .then(resp => {
+            if (resp.ok) {
+                    window.location.reload();
+                }
+                else { 
+                    toastr['error']('新增留言失敗:有什麼錯誤了！');
+                }
+            })
         });
         //按出修改紐
         let submit_edit=document.querySelector('#btn-edit');
@@ -482,10 +444,11 @@
             })
             .then(resp => {
                 if (resp.ok) {
-                    return resp.text()
-                }
-            }).then(text => {
-                alert(text);
+                        window.location.reload();
+                    }
+                    else { 
+                        toastr['error']('修改留言失敗:有什麼錯誤了！');
+                    }
             })
         })
     </script>
