@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
@@ -36,6 +38,12 @@ namespace TodayMVC.Admin
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodayAdmin", Version = "v1" });
+            });
+            services.AddScoped<IDbConnection, SqlConnection>(serviceProvider =>
+            {
+                SqlConnection conn = new SqlConnection();
+                conn.ConnectionString = Configuration.GetConnectionString("TodayDB");
+                return conn;
             });
         }
 

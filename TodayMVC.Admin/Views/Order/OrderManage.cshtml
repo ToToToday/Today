@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-    <div id="app">
+    @*<div id="app">
        <template>
             <el-table :data="tableData" style="width: 100%; overflow: hidden;" height="50vh">
             <el-table-column prop="id" label="ID" align="center" width="100" />
@@ -18,13 +18,50 @@
             </el-table-column>
           </el-table>
       </template>
-   </div>
+   </div>*@
+   <div id="app">
+        <ul>
+            <li v-for="(item, index) in arr">{{index}}:{{item}}</li>
+        </ul>
+
+        <ul>
+            <li v-for="item in arr2">{{item.name}}: {{item.age}}</li>
+        </ul>
+
+        <button v-on:click="showAll">顯示全部</button>
+        <button v-on:click="showBigThenTwenty">顯示大於20歲</button>
+        <ul>
+            <li v-for="item in arr3">{{item.name}}:{{item.age}}</li>
+        </ul>
+
+    </div>
 
 
-</div>
 @section endJS{
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
     <script>
-       
+        const arr = ['Apple', 'Banana', 'Orange']
+        const arr2 = [
+            {name:'Jimmy', age:26},
+            {name:'Andy', age:40},
+            {name:'Calvin', age:24}
+        ]
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                arr,
+                arr2,
+                arr3:[]
+            },
+            methods:{
+                showAll(){
+                    this.arr3 = this.arr2
+                },
+                showBigThenTwenty(){
+                    this.arr3 = this.arr2.filter(x=>x.age >= 20)
+                }
+            }
+        })
     </script>
 }
