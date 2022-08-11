@@ -20,7 +20,7 @@ namespace Today.Web.WebApiControllers
         [HttpPost]
         public IActionResult AddCollect([FromBody] CollectionVM request)
         {
-            request.MemberId = int.Parse(User.Identity.Name);
+            request.MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
             request.Time = DateTime.UtcNow.AddHours(8);
             _collectionService.CreateCollect(request);
 
