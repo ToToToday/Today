@@ -24,8 +24,8 @@ namespace Today.Web.WebApiControllers
 
         [HttpPost]
         public IActionResult AddCart([FromBody] ShopCartRequestVM request)
-        {       
-
+        {
+            request.MemberId = int.Parse(User.Identity.Name);
             _shopCartService.CreateShopCard(request);
 
             try 
@@ -38,22 +38,13 @@ namespace Today.Web.WebApiControllers
             }
 
 
-            //if (result.IsSuccess == true)
-            //{
-            //    return Ok(new APIResult(APIStatus.Success, string.Empty, true));
-            //}
-            //else
-            //{
-            //    return Ok(new APIResult(APIStatus.Fail, result.Message, false));
-            //}
-
 
         }
 
         [HttpDelete]
-        public IActionResult DeleteCard(DeleteCardVM request)
+        public IActionResult DeleteCard([FromBody]DeleteCardVM request)
         {
-
+           
             _shopCartService.DeleteShopCard(request);
 
             try
@@ -65,5 +56,7 @@ namespace Today.Web.WebApiControllers
                 return Ok(new APIResult(APIStatus.Fail, ex.Message, false));
             }
         }
+
+        
     }
 }

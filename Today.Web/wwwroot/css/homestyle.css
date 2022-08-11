@@ -44,6 +44,9 @@ header{
     box-sizing: border-box;
     width: 200px;
 }
+.user-info .fa-heart{
+    -webkit-text-stroke: black;
+}
 
 header li img, .big-headimg img {
     aspect-ratio: 5/5;

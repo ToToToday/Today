@@ -38,5 +38,7 @@ namespace Today.Web.DTOModels.MemberDTO
             public string CityName { get; set; }
         }
 
+        public int LongWayName { get; set; }
+        
     }
 }

@@ -408,7 +408,7 @@
                                     <div class="pic h-100">
                                         <img class="img-fluid w-100 h-100 m-auto"
                                              :src="item.path">
-                                        <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
+                                        @*<i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>*@
                                     </div>
                                 </div>
                                 <div class="col-md-8 rounded-3 ">
@@ -450,6 +450,8 @@
                                 </div>
                             </div>
                         </a>
+                        <i class="fa-solid fa-heart btn-wish" v-if="item.favorite"></i>
+                        <i class="fa-regular fa-heart btn-wish" v-else></i>
                     </div>
 
                 </div>
@@ -553,11 +555,12 @@
     <link rel="stylesheet" href="~/css/MoneyRange.css">
 }
 
-    @section endJS{
+@section endJS{
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="~/js/calendar.js"></script>
+    @*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
 
     @*vue*@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
@@ -577,6 +580,7 @@
                         productName: '',
                         tagText: [],
                         cityName: '',
+                        favorite: false
                     },
                     {
                         productId: '1',
@@ -587,6 +591,7 @@
                         cityName: '',
                         ratingStar: 5,
                         totalComment: 1,
+                        favorite: false
                     },
                 ]
             },
@@ -602,8 +607,8 @@
                 //this.cardCount = @Model.CardCount
             },
         })
-
     </script>
+    @*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
 
     <script type="text/javascript">
         $(function() {
@@ -624,7 +629,7 @@
             });
         });
     </script>
-    }
+}
 
 
     <script>
@@ -668,8 +673,8 @@
 
                     document.querySelector('#destFilter').focus();
                 })
+
         }
 
     </script>
-}
  

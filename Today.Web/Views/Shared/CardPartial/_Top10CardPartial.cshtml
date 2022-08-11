@@ -4,14 +4,14 @@
 
 @foreach(var item in Model)
 {
-    <div class="swiper-slide px-1">
+    <div class="swiper-slide productcard px-1">
         <div class="hot-product-card fixed-card mx-2 h-100">
             <a href="~/Product/ProductInfo/@item.Id" class="text-decoration-none text-black">
                 <div class="bundle position-relative overflow-hidden" style="height: 153px;">
-                    <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
-                    <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>
+                    @*<span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+                    <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>*@
                     <span class="orderby position-absolute text-white py-1 px-2 rounded">TOP@(index)</span>
-                    <img src="@item.ProductPhoto" class="card-img-top rounded w-100 h-100" alt="@item.ProductName">
+                    <img data-src="@item.ProductPhoto" class="card-img-top rounded w-100 h-100 swiper-lazy" alt="@item.ProductName">
                 </div>
                 <div class="card-body px-0">
                     <h4 class="card-text overflow-hidden mb-1">@item.ProductName</h4>
@@ -30,12 +30,14 @@
                         </span>
                     </div>
                     <div class="card-product-price d-flex">
-                        <span class="text-decoration-line-through p-1 @(item.OriginalPrice == null ? "d-none" : "d-flex flex-nowrap")">TWD @item.OriginalPrice</span>
-                        <span class="p-1 @(item.Price == null ? "d-none" : "d-flex flex-nowrap")">TWD<span class="fw-bolder">@item.Price</span></span>
+                        <span class="text-decoration-line-through p-1 @(item.OriginalPrice == null ? "d-none" : "d-flex flex-nowrap") fw-bolder">TWD @item.OriginalPrice</span>
+                        <span class="p-1 @(item.Price == null ? "d-none" : "d-flex flex-nowrap") fw-bold">TWD<span class="fw-bolder">@item.Price</span></span>
                                 
                     </div>
                 </div>
             </a>
+            <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+            <span class="heart position-absolute text-white"><i class="@(item.Favorite == true ? "fa-solid" : "fa-regular") fa-heart"></i></span>
         </div>
     </div>
     index++;

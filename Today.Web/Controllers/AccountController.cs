@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Today.Web.DTOModels.AccountDTO;
 using Today.Web.Services.AccountService;
 using Today.Web.ViewModels.Account;
@@ -11,6 +17,7 @@ namespace Today.Web.Controllers
         // readonly 找我的 **IAccountService介面**
         // _service欄位
         private readonly IAccountService _service; // 宣告欄位
+        private string _returnUrl; //不確定
 
         public AccountController(IAccountService service)
         {
@@ -22,14 +29,15 @@ namespace Today.Web.Controllers
 
         //註冊
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult SignUp([FromForm] SignUpVM requestParam)
         {
-            //1. 內建的 模型檢核 機制   (檢核欄位)  //後端檢核：顧及正確   //前端檢核：顧及消費者體驗
-            if (!ModelState.IsValid)
-            {
-                //return View(requestParam);//體貼地將資料填回去
-                //return
-            }
+            //1.內建的 模型檢核 機制(檢核欄位)  //後端檢核：顧及正確   //前端檢核：顧及消費者體驗
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(requestParam);//體貼地將資料填回去
+            //}
 
             //2. 輸出 = service 方法(輸入)
             //參數型別 Mapping(映射) 成input型別
@@ -49,8 +57,11 @@ namespace Today.Web.Controllers
             if (!outputDto.IsSuccess)
             {
                 //手動增加模型的Error 錯誤訊息
-                ModelState.AddModelError(string.Empty, outputDto.Message);
-                return View(requestParam); //體貼地將資料填回去
+                //ModelState.AddModelError(string.Empty, outputDto.Message);
+                //return View(requestParam); //體貼地將資料填回去
+
+                TempData["SignUpError"] = outputDto.Message;
+                TempData["SignUpEmail"] = requestParam.Email;
             }
 
             //最後 回傳View到首頁
@@ -65,16 +76,72 @@ namespace Today.Web.Controllers
             return View();
         }
 
+
+        [HttpGet("/Account/LoginOption/{scheme}")]
+        public IActionResult LoginOption([FromRoute] string scheme)
+        {
+            //A. 我家的驗證
+            if (scheme == CookieAuthenticationDefaults.AuthenticationScheme)
+                return Challenge();
+
+            //B. 其他三方驗證
+            //設定驗證選項
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action(nameof(HandleResponse)),
+            };
+            return Challenge(properties, scheme);
+        }
+
+
+        public async Task<IActionResult> HandleResponse() // 挑戰完的 重導到此
+        {
+            await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var claims = User.Claims.Select(claim => new
+            {
+                claim.Issuer,
+                claim.OriginalIssuer,
+                claim.Type,
+                claim.Value,
+            });
+
+            //用JSON格式觀察測試結果
+            //return Json(claims);
+            //網頁畫面出現後，到開發工具中會發現已有cookie，表示已經完成了cookie驗證
+
+            //claims到手了，就可以先登出，待會重新調整claim，重發後再登入
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var identifierClaim = claims.First(c => c.Type == ClaimTypes.NameIdentifier);
+
+            var inputDto = new Login3rdPartyInputDto
+            {
+                Provider = identifierClaim.Issuer,
+                NameIdentifier = identifierClaim.Value,
+            };
+
+            //同名多載
+            var outputDto = await _service.LoginAccountAsync(inputDto);
+
+            //成敗分支 (必定成功就免了)
+            //if (!outputDto.IsSuccess){ ... }
+
+            //重新導向至前一頁面
+            return LocalRedirect(_returnUrl ?? "/");
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login([FromForm] LoginVM requestParam) //收資料，資料庫寫入
         {
             //1. 內建的 模型檢核 機制   (檢核欄位)  //後端檢核：顧及正確   //前端檢核：顧及消費者體驗
-            if (!ModelState.IsValid)
-            {
-                return Content("輸入不合規");
-                //return View(requestParam);//體貼地將資料填回去
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Content("輸入不合規");
+            //    //return View(requestParam);//體貼地將資料填回去
+            //}
 
             //2. 輸出 = service 方法(輸入)
             //參數型別 Mapping(映射) 成input型別
@@ -91,9 +158,12 @@ namespace Today.Web.Controllers
             if (!outputDto.IsSuccess)
             {
                 //手動增加模型的Error 錯誤訊息
-                ModelState.AddModelError(string.Empty, outputDto.Message);
-                return Content("輸入不合規");
+                //ModelState.AddModelError(string.Empty, outputDto.Message);
+                //return Content("輸入不合規");
                 //return View(requestParam); //體貼地將資料填回去
+
+                TempData["LoginError"] = outputDto.Message;
+                TempData["LoginEmail"] = requestParam.Email;
             }
 
             //最後
@@ -110,6 +180,13 @@ namespace Today.Web.Controllers
         //登出
         public IActionResult Logout()
         {
+            #region 取到
+            //int.Parse(User.Identity.Name);
+            //int.Parse(User.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.Name ).Value );
+            //int.Parse(User.Claims.FirstOrDefault(c=> c.Type == "MemberID" ).Value);
+
+            #endregion 
+
             //基本上就是把cookie刪除
             //HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             _service.LogoutAccount();

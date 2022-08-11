@@ -14,10 +14,19 @@ namespace Today.Web.ViewModels.Account
         public string Password { get; set; }
     }
 
+    public class LoginOptionVM
+    {
+        public string Id { get; set; }
+        public string DisplayName { get; set; }
+        public string Image { get; set; }
+        public string Scheme { get; set; }
 
-    //public class A
-    //{
-    //    public LoginVM loginVM { get; set; }
-    //    public SignUpVM signUpVM { get; set; }
-    //}
+        public LoginOptionVM(string id, string name, string img, string scheme)
+        {
+            Id = id;
+            DisplayName = name;
+            Image = img;
+            Scheme = scheme;
+        }
+    }
 }
