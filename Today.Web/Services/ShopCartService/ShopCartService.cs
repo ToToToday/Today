@@ -147,8 +147,6 @@ namespace Today.Web.Services.ShopCartService
 
         public void CreateShopCard(ShopCartRequestVM request)
         {
-
-
             var input = request.SpecificationList.Select(sp =>
               new ShoppingCart
               {
@@ -160,7 +158,6 @@ namespace Today.Web.Services.ShopCartService
                   JoinTime = DateTime.UtcNow.AddHours(8),
               })
             .ToList();
-
 
             input.ForEach(s =>
             {

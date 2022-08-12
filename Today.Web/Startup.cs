@@ -117,6 +117,7 @@ namespace Today.Web
             services.AddTransient<IClassifyService, ClassifyService>();
             services.AddTransient<IChenkoutService, ChenkoutService>();
             services.AddTransient<IEcpayService, EcpayService>();
+            //services.AddScoped<IProductInfoService, ProductInfoService>();
             services.AddTransient<IProductInfoService, ProductInfoService>();
             services.AddTransient<IMemberCommentService, MemberCommentService>();
             services.AddTransient<IShopCartService, ShopCartService>();

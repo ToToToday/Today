@@ -1,0 +1,25 @@
+﻿@{
+}
+
+@if (ReferenceEquals(ViewData["NavBottomAt"], "QuarantineHotel"))
+{
+    <nav class="each-section p-0">
+        <div class="container px-2 px-md-4 d-flex position-relative nav-slide">
+            <a href="#Featured-month-div" class=" nav-link text-decoration-none">本月精選</a>
+            <a href="#Featured-TW-div" class="nav-link text-decoration-none">全台防疫旅館精選</a>
+            <a href="#Featured-amount-div" class=" nav-link text-decoration-none">精打細算不吃虧</a>
+        </div>
+    </nav>
+}
+else if (ReferenceEquals(ViewData["NavBottomAt"], "HSR"))
+{
+    <nav class="each-section">
+        <div class="container px-2 px-md-4 d-flex position-relative nav-slide">
+            <a href="#bgp" class="text-decoration-none"><i class="fa-solid fa-gift"></i>交通接駁點數十倍送</a>
+            <a href="#bgg" class="text-decoration-none"><i class="fa-solid fa-mountain"></i>上山下海戶外派</a>
+            <a href="#bgb" class="text-decoration-none"><i class="fa-solid fa-house-flag"></i>離島玩法全攻略</a>
+            <a href="#bgr" class="text-decoration-none"><i class="fa-solid fa-droplet"></i>室內涼快室內去</a>
+            <a href="#bgo" class="text-decoration-none"><i class="fa-solid fa-snowflake"></i>熱門親子景點</a>
+        </div>
+    </nav>
+}

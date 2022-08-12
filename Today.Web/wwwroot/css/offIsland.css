@@ -9,7 +9,7 @@
 .offIsland-hotel-banner 
 {
     background-image: url("https://cdn.kkday.com/m-web/assets/img/tw_islands/tw-islands-banner-m.png");
-    height:18.5rem;
+    height:23rem;
     width: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -64,8 +64,10 @@
 
 @media screen and (max-width:768px)
 {
-    .search-icon
-    {
+    .offIsland-hotel-banner{
+        height:23rem;
+    }
+    .search-icon {
         display: none;
     }
     .offIsland-item
@@ -85,6 +87,9 @@
 }
 @media screen and (min-width:768px)
 {
+    .offIsland-hotel-banner {
+        height: 21rem;
+    }
     .offIsland-item
     {
         width: calc(100% / 6 - 1rem);
@@ -111,6 +116,9 @@
 
 @media screen and (min-width:992px)
 {
+    .offIsland-hotel-banner {
+        height: 23rem;
+    }
     .offIsland-banner-h2,.offIsland-banner-p
     {
         margin-bottom: 1rem;

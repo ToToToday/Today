@@ -1,15 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
-using Today.Web.ViewModels;
-using static Today.Web.DTOModels.ProductInfoDTO.ProductInfoDTO;
-using Microsoft.Data.SqlClient;
-using System.Linq.Expressions;
-using System;
 using Today.Web.DTOModels.ProductInfoDTO;
+using static Today.Web.DTOModels.ProductInfoDTO.ProductInfoDTO;
 
 namespace Today.Web.Services.ProductInfoService
 {
