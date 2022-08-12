@@ -11,7 +11,7 @@ using Today.Model.Repositories;
 using System.Threading.Tasks;
 using Today.Model.Models;
 
-namespace Today.Web.Controllers
+namespace Today.Web.WebApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -31,6 +31,9 @@ namespace Today.Web.Controllers
         {
             public List<int> Cities { get; set; }
             public List<int> Categories { get; set; }
+
+            public List<string> DateRange { get; set; }
+
             public int Page { get; set; }
 
         }
@@ -87,13 +90,21 @@ namespace Today.Web.Controllers
                 //c.Categories.Select(x=> new FilterDTO.CategoryFilter { CategoryId = x}).ToList(),
                 CityFilterList = c.Cities,
                 //c.Cities.Select(x => new FilterDTO.CityFilter { CityId = x}).ToList(),
+                DateRange = c.DateRange,
                 Page = c.Page,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
         };
 
             var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
 
-            return Ok(classifyCardList);
+
+            var result = new ClassifyVM()
+            {
+                ClassifyCardList = classifyCardList.ClassifyCardList,
+                CardCount = classifyCardList.CardCount,
+            };
+
+            return Ok(result);
         }
 
     }

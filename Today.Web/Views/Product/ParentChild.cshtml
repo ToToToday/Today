@@ -1,5 +1,10 @@
 ﻿@model LocationVM
-
+@using Newtonsoft.Json
+@using Today.Web.ViewModels
+@{
+    var cityJson = JsonConvert.SerializeObject(Model.ClassifyCardList);
+    var categoryJson = JsonConvert.SerializeObject(Model.CategoryList);
+}
 @section TOPCSS
 {
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -10,1147 +15,564 @@
     integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>親子旅遊特搜！親子餐廳・親子住宿 - KKday</title>
-  <link rel="stylesheet" href="~/css/shared.css">
-  <link rel="stylesheet" href="~/css/Sidebar.css">
-  <link rel="stylesheet" href="~/css/MoneyRange.css">
-  <link rel="stylesheet" href="~/css/Classify.css">
+
+  <link rel="stylesheet" href="~/css/reset.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="~/css/Classify.css">
+  <link rel="stylesheet" href="~/css/MoneyRange.css">
+
   <link rel="stylesheet" href="~/css/hotel-banner-partical.css">
-  <link rel="stylesheet" href="~/css/homestyle.css">
   <link rel="stylesheet" href="~/css/Parent-child.css">
   <link rel="stylesheet" href="~/css/google-map.css">
 
 }
 <partial name="_Hotel_bannerPartial" />
 
-  <div class="container">
+ <div class="container">
     <div class="Parent-child-carousel">
       <p class="Parent-child-main-p m-0">本月熱門推薦★熱門親子體驗 </p>
       <div class="owl-carousel">
-        <div class="card  m-2 p-0  d-flex flex-row flex-lg-column border-0  w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div>
-          <div class="card-body p-0 ms-2 mt-lg-2  col-7 col-lg-12 ">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票1</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card m-2 p-0 d-flex flex-row flex-lg-column border-0 w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_100025/20210922055832_SnHP5/jpg" alt="...">
-          </div>
-          <div class="card-body p-0  ms-2 mt-lg-2 col-7 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票2</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card m-2 p-0  d-flex flex-row flex-lg-column border-0 w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div>
-          <div class="card-body p-0   ms-2 mt-lg-2 col-7 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票3</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card m-2 p-0  d-flex flex-row flex-lg-column border-0 w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div>
-          <div class="card-body p-0 ms-2  mt-lg-2  col-7 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票4</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card m-2 p-0  d-flex flex-row flex-lg-column w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div>
-          <div class="card-body p-0  ms-2  mt-lg-2 col-7 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票5</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card m-2 p-0  d-flex flex-row flex-lg-column w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12" >
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div>
-          <div class="card-body p-0 ms-2   mt-lg-2 col-5 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票6</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card  m-2 p-0  d-flex flex-row flex-lg-column  w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div> 
-          <div class="card-body p-0  ms-2   mt-lg-2 col-5 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票7</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card  m-2 p-0  d-flex flex-row flex-lg-column  w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div>
-          <div class="card-body p-0  ms-2  mt-lg-2 col-7 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票8</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
-        <div class="card  m-2 p-0  d-flex flex-row flex-lg-column  w-100">
-          <div class="card-img-wrapper rounded col-5 col-lg-12">
-            <img src="https://image.kkday.com/v2/image/get/w_481%2Ch_280%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_107922/20201126075410_IQ53v/jpg" class="card-img-top rounded" alt="...">
-          </div>
-          <div class="card-body p-0  mt-lg-2 col-7 col-lg-12">
-            <h5 class="card-title">[限時84折優惠]花蓮遠雄海洋公園電子門票9</h5>
-            <p class="card-text text-primary d-none d-lg-block">即買即用</p>
-            <p class="card-text text-primary">★</p>
-            <p class="Parent-child-card-money">TWD<span>780</span></p>
-          </div>
-        </div>
+           @foreach(var item in Model.GetParentCardList)
+            {
+                <div class="swiper-slide productcard px-1">
+                    <div class="fixed-card mx-2 h-100">
+                        <a href="~/Product/ProductInfo/@item.Id" class="text-decoration-none text-black">
+                            <div class="bundle position-relative overflow-hidden" style="height: 153px;">
+                                @*<span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+                                <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>*@
+                                <img src="@item.ProductPhoto" class="card-img-top rounded w-100 h-100 swiper-lazy" alt="@item.ProductName">
+                            </div>
+                            <div class="card-body px-0">
+                                <h4 class="card-text overflow-hidden">@item.ProductName</h4>
+                                <div class="card-tag mb-2 d-flex flex-wrap">
+                                    @foreach(var t in item.Tags)
+                                    {
+                                        <span title="@t" class="tag px-2 py-1 me-2 my-1 rounded">@t</span>
+                                    }
+                                </div>
+                                <div class="card-product-review mb-2 d-flex">
+                                    <span class="px-1 border-end border-secondary">
+                                        <i class="fa-solid fa-star"></i>@item.Rating (@(item.TotalGiveComment))
+                                    </span>
+                                    <span class="px-1">
+                                        @(item.TotalOrder) 個已訂購
+                                    </span>
+                                </div>
+                                <div class="card-product-price d-flex">
+                                    <span class="text-decoration-line-through p-1 text-black @(item.OriginalPrice == null ? "d-none" : "d-flex flex-nowrap") fw-bolder">TWD @item.OriginalPrice</span>
+                                    <span class="p-1 text-black @(item.Price == null ? "d-none" : "d-flex flex-nowrap") fw-bold">TWD<span class="fw-bolder">@item.Price</span></span>
+                                </div>
+                            </div>
+                        </a>
+                        <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+                        <span class="heart position-absolute text-white"><i class="@(item.Favorite == true ? "fa-solid" : "fa-regular") fa-heart"></i></span>
+                    </div>
+                </div>
+            }
       </div>  
     </div>
   </div>
 <partial name="_HotelFiliterPartial" />
-  <div class="container-fluid-ProductList ">
+<div class="container city-filter-wrap position-fixed pt-2">
+    <div class="sidebar d-flex mx-0 px-3 bg-white">
+        <!-- 第一版 目的地-->
+        <div class="city-filter-btn d-flex">
+            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+                目的地<i class="fa-solid fa-caret-down ms-2"></i>
+            </button>
+        </div>
+        <!-- 目的地-展開 -->
+        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
+            aria-labelledby="offcanvasBottomLabel">
+            <!-- 目的地-導覽列 -->
+            <div class="offcanvas-header border-bottom">
+                <button id="button-demo" type="button" class="btn-clean-destination text-reset border-0 bg-white"
+                    aria-label="Close">清除</button>
+                <h5 class="offcanvas-title m-auto" id="offcanvasBottomLabell">目的地</h5>
+                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
+            </div>
+            <div class="offcanvas-body small">
+                <div class="filter-group rounded pt-3 mb-3">
+                    <!-- 搜尋input -->
+                    <div class="input-group">
+                        <div
+                            class="input-group-text d-flex fa-solid fa-magnifying-glass bg-white ms-1 rounded-pill w-100">
+                            <input class="form-control search border-0 ms-2" type="search" placeholder="搜尋目的地 ">
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0">
+                        <!-- checkbox標題 -->
+                        <div class="accordion-header text-dark mt-3 ms-2 me-1" id="headingOne">
+                            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                台灣
+                            </h2>
+                        </div>
+                        <!-- checkbox內文 --> 000
+                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body-input m-2">
+                                @foreach (var item in Model.ClassifyCardList)
+                                {
+                                    <div class="form-check pb-2">
+                                        <label class="form-check-label ms-1 mt-1">
+                                            <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox" value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
+                                        </label>@*makePill(this);*@
+                                    </div>
+                                }
+
+                                @* <div v-for="(city,idx) in allFilter.cities">
+                                    <label class="pill">
+                                    <input type="checkbox" :value="city.id" v-model="city.checked">{{city.text}}
+                                    </label>
+                                    </div>
+                                    <div v-for="(classify,idx) in allFilter.classifies">
+                                    <label class="pill">
+                                    <input type="checkbox" :value="classify.id" v-model="classify.checked">
+                                    {{classify.text}}
+                                    </label>
+                                    </div> *@
+
+                                @* <div class="form-check pb-2">
+                                    <div v-for="(item,idx) in cities">
+                                    <div v-for="(x,idx) in item">
+                                    <label cla ss="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    :value="x.id" v-model="x.checked">{{x.text}}
+                                    </label>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="form-check pb-2">
+                                    <div v-for="(item,idx) in cities">
+                                    <div v-for="(x,idx) in item">
+                                    <label cla ss="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    :value="x.id" v-model="x.checked">{{x.text}}
+                                    </label>
+                                    </div>
+                                    </div>
+                                    </div> *@
+                                @* @foreach (var item in Model.ClassifyCardList)
+                                    {
+                                    <div class="form-check pb-2">
+                                    <label class="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
+                                    </label>
+                                    makePill(this);
+                                    </div>
+                                    } *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二個版 更多條件 -->
+        <div class="city-filter-btn d-flex ps-1">
+            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#moreconditions" aria-controls="moreconditions">
+                更多條件<i class="fa-solid fa-caret-down ms-2"></i>
+            </button>
+        </div>
+        <!-- 更多條件-展開 -->
+        <div class="offcanvas offcanvas-bottom rounded-top" tabindex="-1" id="moreconditions"
+            aria-labelledby="offcanvasBottomLabel">
+            <!-- 更多條件-導覽列 -->
+            <div class="offcanvas-header border-bottom">
+                <button type="button" class="btn-clean-destination text-reset border-0 bg-white"
+                    aria-label="Close">清除</button>
+                <h5 class="moreconditions offcanvas-title m-auto" id="offcanvasBottomLabell">更多條件</h5>
+                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
+            </div>
+            <!-- 裡面內文 -->
+            <div class="offcanvas-body small p-0">
+                <!-- 使用日 -->
+                <div class="filter-group rounded">
+                    <div class="filter-block">
+                        <!-- 使用日-請選擇使用日 -->
+                        <dib class="accordion-header" id="Attractions">
+                            <h4 class=" collapsed fw-normal border-bottom d-flex " data-bs-target="#collapsedayofuse"
+                                aria-expanded="false">
+                                <input type="button" name="datefilter" value="請選出發日期"
+                                    class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder lh-lg"
+                                    placeholder="篩選出發日期" id="collapsedayofuse" line-height: 2;">
+                                @*<span class="fs-6 px-3 py-2 ms-1 w-100 d-flex justify-content-between
+                                    align-items-center ">
+                                    請選擇使用日
+                                    </span>*@
+                            </h4>
+                        </dib>
+                    </div>
+                </div>
+                <!-- 更多條件 -->
+                <div class="filter-group rounded mb-1">
+                    <div class="filter-block ">
+                        <!-- 更多條件-所有商品類別 -->
+                        <div class="accordion-header " id="Attractions">
+                            <h4 class="accordion-button collapsed fw-normal " data-bs-toggle="collapse"
+                                data-bs-target="#collapseAttractiontickets1" aria-expanded="false">
+                                所有商品類別
+                            </h4>
+                        </div>
+                        <!-- 更多條件-所有商品類別-類別內容 -->
+                        <div id="collapseAttractiontickets1" class="accordion-collapse collapse px-2"
+                            data-bs-parent="#accordionExample">
+                            <partial name="ClassifyCollapsePartial/_CollapsePartial" for="CategoryList" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三個版 排序 -->
+        <div class="city-filter-btn d-flex ps-1">
+            <button class="btn btn-white shadow-none mx-1 my-2 text-nowrap rounded-pill" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sort" aria-controls="sort">
+                排序<i class="fa-solid fa-caret-down ms-2"></i>
+            </button>
+        </div>
+        <!-- 排序-展開 -->
+        <div class="sort offcanvas offcanvas-bottom" tabindex="-1" id="sort" aria-labelledby="offcanvasBottomLabel">
+            <!-- 排序-導覽列 -->
+            <div class="offcanvas-header border-bottom">
+                <button type="button" class="btn-clean-destination text-reset border-0 bg-white"
+                    aria-label="Close">清除</button>
+                <h5 class="offcanvas-title m-auto" id="offcanvasBottomLabell">排序</h5>
+                <button type="button" class="btn-finish-destination text-reset border-0 bg-white">完成</button>
+            </div>
+            <!-- 排序-內文 -->
+            <div class="offcanvas-body small px-0">
+                <div class="accordion-item border-0 ">
+                    <div class="form-check mb-2 py-2 border-bottom d-flex align-items-center justify-content-between">
+                        <label class="form-check-label ms-2 mt-1 " for="Taipei">KKday 推薦</label>
+                        <i class="fa-solid fa-check me-4"></i>
+                    </div>
+                    <div class="form-check mb-2 py-2 border-bottom d-flex align-items-center justify-content-between">
+                        <label class="form-check-label ms-2 mt-1" for="Taichung">熱門程度 : 高至低</label>
+                        <i class="fa-solid fa-check me-4"></i>
+                    </div>
+                    <div class="form-check mb-2 py-2 d-flex align-items-center justify-content-between">
+                        <label class="form-check-label ms-2 mt-1" for="Kaohsiung">價格 : 低至高</label>
+                        <i class="fa-solid fa-check me-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid-ProductList ">
     <section class="container m-auto">
-      <div class="container row p-0 m-0">
-        <div class="col-lg-3 product-filter px-3 pt-3">
-             <partial name ="_MapPartial" />
-          <div class="filter-group rounded py-2 mb-1">
-            <div class="filter-block py-3 ps-3">
-              <h4>所有商品類別</h4>
-            </div>
-            <div class="accordion-item ">
-              <h2 class="accordion-header " id="Attractions">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                  data-bs-target="#collapseAttractiontickets" aria-expanded="false">
-                  景點門票
-                </div>
-              </h2>
-              <div id="collapseAttractiontickets" class="accordion-collapse collapse"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="all">
-                    <label class="form-check-label ms-1 mt-1" for="all">全部</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Attractiontickets">
-                    <label class="form-check-label ms-1 mt-1" for="Attractiontickets">景點門票
-                      (3210)</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="ThemePark">
-                    <label class="form-check-label ms-1 mt-1" for="ThemePark">
-                      主題樂園 (351)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Museums&Galleries">
-                    <label class="form-check-label ms-1 mt-1" for="Museums&Galleries">
-                      博物館 & 美術館 (379)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Aquarium&Zoo">
-                    <label class="form-check-label ms-1 mt-1" for="Aquarium&Zoo">
-                      水族館 & 動物園 (52)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="HistoricSite">
-                    <label class="form-check-label ms-1 mt-1" for="HistoricSite">
-                      歷史景點 (152)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                  data-bs-target="#collapseEventsExhibitions" aria-expanded="false">
-                  活動 & 展覽
-                </div>
-              </h2>
-              <div id="collapseEventsExhibitions" class="accordion-collapse collapse"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Events&Exhibitionsall">
-                    <label class="form-check-label ms-1 mt-1" for="Events&Exhibitionsall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="sportsevents">
-                    <label class="form-check-label ms-1 mt-1" for="sportsevents">
-                      運動賽事 (42)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="entertainment">
-                    <label class="form-check-label ms-1 mt-1" for="entertainment">
-                      娛樂表演 (208)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="exhibition">
-                    <label class="form-check-label ms-1 mt-1" for="exhibition">
-                      展覽 (37)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                  data-bs-target="#collapseOutdooractivities" aria-expanded="false">
-                  戶外活動
-                </div>
-              </h2>
-              <div id="collapseOutdooractivities" class="accordion-collapse collapse"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Outdooractivitiesall">
-                    <label class="form-check-label ms-1 mt-1" for="Outdooractivitiesall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Adventure&ExtremeSports">
-                    <label class="form-check-label ms-1 mt-1" for="Adventure&ExtremeSports">
-                      冒險 & 極限運動 (887)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="snowactivities">
-                    <label class="form-check-label ms-1 mt-1" for="snowactivities">
-                      雪地活動 (32)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="camping">
-                    <label class="form-check-label ms-1 mt-1" for="camping">
-                      露營 (106)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Hiking&Mountaineering">
-                    <label class="form-check-label ms-1 mt-1" for="Hiking&Mountaineering">
-                      遠足 & 登山 (96)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="touristfarm">
-                    <label class="form-check-label ms-1 mt-1" for="touristfarm">
-                      觀光農場 (263)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="WaterActivities">
-                    <label class="form-check-label ms-1 mt-1" for="WaterActivities">
-                      水上活動 (1333)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseRelieveRelax"
-                  aria-expanded="false">
-                  紓壓 & 放鬆
-                </div>
-              </h2>
-              <div id="collapseRelieveRelax" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Relieve&Relaxall">
-                    <label class="form-check-label ms-1 mt-1" for="Relieve&Relaxall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Spa&Massage">
-                    <label class="form-check-label ms-1 mt-1" for="Spa&Massage">
-                      Spa & 按摩 (525)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Beauty&Salon">
-                    <label class="form-check-label ms-1 mt-1" for="Beauty&Salon">
-                      美容 & 沙龍 (25)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="spa">
-                    <label class="form-check-label ms-1 mt-1" for="spa">
-                      溫泉 (64)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                  data-bs-target="#collapseWorkshopLocalCulture" aria-expanded="false">
-                  工作坊 & 在地文化
-                </div>
-              </h2>
-              <div id="collapseWorkshopLocalCulture" class="accordion-collapse collapse"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Workshop&LocalCultureall">
-                    <label class="form-check-label ms-1 mt-1" for="Workshop&LocalCultureall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Workshops&Courses">
-                    <label class="form-check-label ms-1 mt-1" for="Workshops&Courses">
-                      工作坊 & 課程 (933)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Culturalexperience">
-                    <label class="form-check-label ms-1 mt-1" for="Culturalexperience">
-                      文化體驗 (360)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="handmadematerialpackage">
-                    <label class="form-check-label ms-1 mt-1" for="handmadematerialpackage">
-                      手作材料包 (22)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                  data-bs-target="#collapseSightseeingitinerary" aria-expanded="false">
-                  觀光行程
-                </div>
-              </h2>
-              <div id="collapseSightseeingitinerary" class="accordion-collapse collapse"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Sightseeingitineraryall">
-                    <label class="form-check-label ms-1 mt-1" for="Sightseeingitineraryall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Half/DayTour">
-                    <label class="form-check-label ms-1 mt-1" for="Half/DayTour">
-                      半/一日遊 (3947)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Multi-daytour">
-                    <label class="form-check-label ms-1 mt-1" for="Multi-daytour">
-                      多日遊 (1213)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="onlinetravel">
-                    <label class="form-check-label ms-1 mt-1" for="onlinetravel">
-                      線上旅遊 (8)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="biketour">
-                    <label class="form-check-label ms-1 mt-1" for="biketour">
-                      單車旅遊 (21)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="boattour">
-                    <label class="form-check-label ms-1 mt-1" for="boattour">
-                      遊船觀光 (231)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="cruisevacation">
-                    <label class="form-check-label ms-1 mt-1" for="cruisevacation">
-                      遊輪假期 (157)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFoodFresh"
-                  aria-expanded="false">
-                  美食 & 生鮮
-                </div>
-              </h2>
-              <div id="collapseFoodFresh" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Food&Freshall">
-                    <label class="form-check-label ms-1 mt-1" for="Food&Freshall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="restaurantfood">
-                    <label class="form-check-label ms-1 mt-1" for="restaurantfood">
-                      餐廳美食 (1142)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="dessertdrink">
-                    <label class="form-check-label ms-1 mt-1" for="dessertdrink">
-                      甜點飲品 (471)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="freshgroceries">
-                    <label class="form-check-label ms-1 mt-1" for="freshgroceries">
-                      生鮮雜貨 (76)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                  data-bs-target="#collapsetransportation" aria-expanded="false">
-                  交通
-                </div>
-              </h2>
-              <div id="collapsetransportation" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="transportationall">
-                    <label class="form-check-label ms-1 mt-1" for="transportationall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="trafficticket">
-                    <label class="form-check-label ms-1 mt-1" for="trafficticket">
-                      交通票券 (821)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="carrental">
-                    <label class="form-check-label ms-1 mt-1" for="carrental">
-                      租車自駕 (198)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Privatecarservice">
-                    <label class="form-check-label ms-1 mt-1" for="Privatecarservice">
-                      專車服務 (864)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="AirportShuttle">
-                    <label class="form-check-label ms-1 mt-1" for="AirportShuttle">
-                      機場接駁 (444)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapsestay"
-                  aria-expanded="false">
-                  住宿
-                </div>
-              </h2>
-              <div id="collapsestay" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="stayall">
-                    <label class="form-check-label ms-1 mt-1" for="stayall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="restaurant">
-                    <label class="form-check-label ms-1 mt-1" for="restaurant">
-                      飯店 (998)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="resort">
-                    <label class="form-check-label ms-1 mt-1" for="resort">
-                      度假村 (29)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="homestay">
-                    <label class="form-check-label ms-1 mt-1" for="homestay">
-                      民宿 (91)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseWiFiSIMCard"
-                  aria-expanded="false">
-                  Wi-Fi & SIM 卡
-                </div>
-              </h2>
-              <div id="collapseWiFiSIMCard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Wi-Fi&SIMCardall">
-                    <label class="form-check-label ms-1 mt-1" for="Wi-Fi&SIMCardall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Wi-Fi&SIMCard">
-                    <label class="form-check-label ms-1 mt-1" for="Wi-Fi&SIMCard">
-                      Wi-Fi & SIM 卡 (217)
-                    </label>
-                  </div>
-                </div>
-              </div>
+        <div class="container row p-0 m-0" id="classifyCard">
+            <!--左側欄 -->
+            <div class="col-lg-3 product-filter px-3 pt-3">
+                <!-- 篩選目的地 -->
+                <partial name="_MapPartial" />
+                <div class="filter-group rounded pt-3 mb-3">
+                    <div class="filter-block py-2 pb-3 ps-3 ">
+                        <h4>篩選目的地</h4>
+                    </div>
+                    <div class="input-group d-flex pt-1 pb-2 ps-2">
+                        <div class="input-group-text fa-solid fa-magnifying-glass border-end-0 bg-white ms-1">
+                        </div>
+                        <input id="destFilter" name="searchword"
+                            class="form-control search border-start-0 me-4 shadow-none" type="text"
+                            placeholder="搜尋目的地 ">
+                    </div>
+                    <div class="accordion-item ">
+                        <div class="accordion-header" id="headingOne">
+                            <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                台灣
+                            </h2>
+                        </div>
+                        <!-- 台灣checkbox -->
+                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body-input m-2">
+                                <div class="form-check pb-2">
 
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                  data-bs-target="#collapsetravelservice" aria-expanded="false">
-                  旅行服務
-                </div>
-              </h2>
-              <div id="collapsetravelservice" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="travelserviceall">
-                    <label class="form-check-label ms-1 mt-1" for="travelserviceall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="TravelDocumentApplicationService">
-                    <label class="form-check-label mt-1 ms-1" for="TravelDocumentApplicationService">
-                      旅遊文件申請服務 (21)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="BaggageDelivery/StorageService">
-                    <label class="form-check-label ms-1 mt-1" for="BaggageDelivery/StorageService">
-                      行李運送 / 寄存服務 (19)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="ProfessionalPhotographyServices">
-                    <label class="form-check-label ms-1 mt-1" for="ProfessionalPhotographyServices">
-                      專業攝影服務 (45)
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value=""
-                      id="Travelequipmentandrelatedservices">
-                    <label class="form-check-label mt-1 ms-1" for="Travelequipmentandrelatedservices">
-                      旅行裝備與相關服務 (2)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header " id="headingThree">
-                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSouvenir"
-                  aria-expanded="false">
-                  伴手禮
-                </div>
-              </h2>
-              <div id="collapseSouvenir" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Souvenirall">
-                    <label class="form-check-label ms-1 mt-1" for="Souvenirall">
-                      全部
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input mt-1" type="checkbox" value="" id="Souvenir">
-                    <label class="form-check-label ms-1 mt-1" for="Souvenir">
-                      伴手禮(474)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                                    <div v-for="(city,idx) in allFilter.cities" class="form-check pb-2">
+                                        <label class="form-check-label ms-1 mt-1">
+                                            <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                        :value="city.CityId" 
+                                        v-model="city.Checked" 
+                                        v-on:change="filterPost(1)">{{city.CityName}}
+                                        </label>
+                                    </div>
 
-          <div class="filter-group date rounded ">
-            <div class="filter-block mt-3">
-              <div class="accordion-item">
-                <div class="input-group p-2 mb-3">
-                  <label for="" class="w-100">
-                    <button class="fa-regular fa-calendar btn btn-outline-white text-dark border-end p-3 " type="button"
-                      name="datefilter">
-                      <!-- <i class="fa-regular fa-calendar"> -->
-                    </button>
-                    <input type="button" name="datefilter" value="篩選出發日期"
-                      class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 " placeholder="篩選出發日期">
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="filter-group rounded ">
-            <div class="filter-block mt-3">
-              <div class="accordion-item">
-                <h2 class="accordion-header pt-3 pb-4 mx-3" id="headingThree">
-                  <span class="Price">價錢 (TWD)</span>
-                  <div class="wrapper">
-                    <div class="wrapper pt-3">
-                      <span id="range1">
-                        0
-                      </span>
-                      <span> &dash; </span>
-                      <span id="range2">
-                        2,928,980
-                      </span>
-                    </div>
-                    <div class="container mt-4">
-                      <div class="slider-track "></div>
-                      <input class="bg-white" type="range" min="0" max="99999" value="00" id="slider-1"
-                        oninput="slideOne()">
-                      <input type="range" min="0" max="99999" value="123456" id="slider-2" oninput="slideTwo()">
-                    </div>
-                  </div>
-                </h2>
-                <span class="rounded-circle" style="left:0%;"></span>
-              </div>
-            </div>
-          </div>
+                                    @* @foreach (var item in Model.ClassifyCardList)
+                                    {
+                                    <div class="form-check pb-2">
+                                    <label class="form-check-label ms-1 mt-1">
+                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                    value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
+                                    </label>
+                                    </div>
+                                    } *@
 
-          <div class="filter-group rounded">
-            <div class="filter-block mt-3">
-              <div class="accordion-item">
-                <h2 class="accordion-header " id="headingThree">
-                  <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#journeytime"
-                    aria-expanded="false">
-                    行程時間
-                  </div>
-                </h2>
-                <div id="journeytime" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <div class="form-check-time ps-2 py-2">
-                      <input class="form-check-input mt-1" type="checkbox" value="" id="lessthanfourhours">
-                      <label class="form-check-label ms-1 mt-1" for="lessthanfourhours">
-                        少於 4 小時
-                      </label>
+
+                                </div>
+
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check-time ps-2 py-2">
-                      <input class="form-check-input mt-1" type="checkbox" value="" id="fourhours-oneday">
-                      <label class="form-check-label ms-1 mt-1" for="fourhours-oneday">
-                        4 小時 - 1 日
-                      </label>
-                    </div>
-                    <div class="form-check-time ps-2 py-2">
-                      <input class="form-check-input mt-1" type="checkbox" value="" id="oneday-twoday">
-                      <label class="form-check-label ms-1 mt-1" for="oneday-twoday">
-                        1 日 - 2 日
-                      </label>
-                    </div>
-                    <div class="form-check-time ps-2 py-2">
-                      <input class="form-check-input mt-1" type="checkbox" value="" id="morethantwodays">
-                      <label class="form-check-label ms-1 mt-1" for="morethantwodays">
-                        2 日以上
-                      </label>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                <!-- 所有商品類別 -->
+                <div class="filter-group rounded py-2 mb-1">
+                    <div class="filter-block py-3 ps-3">
+                        <h4>所有商品類別</h4>
+                    </div>
+                    <!-- 商品類別checkbox -->
+                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue"  /> @*for="CategoryList"*@
+                </div>
+                <!-- 篩選出發日期 -->
+                <div class="filter-group date rounded ">
+                    <div class="filter-block mt-3">
+                        <div class="accordion-item">
+                            <div class="input-group p-2 mb-3">
+                                <label for="" class="w-100">
+                                    <button
+                                        class="fa-regular fa-calendar btn btn-outline-white text-dark border-end p-2"
+                                        type="button" name="datefilter">
+                                    </button>
+                                    <input type="button" name="datefilter" value="篩選出發日期"
+                                        class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder"
+                                        placeholder="篩選出發日期">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 價錢 range -->
+                <div class="filter-group rounded ">
+                    <div class="filter-block mt-3">
+                        <div class="accordion-item">
+                            <div class="accordion-header pt-3 pb-4 mx-3" id="headingThree">
+                                <h4 class="Pricies">價錢 (TWD)</h4>
+                                <div class="wrapper">
+                                    <div class="wrapper pt-3">
+                                        <span id="range1">
+                                            0
+                                        </span>
+                                        <span> &dash; </span>
+                                        <span id="range2">
+                                            2,928,980
+                                        </span>
+                                    </div>
+                                    <div class="container mt-4">
+                                        <div class="slider-track "></div>
+                                        <input class="bg-white shadow-none" type="range" min="0" max="99999" value="00"
+                                            id="slider-1" oninput="slideOne()">
+                                        <input type="range" min="0" max="99999" value="123456" id="slider-2"
+                                            oninput="slideTwo()">
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="rounded-circle" style="left:0%;"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 行程時間 -->
+                <div class="filter-group rounded">
+                    <div class="filter-block mt-3">
+                        <div class="accordion-item">
+                            <div class="accordion-header " id="headingThree">
+                                <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
+                                    data-bs-target="#journeytime" aria-expanded="false">
+                                    行程時間
+                                </h2>
+                            </div>
+                            <div id="journeytime" class="accordion-collapse collapse show"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="form-check-time ps-2 py-2">
+                                        <input class="form-check-input mt-1" type="checkbox" value=""
+                                            id="lessthanfourhours">
+                                        <label class="form-check-label ms-1 mt-1" for="lessthanfourhours">
+                                            少於 4 小時
+                                        </label>
+                                    </div>
+                                    <div class="form-check-time ps-2 py-2">
+                                        <input class="form-check-input mt-1" type="checkbox" value=""
+                                            id="fourhours-oneday">
+                                        <label class="form-check-label ms-1 mt-1" for="fourhours-oneday">
+                                            4 小時 - 1 日
+                                        </label>
+                                    </div>
+                                    <div class="form-check-time ps-2 py-2">
+                                        <input class="form-check-input mt-1" type="checkbox" value=""
+                                            id="oneday-twoday">
+                                        <label class="form-check-label ms-1 mt-1" for="oneday-twoday">
+                                            1 日 - 2 日
+                                        </label>
+                                    </div>
+                                    <div class="form-check-time ps-2 py-2">
+                                        <input class="form-check-input mt-1" type="checkbox" value=""
+                                            id="morethantwodays">
+                                        <label class="form-check-label ms-1 mt-1" for="morethantwodays">
+                                            2 日以上
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <!--右側欄 -->
+            <div class="col-lg-9 pt-3 p-2">
+                <!-- 體驗行程 -->
+                <div class="card-board mb-3 border-0">
+                    <div class="card-board mb-3 border-0">
+                        <div class="card-board mb-3 border-0">
+                            <div class="card-body text-secondary">
+                                <div class="chip-group d-flex flex-wrap">
+                                    <h4 class="card-title_group align-self-center ms-1 d-flex flex-wrap">
+                                        <span class="experience-itinerary text-dark align-self-center mx-1 fw-normal">{{cardCount}}</span>項體驗行程
+                                    </h4>
+                                    @*<span class="rounded-pill border border-secondary d-flex align-items-center">
+                                        <span class="">飯店</span>
+                                        <button type="button" class="btn-close" disabled="" aria-label="Close"></button>
+                                    </span>*@
+                                    <span v-for="(city,idx) in allFilter.cities.filter(x => x.Checked)"
+                                        class="rounded-pill border border-secondary d-flex align-items-center">
+                                        <span class="" >{{city.CityName}}</span>
+                                        <button v-on:click="cancel(city)" type="button" class="btn-close" aria-label="Close"></button>
+                                    </span>
+                                    <span v-for="(childCategory,idx) in allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x).filter(x => x.Checked)"
+                                        class="rounded-pill border border-secondary d-flex align-items-center">
+                                        <span class="">{{childCategory.CategoryName}}</span>
+                                        <button v-on:click="cancel(childCategory)" type="button" class="btn-close" aria-label="Close"></button>
+                                    </span>
+                                    <span v-if="allFilter.cities.some(x=> x.Checked)
+                                        ||allFilter.categories.some(ca=> ca.ChildCategory.some(x=> x.Checked) )
+                                        "
+                                        class="chip-clear rounded-pill d-flex align-items-center ">
+                                        <a href="#" class="a text-decoration-none text-light"
+                                            v-on:click="cancelAll()"
+                                        >清除所有</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
+                            <h5 class=" me-2">排序 : </h5>
+                            <div class="sort">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                                <a href="#" class="text-decoration-none">
+                                    <span class="sort">Today推薦</span>
+                                </a>
+                            </div>
+                            <div class="sort">
+                                <span class="span_divider mx-1 "> | </span>
+                                <i class="fa-solid fa-fire"></i>
+                                <a href="#" class="text-decoration-none">
+                                    <span class="sort">熱門程度</span>
+                                </a>
+                            </div>
+                            <div class="sort">
+                                <span class="span_divider mx-1 "> | </span>
+                                <i class="fa-solid fa-star "></i>
+                                <a href="#" class="text-decoration-none">
+                                    <span class="sort">用戶評價</span>
+                                    <span class="span_divider mx-1 "> | </span>
+                                </a>
+                            </div>
+                            <div class="sort">
+                                <a href="#" class="text-decoration-none">
+                                    <i class="fa-solid fa-dollar-sign"></i>
+                                    <span class="sort">價格 : 低到高</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- 橫向卡牌 -->
+                <div class="container_card">
+                    <div v-for="(item,idx) in productCards" class="card_detail mb-3">
+                        <a :href="item.href">
+                            <div class="row g-0">
+                                <div class="col-md-4 ">
+                                    <div class="pic h-100">
+                                        <img class="img-fluid w-100 h-100 m-auto" :src="item.path">
+                                        @*<i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-8 rounded-3 ">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-dark">{{item.productName}}</h4>
+                                        <div class="card-point py-2 ">
+                                            <span v-for="t in  item.tagText"
+                                                class="label label-addational rounded-3 ">{{(t)}}</span>
+                                        </div>
+                                        <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <div class="product-listview_inco_info flex_item product-palce">
+                                                <p class="card-text d-flex ms-2"> {{item.cityName}} </p>
+                                            </div>
+                                            @*<i class="fa-regular fa-calendar ms-3"></i>
+                                                <div class="product-listview_inco_info product-time">
+                                                <p class="card-text ms-2">
+                                                最早可預訂日期 : 今日
+                                                </p>
+                                                </div>*@
+                                        </div>
+                                        <div class="footer  d-flex flex-wrap">
+                                            <div class="product_footer m-auto col-8 mt-3">
+                                                <i class="fa-solid fa-star"></i>{{item.ratingStar}}
+                                                <span class="number">{{(item.totalComment)}}</span>
+                                                <span class="span_divider mx-1"> | </span>
+                                                <i class="fa-solid fa-fire py-2">
+                                                    <span class="subscription ms-1">{{item.totalOrder}}個已訂購</span>
+                                                </i>
+                                            </div>
+
+                                            <div
+                                                class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
+                                                <p class="TWD-line OriginalPrice text-decoration-line-through m-0 mx-1">
+                                                    TWD {{item.prices.originalPrice}}</p>
+                                                @*<div class="discount mx-1 ms-2 p-1">73%OFF</div>*@
+                                                <h4 class="TWD d-flex Price justify-content-end p-1 mt-1 text-derk">TWD
+                                                    {{item.prices.price}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                <!-- 頁數切換 -->
+                <div class=" page btn-group d-flex " role="group" aria-label="Basic radio toggle button group">
+                    <div v-for="(x,i) in Math.ceil(cardCount/10)">
+                        <label v-if="x == page" class="click_num btn  me-2 "
+                            style="border: 1px solid #ccc; background-color: #26bec9;">
+                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" checked>
+                            {{x}}
+                        </label>
+
+                        <label v-else class="click_num btn me-2 ">
+                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x"
+                                v-on:change='filterPost(x)'>
+                            {{x}}
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-lg-9 pt-3 p-2">
-          <div class="card-board mb-3 border-0">
-            <div class="card-board mb-3 border-0">
-              <div class="card-body text-secondary d-flex flex-wrap pb-0">
-                <div class="chip-group d-flex flex-wrap">
-                  <p class="card-title_group align-self-center ms-1">7991
-                  <p class="experience-itinerary text-dark align-self-center mx-1">項體驗行程</p>
-                  </p>
-                  <span class="chip rounded-pill border border-secondary d-flex align-items-center">
-                    <span class="">飯店</span>
-                    <button type="button" class="btn-close" disabled aria-label="Close"></button>
-                  </span>
-                  <span class="chip rounded-pill border border-secondary d-flex align-items-center">
-                    <span class="">景點門票</span>
-                    <button type="button" class="btn-close " disabled aria-label="Close"></button>
-                  </span>
-                  <span class="chip rounded-pill border border-secondary d-flex align-items-center">
-                    <span class=" ">主題樂園</span>
-                    <button type="button" class="btn-close " disabled aria-label="Close"></button>
-                  </span>
-                  <span class="chip rounded-pill border border-secondary d-flex align-items-center">
-                    <span class=" ">博物館 & 美術館</span>
-                    <button type="button" class="btn-close " disabled aria-label="Close"></button>
-                  </span>
-                  <span class="chip rounded-pill border border-secondary d-flex align-items-center">
-                    <span class="">展覽</span>
-                    <button type="button" class="btn-close " disabled aria-label="Close"></button>
-                  </span>
-                  <span class="chip rounded-pill border border-secondary d-flex align-items-center">
-                    <span class=" ">冒險 & 極限運動</span>
-                    <button type="button" class="btn-close " disabled aria-label="Close"></button>
-                  </span>
-                  <span class="chip rounded-pill border border-secondary d-flex align-items-center">
-                    <span class="">露營</span>
-                    <button type="button" class="btn-close " disabled aria-label="Close">
-
-                    </button>
-                  </span>
-
-
-
-
-
-                  <!-- <span
-                                    class="chip rounded-pill border border-secondary d-flex align-items-center">
-                                    <span class=" ms-3 me-1">冒險 ＆ 極限運動</span>
-                                    <button type="button" class="btn-close me-2 " disabled
-                                        aria-label="Close"></button>
-                                </span>
-                                <span
-                                    class="chip rounded-pill border border-secondary d-flex align-items-center">
-                                    <span class=" ms-3 me-1">露營</span>
-                                    <button type="button" class="btn-close me-2" disabled
-                                        aria-label="Close"></button>
-                                </span> -->
-
-                  <span class="chip-clear rounded-pill d-flex align-items-center ">
-                    <a href="#" class="a text-decoration-none text-light">清除所有</a>
-                  </span>
-                </div>
-              </div>
-              <div class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
-                <h5 class=" me-2">排序 : </h5>
-                <div class="sort">
-                  <i class="fa-regular fa-thumbs-up"></i>
-                  <a href="#" class="text-decoration-none">
-                    <span class="sort">Today推薦</span>
-                  </a>
-                </div>
-                <div class="sort">
-                  <span class="span_divider mx-1 "> | </span>
-                  <i class="fa-solid fa-fire"></i>
-                  <a href="#" class="text-decoration-none">
-                    <span class="sort">熱門程度</span>
-                  </a>
-                </div>
-                <div class="sort">
-                  <span class="span_divider mx-1 "> | </span>
-                  <i class="fa-solid fa-star "></i>
-                  <a href="#" class="text-decoration-none">
-                    <span class="sort">用戶評價</span>
-                    <span class="span_divider mx-1 "> | </span>
-                  </a>
-                </div>
-                <div class="sort">
-                  <a href="#" class="text-decoration-none">
-                    <i class="fa-solid fa-dollar-sign"></i>
-                    <span class="sort">價格 : 低到高</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-                    <!--card區-->
-                    <div class="container_card"> 
-                      <div class="card_detail mb-3">
-                          <div class="row g-0">
-                              <div class="col-md-4 ">
-                                  <div class="pic h-100">
-                                      <img class="img-fluid w-100 h-100 m-auto" src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                      <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                      <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                                  </div>
-                              </div>
-                              <div class="col-md-8 rounded-3 ">
-                                  <div class="card-body">
-                                      <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                      <div class="card-point py-2 ">
-          
-                                          <span class="label label-addational rounded-3 ">即買即用</span>
-                                          <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-          
-                                          <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                          <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                      <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                      </div>
-                                      <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">Xpark 於 2022
-                                          年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                      </p>
-                                      <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                          <i class="fa-solid fa-location-dot"></i>
-                                          <div class="product-listview_inco_info flex_item product-palce">
-                                              <p class="card-text d-flex ms-2">台灣 桃園
-                                              </p>
-                                          </div>
-                                          <i class="fa-regular fa-calendar  ms-3"></i>
-                                          <div class="product-listview_inco_info  product-time">
-                                              <p class="card-text ms-2">最早可預訂日期 : 今日
-                                              </p>
-                                          </div>
-                                      </div>
-                                      <div class="footer  d-flex flex-wrap">
-                                          <div class="product_footer m-auto col-8 mt-3">
-                                              <i class="fa-solid fa-star "></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star-half"></i>
-          
-                                              <span class="number">(366691)</span>
-                                              <!-- <span class="span_divider mx-1 "> | </span> -->
-                                              <!-- <div class="vr mx-1"></div> -->
-                                              <i class="fa-solid fa-fire py-2">
-                                                  <span class="subscription">484K+ 個已訂購</span></i>
-                                          </div>
-                                          <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                              <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                              <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                              <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-          
-                      <div class="card_detail mb-3">
-                          <div class="row g-0">
-                              <div class="col-md-4 ">
-                                  <div class="pic h-100">
-                                      <img class="img-fluid w-100 h-100 m-auto" src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                      <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                      <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                                  </div>
-                              </div>
-                              <div class="col-md-8 rounded-3 ">
-                                  <div class="card-body">
-                                      <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                      <div class="card-point py-2 ">
-          
-                                          <span class="label label-addational rounded-3 ">即買即用</span>
-                                          <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-          
-                                          <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                          <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                      <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                      </div>
-                                      <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">Xpark 於 2022
-                                          年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                      </p>
-                                      <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                          <i class="fa-solid fa-location-dot"></i>
-                                          <div class="product-listview_inco_info flex_item product-palce">
-                                              <p class="card-text d-flex ms-2">台灣 桃園
-                                              </p>
-                                          </div>
-                                          <i class="fa-regular fa-calendar  ms-3"></i>
-                                          <div class="product-listview_inco_info  product-time">
-                                              <p class="card-text ms-2">最早可預訂日期 : 今日
-                                              </p>
-                                          </div>
-                                      </div>
-                                      <div class="footer  d-flex flex-wrap">
-                                          <div class="product_footer m-auto col-8 mt-3">
-                                              <i class="fa-solid fa-star "></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star-half"></i>
-          
-                                              <span class="number">(366691)</span>
-                                              <!-- <span class="span_divider mx-1 "> | </span> -->
-                                              <!-- <div class="vr mx-1"></div> -->
-                                              <i class="fa-solid fa-fire py-2">
-                                                  <span class="subscription">484K+ 個已訂購</span></i>
-                                          </div>
-                                          <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                              <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                              <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                              <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="card_detail mb-3">
-                          <div class="row g-0">
-                              <div class="col-md-4 ">
-                                  <img class="img-fluid w-100 h-100 m-auto" src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                  <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                  <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                              </div>
-                              <div class="col-md-8 rounded-3 ">
-                                  <div class="card-body">
-                                      <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                      <div class="card-point py-2 ">
-          
-                                          <span class="label label-addational rounded-3 ">即買即用</span>
-                                          <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-          
-                                          <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                          <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                      <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                      </div>
-                                      <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">Xpark 於 2022
-                                          年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                      </p>
-                                      <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                          <i class="fa-solid fa-location-dot"></i>
-                                          <div class="product-listview_inco_info flex_item product-palce">
-                                              <p class="card-text d-flex ms-2">台灣 桃園
-                                              </p>
-                                          </div>
-                                          <i class="fa-regular fa-calendar  ms-3"></i>
-                                          <div class="product-listview_inco_info  product-time">
-                                              <p class="card-text ms-2">最早可預訂日期 : 今日
-                                              </p>
-                                          </div>
-                                      </div>
-                                      <div class="footer  d-flex flex-wrap">
-                                          <div class="product_footer m-auto col-8 mt-3">
-                                              <i class="fa-solid fa-star "></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star-half"></i>
-          
-                                              <span class="number">(366691)</span>
-                                              <!-- <span class="span_divider mx-1 "> | </span> -->
-                                              <!-- <div class="vr mx-1"></div> -->
-                                              <i class="fa-solid fa-fire py-2">
-                                                  <span class="subscription">484K+ 個已訂購</span></i>
-                                          </div>
-                                          <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                              <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                              <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                              <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="card_detail mb-3">
-                          <div class="row g-0">
-                              <div class="col-md-4 ">
-                                  <img class="img-fluid w-100 h-100 m-auto" src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                  <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                  <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                              </div>
-                              <div class="col-md-8 rounded-3 ">
-                                  <div class="card-body">
-                                      <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                      <div class="card-point py-2 ">
-          
-                                          <span class="label label-addational rounded-3 ">即買即用</span>
-                                          <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-          
-                                          <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                          <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                      <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                      </div>
-                                      <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">Xpark 於 2022
-                                          年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                      </p>
-                                      <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                          <i class="fa-solid fa-location-dot"></i>
-                                          <div class="product-listview_inco_info flex_item product-palce">
-                                              <p class="card-text d-flex ms-2">台灣 桃園
-                                              </p>
-                                          </div>
-                                          <i class="fa-regular fa-calendar  ms-3"></i>
-                                          <div class="product-listview_inco_info  product-time">
-                                              <p class="card-text ms-2">最早可預訂日期 : 今日
-                                              </p>
-                                          </div>
-                                      </div>
-                                      <div class="footer  d-flex flex-wrap">
-                                          <div class="product_footer m-auto col-8 mt-3">
-                                              <i class="fa-solid fa-star "></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star-half"></i>
-          
-                                              <span class="number">(366691)</span>
-                                              <!-- <span class="span_divider mx-1 "> | </span> -->
-                                              <!-- <div class="vr mx-1"></div> -->
-                                              <i class="fa-solid fa-fire py-2">
-                                                  <span class="subscription">484K+ 個已訂購</span></i>
-                                          </div>
-                                          <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                              <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                              <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                              <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="card_detail mb-3">
-                          <div class="row g-0">
-                              <div class="col-md-4 ">
-                                  <img class="img-fluid w-100 h-100 m-auto" src="https://image.kkday.com/v2/image/get/w_481%2Ch_358%2Cc_fill%2Cq_55%2Ct_webp/s1.kkday.com/product_116824/20220531103141_oq8QW/jpg">
-                                  <i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>
-                                  <!-- <i class="fa-solid fa-heart-crack"></i> -->
-                              </div>
-                              <div class="col-md-8 rounded-3 ">
-                                  <div class="card-body">
-                                      <h4 class="card-title">桃園青埔 | Xpark 都會型水生公園門票</h4>
-                                      <div class="card-point py-2 ">
-          
-                                          <span class="label label-addational rounded-3 ">即買即用</span>
-                                          <span class="label label-addational rounded-3 ">6天前可免費取消</span>
-          
-                                          <span class="label label-addational rounded-3 ">出發前可免費取消</span>
-                                          <!-- <span class="label label-addational rounded-3 ">適用國旅券</span>
-                                      <span class="label label-addational rounded-3 ">8天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">2天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">3天前可免費取消</span>
-                                      <span class="label label-addational rounded-3 ">即買即用</span> -->
-                                      </div>
-                                      <p class="card-text-info py-2 mx-1 lh-base overflow-hidden ">Xpark 於 2022
-                                          年初推行大型企劃『Xbook～流向我們的物語』，透過五官享受海底之書的魅力！加碼推出兒童節限定「Xpark童樂套票」及互動式猜謎遊戲，讓大小朋友在春天開心暢遊，體驗豐富的寓教於樂內容！
-                                      </p>
-                                      <div class="product-listview_inco_info d-flex flex-wrap my-2 me-2">
-                                          <i class="fa-solid fa-location-dot"></i>
-                                          <div class="product-listview_inco_info flex_item product-palce">
-                                              <p class="card-text d-flex ms-2">台灣 桃園
-                                              </p>
-                                          </div>
-                                          <i class="fa-regular fa-calendar  ms-3"></i>
-                                          <div class="product-listview_inco_info  product-time">
-                                              <p class="card-text ms-2">最早可預訂日期 : 今日
-                                              </p>
-                                          </div>
-                                      </div>
-                                      <div class="footer  d-flex flex-wrap">
-                                          <div class="product_footer m-auto col-8 mt-3">
-                                              <i class="fa-solid fa-star "></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star"></i>
-                                              <i class="fa-solid fa-star-half"></i>
-          
-                                              <span class="number">(366691)</span>
-                                              <!-- <span class="span_divider mx-1 "> | </span> -->
-                                              <!-- <div class="vr mx-1"></div> -->
-                                              <i class="fa-solid fa-fire py-2">
-                                                  <span class="subscription">484K+ 個已訂購</span></i>
-                                          </div>
-                                          <div class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
-                                              <p class="TWD-line text-decoration-line-through m-0 mx-1">TWD 850</p>
-                                              <div class="discount  mx-1 ms-2 p-1">73%OFF</div>
-                                              <h4 class="TWD d-flex justify-content-end p-1 mt-1">TWD 550</h4>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                    </div>
-                    <!--換頁鈕-->
-                    <div class=" page btn-group d-flex " role="group" aria-label="Basic radio toggle button group">
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
-                      <label class="click_num btn btn-outline-info me-2 bg-white text-secondary " for="btnradio1">
-                          1
-                      </label>
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                      <label class="click_num btn btn-outline-info me-2 bg-white text-secondary" for="btnradio2">
-                          2
-                      </label>
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                      <label class="click_num btn btn-outline-info me-2 bg-white text-secondary" for="btnradio3">
-                          3
-                      </label>
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                      <label class="click_num btn btn-outline-info me-2 bg-white text-secondary" for="btnradio4">
-                          4
-                      </label>
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                      <label class="click_num btn btn-outline-info me-2 bg-white text-secondary" for="btnradio5">
-                          5
-                      </label>
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
-                      <label class="click_num btn btn-outline-info me-2 bg-white text-secondary" for="btnradio6">
-                          6
-                      </label>
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off">
-                      <label class="click_num btn btn-outline-info me-2 bg-white text-secondary" for="btnradio7">
-                          7
-                      </label>
-          
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio8" autocomplete="off">
-                      <label class=" btn btn-outline-info me-2 bg-white text-secondary" for="btnradio8"> 
-                      </label>
-                    </div>
-        </div>
-      </div>
     </section>
-  </div>
+</div>
   <partial name ="_MapModalPartial" />
 
   @section endJS
@@ -1165,49 +587,430 @@
   <script src="~/js/homescript.js"></script>
 
   <script>
-        let json_location =@Html.Raw(@ViewData["locationJson"]);
-        let json_Name = @Html.Raw(@ViewData["PNameJson"]);
-        let json_photo = @Html.Raw(@ViewData["PhotoJson"]);
+        let json_location = @Html.Raw(@ViewData["locationJson"]); //將 json純文字 解碼 成 js的json
    </script>
    <script src="~/js/google-map.js"></script>
 
     <script src="~/js/show_city.js"></script>
-    <script>    
-    $(".Parent-child-carousel .owl-carousel").owlCarousel({
-      loop: false, 
-      margin: 10, 
-      responsive: 
-      {
-        0: {
-          items: 1
-        },
-        768:{
-          items:2
-        },
-        992: {
-          items: 4
-        }
-      }
-    });
-
-    
+    <script src="~/js/owl-carousel.js">    
   </script>
-   <script type="text/javascript">
-           $(function () {
-      $('input[name="datefilter"]').daterangepicker({
-        autoUpdateInput: false,
-        locale: {
-          cancelLabel: 'Clear'
-        }
-      });
+     <script src="~/js/datePicker.js"></script>
+     <script src="~/js/cityChoose.js"></script>
+      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+  integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+  crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://kit.fontawesome.com/847bfc3e24.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="~/js/homescript.js"></script>
 
-      $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
-        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      });
+  <script>
+        let json_location = @Html.Raw(@ViewData["locationJson"]); //將 json純文字 解碼 成 js的json
+   </script>
+   <script src="~/js/google-map.js"></script>
+ 
 
-      $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
-        $(this).val('');
-      });
+     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="~/js/calendar.js"></script>
+@*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
+<script src="~/js/datePicker.js"></script>
 
-    });</script>
+@*vue*@
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+@*<script src="https://unpkg.com/vue@next"></script>*@
+
+<script>
+    function filterGet() {
+        const request = new Request("/api/ClassifyApi/Classify");
+        fetch(request)
+    }
+    @* let p = document.querySelectorAll(".click_num")
+    for (let i = 0; i < p.length; i++) {
+        p[i].addEventListener("click", function () {
+            p[i].classList.add("btn-info")
+        })
+    } *@
+
+    //function makePill(cityInput) { //參數area , targetInput
+    //    //create
+    //    let dom = document.createElement('');
+
+    //    dom.innerText = cityInput.parentElement ?? .innerText //拿到label文字
+
+
+    //    //append
+    //    let area = document.createElement('span');
+    //    area.append(dom)
+    //    //之後再改 不確定的area 參數指定areai
+
+    //    //綁事件
+    //@* dom的xx 按了 要 把target取消勾選 *@
+    //}
+
+
+</script>
+
+
+<script>
+    const classifyCardVue = new Vue({
+        // 掛載位置
+        el: '#classifyCard',
+        // 資料, state
+        data: {
+            //篩選區 
+            allFilter: {
+                cities: [
+                    { CityId: 1, CityName: '基隆', checked: false },
+                    { CityId: 2, CityName: '新北', checked: false },
+                    { CityId: 3, CityName: '台北', checked: false },
+                    { CityId: 4, CityName: '桃園', checked: false },
+                    { CityId: 5, CityName: '新竹', checked: false },
+                    { CityId: 6, CityName: '苗栗', checked: false },
+                    { CityId: 7, CityName: '台中', checked: false },
+                    { CityId: 8, CityName: '彰化', checked: false },
+                    { CityId: 9, CityName: '南投', checked: false },
+                    { CityId: 10,CityName: '雲林', checked: false },
+                    { CityId: 11,CityName: '嘉義', checked: false },
+                    { CityId: 12,CityName: '台南', checked: false },
+                    { CityId: 13,CityName: '高雄', checked: false },
+                    { CityId: 14,CityName: '墾丁', checked: false },
+                    { CityId: 15,CityName: '屏東', checked: false },
+                    { CityId: 16,CityName: '台東', checked: false },
+                    { CityId: 17,CityName: '花蓮', checked: false },
+                    { CityId: 18,CityName: '宜蘭', checked: false },
+                    { CityId: 19,CityName: '綠島', checked: false },
+                    { CityId: 20,CityName: '蘭嶼', checked: false },
+                    { CityId: 21,CityName: '小琉球', checked: false },
+                    { CityId: 22,CityName: '澎湖', checked: false },
+                    { CityId: 23,CityName: '金門', checked: false },
+                    { CityId: 24,CityName: '馬祖', checked: false },
+                ],
+                categories: [
+                    {
+                        ProductCategoryId: 1,
+                        CategoryName: "住宿",
+                        ChildCategory: [
+                            {
+                                ProductCategoryId: 13,
+                                CategoryName: "高鐵假期",
+                                ChildCategory: null
+                            },
+                            {
+                                ProductCategoryId: 14,
+                                CategoryName: "飯店",
+                                ChildCategory: null
+                            },
+                        ]
+                    },
+                    @* { id: 13, text: "高鐵假期", checked: false },
+                    { id: 14, text: "飯店", checked: false }, *@
+                    @* { id: 15, text: "渡假村", checked: false },
+                    { id: 16, text: "民宿", checked: false },
+                    { id: 17, text: "景點門票", checked: false },
+                    { id: 18, text: "主題樂園", checked: false },
+                    { id: 19, text: "博物館 & 美術館", checked: false },
+                    { id: 20, text: "水族館 & 動物園", checked: false },
+                    { id: 21, text: "歷史景點", checked: false },
+                    { id: 22, text: "親子旅行", checked: false },
+                    { id: 23, text: "半 / 一日遊", checked: false },
+                    { id: 24, text: "多日遊", checked: false },
+                    { id: 25, text: "線上旅遊", checked: false },
+                    { id: 26, text: "單車旅遊", checked: false },
+                    { id: 27, text: "郵船觀光", checked: false },
+                    { id: 28, text: "郵輪假期", checked: false },
+                    { id: 29, text: "離島旅遊", checked: false },
+                    { id: 30, text: "台灣水上活動", checked: false },
+                    { id: 31, text: "冒險 & 極限運動", checked: false },
+                    { id: 32, text: "雪地活動", checked: false },
+                    { id: 33, text: "露營", checked: false },
+                    { id: 34, text: "遠足 & 登山", checked: false },
+                    { id: 35, text: "觀光農場", checked: false },
+                    { id: 36, text: "水上活動", checked: false },
+                    { id: 37, text: "高鐵假期", checked: false },
+                    { id: 38, text: "立榮假期", checked: false },
+                    { id: 39, text: "日本交通巴士", checked: false },
+                    { id: 40, text: "台灣租車自價", checked: false },
+                    { id: 41, text: "交通票卷", checked: false },
+                    { id: 42, text: "租車自駕", checked: false },
+                    { id: 43, text: "專車服務", checked: false },
+                    { id: 44, text: "機場接駁", checked: false },
+                    { id: 45, text: "Spa & 按摩", checked: false },
+                    { id: 46, text: "美容 & 沙龍", checked: false },
+                    { id: 47, text: "溫泉", checked: false },
+                    { id: 48, text: "伴手禮", checked: false },
+                    { id: 49, text: "運動賽事", checked: false },
+                    { id: 50, text: "娛樂表演", checked: false },
+                    { id: 51, text: "展覽", checked: false },
+                    { id: 52, text: "WiFi / SIM卡", checked: false },
+                    { id: 53, text: "質感手作", checked: false },
+                    { id: 54, text: "工作坊 & 課程", checked: false },
+                    { id: 55, text: "文化體驗", checked: false },
+                    { id: 56, text: "手作調料表", checked: false },
+                    { id: 57, text: "旅遊文件申請服務", checked: false },
+                    { id: 58, text: "行李運送 / 寄存服務", checked: false },
+                    { id: 59, text: "專業攝影服務", checked: false },
+                    { id: 60, text: "旅行裝備與相關服務", checked: false } *@
+                ],
+            },
+            //卡列表區
+            page: 1,
+            cardCount: 7991,
+            productCards: [
+                {
+                    //href: '',
+                    //path: '',
+                    //productName: '',
+                    //tagText: [],
+                    //cityName: '',
+                    //Price: '',
+                    productId: '1',
+                    href: '',
+                    path: '',
+                    productName: '',
+                    tagText: [],
+                    cityName: '',
+                    ratingStar: '',
+                    totalComment: '',
+                    //originalPrice:'',
+                    //unitPrice:'1',
+                    prices: {
+                        originalPrice: '',
+                        price: '',
+                    },
+                    favorite: false,
+                },
+                {
+                    productId: '1',
+                    href: '',
+                    path: '',
+                    productName: '',
+                    tagText: [],
+                    cityName: '',
+                    ratingStar: '',
+                    totalComment: '',
+                    prices: {
+                        originalPrice: '',
+                        unitPrice: '',
+                    },
+                    favorite: false
+                },
+            ]
+        },
+        mounted() {
+            let cityList = @Html.Raw(cityJson);
+            let categoryList = @Html.Raw(categoryJson);
+            //console.log(cityList)
+            //console.log(categoryList)
+
+            this.allFilter.cities = cityList.map(x => 
+                ({
+                    CityId:x.CityId,
+                    CityName:x.CityName,
+                    Checked:false,
+                })
+            )
+            this.allFilter.categories = categoryList
+            .map( x => {
+                //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
+                x.ChildCategory.forEach( child => child.Checked = false)
+
+                return x;
+            })
+
+            this.filterPost(1)
+
+
+            //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
+        },
+
+        methods: {
+            cancelAll(){
+                this.allFilter.cities.forEach( c=> c.Checked = false)
+                this.allFilter.categories.forEach( ca=> {
+                    ca.ChildCategory.forEach( child=> {child.Checked = false})
+                })
+                this.filterPost(1)
+            },
+            //pageRadio
+            cancel(target) {
+                console.log('取消',target)
+                target.Checked = false
+                this.filterPost(1)
+            },
+            async filterPost(page) {
+                //v 戴格停區
+                var dateRange = null
+                try {
+                    var dateSelectd_text = document.querySelectorAll("span.drp-selected")[1].innerText;//直接默認電腦
+                    if (dateSelectd_text == "")
+                        throw new Error();
+                    
+                    dateRange = dateSelectd_text.split(' - '); 
+                }
+                catch (err) {
+                    dateRange= null
+                }
+
+                //let dateRangeList = []
+                //dateRange.forEach(d => {
+                //    let data = d.substring(6, 10) + '-' + d.substring(0, 2) + '-' + d.substring(3, 5)
+                //    console.log(data)
+                //    dateRangeList.push(data)
+                //})
+                //^ 戴格停區
+
+                //var citiesChecked = document.querySelectorAll('input.city_PC:checked')
+                //var selfformchecked = document.querySelectorAll('input.selfform-check:checked')
+                //var citiescategorieschecked = document.querySelectorAll('input.selfform-city:checked')
+
+                fetch("/api/ClassifyApi/Classify", {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json;charset=utf-8',
+                    },
+                    body: JSON.stringify({
+                        @* cities: Array.from(citiesChecked).map(x => x.value),  *@
+                        cities: this.allFilter.cities.filter(x => x.Checked).map(x => x.CityId),
+                        categories: this.allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x)
+                            .filter(x => x.Checked).map(x => x.ProductCategoryId),
+                        dateRange : dateRange,
+                        @* categories: Array.from(selfformchecked).map(x => x.value), *@
+                        //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
+                        page: page,
+                    })
+                })
+                    .then(resp => resp.json())
+                    .then(JSobj => {
+                        console.log(JSobj)
+                        //重新處理DOM
+                        if (classifyCardVue.cardCount != JSobj.cardCount)
+                            classifyCardVue.cardCount = JSobj.cardCount
+                        //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
+                        classifyCardVue.page = page;
+
+                        classifyCardVue.productCards =
+                            JSobj.classifyCardList.map(x => {
+                                x.href = `/Product/ProductInfo/${x.productId}`
+                                return x;
+                            })
+                        document.querySelector('#destFilter').focus();
+                    })
+                @* OriginalPrice/Price *@
+                .then(() => {
+                    let OriginalPrice = document.querySelectorAll('.OriginalPrice')
+                    let Price = document.querySelectorAll('.Price')
+                    OriginalPrice.forEach((item, index) => {
+                        if (item.innerText === Price[index].innerText) {
+                            item.classList.add("d-none")
+                        }
+                    })
+                })
+
+                @* categories *@
+                    @* .then(() => {
+                                            $('.chip').remove();
+                                            $('.chip-clear').remove();
+                                            let selfform_city = document.querySelector('.selfform-city')
+                                            let outside = document.querySelector('.chip-group')
+                                            let filter = document.querySelectorAll('.filter')
+                                            let cityfilter = document.querySelectorAll('.cityfilter')
+                                            let citiescategories = Array.from(citiescategorieschecked).map(x => x.value)
+                                            let cities = Array.from(citiesChecked).map(x => x.value)
+
+                                            for (let i = 0; i < cities.length; i++) {
+                                            let area = document.createElement('span');
+                                            area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
+                                            let text = document.createElement('span');
+                                            text.innerHTML = cityfilter[i].innerText
+                                            let X = document.createElement('button');
+                                            X.setAttribute('class', 'btn-close');
+                                            X.setAttribute('aria-label', 'Close');
+                                            //
+                                            //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
+                                            //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
+                                            //
+                                            area.append(text);
+                                            area.append(X);
+                                            outside.append(area);
+                                            }
+
+                                            if (cities.length >= 1) {
+                                            $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
+                                            let span = document.querySelectorAll(".chip")
+                                            let closebtn = document.querySelectorAll(".chip .btn-close")
+                                            closebtn.forEach((item, index) => {
+                                            item.addEventListener("click", function (event) {
+                                            span[index].remove()
+                                            })
+                                            })
+                                            let chip_clear = document.querySelector(".chip-clear")
+                                            chip_clear.addEventListener("click", () => {
+                                            window.location.reload()
+                                            })
+                                            }
+
+                                            }) *@
+
+                @* let btn_clean_destination = document.querySelector(".btn-clean-destination")
+                btn_clean_destination.addEventListener("click", () => {
+                    for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
+                        document.querySelectorAll('.city_PC')[i].checked = false
+                    } 
+                })*@
+                //全選
+                //let allform_check = document.querySelector(".allform-check")
+                //let selfform_check = document.querySelector(".selfform-check")
+                //    allform_check.addEventListener("click",()=>{
+                //            for (let i = 0; i < document.querySelectorAll('.selfform-check').length; i++) {
+                //                document.querySelectorAll('.selfform-check')[i].checked = true
+                //                }
+                //        }
+                //    )
+
+                //let btn_finish = document.querySelector(".btn-finish-destination")
+                //    btn_finish.addEventListener("click",()=>{
+                //            for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
+                //                document.querySelectorAll('.city_PC')[i].checked = true
+                //                }
+                //    }
+                //)
+
+                //let selfform_check_label = document.querySelector(".self-form-check-label").innerText
+                //let chip = document.querySelector(".chip").innerText
+                //    selfform_check_label.addEventListener("click",()=>{
+                //        if (selfform_check_label == true) {//按鈕已選中
+                //            chip.style.backgroundColor = "red";
+                //            chip.removeAttribute("disabled");//移除disabled
+                //        }
+                //        else {
+                //            chip.disadled = "disabled";
+                //        }
+                //    })
+
+                //function show() {
+                //    obj = document.getElementsByName("checkboxs");
+                //    chipname =document.querySelector(".chipname")
+                //    check_value = [];
+                //        for (i in obj) {
+                //            if (obj[i].checked) {
+                //                chipname.style.backgroundColor = "red";
+                //                chipname.removeAttribute("disabled");//移除disabled
+
+                //                    check_value.push(obj[i].value);
+                //            }
+                //            else {
+                //                chipname.disadled = "disabled";
+                //            }
+                //        }
+                //        //show.check_value
+                //        alert(check_value);
+                //}
+
+            }
+
+        },
+    })
+    </script>
   }

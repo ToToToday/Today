@@ -8,9 +8,13 @@ namespace Today.Web.Services.ClassifyService
 {
     public interface IClassifyService
     {
+        //CityinputResponseDTO CityInput(CityinputRequestDTO search);
+
         ClassifyDTO GetClassifyPages(ClassifyRequestDTO categoryId);
 
         ClassifyDTO GetClassifyMatchedProducts(FilterDTO input);
+        //List<ClassifyDTO.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product);
+        //ClassifyDTO AddClassifyCardToResult();
 
     }
 }
