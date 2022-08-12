@@ -112,7 +112,8 @@ namespace Today.Web.Services.AccountService
 
             result.IsSuccess = true;
 
-            LoginInByMember(memberFound);
+            //LoginInByMember(memberFound);  //原本這樣
+            _ = LoginInByMember(memberFound);
 
             return result;
         }
@@ -222,8 +223,10 @@ namespace Today.Web.Services.AccountService
             await _httpContextAccessor.HttpContext.SignInAsync(
                 //CookieAuthenticationDefaults.AuthenticationScheme,
                 claimsPrincipal,
-                authProperties
-            );
+                authProperties);
+
+            //HttpContext在controller可直接存取。
+            //如果在service層，會需要注入HttpContextAccessor(存取者)才能存取HttpContext
         }
 
         //登出
@@ -233,7 +236,6 @@ namespace Today.Web.Services.AccountService
             _httpContextAccessor.
                 HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
-
 
         public bool IsAuthenticated() //判斷是否登入至網站
         {
