@@ -31,9 +31,11 @@ body {
     outline: 0;
 }
 .form-check {
-    /* margin: 0 20px;
-    padding: 10px 20px; */
     border-bottom: 1px solid #eee;
+}
+.city_PC:checked, .selfform-city:checked {
+    background-color: #26bec9;
+    border-color: #26bec9;
 }
 
 .form-check-input {
@@ -79,10 +81,10 @@ h2 {
     color: dimgray;
 }
 
-    .btn-white:hover {
-        color: #26bec9;
-        border: 1px solid #26bec9;
-    }
+.btn-white:hover {
+    color: #26bec9;
+    border: 1px solid #26bec9;
+}
 
 .chip-clear {
     background-color: #999;
@@ -99,24 +101,29 @@ h2 {
     background-color: #666;
     border: 1px solid #666;
     padding: 10px;
-    /*margin: 0px 5px 15px;*/
 }
 
 
 span.sort:hover {
     color: #26bec9;
 }
+.swiper-slide .fa-regular.fa-heart:hover {
+    color: #f00;
+}
 
+.swiper-slide .fa-solid.fa-heart {
+    color: #ff0000;
+}
+
+.row-card .fa-heart {
+    top: 10%;
+    right: 5%;
+    cursor: pointer;
+}
 .sidebar {
     border-bottom: 1px solid #D6D6D6;
     border-top: 1px solid #D6D6D6;
 }
-
-/* #offcanvas-bottom {
-    height: 18rem;
-} */
-
-
 
 @media screen and (max-width: 991px) {
     .col-lg-9 {
@@ -141,9 +148,6 @@ span.sort:hover {
         height: 70%;
     }
 
-/*    #moreconditions {
-        height: 38rem;
-    }*/
     #moreconditions {
         height: 70%;
     }
@@ -269,24 +273,30 @@ p .card-text {
 .fa-location-dot {
     color: #cccccc;
 }
-
-/*.accordion-item .fa-calendar {
-    box-shadow: none;
+input:focus::-webkit-input-placeholder {
+    color: transparent;
 }
-*/
+
 .card_detail {
     position: relative;
     opacity: 1.0;
     filter: alpha(opacity=100);
     background-color: #fff;
 }
-
+span.heart {
+    top: 9%;
+    right: 3%;
+    cursor: pointer;
+}
+/*.fa-magnifying-glass-pc, #destFilter {
+    border: transparent;
+    color: #fff;
+}*/
+/*
     .card_detail:hover {
         opacity: 0.5;
         filter: alpha(opacity=50);
-    }
-
-
+    }*/
 h5 .card-title_group {
     font-weight: 400;
 }
@@ -322,18 +332,10 @@ h5 .card-title_group {
     color: #f00;
 }
 
-/*.card_detail .fa-heart:hover {
-    transform: scale(1.5);
-    color: red;
-    -webkit-text-stroke: 1px red;
-}
-*/
 .card_detail .fa-heart {
     position: absolute;
     right: 8%;
     top: 6%;
-   /* color: transparent;
-    -webkit-text-stroke: 2px #ccc;*/
 }
 .card_detail .card-title{
     width: 90%;
@@ -397,7 +399,5 @@ h5 .card-title_group {
         position: absolute;
         right: 3%;
         top: 10%;
-        /* color: transparent;
-    -webkit-text-stroke: 2px #ccc;*/
     }
 }

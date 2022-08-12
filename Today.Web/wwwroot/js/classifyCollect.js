@@ -20,7 +20,7 @@ window.onload = function() {
             fetch(url, {
                 method: 'post',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'; charset=utf - 8',
                 },
                 body: JSON.stringify({
                     ProductId: carda[index].href.substring(carda[index].href.lastIndexOf('/') + 1, carda[index].href.length),

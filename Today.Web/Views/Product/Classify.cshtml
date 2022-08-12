@@ -46,7 +46,7 @@
                                 台灣
                             </h2>
                         </div>
-                        <!-- checkbox內文 --> 000
+                        <!-- checkbox內文 --> 
                         <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body-input m-2">
@@ -213,6 +213,8 @@
                         <h4>篩選目的地</h4>
                     </div>
                     <div class="input-group d-flex pt-1 pb-2 ps-2">
+                        @*<div class="input-group-text fa-solid fa-magnifying-glass border-end-0 bg-white ms-1"></div>
+                        <input id="destFilter" name="searchword"class="form-control search border-start-0 me-4 shadow-none" type="text">*@
                         <div class="input-group-text fa-solid fa-magnifying-glass border-end-0 bg-white ms-1"></div>
                         <input id="destFilter" name="searchword"class="form-control search border-start-0 me-4 shadow-none" type="text"placeholder="搜尋目的地">
                     </div>
@@ -307,12 +309,12 @@
                                     <span v-for="(city,idx) in allFilter.cities.filter(x => x.Checked)"
                                         class="rounded-pill border border-secondary d-flex align-items-center">
                                         <span class="" >{{city.CityName}}</span>
-                                        <button v-on:click="cancel(city)" type="button" class="btn-close" aria-label="Close"></button>
+                                        <button v-on:click="cancel(city)" type="button" class="btn-close shadow-none" aria-label="Close"></button>
                                     </span>
                                     <span v-for="(childCategory,idx) in allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x).filter(x => x.Checked)"
                                         class="rounded-pill border border-secondary d-flex align-items-center">
                                         <span class="">{{childCategory.CategoryName}}</span>
-                                        <button v-on:click="cancel(childCategory)" type="button" class="btn-close" aria-label="Close"></button>
+                                        <button v-on:click="cancel(childCategory)" type="button" class="btn-close shadow-none" aria-label="Close"></button>
                                     </span>
                                     <span v-if="allFilter.cities.some(x=> x.Checked)||allFilter.categories.some(ca=> ca.ChildCategory.some(x=> x.Checked))"class="chip-clear rounded-pill d-flex align-items-center ">
                                         <a href="#" class="a text-decoration-none text-light" v-on:click="cancelAll()">清除所有</a>
@@ -360,6 +362,9 @@
                                 <div class="col-md-4 ">
                                     <div class="pic h-100">
                                         <img class="img-fluid w-100 h-100 m-auto" :src="item.path">
+                                        <span class="heart position-absolute text-white">
+                                            <i class="fa-regular fa-heart"></i>
+                                            </span>
                                     </div>
                                 </div>
                                 <div class="col-md-8 rounded-3 ">
@@ -382,6 +387,7 @@
                                         </div>
                                         <div class="footer d-flex flex-wrap">
                                             <div class="product_footer m-auto col-8 mt-3">
+                                                @*@{var roomStar = Math.Round(Model.RatingStar, 1); }*@
                                                 <i class="fa-solid fa-star"></i>{{item.ratingStar}}
                                                 <span class="number">{{(item.totalComment)}}</span>
                                                 <span class="span_divider mx-1"> | </span>
@@ -405,14 +411,14 @@
                 <!-- 頁數切換 -->
                 <div class=" page btn-group d-flex " role="group" aria-label="Basic radio toggle button group">
                     <div v-for="(x,i) in Math.ceil(cardCount/10)">
-                        <label v-if="x == page" class="click_num btn me-2" style="border: 1px solid #ccc; background-color: #26bec9;">
+                        <label v-if="x == page" class="click_num btn me-2" style="color:#fff; background-color: #26bec9;">
                             <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" checked>{{x}}
                         </label>
-                        <label v-else class="click_num btn me-2 ">
+                        <label v-else class="click_num btn me-2" style="color:#999; background-color:#fff; border:1px solid #eee;">
                             <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" v-on:change='filterPost(x)'>{{x}}
                         </label>
                     </div>
-                </div>
+                </div>    
             </div>
         </div>
     </section>
@@ -430,18 +436,19 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="~/js/calendar.js"></script>
-@*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
+<script src="~/js/classifyCollect.js"></script>
 <script src="~/js/date.js"></script>
+@*<script src="~/js/ClassifyVue.js"></script>*@
 
 @*vue*@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
 @*<script src="https://unpkg.com/vue@next"></script>*@
 
 <script>
-    function filterGet() {
-        const request = new Request("/api/ClassifyApi/Classify");
-        fetch(request)
-    }
+    //function filterGet() {
+    //    const request = new Request("/api/ClassifyApi/Classify");
+    //    fetch(request)
+    //}
 
     //function makePill(cityInput) { //參數area , targetInput
     //    //create
@@ -460,7 +467,6 @@
     //}
 </script>
 
-
 <script>
     const classifyCardVue = new Vue({
         // 掛載位置
@@ -472,28 +478,6 @@
                 cities: [
                     { CityId: 1, CityName: '基隆', checked: false },
                     { CityId: 2, CityName: '新北', checked: false },
-                    //{ CityId: 3, CityName: '台北', checked: false },
-                    //{ CityId: 4, CityName: '桃園', checked: false },
-                    //{ CityId: 5, CityName: '新竹', checked: false },
-                    //{ CityId: 6, CityName: '苗栗', checked: false },
-                    //{ CityId: 7, CityName: '台中', checked: false },
-                    //{ CityId: 8, CityName: '彰化', checked: false },
-                    //{ CityId: 9, CityName: '南投', checked: false },
-                    //{ CityId: 10,CityName: '雲林', checked: false },
-                    //{ CityId: 11,CityName: '嘉義', checked: false },
-                    //{ CityId: 12,CityName: '台南', checked: false },
-                    //{ CityId: 13,CityName: '高雄', checked: false },
-                    //{ CityId: 14,CityName: '墾丁', checked: false },
-                    //{ CityId: 15,CityName: '屏東', checked: false },
-                    //{ CityId: 16,CityName: '台東', checked: false },
-                    //{ CityId: 17,CityName: '花蓮', checked: false },
-                    //{ CityId: 18,CityName: '宜蘭', checked: false },
-                    //{ CityId: 19,CityName: '綠島', checked: false },
-                    //{ CityId: 20,CityName: '蘭嶼', checked: false },
-                    //{ CityId: 21,CityName: '小琉球', checked: false },
-                    //{ CityId: 22,CityName: '澎湖', checked: false },
-                    //{ CityId: 23,CityName: '金門', checked: false },
-                    //{ CityId: 24,CityName: '馬祖', checked: false },
                 ],
                 categories: [
                     {
@@ -512,54 +496,6 @@
                             },
                         ]
                     },
-                    @* { id: 13, text: "高鐵假期", checked: false },
-                    { id: 14, text: "飯店", checked: false }, *@
-                    @* { id: 15, text: "渡假村", checked: false },
-                    { id: 16, text: "民宿", checked: false },
-                    { id: 17, text: "景點門票", checked: false },
-                    { id: 18, text: "主題樂園", checked: false },
-                    { id: 19, text: "博物館 & 美術館", checked: false },
-                    { id: 20, text: "水族館 & 動物園", checked: false },
-                    { id: 21, text: "歷史景點", checked: false },
-                    { id: 22, text: "親子旅行", checked: false },
-                    { id: 23, text: "半 / 一日遊", checked: false },
-                    { id: 24, text: "多日遊", checked: false },
-                    { id: 25, text: "線上旅遊", checked: false },
-                    { id: 26, text: "單車旅遊", checked: false },
-                    { id: 27, text: "郵船觀光", checked: false },
-                    { id: 28, text: "郵輪假期", checked: false },
-                    { id: 29, text: "離島旅遊", checked: false },
-                    { id: 30, text: "台灣水上活動", checked: false },
-                    { id: 31, text: "冒險 & 極限運動", checked: false },
-                    { id: 32, text: "雪地活動", checked: false },
-                    { id: 33, text: "露營", checked: false },
-                    { id: 34, text: "遠足 & 登山", checked: false },
-                    { id: 35, text: "觀光農場", checked: false },
-                    { id: 36, text: "水上活動", checked: false },
-                    { id: 37, text: "高鐵假期", checked: false },
-                    { id: 38, text: "立榮假期", checked: false },
-                    { id: 39, text: "日本交通巴士", checked: false },
-                    { id: 40, text: "台灣租車自價", checked: false },
-                    { id: 41, text: "交通票卷", checked: false },
-                    { id: 42, text: "租車自駕", checked: false },
-                    { id: 43, text: "專車服務", checked: false },
-                    { id: 44, text: "機場接駁", checked: false },
-                    { id: 45, text: "Spa & 按摩", checked: false },
-                    { id: 46, text: "美容 & 沙龍", checked: false },
-                    { id: 47, text: "溫泉", checked: false },
-                    { id: 48, text: "伴手禮", checked: false },
-                    { id: 49, text: "運動賽事", checked: false },
-                    { id: 50, text: "娛樂表演", checked: false },
-                    { id: 51, text: "展覽", checked: false },
-                    { id: 52, text: "WiFi / SIM卡", checked: false },
-                    { id: 53, text: "質感手作", checked: false },
-                    { id: 54, text: "工作坊 & 課程", checked: false },
-                    { id: 55, text: "文化體驗", checked: false },
-                    { id: 56, text: "手作調料表", checked: false },
-                    { id: 57, text: "旅遊文件申請服務", checked: false },
-                    { id: 58, text: "行李運送 / 寄存服務", checked: false },
-                    { id: 59, text: "專業攝影服務", checked: false },
-                    { id: 60, text: "旅行裝備與相關服務", checked: false } *@
                 ],
             },
             //卡列表區
@@ -567,12 +503,6 @@
             cardCount: 7991,
             productCards: [
                 {
-                    //href: '',
-                    //path: '',
-                    //productName: '',
-                    //tagText: [],
-                    //cityName: '',
-                    //Price: '',
                     productId: '1',
                     href: '',
                     path: '',
@@ -581,8 +511,6 @@
                     cityName: '',
                     ratingStar: '',
                     totalComment: '',
-                    //originalPrice:'',
-                    //unitPrice:'1',
                     prices: {
                         originalPrice: '',
                         price: '',
@@ -645,10 +573,6 @@
                 this.filterPost(1)
             },
             async filterPost(page) {
-                //var citiesChecked = document.querySelectorAll('input.city_PC:checked')
-                //var selfformchecked = document.querySelectorAll('input.selfform-check:checked')
-                //var citiescategorieschecked = document.querySelectorAll('input.selfform-city:checked')
-
                 fetch("/api/ClassifyApi/Classify", {
                     method: 'post',
                     headers: {
@@ -691,113 +615,8 @@
                         }
                     })
                 })
-
-                @* categories *@
-                    @* .then(() => {
-                        $('.chip').remove();
-                        $('.chip-clear').remove();
-                        let selfform_city = document.querySelector('.selfform-city')
-                        let outside = document.querySelector('.chip-group')
-                        let filter = document.querySelectorAll('.filter')
-                        let cityfilter = document.querySelectorAll('.cityfilter')
-                        let citiescategories = Array.from(citiescategorieschecked).map(x => x.value)
-                        let cities = Array.from(citiesChecked).map(x => x.value)
-
-                        for (let i = 0; i < cities.length; i++) {
-                        let area = document.createElement('span');
-                        area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
-                        let text = document.createElement('span');
-                        text.innerHTML = cityfilter[i].innerText
-                        let X = document.createElement('button');
-                        X.setAttribute('class', 'btn-close');
-                        X.setAttribute('aria-label', 'Close');
-                        //
-                        //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                        //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                        //
-                        area.append(text);
-                        area.append(X);
-                        outside.append(area);
-                        }
-
-                        if (cities.length >= 1) {
-                        $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
-                        let span = document.querySelectorAll(".chip")
-                        let closebtn = document.querySelectorAll(".chip .btn-close")
-                        closebtn.forEach((item, index) => {
-                        item.addEventListener("click", function (event) {
-                        span[index].remove()
-                        })
-                        })
-                        let chip_clear = document.querySelector(".chip-clear")
-                        chip_clear.addEventListener("click", () => {
-                        window.location.reload()
-                        })
-                        }
-
-                        }) *@
-
-                @* let btn_clean_destination = document.querySelector(".btn-clean-destination")
-                btn_clean_destination.addEventListener("click", () => {
-                    for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
-                        document.querySelectorAll('.city_PC')[i].checked = false
-                    } 
-                })*@
-                //全選
-                //let allform_check = document.querySelector(".allform-check")
-                //let selfform_check = document.querySelector(".selfform-check")
-                //    allform_check.addEventListener("click",()=>{
-                //            for (let i = 0; i < document.querySelectorAll('.selfform-check').length; i++) {
-                //                document.querySelectorAll('.selfform-check')[i].checked = true
-                //                }
-                //        }
-                //    )
-
-                //let btn_finish = document.querySelector(".btn-finish-destination")
-                //    btn_finish.addEventListener("click",()=>{
-                //            for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
-                //                document.querySelectorAll('.city_PC')[i].checked = true
-                //                }
-                //    }
-                //)
-
-                //let selfform_check_label = document.querySelector(".self-form-check-label").innerText
-                //let chip = document.querySelector(".chip").innerText
-                //    selfform_check_label.addEventListener("click",()=>{
-                //        if (selfform_check_label == true) {//按鈕已選中
-                //            chip.style.backgroundColor = "red";
-                //            chip.removeAttribute("disabled");//移除disabled
-                //        }
-                //        else {
-                //            chip.disadled = "disabled";
-                //        }
-                //    })
-
-                //function show() {
-                //    obj = document.getElementsByName("checkboxs");
-                //    chipname =document.querySelector(".chipname")
-                //    check_value = [];
-                //        for (i in obj) {
-                //            if (obj[i].checked) {
-                //                chipname.style.backgroundColor = "red";
-                //                chipname.removeAttribute("disabled");//移除disabled
-
-                //                    check_value.push(obj[i].value);
-                //            }
-                //            else {
-                //                chipname.disadled = "disabled";
-                //            }
-                //        }
-                //        //show.check_value
-                //        alert(check_value);
-                //}
-
             }
-
         },
     })
 </script>
-
-
-
 }
