@@ -18,7 +18,6 @@
     "Today.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Product/Classify",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
