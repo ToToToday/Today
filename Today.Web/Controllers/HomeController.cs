@@ -34,15 +34,7 @@ namespace Today.Web.Controllers
         {
             TempData["SearchMessage"] = string.Empty;
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            //TempData["UserName"] = string.Empty;
-            //if (userId != 0)
-            //{
-            //    var request = new MemberDTO.MemberRequestDTO()
-            //    {
-            //        MemberId = int.Parse(User.Identity.Name)
-            //    };
-            //    TempData["UserName"] = _memberService.GetMemberName(request);
-            //}
+
             var homeproductSource = _productService.GetAllProductCard(userId);
             var citySource = _productService.PopularCityCard().CityList;
             var categorySource = homeproductSource.CategoryList;

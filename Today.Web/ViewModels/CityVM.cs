@@ -5,7 +5,7 @@ using Today.Model.Models;
 namespace Today.Web.ViewModels
 {
    
-    public class CityVM
+    public class CityVM : LocationVM
     {
         public int CityID { get; set; } 
         public string CityName { get; set; } 

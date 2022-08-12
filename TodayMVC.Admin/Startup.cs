@@ -13,6 +13,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
+using TodayMVC.Admin.Repositories;
+using TodayMVC.Admin.Repositories.DapperMemberRepositories;
+using TodayMVC.Admin.Services.MemberService;
 
 namespace TodayMVC.Admin
 {
@@ -45,6 +48,11 @@ namespace TodayMVC.Admin
                 conn.ConnectionString = Configuration.GetConnectionString("TodayDB");
                 return conn;
             });
+
+            services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
+            services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
+            services.AddTransient<IMemberService, MemberService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
