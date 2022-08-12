@@ -114,14 +114,13 @@ namespace Today.Web.Controllers
                             Inciudetext = pi.Inciudetext,
                             IsInclude = pi.IsInclude,
                         }).ToList(),
-                        ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
-                        {
-                            Date = p.Date,
-                            ScreenId = p.ScreenId,
-                            SpecificationId = p.SpecificationId,
-                            Status = p.Status
-                        }).ToList()
-                        ,
+                        //ScreeningList = p.ScreeningList.Select(p => new ProductInfoVM.Screening
+                        //{
+                        //    Date = p.Date,
+                        //    ScreenId = p.ScreenId,
+                        //    SpecificationId = p.SpecificationId,
+                        //    Status = p.Status
+                        //}).ToList(),
                         ProgramSpecificationList = p.ProgramSpecificationList.Select(pgsc =>
                             new ProductInfoVM.ProgramSpecification
                             {
@@ -139,8 +138,9 @@ namespace Today.Web.Controllers
 
 
 
-                return View(productinfo);
-
+                
+               return View(productinfo);
+                
 
 
             }
