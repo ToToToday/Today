@@ -523,7 +523,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="~/js/calendar.js"></script>
 @*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
-<script src="~/js/date.js"></script>
+<script src="~/js/datePicker.js"></script>
 
 @*vue*@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
@@ -534,6 +534,7 @@
         const request = new Request("/api/ClassifyApi/Classify");
         fetch(request)
     }
+
     @* let p = document.querySelectorAll(".click_num")
     for (let i = 0; i < p.length; i++) {
         p[i].addEventListener("click", function () {
@@ -748,6 +749,27 @@
                 this.filterPost(1)
             },
             async filterPost(page) {
+                //v 戴格停區
+                var dateRange = null
+                try {
+                    var dateSelectd_text = document.querySelectorAll("span.drp-selected")[1].innerText;//直接默認電腦
+                    if (dateSelectd_text == "")
+                        throw new Error();
+                    
+                    dateRange = dateSelectd_text.split(' - '); 
+                }
+                catch (err) {
+                    dateRange= null
+                }
+
+                //let dateRangeList = []
+                //dateRange.forEach(d => {
+                //    let data = d.substring(6, 10) + '-' + d.substring(0, 2) + '-' + d.substring(3, 5)
+                //    console.log(data)
+                //    dateRangeList.push(data)
+                //})
+                //^ 戴格停區
+
                 //var citiesChecked = document.querySelectorAll('input.city_PC:checked')
                 //var selfformchecked = document.querySelectorAll('input.selfform-check:checked')
                 //var citiescategorieschecked = document.querySelectorAll('input.selfform-city:checked')
@@ -758,11 +780,11 @@
                         'content-type': 'application/json;charset=utf-8',
                     },
                     body: JSON.stringify({
-                        @* cities: Array.from(citiesChecked).map(x => x.value),  *@
+                        @* cities: Array.from(citiesChecked).map(x => x.value), *@
                         cities: this.allFilter.cities.filter(x => x.Checked).map(x => x.CityId),
                         categories: this.allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x)
                             .filter(x => x.Checked).map(x => x.ProductCategoryId),
-
+                        dateRange : dateRange,
                         @* categories: Array.from(selfformchecked).map(x => x.value), *@
                         //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
                         page: page,

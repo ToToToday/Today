@@ -71,52 +71,54 @@
             });
 
             //$(".drp-buttons>.applyBtn").on('click', () => {PostDate}); 
-            document.querySelectorAll(".drp-buttons>.applyBtn").forEach( (Applybtn,i)=>
-    {
-        Applybtn.addEventListener('click', () => {
-            var drap_select = document.querySelectorAll("span.drp-selected");
-            var splitDate = drap_select[i].innerText.split(' - ');
-            PostDate(splitDate);
-            UrlSearch(splitDate, 0);
-        })
-    });
+        document.querySelectorAll(".drp-buttons>.applyBtn").forEach( (Applybtn,i)=>
+        {
+            Applybtn.addEventListener('click', () => {
+                classifyCardVue.filterPost(1);
+
+                //var drap_select = document.querySelectorAll("span.drp-selected");
+                //var dateRange = drap_select[i].innerText.split(' - ');
+                //PostDate(dateRange);
+
+                //UrlSearch(splitDate, 0);
+            })
+        });
             document.querySelectorAll('.cancelBtn').forEach( item =>{
-        item.addEventListener('click', () => {
-            item.value = "篩選出發日期";
-            startDate = startMonth + '/' + startDay + '/' + startYear;
-            endDate = startMonth + '/' + startDay + '/' + startYear;
-            DownUrl(0);
-        })
-    })
+                item.addEventListener('click', () => {
+                    item.value = "篩選出發日期";
+                    startDate = startMonth + '/' + startDay + '/' + startYear;
+                    endDate = startMonth + '/' + startDay + '/' + startYear;
+ /*                   DownUrl(0);*/
+                })
+            })
         });
     function PostDate(dateRange)
     {
         let dateRangeList = []
-            dateRange.forEach(d =>{
-        let data =  d.substring(6,10) + '-' +  d.substring(0,2) + '-' +d.substring(3, 5)
-    console.log(data)
-    dateRangeList.push(data)
-            })
+        dateRange.forEach(d =>{
+            let data =  d.substring(6,10) + '-' +  d.substring(0,2) + '-' +d.substring(3, 5)
+            console.log(data)
+            dateRangeList.push(data)
+        })
 
-    fetch("/api/apiDate/Date", {
-        method: 'POST',
-    headers: {'Content-Type': 'application/json;charset=utf-8' },
-    //body 轉json
-    body: JSON.stringify({
-        dateRange : dateRange,
-                })
+        fetch("/api/apiDate/Date", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json;charset=utf-8' },
+            //body 轉json
+            body: JSON.stringify({
+                dateRange : dateRange,
             })
-
-            .then((response) => {
-                if (response.status == 200) {
-        console.log("成功");
-    return response.json();
+        })
+        .then((response) => {
+            if (response.status == 200) {
+                console.log("成功");
+                return response.json();
                 }
             })
 
-            .catch((error) => {
-        console.log("失敗")
-    })
+        .catch((error) => {
+            console.log("失敗")
+        })
 
-        }
+    }
 

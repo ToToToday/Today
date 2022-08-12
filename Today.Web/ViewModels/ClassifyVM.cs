@@ -27,9 +27,10 @@ namespace Today.Web.ViewModels
             public string CityName { get; set; }
             public bool IsIsland { get; set; }
             public decimal UnitPrice { get; set; }
-            public int RatingStar { get; set; }
+            
             public int TotalComment { get; set; }
             public int TotalOrder { get; set; }
+            
             public PriceInfo Prices { get; set; }
             public class PriceInfo
             {
@@ -56,12 +57,13 @@ namespace Today.Web.ViewModels
         {
             public int ProductId { get; set; }
         }
-
+        public class CityFilter
         {
             public int CityId { get; set; }
             public string CityName { get; set; }
 
         }
+
 
     }
 }

@@ -45,6 +45,7 @@ namespace Today.Web.ViewModels
             public int TotalOrder { get; set; }
             public decimal? OriginalPrice { get; set; }
             public decimal? Price { get; set; }
+            public bool Favorite { get; set; }
         }
     }
 

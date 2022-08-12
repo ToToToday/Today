@@ -41,6 +41,7 @@ namespace Today.Web.DTOModels.locationDTO
             public RatingInfo Rating { get; set; }
             public int TotalOrder { get; set; }
             public PriceInfo Prices { get; set; }
+            public bool Favorite { get; set; }
         }
 
         public class CityLocationInfo

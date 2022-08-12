@@ -116,7 +116,7 @@ namespace Today.Web.Services.locationService
             var commentList = _repo.GetAll<Model.Models.Comment>();
             var orderDetailList = _repo.GetAll<OrderDetail>();
             var mainCategoryList = categoryList.Where(category => category.ParentCategoryId == null);
-
+            var categoryListGroup = categoryList.Where(category => category.ParentCategoryId != null).ToList().GroupBy(category => category.ParentCategoryId);
 
             result = new LocationDTO()
             {
