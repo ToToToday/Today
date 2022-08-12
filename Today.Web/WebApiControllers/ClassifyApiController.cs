@@ -31,6 +31,9 @@ namespace Today.Web.WebApiControllers
         {
             public List<int> Cities { get; set; }
             public List<int> Categories { get; set; }
+
+            public List<string> DateRange { get; set; }
+
             public int Page { get; set; }
 
         }
@@ -87,6 +90,7 @@ namespace Today.Web.WebApiControllers
                 //c.Categories.Select(x=> new FilterDTO.CategoryFilter { CategoryId = x}).ToList(),
                 CityFilterList = c.Cities,
                 //c.Cities.Select(x => new FilterDTO.CityFilter { CityId = x}).ToList(),
+                DateRange = c.DateRange,
                 Page = c.Page,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
         };

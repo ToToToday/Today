@@ -17,12 +17,20 @@ namespace Today.Web.ViewModels
             public string ProductName { get; set; }
             public bool Favorite { get; set; }
             public string Path { get; set; }
-            public int CityId { get; set; }
-            public string CityName { get; set; }
+
+
             public List<string> TagText { get; set; }
             public float RatingStar { get; set; }
+
+
+            public int CityId { get; set; }
+            public string CityName { get; set; }
+            public bool IsIsland { get; set; }
+            public decimal UnitPrice { get; set; }
+            
             public int TotalComment { get; set; }
             public int TotalOrder { get; set; }
+            
             public PriceInfo Prices { get; set; }
             public class PriceInfo
             {
@@ -55,6 +63,8 @@ namespace Today.Web.ViewModels
             public string CityName { get; set; }
 
         }
+
+
     }
 }
 

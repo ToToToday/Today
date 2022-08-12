@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Today.Model.Models;
 
 namespace Today.Web.DTOModels.ClassifyDTO
 {
@@ -9,11 +10,15 @@ namespace Today.Web.DTOModels.ClassifyDTO
         public List<ViewModels.ClassifyVM.ClassifyCardInfo> ClassifyCardList { get; set; }
         public int CardCount { get; set; }
         public List<CategoryDestinations> CategoryList { get; set; }
+
+        public List<ProgramCantUseDate> DateCantbeUseList { get; set; }
+
         public class ClassifyRequestDTO
         {
             public int CategoryId { get; set; }
             public int Page { get; set; }
             public int MemberId { get; set; }
+            public List<string> RealDate { get; internal set; }
         }
 
 
@@ -23,6 +28,7 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int ProductId { get; set; }
             public string ProductName { get; set; }
             public bool Favorite { get; set; }
+            public bool IsIsland { get; set; }
             public string Path { get; set; }
             public int CityId { get; set; }
             public string CityName { get; set; }
@@ -36,13 +42,15 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int ProductCategoryId { get; set; }
             public string CategoryName { get; set; }
             public List<CategoryDestinations> ChildCategory { get; set; }
-
         }
+
     }
     public class FilterDTO
     {
         public List<int> CategoryFilterList { get; set; }
         public List<int> CityFilterList { get; set; }
+        public List<string> DateRange { get; set; }
+
         public int Page { get; set; }
         public int MemberId { get; set; }
 

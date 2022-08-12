@@ -47,6 +47,8 @@ namespace Today.Web.Services.ClassifyService
                 );
             };
 
+            //result.DateCantbeUseList = this.NewMethod(input.DateRange);
+
             result.CardCount = productList.Count();
             result.ClassifyCardList = AddClassifyCardToResult(productList
                 .Skip(10 * (input.Page - 1))
@@ -86,6 +88,8 @@ namespace Today.Web.Services.ClassifyService
             }
             return result;
         }
+
+
         public ClassifyDTO GetClassifyMatchedProducts(FilterDTO input)
         {
             var result = new ClassifyDTO() { };
@@ -106,8 +110,22 @@ namespace Today.Web.Services.ClassifyService
                 );
             }
 
-            result.CardCount = productList.Count();
-            result.ClassifyCardList = AddClassifyCardToResult(productList
+            IEnumerable<Product> a = productList;
+            //v 格停 日期篩
+            if (input.DateRange !=null) //string.IsNullOrEmpty()
+            {
+                var dateS = DateTime.Parse(input.DateRange[0]);
+                var dateE = DateTime.Parse(input.DateRange[1]).AddDays(1);
+
+
+                //產品任何一個方案 在篩選日期範圍內 就保留
+                a = productList.ToList().Where(p => this.CheckProductCanUse(dateS , dateE , p) );
+
+            }
+            //^ 格停 日期篩
+
+            result.CardCount = a.Count();
+            result.ClassifyCardList = AddClassifyCardToResult(a
                 .Skip(10 * (input.Page - 1))
                 .Take(10)
                 .ToList()
@@ -116,6 +134,73 @@ namespace Today.Web.Services.ClassifyService
             return result;
         }
 
+
+        //每個方案 => 完全不可用? 
+        // 方案有禁用日期
+        //不可用的定義 = 範圍內完全都是禁的
+
+        private bool CheckProductCanUse(DateTime dateStart, DateTime dateEnd, Product p)
+        {
+            var ProgramList = _repo.GetAll<Today.Model.Models.Program>()
+                .Where(pg => pg.ProductId == p.ProductId)
+                .ToList()
+                ;
+
+            var AllNotbeuse = _repo.GetAll<ProgramCantUseDate>().ToList();
+            //只考慮範圍內、和這些方案有關的 禁用日期
+            var ProgramCantUseDate = AllNotbeuse
+                .Where(x =>
+                    x.Date >= DateTime.UtcNow && x.Date >= dateStart && x.Date < dateEnd
+                    && ProgramList.Any(pg => pg.ProgramId == x.ProgramId)
+                )
+                .ToList();
+
+
+            foreach( var pg in ProgramList)
+            {
+                var programnot = ProgramCantUseDate.Where(X => X.ProgramId == pg.ProgramId).ToList();
+                if(  programnot.Count ==0 ) return true;
+
+                //只要有個方案 有一天 沒被禁 就是可以
+                bool 可不可以 = programnot
+                    .Any(x =>
+                    {
+                        for (var dt = dateStart; dt < dateEnd; dt = dt.AddDays(1))
+                        {
+                            if (dt != x.Date)
+                                return true;
+                        };
+                        return false;
+                    });
+            
+                if(可不可以) return true;
+            };
+
+            return false;
+        }
+
+        //private List<ProgramCantUseDate> NewMethod(List<string> realDate)
+        //{
+        //    var Program = _repo.GetAll<Today.Model.Models.Program>();
+        //    var ProgramCantUseDate = _repo.GetAll<ProgramCantUseDate>().ToList();
+        //    if (realDate.Any())
+        //    {
+        //        var TimeList = new List<DateTime>();
+
+        //        string ds = realDate.Aggregate((x, y) => x + "," + y); //用linq Aggregate()將List<string>轉成string
+        //        var dateS = ds.Substring(6, 4) + '-' + ds.Substring(0, 2) + '-' + ds.Substring(3, 2);
+        //        var dateE = ds.Substring(17, 4) + '-' + ds.Substring(11, 2) + '-' + ds.Substring(14, 2);
+        //        TimeList.Add(DateTime.Parse(dateS));
+        //        TimeList.Add(DateTime.Parse(dateE));
+
+        //        if (TimeList.Any()) //如果Date有值得話
+        //        {
+        //            ProgramCantUseDate = _repo.GetAll<ProgramCantUseDate>().Where(x => x.Date <= TimeList[0] || x.Date >= TimeList[1]).ToList(); //篩選出一個product的program , 它(不能用的日期)不能再選取內
+        //        }
+        //    }
+
+        //    return ProgramCantUseDate;
+        //}
         private List<ClassifyVM.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product, int memberId)
         {
             var result = new List<ClassifyVM.ClassifyCardInfo>();
@@ -129,6 +214,8 @@ namespace Today.Web.Services.ClassifyService
             var orderDetailList = _repo.GetAll<OrderDetail>();
             var specificationList = _repo.GetAll<ProgramSpecification>();
             var UnitPriceList = new List<ClassifyVM.ClassifyCardInfo>();
+            var Program = _repo.GetAll<Today.Model.Models.Program>();
+            var ProgramCantUseDate = _repo.GetAll<ProgramCantUseDate>();
             //product.ForEach(p =>
             //{
             //    programList.Where(pg => pg.ProductId == p.ProductId)
@@ -147,7 +234,6 @@ namespace Today.Web.Services.ClassifyService
             //        });
             //    });
 
-            
             var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == memberId).Select(c => c.ProductId);
 
             //});
@@ -181,6 +267,8 @@ namespace Today.Web.Services.ClassifyService
                                     .Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity })
                                     .Sum(n => n.Quantity);
                 p.Prices = programList.Where(program => program.ProductId == p.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault();
+                
+                
             });
             return result;
          }
