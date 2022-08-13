@@ -22,7 +22,7 @@ namespace Today.Web.Services.CollectService
 
         public void CreateCollect(CollectionVM request)
         {
-            var productIdVerify = _repo.GetAll<Collect>().Where(c => c.ProductId == request.ProductId).Count();
+            var productIdVerify = _repo.GetAll<Collect>().Where(c => c.ProductId == request.ProductId && c.MemberId == request.ProductId).Count();
 
             if (productIdVerify == 0)
             {
@@ -33,30 +33,16 @@ namespace Today.Web.Services.CollectService
                     CreateTime = request.Time
                 };
 
-                try
-                {
-                    _repo.Create<Collect>(result);
-                    _repo.SavaChanges();
-                }
-                catch(Exception ex)
-                {
-
-                }
+                _repo.Create<Collect>(result);
+                _repo.SavaChanges();
             }
         }
         public void RemoveCollect(CollectionVM request)
         {
             var result = _repo.GetAll<Collect>().Where(c => c.MemberId == request.MemberId && c.ProductId == request.ProductId).FirstOrDefault();
 
-            try
-            {
-                _repo.Delete<Collect>(result);
-                _repo.SavaChanges();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            _repo.Delete<Collect>(result);
+            _repo.SavaChanges();
         }
         public List<ProductDTO.ProductInfo> GetAllCollect(int userid)
         {
