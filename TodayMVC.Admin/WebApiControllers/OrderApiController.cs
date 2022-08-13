@@ -2,27 +2,30 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Today.Model;
+using Today.Model.Models;
+using TodayMVC.Admin.Repositories.DapperOrderRepositories;
 using TodayMVC.Admin.Services.OrderServices;
 using TodayMVC.Admin.ViewModels;
 
 namespace TodayMVC.Admin.WebApiControllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrderApiController : ControllerBase
     {
-        private readonly IOrderService _orderService;
-        public OrderApiController(IOrderService orderService)
+        private readonly IDapperOrderRepository _iDapperOrderRepository;
+        public OrderApiController(IDapperOrderRepository iDapperOrderRepository)
         {
-            _orderService = orderService;
+            _iDapperOrderRepository = iDapperOrderRepository;
         }
         [HttpGet]
         public IActionResult GetAllOrder()
         {
+            
+            var order =_iDapperOrderRepository.SelectAll();
             try
             {
-                var order = _orderService.GetAllOrder();
-                return Ok(new APIResult(APIStatus.Success, string.Empty, order));
+                return Ok(new APIResult(APIStatus.Success, string.Empty, true));
             }
             catch (Exception ex)
             {

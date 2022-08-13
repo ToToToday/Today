@@ -40,28 +40,45 @@
 @section endJS{
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
     <script>
-        const arr = ['Apple', 'Banana', 'Orange']
-        const arr2 = [
-            {name:'Jimmy', age:26},
-            {name:'Andy', age:40},
-            {name:'Calvin', age:24}
-        ]
-
-        const app = new Vue({
-            el:'#app',
-            data:{
-                arr,
-                arr2,
-                arr3:[]
-            },
-            methods:{
-                showAll(){
-                    this.arr3 = this.arr2
-                },
-                showBigThenTwenty(){
-                    this.arr3 = this.arr2.filter(x=>x.age >= 20)
-                }
+        window.onload = function(){
+        let url = "/api/OrderApi/GetAllOrder"
+        fetch(url, {
+            method: 'Get',
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
+            .then(res => {
+                if (res.ok) {
+                    console.log('OK')
+                }
+                else {
+                    console.log('Fail')
+                }
+            })
+    }
+        //const arr = ['Apple', 'Banana', 'Orange']
+        //const arr2 = [
+        //    {name:'Jimmy', age:26},
+        //    {name:'Andy', age:40},
+        //    {name:'Calvin', age:24}
+        //]
+        
+        //const app = new Vue({
+        //    el:'#app',
+        //    data:{
+        //        arr,
+        //        arr2,
+        //        arr3:[]
+        //    },
+        //    methods:{
+        //        showAll(){
+        //            this.arr3 = this.arr2
+        //        },
+        //        showBigThenTwenty(){
+        //            this.arr3 = this.arr2.filter(x=>x.age >= 20)
+        //        }
+        //    }
+        //})
     </script>
 }
