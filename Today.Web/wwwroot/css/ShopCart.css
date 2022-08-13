@@ -195,9 +195,10 @@ i{
 .list .check-control{
     padding-left: 20px;
 }
-.checkout{
+.checkout {
     border-top: 1px solid rgb(61, 60, 60,.1);
     background-color: white;
+    padding: 10px 15px;
 }
 .checkout .check-control{
     padding: 5px 0;
@@ -419,6 +420,7 @@ i{
         position: sticky;
         bottom: 0;
         background-color: white;
+        padding: 10px 20px;
     }
     .caculate .total span + span{
         display: inline-block;

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using Today.Model.Models;
 using Today.Web.DTOModels.locationDTO;
 
 
@@ -7,8 +7,8 @@ namespace Today.Web.Services.locationService
 {
     public interface ILocationService
     {
-        List<LocationDTO.ProductLocationDTO> GetLocations();
-        List<LocationDTO.ProductNameDTO> GetProducts();
-        List<LocationDTO.ProductPictureDTO> GetPhoto();
+        LocationDTO GetLocation();
+        LocationDTO GetCityLocation(int id);
+        LocationDTO GetParentCard();
     }
 }

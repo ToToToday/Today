@@ -5,7 +5,7 @@ using Today.Model.Models;
 namespace Today.Web.ViewModels
 {
    
-    public class CityVM
+    public class CityVM : LocationVM
     {
         public int CityID { get; set; } 
         public string CityName { get; set; } 
@@ -33,7 +33,7 @@ namespace Today.Web.ViewModels
             public bool Favorite { get; set; }
             public string CityName { get; set; }
             public List<string> Tags { get; set; }
-            public float Rating { get; set; }
+            public double Rating { get; set; }
             public int TotalGiveComment { get; set; }
             public int TotalOrder { get; set; }
             public decimal? OriginalPrice { get; set; }

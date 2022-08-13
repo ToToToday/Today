@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using Today.Web.Models.ShopCartAPI;
 using Today.Web.Services.CollectService;
 using Today.Web.ViewModels;
@@ -17,11 +19,27 @@ namespace Today.Web.WebApiControllers
             _collectionService = collectionService;
         }
 
+        [HttpGet]
+        public string CheckMemberLoginStatus()
+        {
+            bool logingStatus = true;
+
+            if (User.Identity.Name == null)
+            {
+                logingStatus = false;
+            }
+
+            var result = JsonConvert.SerializeObject(new { Status = logingStatus });
+
+            return result;
+        }
+
         [HttpPost]
         public IActionResult AddCollect([FromBody] CollectionVM request)
         {
-            request.MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+            request.MemberId = int.Parse(User.Identity.Name);
             request.Time = DateTime.UtcNow.AddHours(8);
+
             _collectionService.CreateCollect(request);
 
             try
