@@ -39,8 +39,8 @@ namespace Today.Web.WebApiControllers
                 MerchantId = "2000132",
                 HashKey = "5294y06JbISpM5x9",
                 HashIV = "v77hoKGq4kWxNNIS",
-                ServerUrl = "https://todayweb.azurewebsites.net/Ecpay/callback",
-                ClientUrl = "https://todayweb.azurewebsites.net/Home/Index" //之後改主頁網址
+                ServerUrl = "https://today-frontend.azurewebsites.net/Ecpay/callback",
+                ClientUrl = "https://today-frontend.azurewebsites.net/Home/Index" //之後改主頁網址
             };
             var pName = TempData["OrderProduct"];
             var pPrice = TempData["OrderPrice"];
@@ -66,7 +66,7 @@ namespace Today.Web.WebApiControllers
             var transaction = new
             {
                 No = id.ToString(),//"test00003"
-                Description = "測試購物系統",
+                Description = "Today購物系統",
                 Date = DateTime.UtcNow.AddHours(8), //DateTime.Now
                 Method = EPaymentMethod.Credit,
 

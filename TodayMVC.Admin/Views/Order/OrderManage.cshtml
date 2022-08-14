@@ -59,7 +59,6 @@
                     console.log('OK')
                     Promise.resolve(res.json()).then(function(result){
                         result.map(function(value, key){
-                            console.log(value)
                             orderData.push(value)
                         })
                     })
