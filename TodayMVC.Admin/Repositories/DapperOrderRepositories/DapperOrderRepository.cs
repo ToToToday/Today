@@ -30,6 +30,7 @@ namespace TodayMVC.Admin.Repositories.DapperOrderRepositories
         {
 
             var sql = @"SELECT
+                         od.OrderDetailsId,
                          od.Quantity,
                          od.UnitPrice,
                          o.OrderId split_on,

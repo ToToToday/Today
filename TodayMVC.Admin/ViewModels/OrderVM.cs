@@ -10,14 +10,16 @@ namespace TodayMVC.Admin.ViewModels
 
         public class OrderInfo
         {
+            
             public int OrderId { get; set; }
-            public DateTime OrderDate { get; set; }
+            public string OrderDate { get; set; }
             public string MemberName { get; set; }
             public string ProductName { get; set; }
             public string ProgramName { get; set; }
             public string ItemText { get; set; }
             public int Quantity { get; set; }
             public decimal TotalPrice { get; set; }
+            public string Status { get; set; }
 
         }
     }

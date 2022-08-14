@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using Today.Model;
 using TodayMVC.Admin.Repositories.DapperOrderRepositories;
@@ -17,19 +18,11 @@ namespace TodayMVC.Admin.WebApiControllers
             _orderService = orderService;
         }
         [HttpGet]
-        public IActionResult GetAllOrder()
+        public string GetAllOrder()
         {
             
             var orderData = _orderService.OrderList();
-            try
-            {
-                return Ok(new APIResult(APIStatus.Success, string.Empty, orderData));
-            }
-            catch (Exception ex)
-            {
-                return Ok(new APIResult(APIStatus.Fail, ex.Message, null));
-            }
-            
+            return JsonConvert.SerializeObject(orderData);
         }
     }
 }
