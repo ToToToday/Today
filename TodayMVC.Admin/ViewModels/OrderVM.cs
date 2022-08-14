@@ -1,13 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TodayMVC.Admin.ViewModels
 {
+    
     public class OrderVM
     {
-        public int OrderID { get; set; }
-        public string MemberName { get; set; }
-        public string ProductName { get; set; }
-        public DateTime OrderDate { get; set; }
-        public int OrderStatus { get; set; }
+        public List<OrderInfo> OrderList { get; set; }
+
+        public class OrderInfo
+        {
+            public int OrderId { get; set; }
+            public DateTime OrderDate { get; set; }
+            public string MemberName { get; set; }
+            public string ProductName { get; set; }
+            public string ProgramName { get; set; }
+            public string ItemText { get; set; }
+            public int Quantity { get; set; }
+            public decimal TotalPrice { get; set; }
+
+        }
     }
 }
