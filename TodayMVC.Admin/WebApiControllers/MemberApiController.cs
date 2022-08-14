@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
-using TodayMVC.Admin.Repositories.DapperMemberRepositories;
+using System.Collections.Generic;
+using System.Linq;
+using Today.Model.Models;
 using TodayMVC.Admin.Services.MemberService;
 
 namespace TodayMVC.Admin.WebApiControllers
@@ -10,30 +13,18 @@ namespace TodayMVC.Admin.WebApiControllers
     [ApiController]
     public class MemberApiController : ControllerBase
     {
-        //private readonly IMemberService _memberService;
-        //public MemberApiController(IMemberService memberService)
-        //{
-        //    _memberService = memberService;
-        //}
-        private readonly IDapperMemberRepository _dapperRepo;
-        public MemberApiController(IDapperMemberRepository dapperRepo)
+        private readonly IMemberService _memberService;
+        public MemberApiController(IMemberService memberService)
         {
-            _dapperRepo = dapperRepo;
+            _memberService = memberService;
         }
+
         [HttpGet]
-        public IActionResult GetMemberList()
+        public string GetMemberList()
         {
-            var dataSource = _dapperRepo.SelectAll();
+            var dataResult = _memberService.GetAllMemberList().MemberList;
 
-            //try
-            //{
-
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-            return Ok();
+            return JsonConvert.SerializeObject(dataResult);
         }
     }
 }
