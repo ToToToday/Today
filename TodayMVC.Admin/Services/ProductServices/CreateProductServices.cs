@@ -22,7 +22,7 @@ namespace TodayMVC.Admin.Services.ProductServices
                 Phone = product.supplier.Phon,
                 CityId = product.supplier.City,
             };
-            _repo.Create()
+            //_repo.Create()
             var reuslt = new Product
             {
                 ProductName = product.ProductName,
