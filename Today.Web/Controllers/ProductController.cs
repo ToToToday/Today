@@ -297,7 +297,7 @@ namespace Today.Web.Controllers
                     CityName = newp.CityName,
                     OriginalPrice = (newp.Prices == null || newp.Prices.OriginalPrice == newp.Prices.Price) ? null : newp.Prices.OriginalPrice,
                     Price = (newp.Prices == null) ? null : newp.Prices.Price,
-                    Rating = newp.Rating.RatingStar,
+                    Rating = Math.Round(newp.Rating.RatingStar, 1),
                     TotalGiveComment = newp.Rating.TotalGiveComment,
                     TotalOrder = newp.TotalOrder
                 }).ToList(),
@@ -311,7 +311,7 @@ namespace Today.Web.Controllers
                     CityName = aboutp.CityName,
                     OriginalPrice = (aboutp.Prices == null || aboutp.Prices.OriginalPrice == aboutp.Prices.Price) ? null : aboutp.Prices.OriginalPrice,
                     Price = (aboutp.Prices == null) ? null : aboutp.Prices.Price,
-                    Rating = aboutp.Rating.RatingStar,
+                    Rating = Math.Round(aboutp.Rating.RatingStar, 1),
                     TotalGiveComment = aboutp.Rating.TotalGiveComment,
                     TotalOrder = aboutp.TotalOrder
                 }).ToList(),
@@ -325,7 +325,7 @@ namespace Today.Web.Controllers
                     CityName = top.CityName,
                     OriginalPrice = (top.Prices == null || top.Prices.OriginalPrice == top.Prices.Price) ? null : top.Prices.OriginalPrice,
                     Price = (top.Prices == null) ? null : top.Prices.Price,
-                    Rating = top.Rating.RatingStar,
+                    Rating = Math.Round(top.Rating.RatingStar, 1),
                     TotalGiveComment = top.Rating.TotalGiveComment,
                     TotalOrder = top.TotalOrder
                 }).ToList()
