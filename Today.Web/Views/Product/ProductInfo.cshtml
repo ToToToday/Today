@@ -641,7 +641,7 @@
                     return
                 }
                 let  getdata = iphdate._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                let Departuredate = getdata[0].getFullYear() + `-` + (getdata[0].getMonth() + 1) + `-` + getdata[0].getDate()
                 let url = "/api/Shop/AddCart";
                 toastr.options = {
                     "positionClass": "toast-top-center",
@@ -749,7 +749,7 @@
                     return
                 }
                 let getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth()  + 1 + `-` + getdata[0].getDate()
                 let url = "/api/Order/directCreateOrder";
                 toastr.options = {
                     "positionClass": "toast-top-center",
@@ -797,7 +797,7 @@
                     return
                 }
                 getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth() + `-` + getdata[0].getDate()
+                let Departuredate = getdata[0].getFullYear() + `-` + (getdata[0].getMonth() + 1) `-` + getdata[0].getDate()
                 let url = "/api/Shop/AddCart";
                 toastr.options = {
                     "positionClass": "toast-top-center",
