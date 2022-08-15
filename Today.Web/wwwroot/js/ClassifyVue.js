@@ -28,6 +28,13 @@
                 },
             ],
         },
+        //排序區
+        allsort: [
+            { SortId: 1, SortIcon: "fa-regular fa-thumbs-up", SortName: 'Today推薦', checked: false },
+            { SortId: 2, SortIcon: "fa-solid fa-fire", SortName: '熱門程度', checked: false },
+            { SortId: 3, SortIcon: "fa-solid fa-star", SortName: '用戶評價', checked: false },
+            { SortId: 4, SortIcon: "fa-solid fa-dollar-sign", SortName: '價格 : 低到高', checked: false },
+        ],
         //卡列表區
         page: 1,
         cardCount: 7991,
@@ -62,14 +69,14 @@
                 },
                 favorite: false
             },
-        ]
+        ],
     },
+    //從後端拉資料到前端 需要東西時到此發請求
     mounted() {
-        let cityList = @Html.Raw(cityJson);
-        let categoryList = @Html.Raw(categoryJson);
+        //let cityList = @Html.Raw(cityJson);
+        //let categoryList = @Html.Raw(categoryJson);
         //console.log(cityList)
         //console.log(categoryList)
-
         this.allFilter.cities = cityList.map(x =>
         ({
             CityId: x.CityId,
@@ -77,31 +84,49 @@
             Checked: false,
         })
         )
-        this.allFilter.categories = categoryList
-            .map(x => {
-                //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
-                x.ChildCategory.forEach(child => child.Checked = false)
-                return x;
-            })
-
+        this.allFilter.categories = categoryList.map(x => {
+            //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
+            x.ChildCategory.forEach(child => child.Checked = false)
+            return x;
+        })
         this.filterPost(1)
         //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
     },
-
+    // computed: {
+    //     data() {
+    //         return {
+    //             guestShowProduct: [],
+    //         }
+    //     },
+    // },
+    
+    // 可寫任何方法到vue實體裡
     methods: {
-        cancelAll() {
-            this.allFilter.cities.forEach(c => c.Checked = false)
-            this.allFilter.categories.forEach(ca => {
-                ca.ChildCategory.forEach(child => { child.Checked = false })
-            })
-            this.filterPost(1)
-        },
+        // cancelAll() {
+        //     this.allFilter.cities.forEach(c => c.Checked = false)
+        //     this.allFilter.categories.forEach(ca => {
+        //         ca.ChildCategory.forEach(child => { child.Checked = false })
+        //     })
+        //     this.filterPost(1)
+        // },
         //pageRadio
         cancel(target) {
             console.log('取消', target)
             target.Checked = false
             this.filterPost(1)
         },
+        // sortHightToLow() {
+        //     this.guestShowProduct.sort((a, b) => {
+        //         if (a.Price < a.OriginalPrice) {
+        //             return b.Price - a.Price
+        //         } else if (a.Price === a.OriginalPrice) {
+        //             return b.Price - a.OriginalPrice
+        //         }
+        //     })
+        // },
+        //towNumber(val) {
+        //    return val.toFixed(2)
+        //},
         async filterPost(page) {
             fetch("/api/ClassifyApi/Classify", {
                 method: 'post',
@@ -109,42 +134,57 @@
                     'content-type': 'application/json;charset=utf-8',
                 },
                 body: JSON.stringify({
-                        @* cities: Array.from(citiesChecked).map(x => x.value),  *@
-            cities: this.allFilter.cities.filter(x => x.Checked).map(x => x.CityId),
-                categories: this.allFilter.categories.map(ca => ca.ChildCategory).flatMap(x => x)
-                    .filter(x => x.Checked).map(x => x.ProductCategoryId),
+                    //cities: array.from(citieschecked).map(x => x.value),
+                    // 篩選  
+                    cities: this.allFilter.cities.filter(x => x.Checked).map(x => x.CityId),
+                    categories: this.allFilter.categories.map(ca => ca.ChildCategory).flatMap(x => x)
+                        .filter(x => x.Checked).map(x => x.ProductCategoryId),
+                    // 排序
+                    allsort: this.allsort.filter(x => x.Checked).map(x => x.SortId,),
+                    // todayrecommend:this.allsort.todayrecommend.filter(x => x.Checked)
+                    // pricelowtohigh(){
+                    //     this.
+                    // }
+                    // listMe: function (list) {
+                    //     return list.filter(function (item) {
+                    //         return item.n <= 33
+                    //     })
+                    // },
 
-                        @* categories: Array.from(selfformchecked).map(x => x.value), *@
-            //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
-            page: page,
+                    //categories: Array.from(selfformchecked).map(x => x.value), 
+                    //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
+                    // popularity:popularity,
+                    page: page,
+                })
+            })
+                .then(resp => resp.json())
+                .then(JSobj => {
+                    console.log(JSobj)
+                    //重新處理DOM
+                    if (classifyCardVue.cardCount != JSobj.cardCount)
+                        classifyCardVue.cardCount = JSobj.cardCount
+                    //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
+                    classifyCardVue.page = page;
+
+                    classifyCardVue.productCards =
+                        JSobj.classifyCardList.map(x => {
+                            x.href = `/Product/ProductInfo/${x.productId}`
+                            return x;
+                        })
+                        // classifyCardVue.allsort = 
+                    // classifyCardVue.popularity = popularity;
+                    document.querySelector('#destFilter').focus();
+                })
+                .then(() => {
+                    let OriginalPrice = document.querySelectorAll('.OriginalPrice')
+                    let Price = document.querySelectorAll('.Price')
+                    OriginalPrice.forEach((item, index) => {
+                        if (item.innerText === Price[index].innerText) {
+                            item.classList.add("d-none")
+                        }
                     })
                 })
-                    .then(resp => resp.json())
-    .then(JSobj => {
-        console.log(JSobj)
-        //重新處理DOM
-        if (classifyCardVue.cardCount != JSobj.cardCount)
-            classifyCardVue.cardCount = JSobj.cardCount
-        //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
-        classifyCardVue.page = page;
-
-        classifyCardVue.productCards =
-            JSobj.classifyCardList.map(x => {
-                x.href = `/Product/ProductInfo/${x.productId}`
-                return x;
-            })
-        document.querySelector('#destFilter').focus();
-    })
-@* OriginalPrice / Price *@
-                .then(() => {
-    let OriginalPrice = document.querySelectorAll('.OriginalPrice')
-    let Price = document.querySelectorAll('.Price')
-    OriginalPrice.forEach((item, index) => {
-        if (item.innerText === Price[index].innerText) {
-            item.classList.add("d-none")
-        }
-    })
-})
-            }
         },
-    })
+
+    },
+})

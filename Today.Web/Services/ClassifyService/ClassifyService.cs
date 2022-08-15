@@ -149,8 +149,8 @@ namespace Today.Web.Services.ClassifyService
                     .Contains(t.TagId))
                     .Select(t => t.TagText).ToList();
                 p.RatingStar = (comment.Where(c => c.ProductId == p.ProductId)
-                                       .Count() != 0) ? (float)comment.Where(c => c.ProductId == p.ProductId)
-                                       .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == p.ProductId).Count() : 0;
+                                       .Count() != 0) ? Math.Round((double)comment.Where(c => c.ProductId == p.ProductId)
+                                       .Sum(c => c.RatingStar) / comment.Where(c => c.ProductId == p.ProductId).Count(), 1) : 0;
                 p.TotalComment = comment.Where(c => c.ProductId == p.ProductId).Count();
                 p.TotalOrder = programList.Where(program => program.ProductId == p.ProductId)
                                     .Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new { program.ProgramId, specification.SpecificationId })

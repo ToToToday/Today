@@ -20,7 +20,7 @@ namespace Today.Web.ViewModels
             public int CityId { get; set; }
             public string CityName { get; set; }
             public List<string> TagText { get; set; }
-            public float RatingStar { get; set; }
+            public double RatingStar { get; set; }
             public int TotalComment { get; set; }
             public int TotalOrder { get; set; }
             public PriceInfo Prices { get; set; }

@@ -25,7 +25,7 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public string CityName { get; set; }
             public List<string> TagText { get; set; }
             public decimal UnitPrice { get; set; }
-            public float RatingStar { get; set; }
+            public double RatingStar { get; set; }
             public int TotalComment { get; set; }
         }
         public class CategoryDestinations
