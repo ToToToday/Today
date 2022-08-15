@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "MailManage";
+}
+@functions{
+    private void IsSuccess{
+        if (ViewDataAttribute["success"] == true)
+        {
+            
+        }else{
+
+        }
+    }
+}
+
+
+<div class="container-fluid">
+
+    <form method="post" asp-controller="Mail" asp-action="MailManage"> @* asp-controller="Mail" asp-action="MailManage*@
+    <!--使用 Bootstrap 設計表單-->
+        <div class="panel panel-primary">
+            <h3 class="panel-heading">廣告信發送</h3>
+            <div class="panel-body">
+                
+                <label>主旨</label>
+                <input name="EmailTitle" type="text" class="form-control" id="mailTitle">  
+                <label>內文</label>
+                <input name="EmailBody" type="text" class="form-control" id="mailBody">
+                
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary" id="">寄送廣告信</button>
+            </div>
+        </div>
+    
+    </form>
+
+</div>
+@*@section scripts{
+    
+}
+*@
