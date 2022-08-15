@@ -18,9 +18,10 @@ namespace TodayMVC.Admin.Services.MailService
         {
             var emailData = _mailRepo.SelectAll();
             var getEmail = emailData.Select(e => e.Email
-            
+
             ).ToList();
-            
+
+
             //信件主旨
             string subject = emailText.EmailTitle;
 

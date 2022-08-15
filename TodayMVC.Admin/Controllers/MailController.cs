@@ -25,11 +25,11 @@ namespace TodayMVC.Admin.Controllers
             try
             {
                 _mailService.GetEmail(mailtext);
-                ViewData["success"] = true;
+                ViewData["success"] = "true";
             }
             catch(Exception ex)
             {
-                ViewData["success"] = false;
+                ViewData["success"] = "false";
 
             }
 
