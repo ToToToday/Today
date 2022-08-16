@@ -18,7 +18,7 @@ namespace TodayMVC.Admin.Repositories
 
         public IEnumerable<Member> SelectAll()
         {
-            var sql = @"SELECT MemberId, MemberName, m.CityId, Age, Phone, Gender, Email, c.CityId split_on, c.CityName FROM Member m JOIN City c ON m.CityId = c.CityId";
+            var sql = @"SELECT MemberId, MemberName, m.CityId, Age, Phone, Gender, Email, c.CityId split_on, c.CityName FROM Member m LEFT JOIN City c ON m.CityId = c.CityId";
 
             return _conn.Query<Member, City, Member>(sql, (m, c) => { m.City = c; return m; }, splitOn: "split_on");
 

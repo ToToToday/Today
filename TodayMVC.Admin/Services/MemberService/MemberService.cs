@@ -26,5 +26,15 @@ namespace TodayMVC.Admin.Services.MemberService
             var result = new MemberVM { MemberList = dataSource.Select(r => new MemberInfo { MemberId = r.MemberId, MemberName = r.MemberName, CityName = r.City.CityName, Age = r.Age, Phone = r.Phone, Gender = r.Gender, Email = r.Email}).ToList()};
             return result;
         }
+        public int DeleteMember(MemberInfo member)
+        {
+            var data = new Member()
+            {
+                MemberId = member.MemberId
+            };
+            var result = _dapperRepo.Delete(data);
+
+            return result;
+        }
     }
 }
