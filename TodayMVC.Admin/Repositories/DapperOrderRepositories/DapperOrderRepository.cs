@@ -21,7 +21,7 @@ namespace TodayMVC.Admin.Repositories.DapperOrderRepositories
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<OrderDetail> GetOne(OrderDetail entity)
+        public OrderDetail GetOne(OrderDetail entity)
         {
             throw new System.NotImplementedException();
         }

@@ -11,9 +11,9 @@ namespace TodayMVC.Admin.Repositories
         public DapperMemberRepository(IDbConnection conn) : base(conn)
         { }
 
-        public IEnumerable<Member> GetOne(Member entity)
+        public Member GetOne(Member entity)
         {
-            return _conn.Query<Member>(@"SELECT * FROM Member Where MemberId = @MemberId", new { entity.MemberId });
+            return (Member)_conn.Query<Member>(@"SELECT * FROM Member Where MemberId = @MemberId", new { entity.MemberId });
         }
 
         public IEnumerable<Member> SelectAll()

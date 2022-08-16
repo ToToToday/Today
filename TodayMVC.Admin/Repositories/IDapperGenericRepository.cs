@@ -11,7 +11,7 @@ namespace TodayMVC.Admin.Repositories
 
 		int Delete(T entity);
 
-		IEnumerable<T> GetOne(T entity);
+		T GetOne(T entity);
 
 		IEnumerable<T> SelectAll();
     }

@@ -21,7 +21,7 @@ namespace TodayMVC.Admin.Repositories.DapperCommentManage
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Product> GetOne(Product entity)
+        public Product GetOne(Product entity)
         {
             throw new System.NotImplementedException();
         }
