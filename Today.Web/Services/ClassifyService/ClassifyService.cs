@@ -46,7 +46,14 @@ namespace Today.Web.Services.ClassifyService
                             pc.CategoryId == input.CategoryId)
                 );
             };
-
+            var category = _repo.GetAll<Category>().ToList();
+            if (input.isOffIsland == true)
+            {
+                var city = _repo.GetAll<City>();
+                productList = productList.Where(p => city.Any(c => c.CityId == p.CityId && c.IsIsland==false));
+                //var productCategory = _repo.GetAll<ProductCategory>();
+                //productList = productList.Where(p => productCategory.Any(pr => pr.CategoryId == 29)).Distinct();
+            }
             //result.DateCantbeUseList = this.NewMethod(input.DateRange);
 
             result.CardCount = productList.Count();
@@ -57,8 +64,9 @@ namespace Today.Web.Services.ClassifyService
             , memberId);
 
 
-            var category = _repo.GetAll<Category>().ToList();
+
             var city1 = _repo.GetAll<City>();
+
             var maincategory = category.Where(category => category.ParentCategoryId == null);
             var categoryGroup = category.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
             foreach (var cy in maincategory)
@@ -109,8 +117,14 @@ namespace Today.Web.Services.ClassifyService
                     .Any(cId => input.CategoryFilterList.Contains(cId))
                 );
             }
-
-            IEnumerable<Product> a = productList;
+            if (input.isOffIsland == true)
+            {
+                var city = _repo.GetAll<City>().Where(c => c.IsIsland == false); ;
+                productList = productList.Where(p => city.Select(c => c.CityId).Contains(p.CityId));
+                //var productCategory = _repo.GetAll<ProductCategory>();
+                //productList = productList.Where(p => productCategory.Any(pr => pr.CategoryId == 29)).Distinct();
+            }
+            IEnumerable<Product> IEproduct = productList;
             //v 格停 日期篩
             if (input.DateRange !=null) //string.IsNullOrEmpty()
             {
@@ -119,13 +133,13 @@ namespace Today.Web.Services.ClassifyService
 
 
                 //產品任何一個方案 在篩選日期範圍內 就保留
-                a = productList.ToList().Where(p => this.CheckProductCanUse(dateS , dateE , p) );
-
+                IEproduct = productList.ToList().Where(p => this.CheckProductCanUse(dateS , dateE , p) );
             }
+
             //^ 格停 日期篩
 
-            result.CardCount = a.Count();
-            result.ClassifyCardList = AddClassifyCardToResult(a
+            result.CardCount = IEproduct.Count();
+            result.ClassifyCardList = AddClassifyCardToResult(IEproduct
                 .Skip(10 * (input.Page - 1))
                 .Take(10)
                 .ToList()
@@ -143,8 +157,7 @@ namespace Today.Web.Services.ClassifyService
         {
             var ProgramList = _repo.GetAll<Today.Model.Models.Program>()
                 .Where(pg => pg.ProductId == p.ProductId)
-                .ToList()
-                ;
+                .ToList();
 
             var AllNotbeuse = _repo.GetAll<ProgramCantUseDate>().ToList();
             //只考慮範圍內、和這些方案有關的 禁用日期
@@ -162,7 +175,7 @@ namespace Today.Web.Services.ClassifyService
                 if(  programnot.Count ==0 ) return true;
 
                 //只要有個方案 有一天 沒被禁 就是可以
-                bool 可不可以 = programnot
+                bool CanorNot = programnot
                     .Any(x =>
                     {
                         for (var dt = dateStart; dt < dateEnd; dt = dt.AddDays(1))
@@ -173,7 +186,7 @@ namespace Today.Web.Services.ClassifyService
                         return false;
                     });
             
-                if(可不可以) return true;
+                if(CanorNot) return true;
             };
 
             return false;

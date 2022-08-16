@@ -313,81 +313,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- 價錢 range -->
-                <div class="filter-group rounded ">
-                    <div class="filter-block mt-3">
-                        <div class="accordion-item">
-                            <div class="accordion-header pt-3 pb-4 mx-3" id="headingThree">
-                                <h4 class="Pricies">價錢 (TWD)</h4>
-                                <div class="wrapper">
-                                    <div class="wrapper pt-3">
-                                        <span id="range1">
-                                            0
-                                        </span>
-                                        <span> &dash; </span>
-                                        <span id="range2">
-                                            2,928,980
-                                        </span>
-                                    </div>
-                                    <div class="container mt-4">
-                                        <div class="slider-track "></div>
-                                        <input class="bg-white shadow-none" type="range" min="0" max="99999" value="00"
-                                            id="slider-1" oninput="slideOne()">
-                                        <input type="range" min="0" max="99999" value="123456" id="slider-2"
-                                            oninput="slideTwo()">
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="rounded-circle" style="left:0%;"></span>
-                        </div>
-                    </div>
-                </div>
-                <!-- 行程時間 -->
-                <div class="filter-group rounded">
-                    <div class="filter-block mt-3">
-                        <div class="accordion-item">
-                            <div class="accordion-header " id="headingThree">
-                                <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                    data-bs-target="#journeytime" aria-expanded="false">
-                                    行程時間
-                                </h2>
-                            </div>
-                            <div id="journeytime" class="accordion-collapse collapse show"
-                                data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="lessthanfourhours">
-                                        <label class="form-check-label ms-1 mt-1" for="lessthanfourhours">
-                                            少於 4 小時
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="fourhours-oneday">
-                                        <label class="form-check-label ms-1 mt-1" for="fourhours-oneday">
-                                            4 小時 - 1 日
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="oneday-twoday">
-                                        <label class="form-check-label ms-1 mt-1" for="oneday-twoday">
-                                            1 日 - 2 日
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="morethantwodays">
-                                        <label class="form-check-label ms-1 mt-1" for="morethantwodays">
-                                            2 日以上
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <!--右側欄 -->
             <div class="col-lg-9 pt-3 p-2">
@@ -557,8 +483,7 @@
  
  
   <script src="~/js/show_city.js"></script>
-    <script src="~/js/owl-carousel.js">    
-  </script>
+    <script src="~/js/owl-carousel.js"></script>
      <script src="~/js/datePicker.js"></script>
      <script src="~/js/cityChoose.js"></script>
 
@@ -603,7 +528,6 @@
 
 </script>
 
-
 <script>
     const classifyCardVue = new Vue({
         // 掛載位置
@@ -616,28 +540,15 @@
                     { CityId: 1, CityName: '基隆', checked: false },
                     { CityId: 2, CityName: '新北', checked: false },
                     { CityId: 3, CityName: '台北', checked: false },
-                    { CityId: 4, CityName: '桃園', checked: false },
-                    { CityId: 5, CityName: '新竹', checked: false },
-                    { CityId: 6, CityName: '苗栗', checked: false },
-                    { CityId: 7, CityName: '台中', checked: false },
-                    { CityId: 8, CityName: '彰化', checked: false },
-                    { CityId: 9, CityName: '南投', checked: false },
-                    { CityId: 10,CityName: '雲林', checked: false },
-                    { CityId: 11,CityName: '嘉義', checked: false },
-                    { CityId: 12,CityName: '台南', checked: false },
-                    { CityId: 13,CityName: '高雄', checked: false },
-                    { CityId: 14,CityName: '墾丁', checked: false },
-                    { CityId: 15,CityName: '屏東', checked: false },
-                    { CityId: 16,CityName: '台東', checked: false },
-                    { CityId: 17,CityName: '花蓮', checked: false },
-                    { CityId: 18,CityName: '宜蘭', checked: false },
-                    { CityId: 19,CityName: '綠島', checked: false },
-                    { CityId: 20,CityName: '蘭嶼', checked: false },
-                    { CityId: 21,CityName: '小琉球', checked: false },
-                    { CityId: 22,CityName: '澎湖', checked: false },
-                    { CityId: 23,CityName: '金門', checked: false },
-                    { CityId: 24,CityName: '馬祖', checked: false },
                 ],
+                offIslandcities:
+                    [
+                        { CityId: 24,CityName: '馬祖', CityImage:''},
+                        { CityId: 22,CityName: '澎湖', CityImage:'' },
+                        { CityId: 19,CityName: '綠島', CityImage:''},
+                        { CityId: 23,CityName: '金門', CityImage:''},
+                        { CityId: 20,CityName: '蘭嶼', CityImage:''},
+                    ],
                 categories: [
                     {
                         ProductCategoryId: 1,
@@ -655,54 +566,6 @@
                             },
                         ]
                     },
-                    @* { id: 13, text: "高鐵假期", checked: false },
-                    { id: 14, text: "飯店", checked: false }, *@
-                    @* { id: 15, text: "渡假村", checked: false },
-                    { id: 16, text: "民宿", checked: false },
-                    { id: 17, text: "景點門票", checked: false },
-                    { id: 18, text: "主題樂園", checked: false },
-                    { id: 19, text: "博物館 & 美術館", checked: false },
-                    { id: 20, text: "水族館 & 動物園", checked: false },
-                    { id: 21, text: "歷史景點", checked: false },
-                    { id: 22, text: "親子旅行", checked: false },
-                    { id: 23, text: "半 / 一日遊", checked: false },
-                    { id: 24, text: "多日遊", checked: false },
-                    { id: 25, text: "線上旅遊", checked: false },
-                    { id: 26, text: "單車旅遊", checked: false },
-                    { id: 27, text: "郵船觀光", checked: false },
-                    { id: 28, text: "郵輪假期", checked: false },
-                    { id: 29, text: "離島旅遊", checked: false },
-                    { id: 30, text: "台灣水上活動", checked: false },
-                    { id: 31, text: "冒險 & 極限運動", checked: false },
-                    { id: 32, text: "雪地活動", checked: false },
-                    { id: 33, text: "露營", checked: false },
-                    { id: 34, text: "遠足 & 登山", checked: false },
-                    { id: 35, text: "觀光農場", checked: false },
-                    { id: 36, text: "水上活動", checked: false },
-                    { id: 37, text: "高鐵假期", checked: false },
-                    { id: 38, text: "立榮假期", checked: false },
-                    { id: 39, text: "日本交通巴士", checked: false },
-                    { id: 40, text: "台灣租車自價", checked: false },
-                    { id: 41, text: "交通票卷", checked: false },
-                    { id: 42, text: "租車自駕", checked: false },
-                    { id: 43, text: "專車服務", checked: false },
-                    { id: 44, text: "機場接駁", checked: false },
-                    { id: 45, text: "Spa & 按摩", checked: false },
-                    { id: 46, text: "美容 & 沙龍", checked: false },
-                    { id: 47, text: "溫泉", checked: false },
-                    { id: 48, text: "伴手禮", checked: false },
-                    { id: 49, text: "運動賽事", checked: false },
-                    { id: 50, text: "娛樂表演", checked: false },
-                    { id: 51, text: "展覽", checked: false },
-                    { id: 52, text: "WiFi / SIM卡", checked: false },
-                    { id: 53, text: "質感手作", checked: false },
-                    { id: 54, text: "工作坊 & 課程", checked: false },
-                    { id: 55, text: "文化體驗", checked: false },
-                    { id: 56, text: "手作調料表", checked: false },
-                    { id: 57, text: "旅遊文件申請服務", checked: false },
-                    { id: 58, text: "行李運送 / 寄存服務", checked: false },
-                    { id: 59, text: "專業攝影服務", checked: false },
-                    { id: 60, text: "旅行裝備與相關服務", checked: false } *@
                 ],
             },
             //卡列表區
@@ -710,12 +573,6 @@
             cardCount: 7991,
             productCards: [
                 {
-                    //href: '',
-                    //path: '',
-                    //productName: '',
-                    //tagText: [],
-                    //cityName: '',
-                    //Price: '',
                     productId: '1',
                     href: '',
                     path: '',
@@ -724,8 +581,6 @@
                     cityName: '',
                     ratingStar: '',
                     totalComment: '',
-                    //originalPrice:'',
-                    //unitPrice:'1',
                     prices: {
                         originalPrice: '',
                         price: '',
@@ -762,13 +617,22 @@
                     Checked:false,
                 })
             )
-            this.allFilter.categories = categoryList
-            .map( x => {
-                //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
-                x.ChildCategory.forEach( child => child.Checked = false)
 
+            this.allFilter.offIslandcities = cityList.map(x=>
+                ({
+                    CityId:x.CityId,
+                    CityName:x.CityName,
+                    CityImage:x.Path,
+                })
+            )
+            //if(categoryList ==)
+            this.allFilter.categories = categoryList.map( x => {
+                //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
+                x.ChildCategory.forEach( child => 
+                    child.Checked = false)
                 return x;
             })
+            this.allFilter.categories[10].ChildCategory[0].Checked = true
 
             this.filterPost(1)
 
@@ -784,9 +648,10 @@
                 })
                 this.filterPost(1)
             },
+
             //pageRadio
             cancel(target) {
-                console.log('取消',target)
+
                 target.Checked = false
                 this.filterPost(1)
             },
@@ -794,7 +659,10 @@
                 //v 戴格停區
                 var dateRange = null
                 try {
-                    var dateSelectd_text = document.querySelectorAll("span.drp-selected")[1].innerText;//直接默認電腦
+                    var dateSelectd_text_All = document.querySelectorAll("span.drp-selected")[1].innerText;
+                    dateSelectd_text_All.forEach(item=>{
+                        var dateSelectd_text = item.innerText
+                    })
                     if (dateSelectd_text == "")
                         throw new Error();
                     
@@ -803,18 +671,6 @@
                 catch (err) {
                     dateRange= null
                 }
-
-                //let dateRangeList = []
-                //dateRange.forEach(d => {
-                //    let data = d.substring(6, 10) + '-' + d.substring(0, 2) + '-' + d.substring(3, 5)
-                //    console.log(data)
-                //    dateRangeList.push(data)
-                //})
-                //^ 戴格停區
-
-                //var citiesChecked = document.querySelectorAll('input.city_PC:checked')
-                //var selfformchecked = document.querySelectorAll('input.selfform-check:checked')
-                //var citiescategorieschecked = document.querySelectorAll('input.selfform-city:checked')
 
                 fetch("/api/ClassifyApi/Classify", {
                     method: 'post',
@@ -828,17 +684,17 @@
                             .filter(x => x.Checked).map(x => x.ProductCategoryId),
                         dateRange : dateRange,
                         @* categories: Array.from(selfformchecked).map(x => x.value), *@
-                        //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
+
                         page: page,
                     })
                 })
                     .then(resp => resp.json())
                     .then(JSobj => {
-                        console.log(JSobj)
-                        //重新處理DOM
+                        console.log("ssss",JSobj)
+
                         if (classifyCardVue.cardCount != JSobj.cardCount)
                             classifyCardVue.cardCount = JSobj.cardCount
-                        //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
+
                         classifyCardVue.page = page;
 
                         classifyCardVue.productCards =
@@ -846,6 +702,7 @@
                                 x.href = `/Product/ProductInfo/${x.productId}`
                                 return x;
                             })
+
                         document.querySelector('#destFilter').focus();
                     })
                 @* OriginalPrice/Price *@
@@ -858,110 +715,10 @@
                         }
                     })
                 })
-
-                @* categories *@
-                    @* .then(() => {
-                                            $('.chip').remove();
-                                            $('.chip-clear').remove();
-                                            let selfform_city = document.querySelector('.selfform-city')
-                                            let outside = document.querySelector('.chip-group')
-                                            let filter = document.querySelectorAll('.filter')
-                                            let cityfilter = document.querySelectorAll('.cityfilter')
-                                            let citiescategories = Array.from(citiescategorieschecked).map(x => x.value)
-                                            let cities = Array.from(citiesChecked).map(x => x.value)
-
-                                            for (let i = 0; i < cities.length; i++) {
-                                            let area = document.createElement('span');
-                                            area.setAttribute('class', 'chip shadow-none rounded-pill border border-secondary d-flex align-items-center');
-                                            let text = document.createElement('span');
-                                            text.innerHTML = cityfilter[i].innerText
-                                            let X = document.createElement('button');
-                                            X.setAttribute('class', 'btn-close');
-                                            X.setAttribute('aria-label', 'Close');
-                                            //
-                                            //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                                            //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                                            //
-                                            area.append(text);
-                                            area.append(X);
-                                            outside.append(area);
-                                            }
-
-                                            if (cities.length >= 1) {
-                                            $(".chip-group").append('<span class="chip-clear rounded-pill d-flex align-items-center "><a href="#" class="a text-decoration-none text-light">清除所有</a></span>')
-                                            let span = document.querySelectorAll(".chip")
-                                            let closebtn = document.querySelectorAll(".chip .btn-close")
-                                            closebtn.forEach((item, index) => {
-                                            item.addEventListener("click", function (event) {
-                                            span[index].remove()
-                                            })
-                                            })
-                                            let chip_clear = document.querySelector(".chip-clear")
-                                            chip_clear.addEventListener("click", () => {
-                                            window.location.reload()
-                                            })
-                                            }
-
-                                            }) *@
-
-                @* let btn_clean_destination = document.querySelector(".btn-clean-destination")
-                btn_clean_destination.addEventListener("click", () => {
-                    for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
-                        document.querySelectorAll('.city_PC')[i].checked = false
-                    } 
-                })*@
-                //全選
-                //let allform_check = document.querySelector(".allform-check")
-                //let selfform_check = document.querySelector(".selfform-check")
-                //    allform_check.addEventListener("click",()=>{
-                //            for (let i = 0; i < document.querySelectorAll('.selfform-check').length; i++) {
-                //                document.querySelectorAll('.selfform-check')[i].checked = true
-                //                }
-                //        }
-                //    )
-
-                //let btn_finish = document.querySelector(".btn-finish-destination")
-                //    btn_finish.addEventListener("click",()=>{
-                //            for (let i = 0; i < document.querySelectorAll('.city_PC').length; i++) {
-                //                document.querySelectorAll('.city_PC')[i].checked = true
-                //                }
-                //    }
-                //)
-
-                //let selfform_check_label = document.querySelector(".self-form-check-label").innerText
-                //let chip = document.querySelector(".chip").innerText
-                //    selfform_check_label.addEventListener("click",()=>{
-                //        if (selfform_check_label == true) {//按鈕已選中
-                //            chip.style.backgroundColor = "red";
-                //            chip.removeAttribute("disabled");//移除disabled
-                //        }
-                //        else {
-                //            chip.disadled = "disabled";
-                //        }
-                //    })
-
-                //function show() {
-                //    obj = document.getElementsByName("checkboxs");
-                //    chipname =document.querySelector(".chipname")
-                //    check_value = [];
-                //        for (i in obj) {
-                //            if (obj[i].checked) {
-                //                chipname.style.backgroundColor = "red";
-                //                chipname.removeAttribute("disabled");//移除disabled
-
-                //                    check_value.push(obj[i].value);
-                //            }
-                //            else {
-                //                chipname.disadled = "disabled";
-                //            }
-                //        }
-                //        //show.check_value
-                //        alert(check_value);
-                //}
-
             }
 
         },
     })
     </script>
+
   }

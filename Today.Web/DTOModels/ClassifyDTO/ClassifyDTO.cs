@@ -19,6 +19,7 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int Page { get; set; }
             public int MemberId { get; set; }
             public List<string> RealDate { get; internal set; }
+            public bool isOffIsland { get; set; }
         }
 
 
@@ -53,7 +54,7 @@ namespace Today.Web.DTOModels.ClassifyDTO
 
         public int Page { get; set; }
         public int MemberId { get; set; }
-
+        public bool isOffIsland { get; set; }
 
 
         //public List<CategoryFilter> CategoryFilterList { get; set; }

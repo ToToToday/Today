@@ -27,7 +27,7 @@
 }
 <partial name="_Hotel_bannerPartial" view-data="ViewData" />
 <partial name="_HotelFiliterPartial" />
-
+<div id ="classifyCard">
 <div class="container city-filter-wrap position-fixed pt-2">
     <div class="sidebar d-flex mx-0 px-3 bg-white">
         <!-- 第一版 目的地-->
@@ -65,7 +65,7 @@
                                 台灣
                             </h2>
                         </div>
-                        <!-- checkbox內文 --> 000
+                        <!-- checkbox內文 --> 
                         <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body-input m-2">
@@ -150,7 +150,7 @@
                 <div class="filter-group rounded">
                     <div class="filter-block">
                         <!-- 使用日-請選擇使用日 -->
-                        <dib class="accordion-header" id="Attractions">
+                        <div class="accordion-header" id="Attractions">
                             <h4 class=" collapsed fw-normal border-bottom d-flex " data-bs-target="#collapsedayofuse"
                                 aria-expanded="false">
                                 <input type="button" name="datefilter" value="請選出發日期"
@@ -161,7 +161,7 @@
                                     請選擇使用日
                                     </span>*@
                             </h4>
-                        </dib>
+                        </div>
                     </div>
                 </div>
                 <!-- 更多條件 -->
@@ -224,7 +224,7 @@
 
 <div class="container-fluid-ProductList ">
     <section class="container m-auto">
-        <div class="container row p-0 m-0" id="classifyCard">
+        <div class="container row p-0 m-0">
             <!--左側欄 -->
             <div class="col-lg-3 product-filter px-3 pt-3">
                 <!-- 篩選目的地 -->
@@ -307,80 +307,7 @@
                     </div>
                 </div>
                 <!-- 價錢 range -->
-                <div class="filter-group rounded ">
-                    <div class="filter-block mt-3">
-                        <div class="accordion-item">
-                            <div class="accordion-header pt-3 pb-4 mx-3" id="headingThree">
-                                <h4 class="Pricies">價錢 (TWD)</h4>
-                                <div class="wrapper">
-                                    <div class="wrapper pt-3">
-                                        <span id="range1">
-                                            0
-                                        </span>
-                                        <span> &dash; </span>
-                                        <span id="range2">
-                                            2,928,980
-                                        </span>
-                                    </div>
-                                    <div class="container mt-4">
-                                        <div class="slider-track "></div>
-                                        <input class="bg-white shadow-none" type="range" min="0" max="99999" value="00"
-                                            id="slider-1" oninput="slideOne()">
-                                        <input type="range" min="0" max="99999" value="123456" id="slider-2"
-                                            oninput="slideTwo()">
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="rounded-circle" style="left:0%;"></span>
-                        </div>
-                    </div>
-                </div>
-                <!-- 行程時間 -->
-                <div class="filter-group rounded">
-                    <div class="filter-block mt-3">
-                        <div class="accordion-item">
-                            <div class="accordion-header " id="headingThree">
-                                <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                    data-bs-target="#journeytime" aria-expanded="false">
-                                    行程時間
-                                </h2>
-                            </div>
-                            <div id="journeytime" class="accordion-collapse collapse show"
-                                data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="lessthanfourhours">
-                                        <label class="form-check-label ms-1 mt-1" for="lessthanfourhours">
-                                            少於 4 小時
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="fourhours-oneday">
-                                        <label class="form-check-label ms-1 mt-1" for="fourhours-oneday">
-                                            4 小時 - 1 日
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="oneday-twoday">
-                                        <label class="form-check-label ms-1 mt-1" for="oneday-twoday">
-                                            1 日 - 2 日
-                                        </label>
-                                    </div>
-                                    <div class="form-check-time ps-2 py-2">
-                                        <input class="form-check-input mt-1" type="checkbox" value=""
-                                            id="morethantwodays">
-                                        <label class="form-check-label ms-1 mt-1" for="morethantwodays">
-                                            2 日以上
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  
             </div>
             <!--右側欄 -->
             <div class="col-lg-9 pt-3 p-2">
@@ -528,6 +455,7 @@
         </div>
     </section>
 </div>
+</div>
  <partial name ="_MapModalPartial" />
   @section endJS
   {
@@ -537,59 +465,252 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <script src="https://kit.fontawesome.com/847bfc3e24.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <script>
+  <script src="~/js/calendar.js"></script>
+  <script src="~/js/homescript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    <script>
         let json_location = @Html.Raw(@ViewData["locationJson"]); //將 json純文字 解碼 成 js的json
    </script>
-
    <script src="~/js/google-map.js"></script>
-
-    <script src="~/js/show_city.js"></script>
+       @*vue*@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
-    @*<script src="https://unpkg.com/vue@next"></script>*@
-    <script>
-        const classifyCardVue = new Vue({
-            // 掛載位置
-            el: '#classifyCard',
-            // 資料, state
-            data: {
-                page: 1,
-                cardCount: 1,
-                productCards: [
-                    {
-                        href: '',
-                        path: '',
-                        productName: '',
-                        tagText: [],
-                        cityName: '',
-                    },
-                    {
-                        productId: '1',
-                        href: '',
-                        path: '',
-                        productName: '',
-                        tagText: [],
-                        cityName: '',
-                        ratingStar: 5,
-                        totalComment: 1,
-                    },
-                ]
-            },
-            methods: {
-                //pageRadio
-                choosePage(page) {
-                    filterPost(page)
-                },
-            },
-            mounted() {
-                this.choosePage(1)
-                //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
-                //this.cardCount = @Model.CardCount
-            },
-        })
+    <script src="~/js/cityChoose.js"></script>
+    <script src="~/js/calendar.js"></script>
 
-    </script>
-    <script src="~/js/datePicker"></script>
+     <script src="~/js/datePicker.js"></script>
      <script src="~/js/cityChoose.js"></script>
 
+
+<script>
+    function filterGet() {
+        const request = new Request("/api/ClassifyApi/Classify");
+        fetch(request)
+    }
+
+    function Pick()
+    {
+         const request = new Request("/api/ClassifyApi/Classify");
+        fetch(request)
+    }
+    @* let p = document.querySelectorAll(".click_num")
+    for (let i = 0; i < p.length; i++) {
+        p[i].addEventListener("click", function () {
+            p[i].classList.add("btn-info")
+        })
+    } *@
+
+    //function makePill(cityInput) { //參數area , targetInput
+    //    //create
+    //    let dom = document.createElement('');
+
+    //    dom.innerText = cityInput.parentElement ?? .innerText //拿到label文字
+
+
+    //    //append
+    //    let area = document.createElement('span');
+    //    area.append(dom)
+    //    //之後再改 不確定的area 參數指定areai
+
+    //    //綁事件
+    //@* dom的xx 按了 要 把target取消勾選 *@
+    //}
+
+
+</script>
+<script src="~/js/pickToUrl.js"></script>
+
+<script>
+    const classifyCardVue = new Vue({
+        // 掛載位置
+        el: '#classifyCard',
+        // 資料, state
+        data: {
+            //篩選區 
+            allFilter: {
+                cities: [
+                    { CityId: 1, CityName: '基隆', checked: false },
+                    { CityId: 2, CityName: '新北', checked: false },
+                    { CityId: 3, CityName: '台北', checked: false },
+                ],
+                offIslandcities:
+                    [
+                        { CityId: 24,CityName: '馬祖', CityImage:''},
+                        { CityId: 22,CityName: '澎湖', CityImage:'' },
+                        { CityId: 19,CityName: '綠島', CityImage:''},
+                        { CityId: 23,CityName: '金門', CityImage:''},
+                        { CityId: 20,CityName: '蘭嶼', CityImage:''},
+                    ],
+                categories: [
+                    {
+                        ProductCategoryId: 1,
+                        CategoryName: "住宿",
+                        ChildCategory: [
+                            {
+                                ProductCategoryId: 13,
+                                CategoryName: "高鐵假期",
+                                ChildCategory: null
+                            },
+                            {
+                                ProductCategoryId: 14,
+                                CategoryName: "飯店",
+                                ChildCategory: null
+                            },
+                        ]
+                    },
+                ],
+            },
+            //卡列表區
+            page: 1,
+            cardCount: 7991,
+            productCards: [
+                {
+                    productId: '1',
+                    href: '',
+                    path: '',
+                    productName: '',
+                    tagText: [],
+                    cityName: '',
+                    ratingStar: '',
+                    totalComment: '',
+                    prices: {
+                        originalPrice: '',
+                        price: '',
+                    },
+                    favorite: false,
+                },
+                {
+                    productId: '1',
+                    href: '',
+                    path: '',
+                    productName: '',
+                    tagText: [],
+                    cityName: '',
+                    ratingStar: '',
+                    totalComment: '',
+                    prices: {
+                        originalPrice: '',
+                        unitPrice: '',
+                    },
+                    favorite: false
+                },
+            ]
+        },
+        mounted() {
+            let cityList = @Html.Raw(cityJson);
+            let categoryList = @Html.Raw(categoryJson);
+            //console.log(cityList)
+            //console.log(categoryList)
+
+            this.allFilter.cities = cityList.map(x => 
+                ({
+                    CityId:x.CityId,
+                    CityName:x.CityName,
+                    Checked:false,
+                })
+            )
+
+            this.allFilter.offIslandcities = cityList.map(x=>
+                ({
+                    CityId:x.CityId,
+                    CityName:x.CityName,
+                    CityImage:x.Path,
+                })
+            )
+            //if(categoryList ==)
+            this.allFilter.categories = categoryList.map( x => {
+                //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
+                x.ChildCategory.forEach( child => 
+                    child.Checked = false)
+                return x;
+            })
+            this.allFilter.categories[4].ChildCategory[0].Checked = true
+
+            this.filterPost(1)
+
+
+            //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
+        },
+
+        methods: {
+            cancelAll(){
+                this.allFilter.cities.forEach( c=> c.Checked = false)
+                this.allFilter.categories.forEach( ca=> {
+                    ca.ChildCategory.forEach( child=> {child.Checked = false})
+                })
+                this.filterPost(1)
+            },
+
+            //pageRadio
+            cancel(target) {
+                //console.log('取消',target)
+                target.Checked = false
+                this.filterPost(1)
+            },
+            async filterPost(page) {
+                //v 戴格停區
+                var dateRange = null
+                try {
+                    var dateSelectd_text_All = document.querySelectorAll("span.drp-selected")[1].innerText;
+                    dateSelectd_text_All.forEach(item=>{
+                        var dateSelectd_text = item.innerText
+                    })
+                    if (dateSelectd_text == "")
+                        throw new Error();
+                    
+                    dateRange = dateSelectd_text.split(' - '); 
+                }
+                catch (err) {
+                    dateRange= null
+                }
+
+                fetch("/api/ClassifyApi/Classify", {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json;charset=utf-8',
+                    },
+                    body: JSON.stringify({
+                        @* cities: Array.from(citiesChecked).map(x => x.value),  *@
+                        cities: this.allFilter.cities.filter(x => x.Checked).map(x => x.CityId),
+                        categories: this.allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x)
+                            .filter(x => x.Checked).map(x => x.ProductCategoryId),
+                        dateRange : dateRange,
+                        @* categories: Array.from(selfformchecked).map(x => x.value), *@
+                        //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
+                        page: page,
+                    })
+                })
+                    .then(resp => resp.json())
+                    .then(JSobj => {
+                        console.log("ssss",JSobj)
+                        //重新處理DOM
+                        if (classifyCardVue.cardCount != JSobj.cardCount)
+                            classifyCardVue.cardCount = JSobj.cardCount
+                        //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
+                        classifyCardVue.page = page;
+
+                        classifyCardVue.productCards =
+                            JSobj.classifyCardList.map(x => {
+                                x.href = `/Product/ProductInfo/${x.productId}`
+                                return x;
+                            })
+
+                        document.querySelector('#destFilter').focus();
+                    })
+                @* OriginalPrice/Price *@
+                .then(() => {
+                    let OriginalPrice = document.querySelectorAll('.OriginalPrice')
+                    let Price = document.querySelectorAll('.Price')
+                    OriginalPrice.forEach((item, index) => {
+                        if (item.innerText === Price[index].innerText) {
+                            item.classList.add("d-none")
+                        }
+                    })
+                })
+            }
+
+        },
+    })
+    </script>
   }

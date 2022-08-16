@@ -36,6 +36,7 @@ namespace Today.Web.WebApiControllers
 
             public int Page { get; set; }
 
+            public bool IsoffIsland { get; set; }
         }
         //[HttpPost]
         //public IActionResult searchCity(string searchword)
@@ -93,10 +94,11 @@ namespace Today.Web.WebApiControllers
                 DateRange = c.DateRange,
                 Page = c.Page,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
-        };
+                ,isOffIsland = c.IsoffIsland
+            };
 
             var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
-
+            
 
             var result = new ClassifyVM()
             {

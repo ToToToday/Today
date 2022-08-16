@@ -24,7 +24,10 @@ body {
     margin: auto;
 }
 
-
+.daterangepicker
+{
+    z-index:1;
+}
 .form-check {
     /* margin: 0 20px;
     padding: 10px 20px; */
@@ -126,6 +129,7 @@ span.sort:hover {
     .city-filter-wrap {
         display: block;
         z-index: 10;
+        top: 55px;
     }
 
     .container-fluid-ProductList {
