@@ -40,7 +40,7 @@
             <div class="container">
                 @foreach (var cart in Model.ShopCartCardList)
                 {
-                    <div class="item d-flex flex-row createShopCard px-2 px-md-4">
+                    <div class="item d-flex flex-row createShopCard px-3 px-md-4">
                         <div class="check-control m-0 ps-0 pe-3">
                             <label class="form-check-label" for="commodity-control">
                             </label>
@@ -59,14 +59,14 @@
                                         <p class="card-text p-0">@cart.ProgramTitle</p>
                                     </div>
                                     <div class="col-lg-3 d-flex flex-column flex-lg-row">
-                                        <div class="time p-1 my-auto">
-                                            <span class="d-lg-inline-block">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
+                                        <div class="time my-auto">
+                                            <span class="d-lg-inline-block text-nowrap">@cart.DepartureDate.GetDateTimeFormats('D')[0].ToString()</span>
                                             <span class=" mt-1 m-0 p-0">時間: @cart.ScreenTime</span>
                                         </div>
-                                        <span class="text-nowrap d-inline-block p-1 my-auto">@(cart.UnitText)x@(cart.Quantity)</span>
+                                        <span class="text-nowrap flex-grow-1 my-auto py-1">@(cart.UnitText)x@(cart.Quantity)</span>
                                     </div>
-                                    <div class="col-lg-3 text-end d-lg-flex flex-lg-nowrap p-1 justify-content-between">
-                                        <span class=" fw-bold text-nowrap m-auto">TWD <span class="price">@cart.Sum</span></span>
+                                    <div class="col-lg-3 text-end d-lg-flex flex-lg-nowrap  justify-content-between">
+                                        <span class=" fw-bold text-nowrap m-auto pb-lg-0 pb-2">TWD <span class="price">@cart.Sum</span></span>
                                         <i class="@(cart.Favorite == true ? "fa-solid" : "fa-regular") fa-heart m-auto"></i>
                                         <button value="@cart.ShoppingCartId" type="button" class="p-0 m-0 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#deleteCard">
                                             <i class="fa-regular fa-trash-can ms-2"></i>

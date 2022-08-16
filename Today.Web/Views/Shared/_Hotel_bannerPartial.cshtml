@@ -86,13 +86,14 @@
             </ul>
           </div>
           <div class="btn-group col-12 col-md-5 p-0">
-            <button type="button" class="btn btn-light d-flex justify-content-between align-items-center">
-              <i class="fa-solid fa-calendar-days pe-2 fw-lighter"><span class="ps-2">@ViewData["banner-date-word"]</span></i><span
+            <button class="fa-regular fa-calendar btn btn-outline-white text-dark border-end  d-flex justify-content-between align-items-center" type="button" >
+               @ViewData["banner-date-word"]</span></i><input type="button" name="datefilter" value="" class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder" placeholder="篩選出發日期"><span
                 class="pick-car"></span><span class="fa-solid fa-caret-down opacity-25"></span>
+           
             </button>
           </div>
-          <button class="col-12 col-md-2   btn text-white btn-info  border rounded-end " type="button"
-            id="button-addon2"><i class="fa-solid fa-magnifying-glass search-icon"></i>搜尋</button>
+          <button class="col-12 col-md-2   btn text-white btn-info  border rounded-end TaiconfirmBtn" type="button"
+            ><i class="fa-solid fa-magnifying-glass search-icon"></i>搜尋</button>
         </div>
       </div>
 
@@ -110,7 +111,7 @@
               <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
               <p class="fw-bold m-0">搜尋</p>
               <a class="modal-title m-0 text-decoration-none text-black-50"
-                  id="ModalBanner">全部清除</a>
+                  id="ModalBanner" data-bs-dismiss="modal">關閉</a>
           </div>
           <div class="modal-body">
             <div class="container">
@@ -189,38 +190,24 @@
                   <button type="button" class="btn btn-outline-info rounded-pill w-100 ps-0 pe-0" id="choose-city">馬祖</button>
                 </li>
               </ul>
-              <p >日期</p>
-              <div class="calendar">
-                  <div class="title">
-                      <p class="text-info" id="calendar-year">Year</p>
-                      <ul class="head-list">
-                          <li class="calendar-title list-unstyled"></li>
-                          <li class="calendar-title list-unstyled"></li>
-                          <li class="calendar-title list-unstyled"></li>
-                          <li class="calendar-title list-unstyled"></li>
-                      </ul>
-                      <a href="" id="prev">Prev Month</a>
-                      <a href="" id="next">Next Month</a>
-                  </div>
-                  <table class="table">
-                      <tr class="text-black-50 body-tr ">
-                          <th>一</th>
-                          <th>二</th>
-                          <th>三</th>
-                          <th>四</th>
-                          <th>五</th>
-                          <th>六</th>
-                          <th>日</th>
-                      </tr>
-                      <tr class="days">
-                          
-                      </tr>
-                  </table>
-              </div>
+                <div class="filter-group date rounded ">
+                    <div class="filter-block mt-3">
+                        <div class="accordion-item">
+                            <div class="input-group p-2 mb-3">
+                                <label for="" class="w-100">
+                                    <button class="fa-regular fa-calendar btn btn-outline-white text-dark border-end p-3 " type="button" name="datefilter">
+                                        <!-- <i class="fa-regular fa-calendar"> -->
+                                    </button>
+                                    <input type="button" name="datefilter" value="篩選出發日期" class="fa-regular fa-calendar btn btn-outline-white text-dark flex-grow-1 fs-6 fw-bolder" placeholder="篩選出發日期">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-info col-12 text-white TaiconfirmBtn">確認</button>
+                  <button type="button" class="btn btn-secondary col-3" data-bs-dismiss="modal">Close</button>
               </div>
           </div>
       </div>

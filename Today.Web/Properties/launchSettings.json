@@ -11,8 +11,6 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "Product/ProductInfo/3",
-
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +18,6 @@
     "Today.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Product/ProductInfo/3",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

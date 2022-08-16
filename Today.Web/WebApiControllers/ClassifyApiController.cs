@@ -27,13 +27,7 @@ namespace Today.Web.WebApiControllers
 
         }
 
-        public class ClassifyRequestModel
-        {
-            public List<int> Cities { get; set; }
-            public List<int> Categories { get; set; }
-            public int Page { get; set; }
 
-        }
         //[HttpPost]
         //public IActionResult searchCity(string searchword)
         //{
@@ -87,12 +81,15 @@ namespace Today.Web.WebApiControllers
                 //c.Categories.Select(x=> new FilterDTO.CategoryFilter { CategoryId = x}).ToList(),
                 CityFilterList = c.Cities,
                 //c.Cities.Select(x => new FilterDTO.CityFilter { CityId = x}).ToList(),
+
+                //擴充其他條件...
+
+                //DateRange = c.DateRange,
                 Page = c.Page,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
-        };
+            };
 
-            var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
-
+            var classifyCardList = _classifyService.GetClassifyMatchedCards(inputDto);
 
             var result = new ClassifyVM()
             {
@@ -102,7 +99,6 @@ namespace Today.Web.WebApiControllers
 
             return Ok(result);
         }
-
     }
 }
 

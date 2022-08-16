@@ -8,17 +8,25 @@ namespace TodayMVC.Admin.Repositories
 {
     public class DapperMemberRepository : DapperBaseRepository, IDapperMemberRepository
     {
-        public DapperMemberRepository(IDbConnection conn) : base(conn){ }
-        public IEnumerable<Member> GetOne(Member entity)
+        public DapperMemberRepository(IDbConnection conn) : base(conn)
+        { }
+
+        public Member GetOne(Member entity)
         {
-            return _conn.Query<Member>(@"SELECT * FROM Member Where MemberId = @MemberId", new { entity.MemberId });
+            return (Member)_conn.Query<Member>(@"SELECT * FROM Member Where MemberId = @MemberId", new { entity.MemberId });
         }
+
         public IEnumerable<Member> SelectAll()
         {
-            return _conn.Query<Member>(@"
-                    SELECT * FROM Member
-                ");
+            var sql = @"SELECT MemberId, MemberName, m.CityId, Age, Phone, Gender, Email, c.CityId split_on, c.CityName FROM Member m LEFT JOIN City c ON m.CityId = c.CityId";
+
+            return _conn.Query<Member, City, Member>(sql, (m, c) => { m.City = c; return m; }, splitOn: "split_on");
+
+            //return _conn.Query<Member>(@"
+            //        SELECT MemberId, MemberName, CityId, Age, Phone, Gender, Email FROM Member
+            //    ");
         }
+
         public int Delete(Member entity)
         {
             return _conn.Execute(@"
@@ -27,6 +35,7 @@ namespace TodayMVC.Admin.Repositories
                 ",
             new { entity.MemberId });
         }
+
         public int Create(Member entity)
         {
             throw new System.NotImplementedException();

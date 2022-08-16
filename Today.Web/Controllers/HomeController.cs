@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using Today.Web.Data;
@@ -63,7 +64,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
@@ -77,7 +78,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
@@ -91,7 +92,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
@@ -105,7 +106,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
@@ -119,7 +120,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
@@ -133,7 +134,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
@@ -147,7 +148,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,
@@ -161,7 +162,7 @@ namespace Today.Web.Controllers
                     CityName = h.CityName,
                     Favorite = h.Favorite,
                     Tags = h.Tags,
-                    Rating = h.Rating.RatingStar,
+                    Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
                     TotalOrder = h.TotalOrder,
                     OriginalPrice = (h.Prices == null || h.Prices.OriginalPrice == h.Prices.Price) ? null : h.Prices.OriginalPrice,

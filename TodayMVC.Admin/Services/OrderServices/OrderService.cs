@@ -1,53 +1,40 @@
-﻿using System.Collections.Generic;
+﻿
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Today.Model.Models;
 using Today.Model.Repositories;
-using TodayMVC.Admin.DTOModels.OrderDTO;
-using static TodayMVC.Admin.DTOModels.OrderDTO.OrderDTO;
+using TodayMVC.Admin.AdminEnum;
+using TodayMVC.Admin.Repositories.DapperOrderRepositories;
+using static TodayMVC.Admin.ViewModels.OrderVM;
 
 namespace TodayMVC.Admin.Services.OrderServices
 {
     public class OrderService : IOrderService
     {
-        private readonly IGenericRepository _repo;
-        public OrderService(IGenericRepository repo)
+        private readonly IDapperOrderRepository _orderRepo;
+        public OrderService(IDapperOrderRepository orderRepo)
         {
-            _repo = repo;
+            _orderRepo = orderRepo;
             
         }
-        public List<OrderInfo> GetAllOrder()
+        public List<OrderInfo> OrderList()
         {
-            var memberData = _repo.GetAll<Member>();
-            var orderData = _repo.GetAll<Order>();
-            var orderDetailData = _repo.GetAll<OrderDetail>();
-            var SpecificationData = _repo.GetAll<ProgramSpecification>();
-            var productData = _repo.GetAll<Product>();
-            var programData = _repo.GetAll<Today.Model.Models.Program>();
-            var orderMenu = from o in orderData
-                            join m in memberData on
-                            o.MemberId equals m.MemberId
-                            join od in orderDetailData on
-                            o.OrderId equals od.OrderId
-                            join s in SpecificationData on
-                            od.SpecificationId equals s.SpecificationId
-                            join pg in programData on
-                            s.ProgramId equals pg.ProgramId
-                            join p in productData on
-                            pg.ProductId equals p.ProductId
-                            select new { o.OrderId, m.MemberName, p.ProductName, od.Quantity, od.UnitPrice, o.OrderDate, o.Status };
-            return orderMenu.Select(oa => new OrderInfo
+            var orderData = _orderRepo.SelectAll();
+            var getOrder = orderData.OrderByDescending(O => O.OrderDetailsId).Select(x => new OrderInfo
             {
-                OrderID = oa.OrderId,
-                MemberName = oa.MemberName,
-                ProductName = oa.ProductName,
-                OrderDate = oa.OrderDate,
-                OrderStatus = oa.Status,
-                Quantity = oa.Quantity,
-                TotalPrice = oa.UnitPrice * oa.Quantity,
-
+                OrderId = x.OrderDetailsId,
+                OrderDate = String.Format("{0:yyyy-MM-dd HH:mm}", x.Order.OrderDate),
+                MemberName = x.Order.Member.MemberName,
+                ProductName = (x.Specification.Program.Product.ProductName) == null ? string.Empty : (x.Specification.Program.Product.ProductName).Substring(0, Math.Min(30, (x.Specification.Program.Product.ProductName).Length)),
+                ItemText = x.Specification.Itemtext,
+                Quantity = x.Quantity,
+                TotalPrice = (int)x.UnitPrice * x.Quantity,
+                Status = (x.Order.Status).ToDescription<AllEnum.OrderStatu>(),
+                ProgramName = (x.Specification.Program.Title) == null ? string.Empty : (x.Specification.Program.Title).Substring(0, Math.Min(30, (x.Specification.Program.Title).Length)),
             }).ToList();
-             
+            return getOrder;
         }
-        
+
+
     }
 }
