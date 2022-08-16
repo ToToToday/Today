@@ -16,6 +16,7 @@ using Today.Model.Models;
 using TodayMVC.Admin.Repositories;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
 using TodayMVC.Admin.Services.MemberService;
+using TodayMVC.Admin.Services.ProductServices;
 
 namespace TodayMVC.Admin
 {
@@ -51,6 +52,7 @@ namespace TodayMVC.Admin
 
             services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
             services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
+            services.AddTransient<ICreateProductServices, CreateProductServices>();
             services.AddTransient<IMemberService, MemberService>();
 
         }

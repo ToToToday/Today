@@ -2,6 +2,105 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+    <h1 class="h3 mb-4 text-gray-800">新增產品</h1>
 
+    <div class="">
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 mb-3">
+                <label for="">商品名稱</label>
+                <input type="text" class="form-control is-invalid">
+                <div class="text-danger small mt-1">
+                    商品名稱不得為空
+                </div>
+            </div>
+        </div>
+        <div>
+            <b-card bg-variant="light">
+                <b-form-group label-cols-lg="3"
+                              label="Shipping Address"
+                              label-size="lg"
+                              label-class="font-weight-bold pt-0"
+                              class="mb-0">
+                    <b-form-group label="Street:"
+                                  label-for="nested-street"
+                                  label-cols-sm="3"
+                                  label-align-sm="right">
+                        <b-form-input id="nested-street"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="City:"
+                                  label-for="nested-city"
+                                  label-cols-sm="3"
+                                  label-align-sm="right">
+                        <b-form-input id="nested-city"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="State:"
+                                  label-for="nested-state"
+                                  label-cols-sm="3"
+                                  label-align-sm="right">
+                        <b-form-input id="nested-state"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="Country:"
+                                  label-for="nested-country"
+                                  label-cols-sm="3"
+                                  label-align-sm="right">
+                        <b-form-input id="nested-country"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="Ship via:"
+                                  label-cols-sm="3"
+                                  label-align-sm="right"
+                                  class="mb-0"
+                                  v-slot="{ ariaDescribedby }">
+                        <b-form-radio-group class="pt-2"
+                                            :options="['Air', 'Courier', 'Mail']"
+                                            :aria-describedby="ariaDescribedby"></b-form-radio-group>
+                    </b-form-group>
+                </b-form-group>
+            </b-card>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <button>按我</button>
 </div>
+<script>
+    let btn = document.querySelector("button")
+    console.log(btn)
+    btn.addEventListener("click", () => {
+        console.log("123")
+        let url = "/api/ProdcutApi/Create"
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            method: 'post',
+            body: JSON.stringify({
+                //加入產品詳細資訊
+                ProductId: 1,
+            }),
+        })
+        //.then(resp => {
+        //    if (resp.ok) {
+        //        return resp.text()
+        //    }
+        //}).then(text => {
+        //    alert(text);
+        //})
+    })
+
+
+
+
+
+
+</script>

@@ -20,73 +20,81 @@ namespace TodayMVC.Admin.DTOModels.ProductDTO
         public List<Progarm> ProgarmList { get; set; }
         public bool ProductIsdeleted { get; set; }//商品狀態
         public bool Isdeleted { get; set; }//狀態
-        public Supplier supplier { get; set; }  
+        public Supplier supplier { get; set; }
+        public List<AboutProgramOption> AboutProgramOptionList { get; set;}
+        public location location { get; set; }
+    }
+    public class Supplier
+    {
+        public string CompanyName { get; set; }//公司名稱
+        public string ContactName { get; set; }//負責人名稱
+        public string ContactTitle { get; set; }//負責人職稱
+        public string Address { get; set; }//公司地址
+        public string Phon { get; set; }//負責人電話
+        public int City { get; set; }//城市
+    }
+    public class location
+    {
+        public string locationTitle { get; set; }//地點名
+        public string locationtext { get; set; }//地址
+        public string locationAddress { get; set; } //地點
+        public string Longitude { get; set; }//經度
+        public string Latitude { get; set; } //緯度
+        public int? Type { get; set; }
+    }
+    public class Progarm
+    {
+        public bool ProgarmIsdeleted { get; set; }//商品狀態
+        public string PrgramName { get; set; }
+        public string PrgarmText { get; set; }//產品說明
+        public List<int> AboutProgramList { get; set; }
+        public List<ProgramInclude>? ProgramIncludeList { get; set; }
+        public List<ProgramSpecification>? ProgramSpecificationList { get; set; }
+        public List<Date>? DateList { get; set; }
 
-        //public JSON
-        public class location
-        {
-            public string locationTitle { get; set; }//地點名
-            public string locationtext  { get; set; }//地址
-            public string locationAddress { get; set; } //地點
-            public string Longitude { get; set; }//經度
-            public string Latitude { get; set; } //緯度
-            public int? Type { get; set; }
-        }
-        public class Supplier
-        {
-            public string CompanyName { get; set; }//公司名稱
-            public string ContactName { get; set; }//負責人名稱
-            public string ContactTitle { get; set; }//負責人職稱
-            public string Address { get; set; }//公司地址
-            public string Phon { get; set; }//負責人電話
-            public int City { get; set; }//城市
-        }
-        public class Progarm
-        {
-            public bool ProgarmIsdeleted { get; set; }//商品狀態
-            public string PrgramName { get; set; }
-            public string PrgarmText { get; set; }//產品說明
-            public List<int> AboutProgramList { get; set; }
-            public List<ProgramInclude>? ProgramIncludeList { get; set; }
-            public List<ProgramSpecification>? ProgramSpecificationList { get; set; }
-            public List<Date>? DateList { get; set; }
+        public List<Screening>? ScreeningList { get; set; }
+    }
+    public class AboutProgramOption
+    {
 
-            public List<Screening>? ScreeningList { get; set; }
-        }
-        public class Screening
-        {
-            public string Date { get; set; }
-            public int? SpecificationId { get; set; }
-            public int? Status { get; set; }
-        }
-        public class ProgramSpecification
-        {
-            public bool IsScreening { get; set; }//有無場次
-            public string Itemtext { get; set; }//人
-            public string UnitText { get; set; }//間
-            public decimal PorgarmUnitPrice { get; set; }//單錢
-            public decimal OriginalUnitPrice { get; set; }//原價
-            public int Status { get; set; }
-        }
-        public class Photo
-        {
-            public string PhotoUrl { get; set; }
-            public int Sort { get; set; } //排序
-        }
-        //public class AboutProgram
-        //{
-        //    public List<int> AboutProgramId { get; set; }
-        //    //public string AboutProgramName { get; set; }//產品關於項目
-        //}
-        public class ProgramInclude
-        {
-            public string Inciudetext { get; set; }//方案包含項目
-            public bool IsInclude { get; set; }//狀態
-        }
-        public class Date
-        {
-            public int ProgramDateId { get; set; }
-            public string CantuseDate { get; set; } //方案不行的日期
-        }
+        public string Context { get; set; }
+        public string IconClass { get; set; }
+
+    }
+    public class Screening
+    {
+        public string Date { get; set; }
+        public int? SpecificationId { get; set; }
+        public int? Status { get; set; }
+    }
+    public class ProgramSpecification
+    {
+        public bool IsScreening { get; set; }//有無場次
+        public string Itemtext { get; set; }//人
+        public string UnitText { get; set; }//間
+        public decimal PorgarmUnitPrice { get; set; }//單錢
+        public decimal OriginalUnitPrice { get; set; }//原價
+        public int Status { get; set; }
+    }
+    public class Photo
+    {
+        public string PhotoUrl { get; set; }
+        public int Sort { get; set; } //排序
+    }
+    //public class AboutProgram
+    //{
+    //    public List<int> AboutProgramId { get; set; }
+    //    //public string AboutProgramName { get; set; }//產品關於項目
+    //}
+    public class ProgramInclude
+    {
+        public string Inciudetext { get; set; }//方案包含項目
+        public bool IsInclude { get; set; }//狀態
+    }
+    public class Date
+    {
+        public int ProgramDateId { get; set; }
+        public int ProgramID { get; set; }
+        public string CantuseDate { get; set; } //方案不行的日期
     }
 }
