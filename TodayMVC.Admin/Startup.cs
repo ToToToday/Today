@@ -15,11 +15,14 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using TodayMVC.Admin.Repositories;
 using TodayMVC.Admin.Repositories.DapperMailRepositories;
+using TodayMVC.Admin.Repositories.DapperCommentManage;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
 using TodayMVC.Admin.Repositories.DapperOrderRepositories;
 using TodayMVC.Admin.Services.MailService;
 using TodayMVC.Admin.Services.MemberService;
+using TodayMVC.Admin.Services.UploadService;
 using TodayMVC.Admin.Services.OrderServices;
+
 
 namespace TodayMVC.Admin
 {
@@ -55,6 +58,12 @@ namespace TodayMVC.Admin
 
             services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
             services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
+
+            services.AddTransient<IDapperGenericRepository<Product>, DapperCommentManage>();
+            services.AddTransient<IDapperCommentManage, DapperCommentManage>();
+            services.AddTransient<IMemberService, MemberService>();
+            services.AddScoped<CloudinaryService>();
+
             services.AddTransient<IDapperGenericRepository<OrderDetail>, DapperOrderRepository>();
             services.AddTransient<IDapperOrderRepository, DapperOrderRepository>();
             services.AddTransient<IDapperGenericRepository<Subscription>, DapperMailRepository>();
@@ -62,6 +71,7 @@ namespace TodayMVC.Admin
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IMailService, MailService>();
+
 
 
 
