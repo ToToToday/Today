@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Today.Model.Models;
 using TodayMVC.Admin.Services.MemberService;
 
 namespace TodayMVC.Admin.WebApiControllers
@@ -14,20 +18,13 @@ namespace TodayMVC.Admin.WebApiControllers
         {
             _memberService = memberService;
         }
+
         [HttpGet]
-        public IActionResult GetMemberList()
+        public string GetMemberList()
         {
-            var dataSource = _memberService.GetAllMemberList();
+            var dataResult = _memberService.GetAllMemberList().MemberList;
 
-            //try
-            //{
-
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-            return Ok();
+            return JsonConvert.SerializeObject(dataResult);
         }
     }
 }

@@ -16,8 +16,13 @@ using Today.Model.Models;
 using TodayMVC.Admin.Repositories;
 using TodayMVC.Admin.Repositories.DapperCommentManage;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
+using TodayMVC.Admin.Repositories.DapperOrderRepositories;
 using TodayMVC.Admin.Services.MemberService;
+<<<<<<< HEAD
 using TodayMVC.Admin.Services.UploadService;
+=======
+using TodayMVC.Admin.Services.OrderServices;
+>>>>>>> ??Ž¥DB
 
 namespace TodayMVC.Admin
 {
@@ -53,10 +58,20 @@ namespace TodayMVC.Admin
 
             services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
             services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
+<<<<<<< HEAD
             services.AddTransient<IDapperGenericRepository<Product>, DapperCommentManage>();
             services.AddTransient<IDapperCommentManage, DapperCommentManage>();
             services.AddTransient<IMemberService, MemberService>();
             services.AddScoped<CloudinaryService>();
+=======
+            services.AddTransient<IDapperGenericRepository<OrderDetail>, DapperOrderRepository>();
+            services.AddTransient<IDapperOrderRepository, DapperOrderRepository>();
+            services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<IOrderService, OrderService>();
+
+
+
+>>>>>>> ??Ž¥DB
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

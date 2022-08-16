@@ -7,7 +7,8 @@ using System.Linq;
 using Today.Model.Models;
 using TodayMVC.Admin.DTOModels;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
-using static TodayMVC.Admin.DTOModels.MemberDTO;
+using TodayMVC.Admin.ViewModels;
+using static TodayMVC.Admin.ViewModels.MemberVM;
 
 namespace TodayMVC.Admin.Services.MemberService
 {
@@ -19,9 +20,10 @@ namespace TodayMVC.Admin.Services.MemberService
             _dapperRepo = dapperRepo;
         }
 
-        public MemberDTO GetAllMemberList()
+        public MemberVM GetAllMemberList()
         {
-            var result = new MemberDTO { MemberList = _dapperRepo.SelectAll().Select(r => new MemberInfo { MemberId = r.MemberId, MemberName = r.MemberName, Gender = r.Gender, CityName = r.CityId}).ToList()};
+            var dataSource = _dapperRepo.SelectAll();
+            var result = new MemberVM { MemberList = dataSource.Select(r => new MemberInfo { MemberId = r.MemberId, MemberName = r.MemberName, CityName = r.City.CityName, Age = r.Age, Phone = r.Phone, Gender = r.Gender, Email = r.Email}).ToList()};
             return result;
         }
     }
