@@ -84,6 +84,7 @@ namespace Today.Web.WebApiControllers
 
                 //擴充其他條件...
 
+                //DateRange = c.DateRange,
                 Page = c.Page,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
             };

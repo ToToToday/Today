@@ -247,7 +247,7 @@ namespace Today.Web.Controllers
                     //SceenLists = s.Select(sn => new ChenkoutVM.OrderInfo.SceenList
                     //{
                     //    Screen = sn
-                    //}),
+                    //}).ToList(),
                     Itemtext = oi.Itemtext,
                     Quantity = oi.Quantity,
                     UnitPrice = oi.UnitPrice,

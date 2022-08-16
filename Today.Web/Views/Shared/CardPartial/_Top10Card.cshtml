@@ -1,0 +1,40 @@
+﻿@{
+    int index = 1;
+}
+
+@foreach(var item in Model)
+{
+    <div class="hot-product-card fixed-card mx-2 col">
+        <a href="#" class="text-decoration-none text-black">
+            <div class="bundle position-relative overflow-hidden">
+                <span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
+                <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>
+                <span class="orderby position-absolute text-white py-1 px-2 rounded">TOP@(index)</span>
+                <img src="@item.ProductPhoto" class="card-img-top rounded" alt="@item.ProductName">
+            </div>
+            <div class="card-body px-0">
+                <h4 class="card-text overflow-hidden mb-1">@item.ProductName</h4>
+                <div class="card-tag mb-2 d-flex">
+                    @foreach(var t in item.Tags)
+                    {
+                        <span title="@t" class="tag px-2 py-1 me-2 rounded">@t</span>
+                    }
+                </div>
+                <div class="card-product-review mb-2 d-flex">
+                    <span class="px-1 border-end border-secondary">
+                        <i class="fa-solid fa-star"></i>@item.Rating (@(item.TotalGiveComment))
+                    </span>
+                    <span class="px-1">
+                        @(item.TotalOrder) 個已訂購
+                    </span>
+                </div>
+                <div class="card-product-price d-flex">
+                    <span class="text-decoration-line-through p-1 @(item.OriginalPrice == null ? "d-none" : "d-flex flex-nowrap")">TWD @item.OriginalPrice</span>
+                    <span class="p-1 @(item.Price == null ? "d-none" : "d-flex flex-nowrap")">TWD<span class="fw-bolder">@item.Price</span></span>
+                                
+                </div>
+            </div>
+        </a>
+    </div>
+    index++;
+}

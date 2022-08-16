@@ -9,8 +9,12 @@ namespace TodayMVC.Admin.ViewModels
         {
             public int MemberId { get; set; }
             public string MemberName { get; set; }
-            public bool Gender { get; set; }
             public string CityName { get; set; }
+            public int? Age { get; set; }
+            public string Phone { get; set; }
+            public string Gender { get; set; }
+            public string Email { get; set; }
+
         }
     }
 }

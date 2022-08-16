@@ -5,37 +5,67 @@ productcollectheart.forEach((item, index) => {
     item.addEventListener("click", function (event) {
         item.animate(heartscale, heartTiming)
 
-        if (item.classList.contains("fa-solid")) {
-            url = "/api/Collection/RemoveCollect"
-            isfavorite = false
-        }
-        else {
-            url = "/api/Collection/AddCollect"
-            isfavorite = true
-        }
-
+        let url = "/api/Collection/CheckMemberLoginStatus"
         fetch(url, {
-            method: 'post',
+            method: 'Get',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ProductId: swipera[index].href.substring(swipera[index].href.lastIndexOf('/') + 1, swipera[index].href.length),
-                Favorite: isfavorite,
-            })
+            }
         })
             .then(res => {
-                if (res.status === 200) {
+                if (res.ok) {
                     console.log('OK')
-                    item.classList.toggle("fa-solid")
-                    item.classList.toggle("fa-regular")
+                    Promise.resolve(res.json()).then(function (result) {
+                        if (Object.values(result)[0]) {
+                            CRCollect(item, index)
+                        }
+                        else {
+                            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {})
+                            myModal.show()
+                        }
+                    })
+                    
                 }
                 else {
                     console.log('Fail')
                 }
             })
+            
     })
 })
+
+function CRCollect(target, idx) {
+    let CRurl
+    if (target.classList.contains("fa-solid")) {
+        CRurl = "/api/Collection/RemoveCollect"
+        isfavorite = false
+    }
+    else {
+        CRurl = "/api/Collection/AddCollect"
+        isfavorite = true
+    }
+
+    fetch(CRurl, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ProductId: swipera[idx].href.substring(swipera[idx].href.lastIndexOf('/') + 1, swipera[idx].href.length),
+            Favorite: isfavorite,
+        })
+    })
+        .then(res => {
+            if (res.status === 200) {
+                console.log('OK')
+                target.classList.toggle("fa-solid")
+                target.classList.toggle("fa-regular")
+            }
+            else {
+                console.log('Fail')
+            }
+        })
+}
 
 const heartscale = [
     { transform: 'scale(1)' },
