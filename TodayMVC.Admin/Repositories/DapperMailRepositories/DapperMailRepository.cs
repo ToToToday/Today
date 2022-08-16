@@ -20,7 +20,7 @@ namespace TodayMVC.Admin.Repositories.DapperMailRepositories
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Subscription> GetOne(Subscription entity)
+        public Subscription GetOne(Subscription entity)
         {
             throw new System.NotImplementedException();
         }
