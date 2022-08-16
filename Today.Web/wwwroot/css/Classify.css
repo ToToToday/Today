@@ -21,6 +21,11 @@ body {
     color: #26bec9;
 }
 
+.pic {
+    max-height: 200px;
+    overflow: hidden;
+}
+
 .container {
     max-width: 1200px;
     padding: 0px;

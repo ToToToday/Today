@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Today.Web.ViewModels;
 
 namespace Today.Web.DTOModels.ClassifyDTO
 {
     public class ClassifyDTO
     {
-        public List<ViewModels.ClassifyVM.ClassifyCardInfo> ClassifyCardList { get; set; }
+        public List<ClassifyCardInfo> ClassifyCardList { get; set; }
         public int CardCount { get; set; }
-        public List<CategoryDestinations> CategoryList { get; set; }
+
+
+        //public List<CategoryDestinations> CategoryList { get; set; }
+        //public class CategoryDestinations
+        //{
+        //    public int ProductCategoryId { get; set; }
+        //    public string CategoryName { get; set; }
+        //    public List<CategoryDestinations> ChildCategory { get; set; }
+        //}
+
         public class ClassifyRequestDTO
         {
             public int CategoryId { get; set; }
@@ -28,18 +37,21 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public double RatingStar { get; set; }
             public int TotalComment { get; set; }
         }
-        public class CategoryDestinations
-        {
-            public int ProductCategoryId { get; set; }
-            public string CategoryName { get; set; }
-            public List<CategoryDestinations> ChildCategory { get; set; }
-        }
     }
+
+
+
     public class FilterDTO
     {
         public List<int> CategoryFilterList { get; set; }
         public List<int> CityFilterList { get; set; }
         public int Page { get; set; }
         public int MemberId { get; set; }
+    }
+
+    public class GetAllFiltersOutputDTO
+    {
+        public List<FilterVM.CategoryFilter> CategoryFilterList { get; set; }
+        public List<FilterVM.CityFilter> CityFilterList { get; set; }
     }
 }

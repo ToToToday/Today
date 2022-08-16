@@ -145,34 +145,45 @@ namespace Today.Web.Controllers
             }
 
         }
-        public IActionResult Classify(int id) //楊 分類
+        public IActionResult Classify(int id) //楊 路由會收到 天生的篩選參數
         {
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId
-            };
+            //var categoryshow = new ClassifyRequestDTO
+            //{
+            //    CategoryId = id,
+            //    Page = 1,
+            //    MemberId = userId
+            //};
 
-            var classPages = _classifyService.GetClassifyPages(categoryshow);
-            var cardsource = classPages.ClassifyCardList;
-            var categorysource = classPages.CategoryList;
+            //var classPages = _classifyService.GetClassifyPages(categoryshow);
+            var classFilters = _classifyService.GetClassifyFilters();
 
+            //var cardsource = classPages.ClassifyCardList;
+            //var categorysource = classPages.CategoryList;
+
+            //var result = new ClassifyVM()
+            //{
+            //    ClassifyCardList = cardsource,
+            //    CardCount = classPages.CardCount,
+            //    CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+            //    {
+            //        ProductCategoryId = x.ProductCategoryId,
+            //        CategoryName = x.CategoryName,
+            //        ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
+            //        {
+            //            ProductCategoryId = y.ProductCategoryId,
+            //            CategoryName = y.CategoryName
+            //        }).ToList()
+            //    }).ToList()
+            //};
+            
             var result = new ClassifyVM()
             {
-                ClassifyCardList = cardsource,
-                CardCount = classPages.CardCount,
-                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                AllFilters = new FilterVM
                 {
-                    ProductCategoryId = x.ProductCategoryId,
-                    CategoryName = x.CategoryName,
-                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
-                    {
-                        ProductCategoryId = y.ProductCategoryId,
-                        CategoryName = y.CategoryName
-                    }).ToList()
-                }).ToList()
+                    CityFilterList = classFilters.CityFilterList, //空
+                    CategoryFilterList = classFilters.CategoryFilterList,
+                },
             };
             return View(result);
         }

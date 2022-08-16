@@ -2,10 +2,10 @@
 @using Newtonsoft.Json
 @using Today.Web.ViewModels
 @model ClassifyVM
-@{
-    var cityJson = JsonConvert.SerializeObject(Model.ClassifyCardList);
-    var categoryJson = JsonConvert.SerializeObject(Model.CategoryList);
-}
+@*@{
+    var cityJson = JsonConvert.SerializeObject(Model.AllFilters.CityFilterList);
+    var categoryJson = JsonConvert.SerializeObject(Model.AllFilters.CategoryFilterList);
+    }*@
 
 <!-- 導覽列 -->
 @*導覽列下的三個BUTTON*@
@@ -126,7 +126,9 @@
                         <!-- 更多條件-所有商品類別-類別內容 -->
                         <div id="collapseAttractiontickets1" class="accordion-collapse collapse px-2"
                             data-bs-parent="#accordionExample">
-                            <partial name="ClassifyCollapsePartial/_CollapsePartial" for="CategoryList" />
+                            @*<partial name="ClassifyCollapsePartial/_CollapsePartial"
+                                for="AllFilters.CategoryFilterList" />*@
+                            <partial name="ClassifyCollapsePartial/_CollapsePartial_vue" />
                         </div>
                     </div>
                 </div>
@@ -215,7 +217,8 @@
                         <h4>所有商品類別</h4>
                     </div>
                     <!-- 商品類別checkbox -->
-                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue" /> @*for="CategoryList"*@
+                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue" />
+                    @*for="AllFilters.CategoryFilterList"*@
                 </div>
                 <!-- 篩選出發日期 -->
                 <div class="filter-group date rounded ">
@@ -319,8 +322,8 @@
                         <a :href="item.href">
                             <div class="row g-0">
                                 <div class="col-md-4 ">
-                                    <div class="pic h-100">
-                                        <img class="img-fluid w-100 h-100 m-auto" :src="item.path">
+                                    <div class="pic">
+                                        <img class="img-fluid  m-auto" :src="item.path">
                                     </div>
                                 </div>
                                 <div class="col-md-8 rounded-3 ">
@@ -364,7 +367,8 @@
                                 </div>
                             </div>
                         </a>
-                        <i class="fa-solid fa-heart btn-wish"></i>
+                        <i v-if="item.favorite" class="fa-solid fa-heart btn-wish"></i>
+                        <i v-else class="fa-regular fa-heart btn-wish"></i>
                     </div>
 
                 </div>
@@ -399,8 +403,11 @@
 }
 @section endJS{
 <script>
-    let cityList = @Html.Raw(cityJson);
-    let categoryList = @Html.Raw(categoryJson);
+    let cityList = @Html.Raw(JsonConvert.SerializeObject(Model.AllFilters.CityFilterList));
+    let categoryList = @Html.Raw(JsonConvert.SerializeObject(Model.AllFilters.CategoryFilterList));
+    //console.log(cityList)
+    //console.log(categoryList)
+
 </script>
 @*<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>*@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

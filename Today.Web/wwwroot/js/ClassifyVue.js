@@ -37,12 +37,12 @@
         ],
         //卡列表區
         page: 1,
-        cardCount: 7991,
+        cardCount: 100,
         productCards: [
             {
                 productId: '1',
                 href: '',
-                path: '',
+                path: '/image/Classify/1.gif',
                 productName: '',
                 tagText: [],
                 cityName: '',
@@ -57,7 +57,7 @@
             {
                 productId: '1',
                 href: '',
-                path: '',
+                path: '/image/Classify/2.gif',
                 productName: '',
                 tagText: [],
                 cityName: '',
@@ -69,26 +69,33 @@
                 },
                 favorite: false
             },
+            {
+                productId: '1',
+                href: '',
+                path: '/image/Classify/motion-5.gif',
+                productName: '',
+                tagText: [],
+                cityName: '',
+                ratingStar: '',
+                totalComment: '',
+                prices: {
+                    originalPrice: '',
+                    unitPrice: '',
+                },
+                favorite: false
+            },
+
         ],
     },
     //從後端拉資料到前端 需要東西時到此發請求
     mounted() {
-        //let cityList = @Html.Raw(cityJson);
-        //let categoryList = @Html.Raw(categoryJson);
-        //console.log(cityList)
-        //console.log(categoryList)
-        this.allFilter.cities = cityList.map(x =>
-        ({
-            CityId: x.CityId,
-            CityName: x.CityName,
-            Checked: false,
-        })
-        )
-        this.allFilter.categories = categoryList.map(x => {
-            //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
-            x.ChildCategory.forEach(child => child.Checked = false)
-            return x;
-        })
+        this.allFilter.cities = cityList
+        this.allFilter.categories = categoryList
+        // .map(x => {
+        //     //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
+        //     // x.ChildCategory.forEach(child => child.Checked = false)
+        //     return x;
+        // })
         this.filterPost(1)
         //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
     },
@@ -102,13 +109,13 @@
     
     // 可寫任何方法到vue實體裡
     methods: {
-        // cancelAll() {
-        //     this.allFilter.cities.forEach(c => c.Checked = false)
-        //     this.allFilter.categories.forEach(ca => {
-        //         ca.ChildCategory.forEach(child => { child.Checked = false })
-        //     })
-        //     this.filterPost(1)
-        // },
+        cancelAll() {
+            this.allFilter.cities.forEach(c => c.Checked = false)
+            this.allFilter.categories.forEach(ca => {
+                ca.ChildCategory.forEach(child => { child.Checked = false })
+            })
+            this.filterPost(1)
+        },
         //pageRadio
         cancel(target) {
             console.log('取消', target)
