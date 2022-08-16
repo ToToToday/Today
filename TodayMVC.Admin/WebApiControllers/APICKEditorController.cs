@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TodayMVC.Admin.DTOModels.UploadDTO;
+using TodayMVC.Admin.Services.UploadService;
 
 namespace TodayMVC.Admin.WebApiControllers
 {
