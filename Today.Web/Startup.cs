@@ -27,6 +27,7 @@ using Today.Web.Services.ShopCartService;
 using Today.Web.Services.OrderService;
 using Today.Web.Services.BookService;
 using Today.Web.Services.CollectService;
+using Today.Web.Repository;
 
 namespace Today.Web
 {
@@ -109,6 +110,11 @@ namespace Today.Web
                     //options.CallbackPath = "/signin-line";
                 });
 
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration["RedisConfig:ToolManMemoryCache"];
+            });
+
 
             services.AddTransient<ILocationService, LocationService>();
 
@@ -122,6 +128,7 @@ namespace Today.Web
             services.AddTransient<IMemberCommentService, MemberCommentService>();
             services.AddTransient<IShopCartService, ShopCartService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IMemoryCacheRepository, MemoryCacheRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
