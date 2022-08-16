@@ -1,9 +1,10 @@
-﻿using TodayMVC.Admin.DTOModels;
+﻿using TodayMVC.Admin.ViewModels;
 
 namespace TodayMVC.Admin.Services.MemberService
 {
     public interface IMemberService
     {
-        MemberDTO GetAllMemberList();
+        MemberVM GetAllMemberList();
+        int DeleteMember(MemberVM.MemberInfo member);
     }
 }

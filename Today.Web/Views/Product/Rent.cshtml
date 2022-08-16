@@ -3,7 +3,7 @@
 @using Today.Web.ViewModels
 @{
     var cityJson = JsonConvert.SerializeObject(Model.ClassifyCardList);
-    var categoryJson = JsonConvert.SerializeObject(Model.CategoryList);
+    //var categoryJson = JsonConvert.SerializeObject(Model.CategoryList);
 }
 @section TOPCSS
 {
@@ -179,7 +179,7 @@
                         <!-- 更多條件-所有商品類別-類別內容 -->
                         <div id="collapseAttractiontickets1" class="accordion-collapse collapse px-2"
                             data-bs-parent="#accordionExample">
-                            <partial name="ClassifyCollapsePartial/_CollapsePartial" for="CategoryList" />
+                            <partial name="ClassifyCollapsePartial/_CollapsePartial" />
                         </div>
                     </div>
                 </div>
@@ -599,7 +599,7 @@
         },
         mounted() {
             let cityList = @Html.Raw(cityJson);
-            let categoryList = @Html.Raw(categoryJson);
+            //let categoryList = Html.Raw(categoryJson);
             //console.log(cityList)
             //console.log(categoryList)
 
