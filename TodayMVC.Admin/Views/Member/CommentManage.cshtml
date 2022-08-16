@@ -1,29 +1,69 @@
 ﻿
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">留言管理</h1>
-    <div>
-      <b-card no-body class="overflow-hidden" style="max-width: 540px;">
-        <b-row no-gutters>
-          <b-col md="6">
-            <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
-          </b-col>
-          <b-col md="6">
-            <b-card-body title="Horizontal Card">
-              <b-card-text>
-                This is a wider card with supporting text as a natural lead-in to additional content.
-                This content is a little bit longer.
-              </b-card-text>
-            </b-card-body>
-          </b-col>
-        </b-row>
+      <div id="app">
+      <b-card>
+        <b-media class="flex-wrap">
+          <template v-slot:aside>
+            <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
+          </template>
+          <h4 class="mt-0 fw-bold text-primary" v-on:click="collapse">產品名稱(ProductName)</h4>
+          <p class="mb-0">產品標題(Title)</p>
+          <div class="each-comment mt-3">
+              <div class="border border-5 p-3">
+                  <div class="d-flex justify-content-between">
+                      <b-media class="mb-4">
+                        <template v-slot:aside>
+                          <b-img blank blank-color="#ccc" width="64" v-bind="mainProps" rounded="circle" alt="Circle image"></b-img>
+                        </template>
+                        <h4 class="mt-0 text-primary">會員姓名</h4>
+                        <span class="mr-2">★★★★★</span><span>日期 · 旅伴類型</span>
+                      </b-media>
+                      <b-button squared variant="outline-danger" style="height: 60px;">刪除</b-button>
+                  </div>
+                  <div class="bg-success bg-opacity-25 p-3">
+                      <h5 class="fw-bold">留言標題</h5>
+                      <p>留言內容</p>
+                  </div>
+              </div>
+          </div>
+        </b-media>
       </b-card>
     </div>
 </div>
 @section endJS{
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-        
+        let app=new Vue({
+            el:'#app',
+            data: {
+
+            },
+            methods: {
+                collapse:function(){
+                    $(".each-comment").slideToggle("slow");
+                }
+            }
+        })
+        window.onload = function(){
+            let url = "/api/apicommentmanage/GetAllComment"
+            fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json;'
+                },
+                method: "get",
+                
+            })
+            .then(resp => {
+                if (resp.ok) {
+                    alert("成功")
+                }
+                else { 
+                    alert("失敗")
+                }
+            })
+        }
     </script>
 }

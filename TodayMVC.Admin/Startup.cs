@@ -14,8 +14,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using TodayMVC.Admin.Repositories;
+using TodayMVC.Admin.Repositories.DapperCommentManage;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
 using TodayMVC.Admin.Services.MemberService;
+using TodayMVC.Admin.Services.UploadService;
 
 namespace TodayMVC.Admin
 {
@@ -51,8 +53,10 @@ namespace TodayMVC.Admin
 
             services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
             services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
+            services.AddTransient<IDapperGenericRepository<Product>, DapperCommentManage>();
+            services.AddTransient<IDapperCommentManage, DapperCommentManage>();
             services.AddTransient<IMemberService, MemberService>();
-
+            services.AddScoped<CloudinaryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
