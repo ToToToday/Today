@@ -142,16 +142,16 @@ namespace Today.Web.Services.locationService
 
             return result;
         }
-        public LocationDTO GetOffIslandCity()
+        public LocationDTO GetOffIslandCard()
         {
             var city = _repo.GetAll<City>().Where(x => x.IsIsland == false);
-            var result = new LocationDTO() { OffCityList = new List<OffCity>() };
+            var result = new LocationDTO() { OffIslandList = new List<OffCity>() };
 
             var Get = (from c in city
                        select new { c.CityId, c.CityName, c.CityImage });
             foreach (var item in Get)
             {
-                result.OffCityList.Add(new OffCity()
+                result.OffIslandList.Add(new OffCity()
                 {
                     CityId = item.CityId,
                     CityName = item.CityName,

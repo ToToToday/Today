@@ -11,6 +11,8 @@ using System;
 using System.Web;
 using Today.Web.Services.ProductService;
 using static Today.Web.ViewModels.ClassifyCardInfo;
+using static Today.Web.DTOModels.ClassifyDTO.FilterDTO;
+using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 
 namespace Today.Web.Services.ClassifyService
 {
@@ -21,79 +23,6 @@ namespace Today.Web.Services.ClassifyService
         {
             _repo = repo;
         }
-        //public ClassifyDTO GetClassifyPages(ClassifyRequestDTO input)
-        //{
-        //    var result = new ClassifyDTO()
-        //    {
-        //        CategoryList = new List<ClassifyDTO.CategoryDestinations>(),
-        //    };
-
-        //    var categoryList = _repo.GetAll<Category>();
-        //    var productCategoryList = _repo.GetAll<ProductCategory>();
-        //    var productList = _repo.GetAll<Product>();
-
-        //    if (input.CategoryId != 0)
-        //    {
-        //        productList = productList.Where(p =>
-        //            _repo.GetAll<ProductCategory>()
-        //                .Any(pc =>
-        //                    pc.ProductId == p.ProductId &&
-        //                    pc.CategoryId == input.CategoryId)
-        //        );
-        //    };
-
-            if (input.CategoryId != 0)
-            {
-                productList = productList.Where(p =>
-                    _repo.GetAll<ProductCategory>()
-                        .Any(pc =>
-                            pc.ProductId == p.ProductId &&
-                            pc.CategoryId == input.CategoryId)
-                );
-            };
-            var category = _repo.GetAll<Category>().ToList();
-            if (input.isOffIsland == true)
-            {
-                var city = _repo.GetAll<City>();
-                productList = productList.Where(p => city.Any(c => c.CityId == p.CityId && c.IsIsland==false));
-                //var productCategory = _repo.GetAll<ProductCategory>();
-                //productList = productList.Where(p => productCategory.Any(pr => pr.CategoryId == 29)).Distinct();
-            }
-            //result.DateCantbeUseList = this.NewMethod(input.DateRange);
-        //    result.CardCount = productList.Count();
-
-        //    var memberId = input.MemberId;
-        //    result.ClassifyCardList = GetClassifyCards(productList
-        //        .Skip(10 * (input.Page - 1))
-        //        .Take(10)
-        //        .ToList()
-        //    , memberId);
-
-
-        //    var category = _repo.GetAll<Category>().ToList();
-        //    //var city1 = _repo.GetAll<City>();
-        //    var maincategory = category.Where(category => category.ParentCategoryId == null);
-        //    var categoryGroup = category.Where(category => category.ParentCategoryId != null).GroupBy(category => category.ParentCategoryId);
-        //    foreach (var cy in maincategory)
-        //    {
-        //        var mainTemp = new ClassifyDTO.CategoryDestinations()
-        //        {
-        //            ProductCategoryId = cy.CategoryId,
-        //            CategoryName = cy.CategoryName,
-        //            ChildCategory = new List<ClassifyDTO.CategoryDestinations>()
-        //        };
-        //        foreach (var group in categoryGroup)
-        //        {
-        //            if (mainTemp.ProductCategoryId == group.Key)
-        //            {
-        //                foreach (var item in group)
-        //                {
-        //                    var x = new ClassifyDTO.CategoryDestinations()
-        //                    {
-        //                        ProductCategoryId = item.CategoryId,
-        //                        CategoryName = item.CategoryName,
-        //                    };
-        //                    mainTemp.ChildCategory.Add(x);
 
         public GetAllFiltersOutputDTO GetClassifyFilters()  // 路由可能會預先勾選一些
         {
@@ -106,11 +35,11 @@ namespace Today.Web.Services.ClassifyService
             result.CityFilterList = _repo.GetAll<City>()
                 .Where(c => _repo.GetAll<Product>().Any(p => p.CityId == c.CityId))
                 .Select(c => new FilterVM.CityFilter
-            {
-                CityId = c.CityId,
-                CityName = c.CityName,
-                //Checked = false,
-            }).ToList();
+                {
+                    CityId = c.CityId,
+                    CityName = c.CityName,
+                    //Checked = false,
+                }).ToList();
 
 
 
@@ -129,7 +58,7 @@ namespace Today.Web.Services.ClassifyService
 
                 mainTemp.ChildCategory = categoryList
                     .Where(c => c.ParentCategoryId == mainC.CategoryId)
-                    .Select( c => new FilterVM.CategoryFilter()
+                    .Select(c => new FilterVM.CategoryFilter()
                     {
                         ProductCategoryId = c.CategoryId,
                         CategoryName = c.CategoryName,
@@ -145,14 +74,6 @@ namespace Today.Web.Services.ClassifyService
 
             //擴充其他條件
 
-            //                    CategoryName = item.CategoryName,
-            //                };
-            //                mainTemp.ChildCategory.Add(x);
-            //            }
-            //        }
-            //    }
-            //    result.CategoryList.Add(mainTemp);
-            //}
             return result;
 
         }
@@ -169,103 +90,128 @@ namespace Today.Web.Services.ClassifyService
             }
 
             if (input.CategoryFilterList.Any())
-            if (input.isOffIsland == true)
             {
-                var city = _repo.GetAll<City>().Where(c => c.IsIsland == false); ;
-                productList = productList.Where(p => city.Select(c => c.CityId).Contains(p.CityId));
-                //var productCategory = _repo.GetAll<ProductCategory>();
-                //productList = productList.Where(p => productCategory.Any(pr => pr.CategoryId == 29)).Distinct();
+                matchedProductList = matchedProductList.Where(p =>
+                _repo.GetAll<ProductCategory>()
+                    .Where(pc => pc.ProductId == p.ProductId)
+                    .Select(pc => pc.CategoryId)
+                    .Any(cId => input.CategoryFilterList.Contains(cId))
+                );
             }
-            IEnumerable<Product> IEproduct = productList;
-            //v 格停 日期篩
-            if (input.DateRange !=null) //string.IsNullOrEmpty()
+
+            if (input.IsOffIsland == true)
+            {
+                var productCategory = _repo.GetAll<ProductCategory>();
+                // matchedProductList = matchedProductList.Where(p => productCategory.Any(pr => pr.CategoryId == 29 && pr.ProductId ==p.ProductId));
+                matchedProductList = matchedProductList.Where(p => _repo.GetAll<City>().Any(c => c.IsIsland == false && p.CityId == c.CityId));
+            }
+            if (input.IsRent == true)
+            {
+                var productCategory = _repo.GetAll<ProductCategory>();
+                matchedProductList = matchedProductList.Where(p => productCategory.Any(pr => pr.CategoryId == 42 && pr.ProductId == p.ProductId));
+            }
+            if (input.IsHSR == true)
+            {
+                var productCategory = _repo.GetAll<ProductCategory>();
+                matchedProductList = matchedProductList.Where(p => productCategory.Any(pr => pr.CategoryId == 13 && pr.ProductId == p.ProductId));
+            }
+            if (input.IsDIY == true)
+            {
+                var productCategory = _repo.GetAll<ProductCategory>();
+                matchedProductList = matchedProductList.Where(p => productCategory.Any(pr => pr.CategoryId == 53 && pr.ProductId == p.ProductId));
+            }
+            if(input.city_choosed !=null)
+            {
+                var city = _repo.GetAll<City>();
+                matchedProductList = matchedProductList.Where(p => city.Any(c => c.CityName == input.city_choosed && c.CityId == p.CityId));
+            }
+            if (input.IsParent == true)
+            {
+                var productCategory = _repo.GetAll<ProductCategory>();
+                matchedProductList = matchedProductList.Where(p => productCategory.Any(pr => pr.CategoryId == 22 && pr.ProductId == p.ProductId));
+            }
+            if(input.OffCityName != null)
+            {
+                var city = _repo.GetAll<City>();
+                matchedProductList = matchedProductList.Where(p => city.Any(c => c.CityName == input.OffCityName && c.CityId == p.CityId));
+            }
+            if (input.typeBanner != null)
+            {
+                matchedProductList = matchedProductList.Where(p=>p.ProductName.Contains(input.typeBanner));
+            }
+            IEnumerable<Product> IEproduct = matchedProductList;
+            //v 閣廷 日期篩
+            if (input.DateRange != null) //string.IsNullOrEmpty()
             {
                 var dateS = DateTime.Parse(input.DateRange[0]);
                 var dateE = DateTime.Parse(input.DateRange[1]).AddDays(1);
 
-            //擴充各種篩選條件...
-            }
+                //擴充各種篩選條件...
 
                 //產品任何一個方案 在篩選日期範圍內 就保留
-                IEproduct = productList.ToList().Where(p => this.CheckProductCanUse(dateS , dateE , p) );
+                IEproduct = matchedProductList.ToList().Where(p => this.CheckProductCanUse(dateS, dateE, p));
             }
+            //擴充各種篩選條件...
 
-            //^ 格停 日期篩
+
             //篩定後
             result.CardCount = matchedProductList.Count();
 
             //排序
             var orderedMatchedProductList = matchedProductList;
-                var dateE = DateTime.Parse(input.DateRange[1]).AddDays(1);
+
             //只取分頁
             result.ClassifyCardList = GetClassifyCards(
                 orderedMatchedProductList
                     .Skip(10 * (input.Page - 1))
                     .Take(10)
                     .ToList()
-            }
-            //^ 格停 日期篩
-
-            result.CardCount = a.Count();
-            result.ClassifyCardList = AddClassifyCardToResult(a
-                .Skip(10 * (input.Page - 1))
-                .Take(10)
-                .ToList()
             , input.MemberId);
+
             return result;
         }
 
+        
+    //每個方案 => 完全不可用? 
+    // 方案有禁用日期
+    //不可用的定義 = 範圍內完全都是禁的
+    private bool CheckProductCanUse(DateTime dateStart, DateTime dateEnd, Product p)
+        {
+            var ProgramList = _repo.GetAll<Today.Model.Models.Program>()
+                .Where(pg => pg.ProductId == p.ProductId)
+                .ToList();
 
-        //每個方案 => 完全不可用? 
-        // 方案有禁用日期
-        //不可用的定義 = 範圍內完全都是禁的
-        //private bool CheckProductCanUse(DateTime dateStart, DateTime dateEnd, Product p)
-        //{
-        //    var ProgramList = _repo.GetAll<Today.Model.Models.Program>()
-        //        .Where(pg => pg.ProductId == p.ProductId)
-        //        .ToList()
-        //        ;
-        //    var AllNotbeuse = _repo.GetAll<ProgramCantUseDate>().ToList();
-        //    //只考慮範圍內、和這些方案有關的 禁用日期
-        //    var ProgramCantUseDate = AllNotbeuse
-        //        .Where(x =>
-        //            x.Date >= DateTime.UtcNow && x.Date >= dateStart && x.Date < dateEnd
-        //            && ProgramList.Any(pg => pg.ProgramId == x.ProgramId)
-        //        )
-        //        .ToList();
+            var AllNotbeuse = _repo.GetAll<ProgramCantUseDate>().ToList();
+            //只考慮範圍內、和這些方案有關的 禁用日期
+            var ProgramCantUseDate = AllNotbeuse
+                .Where(x =>
+                    x.Date >= DateTime.UtcNow && x.Date >= dateStart && x.Date < dateEnd
+                    && ProgramList.Any(pg => pg.ProgramId == x.ProgramId)
+                )
+                .ToList();
 
-        //    var AllNotbeuse = _repo.GetAll<ProgramCantUseDate>().ToList();
-        //    //只考慮範圍內、和這些方案有關的 禁用日期
-        //    foreach( var pg in ProgramList)
-        //    {
-        //        var programnot = ProgramCantUseDate.Where(X => X.ProgramId == pg.ProgramId).ToList();
-        //        if(  programnot.Count ==0 ) return true;
-        //        )
-        //        //只要有個方案 有一天 沒被禁 就是可以
-        //        bool 可不可以 = programnot
-        //            .Any(x =>
-        //            {
-        //                for (var dt = dateStart; dt < dateEnd; dt = dt.AddDays(1))
-        //                {
-        //                    if (dt != x.Date)
-        //                        return true;
-        //                };
-        //                return false;
-        //            });
+            foreach (var pg in ProgramList)
+            {
+                var programnot = ProgramCantUseDate.Where(X => X.ProgramId == pg.ProgramId).ToList();
+                if (programnot.Count == 0) return true;
+
+                //只要有個方案 有一天 沒被禁 就是可以
+                bool CanorNot = programnot
+                    .Any(x =>
                     {
-        //        if(可不可以) return true;
-        //    };
-            //                if (dt != x.Date)
-            //                    return true;
-            //            };
-            //            return false;
-            //        });
-            
-            //    if(可不可以) return true;
-            //};
+                        for (var dt = dateStart; dt < dateEnd; dt = dt.AddDays(1))
+                        {
+                            if (dt != x.Date)
+                                return true;
+                        };
+                        return false;
+                    });
 
-        //    return false;
-        //}
+                if (CanorNot) return true;
+            };
+
+            return false;
+        }
 
         //private List<ProgramCantUseDate> NewMethod(List<string> realDate)
         //{
@@ -289,7 +235,7 @@ namespace Today.Web.Services.ClassifyService
 
         //    return ProgramCantUseDate;
         //}
-        //private List<ClassifyVM.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product, int memberId)
+
         private List<ClassifyCardInfo> GetClassifyCards(List<Product> product, int memberId)//context 可以 拿到登入者資訊
         {
 
@@ -306,7 +252,7 @@ namespace Today.Web.Services.ClassifyService
             var specificationList = _repo.GetAll<ProgramSpecification>();
 
             //memberId = HtttpContex.User.xxx....
-            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == memberId ).Select(c => c.ProductId); //&& product.Any(p=> p.ProductId == c.ProductId) 
+            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == memberId).Select(c => c.ProductId); //&& product.Any(p=> p.ProductId == c.ProductId) 
 
             product.ForEach(p => result.Add(
                 new ClassifyCardInfo
@@ -338,13 +284,13 @@ namespace Today.Web.Services.ClassifyService
                                     .Join(orderDetailList, specification => specification.SpecificationId, orderDetail => orderDetail.SpecificationId, (specification, orderDetail) => new { orderDetail.Quantity })
                                     .Sum(n => n.Quantity);
                 p.Prices = programList.Where(program => program.ProductId == p.ProductId).Join(specificationList, program => program.ProgramId, specification => specification.ProgramId, (program, specification) => new PriceInfo { OriginalPrice = specification.OriginalUnitPrice, Price = specification.UnitPrice }).OrderBy(specification => specification.Price).FirstOrDefault();
-                
-                
+
+
             });
 
 
             return result;
-         }
+        }
     }
 }
 

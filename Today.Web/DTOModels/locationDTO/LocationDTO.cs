@@ -10,8 +10,8 @@ namespace Today.Web.DTOModels.locationDTO
         public List<ProductLocationinfo> ProductLocationList { get; set; }
         public List<CityLocationInfo> CityLocationList { get; set; }
         public List<GetParentCard> GetParentCardList { get; set; }
-        public List<OffCity> OffCityList { get; set; }
 
+        public List<OffCity> OffIslandList { get; set; }
         public class ProductLocationinfo
         {
             public int ProductId { get; set; }
@@ -53,13 +53,13 @@ namespace Today.Web.DTOModels.locationDTO
             public string City_Latitude { get; set; }
             public string City_Longtitude { get; set; }
         }
+
         public class OffCity
         {
             public int CityId { get; set; }
             public string CityName { get; set; }
             public string CityImage { get; set; }
         }
-
         public class PriceInfo
         {
             public decimal? OriginalPrice { get; set; }

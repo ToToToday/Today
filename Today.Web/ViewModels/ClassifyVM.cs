@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Today.Model.Models;
+using static Today.Web.ViewModels.FilterVM;
 
 namespace Today.Web.ViewModels
 {
@@ -17,12 +18,14 @@ namespace Today.Web.ViewModels
         public FilterVM AllFilters { get; set; }
         public List<ClassifyCardInfo> ClassifyCardList { get; set; }
         public int CardCount { get; set; }
+        
     }
 
     public class FilterVM
     {
         public List<CategoryFilter> CategoryFilterList { get; set; }
         public List<CityFilter> CityFilterList { get; set; }
+        public List<Products> ProductList { get; set; }
 
         //可以擴充 其他篩選器
 
@@ -39,6 +42,12 @@ namespace Today.Web.ViewModels
             public string CityName { get; set; }
             public bool Checked { get; set; }
         }
+        public class Products
+        {
+            public int ProductId { get; set; }
+            public string ProductName { get; set; } 
+        }
+
     }
 
     public class ClassifyCardInfo
@@ -72,7 +81,15 @@ namespace Today.Web.ViewModels
 
         //擴充其他
         public int Page { get; set; }
-
+        public bool IsOffIsland { get; set; }
+        public bool IsRent { get; set; }
+        public bool IsHSR { get; set; }
+        public bool IsParent { get; set; }
+        public bool IsDIY { get; set; }
+        public List<string> DateRange { get; set; }
+        public string City_choosed { get; set; }
+        public string offCityName { get;set; }
+        public string typeBanner { get; set; }
     }
 }
 

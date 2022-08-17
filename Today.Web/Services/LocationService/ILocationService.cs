@@ -10,6 +10,7 @@ namespace Today.Web.Services.locationService
         LocationDTO GetLocation();
         LocationDTO GetCityLocation(int id);
         LocationDTO GetParentCard();
-        LocationDTO GetOffIslandCity();
+        LocationDTO GetOffIslandCard();
+
     }
 }

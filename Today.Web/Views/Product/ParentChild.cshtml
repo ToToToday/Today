@@ -20,7 +20,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="stylesheet" href="~/css/Classify.css">
   <link rel="stylesheet" href="~/css/MoneyRange.css">
-
+   <link rel="stylesheet" href="~/css/newcard.css"/>
   <link rel="stylesheet" href="~/css/hotel-banner-partical.css">
   <link rel="stylesheet" href="~/css/Parent-child.css">
   <link rel="stylesheet" href="~/css/google-map.css">
@@ -30,7 +30,7 @@
 
  <div class="container">
     <div class="Parent-child-carousel">
-      <p class="Parent-child-main-p m-0">本月熱門推薦★熱門親子體驗 </p>
+      <p class="Parent-child-main-p m-0">熱門推薦★產品</p>
       <div class="owl-carousel">
            @foreach(var item in Model.GetParentCardList)
             {
@@ -38,8 +38,6 @@
                     <div class="fixed-card mx-2 h-100">
                         <a href="~/Product/ProductInfo/@item.Id" class="text-decoration-none text-black">
                             <div class="bundle position-relative overflow-hidden" style="height: 153px;">
-                                @*<span class="location-tag position-absolute text-white"><i class="fa-solid fa-location-dot me-2"></i>@item.CityName</span>
-                                <span class="heart position-absolute text-white"><i class="fa-regular fa-heart"></i></span>*@
                                 <img src="@item.ProductPhoto" class="card-img-top rounded w-100 h-100 swiper-lazy" alt="@item.ProductName">
                             </div>
                             <div class="card-body px-0">
@@ -73,7 +71,8 @@
     </div>
   </div>
 <partial name="_HotelFiliterPartial" />
-<div class="container city-filter-wrap position-fixed pt-2">
+<div id ="classifyCard">
+    <div class="container city-filter-wrap position-fixed pt-3">
     <div class="sidebar d-flex mx-0 px-3 bg-white">
         <!-- 第一版 目的地-->
         <div class="city-filter-btn d-flex">
@@ -110,61 +109,19 @@
                                 台灣
                             </h2>
                         </div>
-                        <!-- checkbox內文 --> 000
+                        <!-- checkbox內文 -->
                         <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body-input m-2">
-                                @foreach (var item in Model.ClassifyCardList)
-                                {
-                                    <div class="form-check pb-2">
+                                <div class="form-check pb-2">
+                                    <div v-for="(city,idx) in allFilter.cities" class="form-check pb-2">
                                         <label class="form-check-label ms-1 mt-1">
-                                            <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox" value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
-                                        </label>@*makePill(this);*@
+                                            <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
+                                                :value="city.CityId" v-model="city.Checked"
+                                                v-on:change="filterPost(1)">{{city.CityName}}
+                                        </label>
                                     </div>
-                                }
-
-                                @* <div v-for="(city,idx) in allFilter.cities">
-                                    <label class="pill">
-                                    <input type="checkbox" :value="city.id" v-model="city.checked">{{city.text}}
-                                    </label>
-                                    </div>
-                                    <div v-for="(classify,idx) in allFilter.classifies">
-                                    <label class="pill">
-                                    <input type="checkbox" :value="classify.id" v-model="classify.checked">
-                                    {{classify.text}}
-                                    </label>
-                                    </div> *@
-
-                                @* <div class="form-check pb-2">
-                                    <div v-for="(item,idx) in cities">
-                                    <div v-for="(x,idx) in item">
-                                    <label cla ss="form-check-label ms-1 mt-1">
-                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
-                                    :value="x.id" v-model="x.checked">{{x.text}}
-                                    </label>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    <div class="form-check pb-2">
-                                    <div v-for="(item,idx) in cities">
-                                    <div v-for="(x,idx) in item">
-                                    <label cla ss="form-check-label ms-1 mt-1">
-                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
-                                    :value="x.id" v-model="x.checked">{{x.text}}
-                                    </label>
-                                    </div>
-                                    </div>
-                                    </div> *@
-                                @* @foreach (var item in Model.ClassifyCardList)
-                                    {
-                                    <div class="form-check pb-2">
-                                    <label class="form-check-label ms-1 mt-1">
-                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
-                                    value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
-                                    </label>
-                                    makePill(this);
-                                    </div>
-                                    } *@
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -195,7 +152,7 @@
                 <div class="filter-group rounded">
                     <div class="filter-block">
                         <!-- 使用日-請選擇使用日 -->
-                        <dib class="accordion-header" id="Attractions">
+                        <div class="accordion-header" id="Attractions">
                             <h4 class=" collapsed fw-normal border-bottom d-flex " data-bs-target="#collapsedayofuse"
                                 aria-expanded="false">
                                 <input type="button" name="datefilter" value="請選出發日期"
@@ -206,7 +163,7 @@
                                     請選擇使用日
                                     </span>*@
                             </h4>
-                        </dib>
+                        </div>
                     </div>
                 </div>
                 <!-- 更多條件 -->
@@ -222,7 +179,9 @@
                         <!-- 更多條件-所有商品類別-類別內容 -->
                         <div id="collapseAttractiontickets1" class="accordion-collapse collapse px-2"
                             data-bs-parent="#accordionExample">
-                            <partial name="ClassifyCollapsePartial/_CollapsePartial" />
+                            @*<partial name="ClassifyCollapsePartial/_CollapsePartial"
+                                for="AllFilters.CategoryFilterList" />*@
+                            <partial name="ClassifyCollapsePartial/_CollapsePartial_vue" />
                         </div>
                     </div>
                 </div>
@@ -265,11 +224,9 @@
         </div>
     </div>
 </div>
-
-
 <div class="container-fluid-ProductList ">
     <section class="container m-auto">
-        <div class="container row p-0 m-0" id="classifyCard">
+        <div class="container row p-0 m-0" >
             <!--左側欄 -->
             <div class="col-lg-3 product-filter px-3 pt-3">
                 <!-- 篩選目的地 -->
@@ -288,8 +245,7 @@
                     <div class="accordion-item ">
                         <div class="accordion-header" id="headingOne">
                             <h2 class="accordion-button collapsed fw-normal" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                台灣
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">台灣
                             </h2>
                         </div>
                         <!-- 台灣checkbox -->
@@ -297,30 +253,14 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body-input m-2">
                                 <div class="form-check pb-2">
-
                                     <div v-for="(city,idx) in allFilter.cities" class="form-check pb-2">
                                         <label class="form-check-label ms-1 mt-1">
                                             <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
-                                        :value="city.CityId" 
-                                        v-model="city.Checked" 
-                                        v-on:change="filterPost(1)">{{city.CityName}}
+                                                :value="city.CityId" v-model="city.Checked"
+                                                v-on:change="filterPost(1)">{{city.CityName}}
                                         </label>
                                     </div>
-
-                                    @* @foreach (var item in Model.ClassifyCardList)
-                                    {
-                                    <div class="form-check pb-2">
-                                    <label class="form-check-label ms-1 mt-1">
-                                    <input class="form-check-input mt-0 city_PC shadow-none" type="checkbox"
-                                    value="@item.CityId" onchange="postAndChangePages(); ">@item.CityId
-                                    </label>
-                                    </div>
-                                    } *@
-
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -331,7 +271,8 @@
                         <h4>所有商品類別</h4>
                     </div>
                     <!-- 商品類別checkbox -->
-                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue"  /> @*for="CategoryList"*@
+                    <partial name="ClassifyCollapsePartial/_CollapsePartial_vue" />
+                    @*for="AllFilters.CategoryFilterList"*@
                 </div>
                 <!-- 篩選出發日期 -->
                 <div class="filter-group date rounded ">
@@ -340,7 +281,7 @@
                             <div class="input-group p-2 mb-3">
                                 <label for="" class="w-100">
                                     <button
-                                        class="fa-regular fa-calendar btn btn-outline-white text-dark border-end p-2"
+                                        class="fa-regular fa-calendar btn btn-outline-white text-dark border-end p-2 shadow-none"
                                         type="button" name="datefilter">
                                     </button>
                                     <input type="button" name="datefilter" value="篩選出發日期"
@@ -352,9 +293,6 @@
                     </div>
                 </div>
                 <!-- 價錢 range -->
-               
-                <!-- 行程時間 -->
-
             </div>
             <!--右側欄 -->
             <div class="col-lg-9 pt-3 p-2">
@@ -365,81 +303,58 @@
                             <div class="card-body text-secondary">
                                 <div class="chip-group d-flex flex-wrap">
                                     <h4 class="card-title_group align-self-center ms-1 d-flex flex-wrap">
-                                        <span class="experience-itinerary text-dark align-self-center mx-1 fw-normal">{{cardCount}}</span>項體驗行程
+                                        <span
+                                            class="experience-itinerary text-dark align-self-center mx-1 fw-normal">{{cardCount}}</span>項體驗行程
                                     </h4>
-                                    @*<span class="rounded-pill border border-secondary d-flex align-items-center">
-                                        <span class="">飯店</span>
-                                        <button type="button" class="btn-close" disabled="" aria-label="Close"></button>
-                                    </span>*@
                                     <span v-for="(city,idx) in allFilter.cities.filter(x => x.Checked)"
                                         class="rounded-pill border border-secondary d-flex align-items-center">
-                                        <span class="" >{{city.CityName}}</span>
-                                        <button v-on:click="cancel(city)" type="button" class="btn-close" aria-label="Close"></button>
+                                        <span class="">{{city.CityName}}</span>
+                                        <button v-on:click="cancel(city)" type="button" class="btn-close shadow-none"
+                                            aria-label="Close"></button>
                                     </span>
-                                    <span v-for="(childCategory,idx) in allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x).filter(x => x.Checked)"
+                                    <span
+                                        v-for="(childCategory,idx) in allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x).filter(x => x.Checked)"
                                         class="rounded-pill border border-secondary d-flex align-items-center">
                                         <span class="">{{childCategory.CategoryName}}</span>
-                                        <button v-on:click="cancel(childCategory)" type="button" class="btn-close" aria-label="Close"></button>
+                                        <button v-on:click="cancel(childCategory)" type="button"
+                                            class="btn-close shadow-none" aria-label="Close"></button>
                                     </span>
-                                    <span v-if="allFilter.cities.some(x=> x.Checked)
-                                        ||allFilter.categories.some(ca=> ca.ChildCategory.some(x=> x.Checked) )
-                                        "
-                                        class="chip-clear rounded-pill d-flex align-items-center ">
+                                    <span
+                                        v-if="allFilter.cities.some(x=> x.Checked)||allFilter.categories.some(ca=> ca.ChildCategory.some(x=> x.Checked))"
+                                        class="chip-clear rounded-pill d-flex align-items-center">
                                         <a href="#" class="a text-decoration-none text-light"
-                                            v-on:click="cancelAll()"
-                                        >清除所有</a>
+                                            v-on:click="cancelAll()">清除所有</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div
-                            class="card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
+                            class="sorting-group card-footer bg-transparent d-flex flex-wrap py-3 ps-4 border-bottom-0 align-items-center">
                             <h5 class=" me-2">排序 : </h5>
-                            <div class="sort">
-                                <i class="fa-regular fa-thumbs-up"></i>
-                                <a href="#" class="text-decoration-none">
-                                    <span class="sort">Today推薦</span>
-                                </a>
-                            </div>
-                            <div class="sort">
+                            <div v-for="(todayrecommend,i) in allsort" class="sort">
                                 <span class="span_divider mx-1 "> | </span>
-                                <i class="fa-solid fa-fire"></i>
-                                <a href="#" class="text-decoration-none">
-                                    <span class="sort">熱門程度</span>
-                                </a>
-                            </div>
-                            <div class="sort">
-                                <span class="span_divider mx-1 "> | </span>
-                                <i class="fa-solid fa-star "></i>
-                                <a href="#" class="text-decoration-none">
-                                    <span class="sort">用戶評價</span>
-                                    <span class="span_divider mx-1 "> | </span>
-                                </a>
-                            </div>
-                            <div class="sort">
-                                <a href="#" class="text-decoration-none">
-                                    <i class="fa-solid fa-dollar-sign"></i>
-                                    <span class="sort">價格 : 低到高</span>
-                                </a>
+                                <i :class="todayrecommend.SortIcon"></i>
+
+                                <span class="todayrecommend " :class="{active: todayrecommend.checked}"
+                                    :value="todayrecommend.SortId"
+                                    v-on:click="filterPost(1)">{{(todayrecommend.SortName)}}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            
                 <!-- 橫向卡牌 -->
                 <div class="container_card">
                     <div v-for="(item,idx) in productCards" class="card_detail mb-3">
                         <a :href="item.href">
                             <div class="row g-0">
                                 <div class="col-md-4 ">
-                                    <div class="pic h-100">
-                                        <img class="img-fluid w-100 h-100 m-auto" :src="item.path">
-                                        @*<i class="fa-solid fa-heart btn-wish p-3 pt-4"></i>*@
+                                    <div class="pic">
+                                        <img class="img-fluid  m-auto" :src="item.path">
                                     </div>
                                 </div>
                                 <div class="col-md-8 rounded-3 ">
                                     <div class="card-body">
-                                        <h4 class="card-title text-dark">{{item.productName}}</h4>
+                                        <h4 class="card-title text-secondary">{{item.productName}}</h4>
                                         <div class="card-point py-2 ">
                                             <span v-for="t in  item.tagText"
                                                 class="label label-addational rounded-3 ">{{(t)}}</span>
@@ -465,7 +380,6 @@
                                                     <span class="subscription ms-1">{{item.totalOrder}}個已訂購</span>
                                                 </i>
                                             </div>
-
                                             <div
                                                 class="doller d-flex flex-wrap justify-content-end align-items-baseline col-4 ps-2">
                                                 <p class="TWD-line OriginalPrice text-decoration-line-through m-0 mx-1">
@@ -479,22 +393,24 @@
                                 </div>
                             </div>
                         </a>
+                        <i v-if="item.favorite" class="fa-solid fa-heart btn-wish"></i>
+                        <i v-else class="fa-regular fa-heart btn-wish"></i>
                     </div>
 
                 </div>
                 <!-- 頁數切換 -->
-                <div class=" page btn-group d-flex " role="group" aria-label="Basic radio toggle button group">
+                <div class=" page btn-group d-flex justify-content-center" role="group"
+                    aria-label="Basic radio toggle button group">
                     <div v-for="(x,i) in Math.ceil(cardCount/10)">
-                        <label v-if="x == page" class="click_num btn  me-2 "
-                            style="border: 1px solid #ccc; background-color: #26bec9;">
-                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x" checked>
-                            {{x}}
-                        </label>
-
-                        <label v-else class="click_num btn me-2 ">
+                        <label v-if="x == page" class="click_num btn  me-2"
+                            style="color: #fff; background-color: #26bec9;">
                             <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x"
-                                v-on:change='filterPost(x)'>
-                            {{x}}
+                                checked>{{x}}
+                        </label>
+                        <label v-else class="click_num btn me-2"
+                            style="border: 1px solid #eee;color: #999;background-color: #fff;">
+                            <input type="radio" class="btn-check" name="pageRadio" autocomplete="off" :value="x"
+                                v-on:change='filterPost(x)'>{{x}}
                         </label>
                     </div>
                 </div>
@@ -502,276 +418,50 @@
         </div>
     </section>
 </div>
-  <partial name ="_MapModalPartial" />
-
+</div>
+ <partial name ="_MapModalPartial" />
   @section endJS
   {
- <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+<script>
+    let cityList = @Html.Raw(JsonConvert.SerializeObject(Model.AllFilters.CityFilterList));
+    let categoryList = @Html.Raw(JsonConvert.SerializeObject(Model.AllFilters.CategoryFilterList));
+
+    let json_location = @Html.Raw(JsonConvert.SerializeObject(Model.ProductLocationList)); //將 json純文字 解碼 成 js的json
+</script>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
   crossorigin=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <script src="https://kit.fontawesome.com/847bfc3e24.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="~/js/calendar.js"></script>
   <script src="~/js/homescript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
 
-  <script>
-        let json_location = @Html.Raw(@ViewData["locationJson"]); //將 json純文字 解碼 成 js的json
-   </script>
    <script src="~/js/google-map.js"></script>
-
-    <script src="~/js/show_city.js"></script>
-    <script src="~/js/owl-carousel.js">    
-  </script>
-     <script src="~/js/datePicker.js"></script>
-     <script src="~/js/cityChoose.js"></script>
-      <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-  integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-  crossorigin=""></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <script src="https://kit.fontawesome.com/847bfc3e24.js" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <script src="~/js/homescript.js"></script>
-
-  <script>
-        let json_location = @Html.Raw(@ViewData["locationJson"]); //將 json純文字 解碼 成 js的json
-   </script>
-   <script src="~/js/google-map.js"></script>
- 
-
-     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+       @*vue*@
+<script src="~/lib/vue/vue.js"></script>
+<script src="~/js/cityChoose.js"></script>
 <script src="~/js/calendar.js"></script>
-@*<script type="text/javascript" src="~/js/classifyCollect.js"></script>*@
-<script src="~/js/datePicker.js"></script>
+<script src="~/js/owl-carousel.js"></script>
+ <script src="~/js/datePicker.js"></script>
 
-@*vue*@
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
-@*<script src="https://unpkg.com/vue@next"></script>*@
+
 
 <script>
     function filterGet() {
         const request = new Request("/api/ClassifyApi/Classify");
         fetch(request)
     }
-    @* let p = document.querySelectorAll(".click_num")
-    for (let i = 0; i < p.length; i++) {
-        p[i].addEventListener("click", function () {
-            p[i].classList.add("btn-info")
-        })
-    } *@
 
-    //function makePill(cityInput) { //參數area , targetInput
-    //    //create
-    //    let dom = document.createElement('');
-
-    //    dom.innerText = cityInput.parentElement ?? .innerText //拿到label文字
-
-
-    //    //append
-    //    let area = document.createElement('span');
-    //    area.append(dom)
-    //    //之後再改 不確定的area 參數指定areai
-
-    //    //綁事件
-    //@* dom的xx 按了 要 把target取消勾選 *@
-    //}
-
+    function Pick()
+    {
+         const request = new Request("/api/ClassifyApi/Classify");
+        fetch(request)
+    }
+  
 
 </script>
-<script>
-    const classifyCardVue = new Vue({
-        // 掛載位置
-        el: '#classifyCard',
-        // 資料, state
-        data: {
-            //篩選區 
-            allFilter: {
-                cities: [
-                    { CityId: 1, CityName: '基隆', checked: false },
-                    { CityId: 2, CityName: '新北', checked: false },
-                    { CityId: 3, CityName: '台北', checked: false },
-                ],
-                offIslandcities:
-                    [
-                        { CityId: 24,CityName: '馬祖', CityImage:''},
-                        { CityId: 22,CityName: '澎湖', CityImage:'' },
-                        { CityId: 19,CityName: '綠島', CityImage:''},
-                        { CityId: 23,CityName: '金門', CityImage:''},
-                        { CityId: 20,CityName: '蘭嶼', CityImage:''},
-                    ],
-                categories: [
-                    {
-                        ProductCategoryId: 1,
-                        CategoryName: "住宿",
-                        ChildCategory: [
-                            {
-                                ProductCategoryId: 13,
-                                CategoryName: "高鐵假期",
-                                ChildCategory: null
-                            },
-                            {
-                                ProductCategoryId: 14,
-                                CategoryName: "飯店",
-                                ChildCategory: null
-                            },
-                        ]
-                    },
-                ],
-            },
-            //卡列表區
-            page: 1,
-            cardCount: 7991,
-            productCards: [
-                {
-                    productId: '1',
-                    href: '',
-                    path: '',
-                    productName: '',
-                    tagText: [],
-                    cityName: '',
-                    ratingStar: '',
-                    totalComment: '',
-                    prices: {
-                        originalPrice: '',
-                        price: '',
-                    },
-                    favorite: false,
-                },
-                {
-                    productId: '1',
-                    href: '',
-                    path: '',
-                    productName: '',
-                    tagText: [],
-                    cityName: '',
-                    ratingStar: '',
-                    totalComment: '',
-                    prices: {
-                        originalPrice: '',
-                        unitPrice: '',
-                    },
-                    favorite: false
-                },
-            ]
-        },
-        mounted() {
-            let cityList = @Html.Raw(cityJson);
-           // let categoryList = Html.Raw(categoryJson);
-            //console.log(cityList)
-            //console.log(categoryList)
-
-            this.allFilter.cities = cityList.map(x => 
-                ({
-                    CityId:x.CityId,
-                    CityName:x.CityName,
-                    Checked:false,
-                })
-            )
-
-            this.allFilter.offIslandcities = cityList.map(x=>
-                ({
-                    CityId:x.CityId,
-                    CityName:x.CityName,
-                    CityImage:x.Path,
-                })
-            )
-            //if(categoryList ==)
-            this.allFilter.categories = categoryList.map( x => {
-                //x['data-bs-target'] = `#collapseAttractiontickets${x.ProductCategoryId}`
-                x.ChildCategory.forEach( child => 
-                    child.Checked = false)
-                return x;
-            })
-            this.allFilter.categories[2].ChildCategory[0].Checked = true
-
-            this.filterPost(1)
-
-
-            //this.productCards = JSON.parse(' Html.Raw( JsonConvert.SerializeObject(Model.ClassifyCardList) ) ')
-        },
-
-        methods: {
-            cancelAll(){
-                this.allFilter.cities.forEach( c=> c.Checked = false)
-                this.allFilter.categories.forEach( ca=> {
-                    ca.ChildCategory.forEach( child=> {child.Checked = false})
-                })
-                this.filterPost(1)
-            },
-
-            //pageRadio
-            cancel(target) {
-                //console.log('取消',target)
-                target.Checked = false
-                this.filterPost(1)
-            },
-            async filterPost(page) {
-                //v 戴格停區
-                var dateRange = null
-                try {
-                    var dateSelectd_text_All = document.querySelectorAll("span.drp-selected")[1].innerText;
-                    dateSelectd_text_All.forEach(item=>{
-                        var dateSelectd_text = item.innerText
-                    })
-                    if (dateSelectd_text == "")
-                        throw new Error();
-                    
-                    dateRange = dateSelectd_text.split(' - '); 
-                }
-                catch (err) {
-                    dateRange= null
-                }
-
-                fetch("/api/ClassifyApi/Classify", {
-                    method: 'post',
-                    headers: {
-                        'content-type': 'application/json;charset=utf-8',
-                    },
-                    body: JSON.stringify({
-                        @* cities: Array.from(citiesChecked).map(x => x.value),  *@
-                        cities: this.allFilter.cities.filter(x => x.Checked).map(x => x.CityId),
-                        categories: this.allFilter.categories.map(ca=> ca.ChildCategory).flatMap(x => x)
-                            .filter(x => x.Checked).map(x => x.ProductCategoryId),
-                        dateRange : dateRange,
-                        @* categories: Array.from(selfformchecked).map(x => x.value), *@
-                        //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
-                        page: page,
-                    })
-                })
-                    .then(resp => resp.json())
-                    .then(JSobj => {
-                        console.log("ssss",JSobj)
-                        //重新處理DOM
-                        if (classifyCardVue.cardCount != JSobj.cardCount)
-                            classifyCardVue.cardCount = JSobj.cardCount
-                        //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
-                        classifyCardVue.page = page;
-
-                        classifyCardVue.productCards =
-                            JSobj.classifyCardList.map(x => {
-                                x.href = `/Product/ProductInfo/${x.productId}`
-                                return x;
-                            })
-
-                        document.querySelector('#destFilter').focus();
-                    })
-                @* OriginalPrice/Price *@
-                .then(() => {
-                    let OriginalPrice = document.querySelectorAll('.OriginalPrice')
-                    let Price = document.querySelectorAll('.Price')
-                    OriginalPrice.forEach((item, index) => {
-                        if (item.innerText === Price[index].innerText) {
-                            item.classList.add("d-none")
-                        }
-                    })
-                })
-            }
-
-        },
-    })
-    </script>
-
-
-  }
+<script src="~/js/pickToUrl.js"></script>
+<script src="~/js/ClassifyVue.js"></script>
+}

@@ -168,6 +168,7 @@ span.sort:hover {
     .city-filter-wrap {
         display: block;
         z-index: 10;
+        top:60px;
     }
 
     .container-fluid-ProductList {

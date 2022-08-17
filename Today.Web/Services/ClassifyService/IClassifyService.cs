@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Today.Web.DTOModels.ClassifyDTO;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
+using static Today.Web.DTOModels.ClassifyDTO.FilterDTO;
 
 namespace Today.Web.Services.ClassifyService
 {
