@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.DTOModels.ProductDTO;
+using Today.Web.Repository;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.ProductDTO.ProductDTO;
 
@@ -14,9 +15,11 @@ namespace Today.Web.Services.ProductService
     public class ProductService : IProductService
     {
         private readonly IGenericRepository _repo;
-        public ProductService (IGenericRepository repo)
+        private readonly IMemoryCacheRepository _iMemoryCacheRepository;
+        public ProductService (IGenericRepository repo, IMemoryCacheRepository iMemoryCacheRepository)
         {
             _repo = repo;
+            _iMemoryCacheRepository = iMemoryCacheRepository;
         }
         public ProductResponseDTO ConvertPages(ProductRequestDTO search)
         {
@@ -126,12 +129,15 @@ namespace Today.Web.Services.ProductService
 
         public ProductDTO GetAllProductCard(int user)
         {
+            var result = _iMemoryCacheRepository.Get<ProductDTO>("Product.GetAllProductCard");
+            if (result != null) return result;
+
             var dataSource = AllProduct();
             var productSource = dataSource.QueryProduct;
             var categorySource = dataSource.CategoryList;
             var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == user).Select(c => c.ProductId);
 
-            var result = new ProductDTO
+            result = new ProductDTO
             {
                 RecentlyViewed = productSource.Take(3).Select(x => new ProductDTO.RecentlyInfo
                 {
@@ -238,6 +244,8 @@ namespace Today.Web.Services.ProductService
                     Prices = x.Prices
                 }).ToList()
             };
+
+            _iMemoryCacheRepository.Set<ProductDTO>("Product.GetAllProductCard", result);
 
             return result;
         }
