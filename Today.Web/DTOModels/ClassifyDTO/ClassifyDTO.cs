@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Today.Web.ViewModels;
 
 namespace Today.Web.DTOModels.ClassifyDTO
@@ -23,6 +22,8 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int CategoryId { get; set; }
             public int Page { get; set; }
             public int MemberId { get; set; }
+            public List<string> RealDate { get; set; }
+            public bool IsOffIsland { get; set; }
         }
         public class RatingInfo
         {
@@ -37,6 +38,7 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public double RatingStar { get; set; }
             public int TotalComment { get; set; }
         }
+
     }
 
 
@@ -47,11 +49,22 @@ namespace Today.Web.DTOModels.ClassifyDTO
         public List<int> CityFilterList { get; set; }
         public int Page { get; set; }
         public int MemberId { get; set; }
-    }
+        public bool IsOffIsland { get; set; }
+        public bool IsRent { get; set; }
+        public bool IsHSR { get; set; }
+        public bool IsParent { get; set; }
+        public bool IsDIY { get; set; }
+        public List<string> DateRange { get; set; }
+        public string city_choosed { get; set; }
+        public string OffCityName { get; set; }
+        public string typeBanner { get; set; }
+        //public List<CategoryFilter> CategoryFilterList { get; set; }
+        //public List<CityFilter> CityFilterList { get; set; }
 
-    public class GetAllFiltersOutputDTO
-    {
-        public List<FilterVM.CategoryFilter> CategoryFilterList { get; set; }
-        public List<FilterVM.CityFilter> CityFilterList { get; set; }
+        public class GetAllFiltersOutputDTO
+        {
+            public List<FilterVM.CategoryFilter> CategoryFilterList { get; set; }
+            public List<FilterVM.CityFilter> CityFilterList { get; set; }
+        }
     }
 }

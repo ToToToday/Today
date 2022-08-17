@@ -1,39 +1,41 @@
 ﻿
-    var All_search =  window.location.search;
+var All_search =  window.location.search;
     //Url 解碼 , 當輸入的東西有中文時候 , window.location.href 會自動將中文字 進行編碼 , 所以需要解碼
-    All_search = decodeURI(All_search)
-    if (All_search  != '')
+All_search = decodeURI(All_search)
+if (All_search  != '')
     {
         All_search = All_search.substring(1, All_search.length);
-        }
-    let queryString=["typeDate","City","Fprice","Eprice"]
-    function UrlSearch(input,inputnum)
-    {
-        let queryName= queryString[inputnum]
-    if(All_search=='')
-    {
-        window.location.search = `${queryName}=` + input;
-              }
-    else if(!All_search.includes(`${queryName}`))
-    {
-        window.location.search = `${queryName}=` + input + "&" + All_search;
-              }
-    else if(All_search.includes(`${queryName}`)) //要是搜尋路徑存在時候
-    {
-        let params = new URLSearchParams(All_search);
-    let get_Date = params.get(`${queryName}`); //取的 typeDate 的值
-    All_search = All_search.replace(`${queryName}=${get_Date}`,`${queryName}=${input}`);
-    window.location.search = All_search ;
-              }
+    }
+let queryString=["typeDate","City","Fprice","Eprice"]
+function UrlSearch(input,inputnum)
+{
+         let queryName= queryString[inputnum]
+         if(All_search=='')
+         {
+             window.location.search = `${queryName}=` + input;
           }
-    function DownUrl(inputnum)    //取消單個Url
-    {
-        let queryName= queryString[inputnum];
+         else if(!All_search.includes(`${queryName}`))
+         {
+             window.location.search = `${queryName}=` + input + "&" + All_search;
+         }
+         else if(All_search.includes(`${queryName}`)) //要是搜尋路徑存在時候
+         {
+            let params = new URLSearchParams(All_search);
+            let get_Date = params.get(`${queryName}`); //取的 typeDate 的值
+            All_search = All_search.replace(`${queryName}=${get_Date}`,`${queryName}=${input}`);
+            window.location.search = All_search ;
+          }
+}
+
+function DownUrl(inputnum)    //取消單個Url
+{
+    let queryName= queryString[inputnum];
     let params = new URLSearchParams(All_search);
     let get_Date = params.get(`${queryName}`);
     All_search = All_search.replace(`${queryName}=${get_Date}`,'');
     window.location.search = All_search ;
-         }
+}
+
     const Today = new Date()
     let startDay = Today.getDate()<10 ?  ('0' + Today.getDate()) :  Today.getDate();
     let startMonth =  (Today.getMonth() +1)<10 ?('0' + (Today.getMonth() +1)) :  (Today.getMonth() +1);
@@ -45,11 +47,11 @@
     if(All_search.includes("typeDate"))
     {
         let params = new URLSearchParams(All_search);
-    let get_Date = params.get("typeDate"); //取的 typeDate 的值
-    let finalDate = get_Date.split(',')
-    startDate = finalDate[0];
-    endDate =finalDate[1];
-        }
+        let get_Date = params.get("typeDate"); //取的 typeDate 的值
+        let finalDate = get_Date.split(',')
+        startDate = finalDate[0];
+        endDate =finalDate[1];
+    }
     $(function()
     {
         $('input[name="datefilter"]').daterangepicker({
@@ -67,12 +69,11 @@
             });
 
     $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
+        $(this).val(' ');
             });
 
             //$(".drp-buttons>.applyBtn").on('click', () => {PostDate}); 
-        document.querySelectorAll(".drp-buttons>.applyBtn").forEach( (Applybtn,i)=>
-        {
+        document.querySelectorAll(".drp-buttons>.applyBtn").forEach((Applybtn, i) => {
             Applybtn.addEventListener('click', () => {
                 classifyCardVue.filterPost(1);
 
@@ -83,14 +84,14 @@
                 //UrlSearch(splitDate, 0);
             })
         });
-            document.querySelectorAll('.cancelBtn').forEach( item =>{
-                item.addEventListener('click', () => {
-                    item.value = "篩選出發日期";
-                    startDate = startMonth + '/' + startDay + '/' + startYear;
-                    endDate = startMonth + '/' + startDay + '/' + startYear;
- /*                   DownUrl(0);*/
-                })
+        document.querySelectorAll('.cancelBtn').forEach(item => {
+            item.addEventListener('click', () => {
+                item.value = "篩選出發日期";
+                startDate = startMonth + '/' + startDay + '/' + startYear;
+                endDate = startMonth + '/' + startDay + '/' + startYear;
+                /*                   DownUrl(0);*/
             })
+        })
         });
     function PostDate(dateRange)
     {

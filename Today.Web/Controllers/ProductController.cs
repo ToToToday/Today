@@ -24,6 +24,7 @@ using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO.ShopCartMemberResponseDTO;
 using static Today.Web.ViewModels.ShopCartVM;
+using Today.Web.DTOModels.ClassifyDTO;
 
 namespace Today.Web.Controllers
 {
@@ -350,27 +351,18 @@ namespace Today.Web.Controllers
             return View(CityRaider);
         }
 
-        public IActionResult OffIsland([FromQuery] List<string> typeDate, int id ,String searchString) //離島 分類
+        public IActionResult OffIsland(int id ,String searchString) //離島 分類
         {
-            var getLocations = _locationServices.GetLocation();
-            var getLocation = getLocations.ProductLocationList.ToList();
+            var getLocation = _locationServices.GetLocation().ProductLocationList.ToList();
+            var getOffCity = _locationServices.GetOffIslandCard().OffIslandList.ToList();
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                //RealDate = typeDate
-            };
+
 
 
             var classFilters = _classifyService.GetClassifyFilters();
-
-
-
             var result = new LocationVM()
             {   
-                ProductLocationList = getLocation.Where(x => x.CategoryId == 29||x.IsIsland==false).Select(lo => new LocationVM.ProductLocation
+                ProductLocationList = getLocation.Where(c=>c.CategoryId==29).Select(lo => new LocationVM.ProductLocation
                 {
                     ProductId = lo.ProductId,
                     LocationId = lo.LocationId,
@@ -382,23 +374,21 @@ namespace Today.Web.Controllers
                     Latitude=lo.Latitude,
                     ProductName = lo.ProductName,
                     Path = lo.Path,
-                    
                     RatingStar = (float)Math.Floor(lo.RatingStar * 10000) / 10000,
-                    
+                }).ToList(),
+                FilterList = getOffCity.Select(x=> new LocationVM.FilterCity
+                {
+                    CityId=x.CityId,
+                    CityImage= x.CityImage,
+                    CityName=x.CityName,
                 }).ToList(),
                 AllFilters = new FilterVM
                 {
                     CityFilterList = classFilters.CityFilterList, //空
                     CategoryFilterList = classFilters.CategoryFilterList,
                 },
-            };  
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    result.ClassifyCardList = result.ClassifyCardList.Where(s => s.ProductName.Contains(searchString)).ToList();
-            //}
+            };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
             return View(result);
         }
         public IActionResult ParentChild([FromQuery] List<string> typeDate, int id) //親子 分類
@@ -414,14 +404,8 @@ namespace Today.Web.Controllers
             var getLocation = getLocations.ProductLocationList.ToList();
             var getCard = _locationServices.GetParentCard().GetParentCardList.ToList();
 
+
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                //RealDate = typeDate
-            };
 
 
             var classFilters = _classifyService.GetClassifyFilters();
@@ -457,6 +441,7 @@ namespace Today.Web.Controllers
                     TotalOrder = Ca.TotalOrder,
                     Favorite = Ca.Favorite,
                 }).OrderByDescending(d => d.Rating).Take(8).ToList(),
+
                 AllFilters = new FilterVM
                 {
                     CityFilterList = classFilters.CityFilterList, //空
@@ -464,8 +449,7 @@ namespace Today.Web.Controllers
                 },
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }                                                                                                                                                                                                          
 
@@ -483,16 +467,9 @@ namespace Today.Web.Controllers
             var getLocations = _locationServices.GetLocation();
             var getLocation = getLocations.ProductLocationList.ToList();
 
-            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                //RealDate = typeDate
-            };
-            var classFilters = _classifyService.GetClassifyFilters();
 
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+            var classFilters = _classifyService.GetClassifyFilters();
 
 
             var result = new LocationVM()
@@ -512,6 +489,7 @@ namespace Today.Web.Controllers
                     RatingStar = (float)Math.Floor(lo.RatingStar * 10000) / 10000,
 
                 }).ToList(),
+
                 AllFilters = new FilterVM
                 {
                     CityFilterList = classFilters.CityFilterList, //空
@@ -519,8 +497,7 @@ namespace Today.Web.Controllers
                 },
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }
         public IActionResult HSRClassify([FromQuery] List<string> typeDate, int id) //高鐵 分類
@@ -536,26 +513,19 @@ namespace Today.Web.Controllers
             var getLocations = _locationServices.GetLocation();
             var getLocation = getLocations.ProductLocationList.ToList();
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                //RealDate = typeDate
-            };
+
             var classFilters = _classifyService.GetClassifyFilters();
 
 
             var result = new LocationVM()
             {
-                ProductLocationList = getLocation.Where(x => x.CategoryId == 13||x.ProductName.Contains("高鐵")).Select(lo => new LocationVM.ProductLocation
+                ProductLocationList = getLocation.Where(x => x.CategoryId == 13).Select(lo => new LocationVM.ProductLocation
                 {
                     ProductId = lo.ProductId,
                     LocationId = lo.LocationId,
                     CityId = lo.CityId,
                     Price = lo.Price,
                     IsIsland = lo.IsIsland,
-                    //PhotoId= lo.PhotoId,
                     Longitude = lo.Longitude,
                     Latitude = lo.Latitude,
                     ProductName = lo.ProductName,
@@ -563,6 +533,7 @@ namespace Today.Web.Controllers
                     RatingStar = (float)Math.Floor(lo.RatingStar * 10000) / 10000,
 
                 }).ToList(),
+
                 AllFilters = new FilterVM
                 {
                     CityFilterList = classFilters.CityFilterList, //空
@@ -570,8 +541,7 @@ namespace Today.Web.Controllers
                 },
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }
         public IActionResult Rent([FromQuery] List<string> typeDate, int id) //租車 分類
@@ -584,13 +554,7 @@ namespace Today.Web.Controllers
             ViewData["collapse-search"] = "請選擇取車地點及日期";
 
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                //RealDate = typeDate
-            };
+
             var classFilters = _classifyService.GetClassifyFilters();
 
 
@@ -598,7 +562,7 @@ namespace Today.Web.Controllers
             var getLocation = getLocations.ProductLocationList.ToList();
             var result = new LocationVM()
             {
-                ProductLocationList = getLocation.Where(x=>x.CategoryId==42||x.ProductName.Contains("車")).Select(lo => new LocationVM.ProductLocation
+                ProductLocationList = getLocation.Where(x=>x.CategoryId==42).Select(lo => new LocationVM.ProductLocation
                 {
                     ProductId = lo.ProductId,
                     LocationId = lo.LocationId,
@@ -621,8 +585,7 @@ namespace Today.Web.Controllers
                 }
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }
         public IActionResult Camping() //露營頁面
