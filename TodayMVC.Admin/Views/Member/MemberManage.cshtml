@@ -13,13 +13,33 @@
           <b-tab title="會員總覽" active>
             <b-card-text>
                 <div>
-                    <b-table striped hover :items="members"></b-table>
+                    <b-table id="memberall" striped hover :fields="fields" :items="members" :per-page="perPage" :current-page="currentPage" selectable @@row-selected="onRowSelected"@* @@click.native="GetDetails()"*@>
+                        @*<template v-slot:cell(Action)="data">
+                            <b-button size="sm" @@click="del(data.index)" class="mr-1" variant="danger">
+                              刪除
+                            </b-button>
+                        </template>*@
+                        @*<template #table-busy>
+                        <div class="text-center text-danger my-2">
+                          <b-spinner class="align-middle"></b-spinner>
+                          <strong>Loading...</strong>
+                        </div>
+                      </template>*@
+                    </b-table>
                 </div>
             </b-card-text>
+            <b-pagination v-model="currentPage" :total-rows="memberscount" :per-page="perPage" aria-controls="memberall" class="mt-4" align="center">
+              <span class="text-success">First</span>
+              <span class="text-danger">Prev</span>
+              <span class="text-warning">Next</span>
+              <span class="text-info">Last</span>
+                <b-spinner small type="grow"></b-spinner>
+                <b-spinner small type="grow"></b-spinner>
+                <b-spinner small type="grow"></b-spinner>
+                <b v-if="active">{{ page }}</b>
+                <i v-else>{{ page }}</i>
+            </b-pagination>
           </b-tab>
-          @*<b-tab title="詳細資料">
-            <b-card-text>Tab contents 2</b-card-text>
-          </b-tab>*@
         </b-tabs>
       </b-card>
     </div>
@@ -27,40 +47,83 @@
 
 @section endJS{
     <script>
-        let dataSource = []
-        window.onload = function(){
-            let url = "/api/MemberApi/GetMemberList"
-            fetch(url, {
-                method: 'Get',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(res => {
-                    if (res.ok) {
-                        console.log('OK')
-                        Promise.resolve(res.json()).then(function(result){
-                            result.map(function(value, key){
-                                console.log(value)
-                                dataSource.push(value)
-                            })
-                            console.log(dataSource)
-                        })
-                    }
-                    else {
-                        console.log('Fail')
-                    }
-                })
-        }
-
         const app = new Vue({
             el: '#allmember',
             data: {
-                members: dataSource
+                //dataSource: [],
+                members: [],
+                perPage: 10,
+                currentPage: 1,
+                active: true,
+                page: 1,
+                fields: [
+                    {key: "MemberId", label: "會員編號", sortable: true},
+                    {key: "MemberName", label: "會員名稱", sortable: true},
+                    {key: "CityName", label: "城市名稱", sortable: true},
+                    {key: "Age", label: "年齡", sortable: true},
+                    {key: "Phone", label: "手機"},
+                    {key: "Gender", label: "性別", sortable: true},
+                    {key: "Email", label: "電子信箱"},
+                    //{key: "Action", label: "管理"}
+                ],
+                detail: '',
+                isBusy: true,
+                index: 0
+            },
+            mounted() {
+                this.getData()
             },
             computed:{
                 memberscount(){
                     return this.members.length
+                }
+            },
+            methods:{
+                getData(){
+                    axios.get('/api/MemberApi/GetMemberList', {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then((res) => {
+                            this.members =
+                            res.data.map((item, index) => ({
+                                MemberId: item.MemberId,
+                                MemberName: item.MemberName,
+                                CityName: item.CityName,
+                                Age: item.Age,
+                                Phone: item.Phone,
+                                Gender: item.Gender,
+                                Email: item.Email
+                            }))
+                        })
+                        .catch((error) => { console.log(error) })
+                },
+                //toggleBusy() {
+                //    this.isBusy = !this.isBusy
+                //},
+                onRowSelected(members) {
+                    this.selected = members
+                    detail = this.selected[0]
+                    console.log(`${detail}`)
+                },
+                del(idx){
+                    console.log(`${idx * this.currentPage + 1}`)
+                    axios.delete('/api/MemberApi/DeleteMember', {
+                        Headers: {
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        },
+                        data: this.members[idx * this.currentPage + 1]
+                    })
+                    .then((res) => {
+                        if (res.ok) {
+                            alert("OK")
+                        }
+                        else{
+                            alert("Fail")
+                        }
+                    })
+                    this.members.splice(idx * this.currentPage + 1, 1)
                 }
             }
         })

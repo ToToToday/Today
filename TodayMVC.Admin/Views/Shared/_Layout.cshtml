@@ -106,9 +106,9 @@
             </li>
             <!-- Nav Item - 攻略文章管理 -->
             <li class="nav-item">
-                <a class="nav-link" href="~/Raider/RaiderManage">
+                <a class="nav-link" href="~/Mail/MailManage">
                     <i class="fa-solid fa-pen"></i>
-                    <span>攻略文章管理</span></a>
+                    <span>訂閱信發送</span></a>
             </li>
             
 
@@ -177,7 +177,7 @@
 
 
     <!--VueJS-->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>*@
     <!-- Bootstrap core JavaScript-->
     <script src="~/lib/vendor/jquery/jquery.min.js"></script>
     <script src="~/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -192,11 +192,11 @@
     <script src="~/lib/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="~/js/demo/chart-area-demo.js"></script>
-    <script src="~/js/demo/chart-pie-demo.js"></script>
+    @*<script src="~/js/demo/chart-area-demo.js"></script>
+    <script src="~/js/demo/chart-pie-demo.js"></script>*@
     <script src="https://kit.fontawesome.com/c66bf3190b.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+   @* <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>*@
     <!-- Load polyfills to support older browsers -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
@@ -206,6 +206,8 @@
 
     <!-- Load the following for BootstrapVueIcons support -->
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
     
     @await RenderSectionAsync("endCSS", required: false)
