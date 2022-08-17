@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using TodayMVC.Admin.Repositories;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
+using TodayMVC.Admin.Repositories.DapperProductRepositories;
 using TodayMVC.Admin.Services.MemberService;
 
 namespace TodayMVC.Admin
@@ -52,6 +53,8 @@ namespace TodayMVC.Admin
             services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
             services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
             services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<IDapperGenericRepository<Product>, DapperProductRepository>();
+            services.AddTransient<IDapperProductRepository,DapperProductRepository>();
 
         }
 

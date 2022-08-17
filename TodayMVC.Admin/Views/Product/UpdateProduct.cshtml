@@ -1,6 +1,142 @@
-﻿<div class="container-fluid">
+﻿<div class="container-fluid" id="productList">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+    <div class="mx-3"> 
+        <b-tabs content-class="mt-3" fill>
+            <b-tab  active>
+                <template #title>
+                    <strong class="text-info">商品上架</strong>
+                </template>
+                <div>
+                    <b-table  outlined striped hover :ProductInfoList="ProductInfoList" :fields="fields">                     
+                            <template #cell(index)="data">
+                            {{ ProductInfoList[0].ProductId }}
+                            </template>
+                            <template #cell(productName)="data">
+                            {{ data.ProductName }}
+                            </template>
+
+                            <template #cell(Path)="data">
+                            {{ data.Path }}
+                            </template>
+
+                            <template #cell(CityName)="data">
+                            {{ data.CategoryName }}
+                            </template>
+
+                            <template #cell(UnitPrice)="data">
+                            {{ data.UnitPrice }}
+                            </template>
+                    </b-table>
+                </div>
+            </b-tab>
+            <b-tab>
+                <template #title>
+                    <strong class="text-danger">商品下架</strong>
+                </template>
+                <div>
+                    <b-table outlined striped hover :items="items" :fields="fields">
+                            <template #cell(index)="data">
+                            {{ data.index + 1 }}
+                            </template>
+                            <template #cell(productName)="data">
+                            {{ data.productName }}
+                            </template>
+
+                            <template #cell(Path)="data">
+                            {{ data.Path }}
+                            </template>
+                            @*<template #cell(first_name)="data">
+                            {{ data.item.first_name }}
+                            </template>
+
+                            <template #cell(first_name)="data">
+                            {{ data.item.last_name }}
+                            </template>
+
+                            <template #cell(age)="data">
+                            {{ data.item.age }}
+                            </template>*@
+                    </b-table>
+                </div>
+            </b-tab>
+        </b-tabs>
+
+        
+    </div>
+    
+
+    
+
 
 </div>
+
+
+
+
+@section endJS{
+    @*<script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>*@
+
+    <script>
+        let productArray = []
+        const app = new Vue({
+            el: '#productList',
+            data: {
+                fields:[
+                    { key: 'ProductId', label: '商品編號',sortable: true,sortDirection: 'desc'},
+                    { key: 'ProductName',label:'商品名稱'},
+                    { key: 'Path',label:'商品圖片'},
+                    { key: 'CityName',label:'城市',sortable: true,sortDirection: 'desc'},
+                    { key: 'CategoryName',label:'分類',sortable: true,sortDirection: 'desc'},
+                    { key: 'UnitPrice',label:'單價',sortable: true,sortDirection: 'desc'},
+                    //'last_name',
+                    //'age'
+                ],
+                //items: [
+                //  { age: 40, productName: 'Dickerson', last_name: 'Macdonald' },
+                //  { age: 21, productName: 'Larsen', last_name: 'Shaw' },
+                //  { age: 89, productName: 'Geneva', last_name: 'Wilson' },
+                //  { age: 38, productName: 'Jami', last_name: 'Carney' }
+                //]
+                ProductInfoList:productArray
+            },
+            
+        })
+        
+
+        
+        window.onload = function(){
+            let url = "/api/ProductApi/UpdateProductInfo"
+
+            fetch(url,{
+                method:'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                //body: JSON.stringify({
+
+                //    productName: ProductInfoList()
+                    
+                //})
+            })
+            .then(res => {
+                if(res.ok){
+                    
+                    Promise.resolve(res.json().then(function(result){
+                        result.map(function(value){
+                            productArray.push(value)
+                        })
+                    }))
+                    alert("成功")
+                }
+                else{
+                    alert("失敗")
+                }
+            })
+            
+        }
+
+    </script>
+
+    
+}
