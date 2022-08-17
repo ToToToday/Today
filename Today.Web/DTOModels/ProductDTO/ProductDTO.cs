@@ -35,6 +35,7 @@ namespace Today.Web.DTOModels.ProductDTO
         public List<ProductInfo> Taoyuan { get; set; }
         public List<ProductInfo> TimeLimit { get; set; }
         public List<ProductInfo> Evaluation { get; set; }
+        public IQueryable<int> FavoriteList { get; set; }
         #endregion
 
         public class CategoryInfo

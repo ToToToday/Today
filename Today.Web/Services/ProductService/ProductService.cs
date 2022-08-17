@@ -144,7 +144,7 @@ namespace Today.Web.Services.ProductService
                     Id = x.Id,
                     ProductName = x.ProductName,
                     ProductPhoto = x.ProductPhoto,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Price = (x.Prices == null) ? null : x.Prices.Price
                 }).ToList(),
                 TopProduct = productSource.OrderByDescending(x => x.TotalOrder).Take(10).Select(x => new ProductInfo { 
@@ -152,7 +152,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -164,7 +164,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -176,7 +176,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -188,7 +188,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -200,7 +200,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -212,7 +212,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -224,7 +224,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -237,7 +237,7 @@ namespace Today.Web.Services.ProductService
                     ProductPhoto = x.ProductPhoto,
                     ProductName = x.ProductName,
                     CityName = x.CityName,
-                    Favorite = favoriteList.Contains(x.Id),
+                    //Favorite = favoriteList.Contains(x.Id),
                     Tags = x.Tags,
                     Rating = x.Rating,
                     TotalOrder = x.TotalOrder,
@@ -246,6 +246,8 @@ namespace Today.Web.Services.ProductService
             };
 
             _iMemoryCacheRepository.Set<ProductDTO>("Product.GetAllProductCard", result);
+
+            result.FavoriteList = favoriteList;
 
             return result;
         }

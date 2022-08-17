@@ -39,6 +39,7 @@ namespace Today.Web.Controllers
             var homeproductSource = _productService.GetAllProductCard(userId);
             var citySource = _productService.PopularCityCard().CityList;
             var categorySource = homeproductSource.CategoryList;
+            var favoriteList = homeproductSource.FavoriteList;
 
             var homeshow = new ProductVM
             {
@@ -53,7 +54,7 @@ namespace Today.Web.Controllers
                     Id = h.Id,
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Price = (h.Price == null) ? null : h.Price
                 }).ToList(),
                 TopProduct = homeproductSource.TopProduct.Select(h => new ProductVM.ProductCardInfo()
@@ -62,7 +63,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -76,7 +77,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -90,7 +91,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -104,7 +105,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -118,7 +119,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -132,7 +133,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -146,7 +147,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
@@ -160,7 +161,7 @@ namespace Today.Web.Controllers
                     ProductPhoto = h.ProductPhoto,
                     ProductName = h.ProductName,
                     CityName = h.CityName,
-                    Favorite = h.Favorite,
+                    Favorite = (favoriteList != null) ? favoriteList.Contains(h.Id) : false,
                     Tags = h.Tags,
                     Rating = Math.Round(h.Rating.RatingStar, 1),
                     TotalGiveComment = h.Rating.TotalGiveComment,
