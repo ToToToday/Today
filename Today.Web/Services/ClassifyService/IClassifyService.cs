@@ -10,9 +10,12 @@ namespace Today.Web.Services.ClassifyService
     {
         //CityinputResponseDTO CityInput(CityinputRequestDTO search);
 
-        ClassifyDTO GetClassifyPages(ClassifyRequestDTO categoryId);
 
-        ClassifyDTO GetClassifyMatchedProducts(FilterDTO input);
+
+        //ClassifyDTO GetClassifyPages(ClassifyRequestDTO categoryId);
+        GetAllFiltersOutputDTO GetClassifyFilters();
+
+        ClassifyDTO GetClassifyMatchedCards(FilterDTO input);
         //List<ClassifyDTO.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product);
         //ClassifyDTO AddClassifyCardToResult();
 
