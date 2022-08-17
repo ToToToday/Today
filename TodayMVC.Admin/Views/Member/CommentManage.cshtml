@@ -32,15 +32,12 @@
       </b-card>
     </div>
 </div>
+
 @section endJS{
     
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         let app=new Vue({
             el:'#app',
-            data: {
-
-            },
             methods: {
                 collapse:function(){
                     $(".each-comment").slideToggle("slow");
@@ -54,7 +51,6 @@
                     'Content-Type': 'application/json;'
                 },
                 method: "get",
-                
             })
             .then(resp => {
                 if (resp.ok) {

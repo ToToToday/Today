@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using Today.Model.Models;
 using TodayMVC.Admin.Repositories.DapperCommentManage;
 
@@ -18,17 +19,28 @@ namespace TodayMVC.Admin.WebApiControllers
         [HttpGet]
         public IActionResult GetAllComment()
         {
-            var dataSource = _membercommentdapper.SelectAll();
+            var dataSource = _membercommentdapper.SelectAllComment();
 
+
+            var result = dataSource.GroupBy(row => row.P.ProductName)
+                .Select(g =>
+                new
+                {
+                    ProductName = g.Key,
+                    Comments = g.Select(row => row.C),
+                    Title=g.Select(row => row.L),
+                    Path=g.Select(row => row.P),
+                    MemberName=g.Select(row => row.M)
+                }
+            );
             try
             {
-                return Ok("成功");
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 return null;
             }
-
         }
     }
     
