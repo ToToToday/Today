@@ -1,49 +1,50 @@
-﻿
+﻿@section topCSS{
+    <style>
+        .each-comment{
+            display:none;
+        }
+    </style>
+}
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">留言管理</h1>
       <div id="app">
-      <b-card>
-        <b-media class="flex-wrap">
-          <template v-slot:aside>
-            <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
-          </template>
-          <h4 class="mt-0 fw-bold text-primary" v-on:click="collapse">產品名稱(ProductName)</h4>
-          <p class="mb-0">產品標題(Title)</p>
-          <div class="each-comment mt-3">
-              <div class="border border-5 p-3">
-                  <div class="d-flex justify-content-between">
-                      <b-media class="mb-4">
-                        <template v-slot:aside>
-                          <b-img blank blank-color="#ccc" width="64" v-bind="mainProps" rounded="circle" alt="Circle image"></b-img>
-                        </template>
-                        <h4 class="mt-0 text-primary">會員姓名</h4>
-                        <span class="mr-2">★★★★★</span><span>日期 · 旅伴類型</span>
-                      </b-media>
-                      <b-button squared variant="outline-danger" style="height: 60px;">刪除</b-button>
-                  </div>
-                  <div class="bg-success bg-opacity-25 p-3">
-                      <h5 class="fw-bold">留言標題</h5>
-                      <p>留言內容</p>
-                  </div>
-              </div>
-          </div>
-        </b-media>
-      </b-card>
+        <b-card v-for="(card,index) in Detail" class="mb-3">
+            <b-media class="flex-wrap">
+                <template v-slot:aside>
+                <b-img width="64" alt="placeholder" v-bind:src=card.Path[0].Path class="path"></b-img>
+                </template>
+                <h4 class="mt-0 fw-bold text-primary"@* v-on:click="collapse"*@ v-bind:id=`each-card${index}`>{{card.ProductName}}</h4>
+                <p class="mb-0">{{card.Title[0].Title}}</p>
+                <div v-bind:id=`each-comment${index}`>
+                    <div v-for="(comment , index ) in card.Comments" class="mt-3">
+                    <div class="border border-5 p-3">
+                        <div class="d-flex justify-content-between">
+                            <b-media class="mb-4">
+                            <template v-slot:aside>
+                                <b-img blank blank-color="#ccc" width="64" rounded="circle" alt="Circle image"></b-img>
+                            </template>
+                            <h4 class="mt-0 text-primary">{{card.MemberName[index].MemberName}}</h4>
+                            <span class="mr-2">{{comment.RatingStar}}顆星</span><span>{{comment.CommentDate.slice(0,10)}}</span>
+                            </b-media>
+                            <b-button squared variant="outline-danger" style="height: 60px;">刪除</b-button>
+                        </div>
+                        <div class="bg-success bg-opacity-25 p-3">
+                            <h5 class="fw-bold">{{comment.CommentTitle}}</h5>
+                            <div v-html="comment.CommentText" ></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </b-media>
+        </b-card>
     </div>
 </div>
 
 @section endJS{
     
     <script>
-        let app=new Vue({
-            el:'#app',
-            methods: {
-                collapse:function(){
-                    $(".each-comment").slideToggle("slow");
-                }
-            }
-        })
+        let Data=[]
         window.onload = function(){
             let url = "/api/apicommentmanage/GetAllComment"
             fetch(url, {
@@ -55,11 +56,43 @@
             .then(resp => {
                 if (resp.ok) {
                     alert("成功")
+                    Promise.resolve(resp.json())
+                    .then(function(result) {
+                        result.forEach(function(vaule, key) {
+                            Data.push(vaule)
+                        })
+                        app.Detail = Data
+                    })
                 }
                 else { 
                     alert("失敗")
                 }
             })
+            for (let i = 0; i < Data.length;i++)
+            {
+                //$("#each-comment"+i).slideToggle("slow");
+                $("#each-card"+i).click(function(){
+                    $("#each-comment"+i).slideToggle("slow");
+                });
+            }
         }
+        let app=new Vue({
+            el:'#app',
+            data:{
+                Detail: [],
+            }
+            //methods: {
+            //    collapse:function(){
+            //        for (let i = 0; i < Data.length;i++)
+            //        {
+            //            //$("#each-comment"+i).slideToggle("slow");
+            //            $("#each-card"+i).click(function(){
+            //                $("#each-comment"+i).slideToggle("slow");
+            //            });
+            //        }
+            //    }
+            //}
+        })
+        
     </script>
 }

@@ -79,17 +79,17 @@ namespace TodayMVC.Admin.Repositories.DapperCommentManage
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Comment> GetOne(Comment entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IEnumerable<Comment> SelectAll()
         {
             throw new System.NotImplementedException();
         }
 
         public int Update(Comment entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Comment GetOne(Comment entity)
         {
             throw new System.NotImplementedException();
         }

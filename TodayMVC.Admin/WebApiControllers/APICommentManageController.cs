@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
+using Today.Model;
 using Today.Model.Models;
 using TodayMVC.Admin.Repositories.DapperCommentManage;
 
@@ -17,7 +19,7 @@ namespace TodayMVC.Admin.WebApiControllers
             _membercommentdapper = membercommentdapper;
         }
         [HttpGet]
-        public IActionResult GetAllComment()
+        public string GetAllComment()
         {
             var dataSource = _membercommentdapper.SelectAllComment();
 
@@ -28,14 +30,14 @@ namespace TodayMVC.Admin.WebApiControllers
                 {
                     ProductName = g.Key,
                     Comments = g.Select(row => row.C),
-                    Title=g.Select(row => row.L),
-                    Path=g.Select(row => row.P),
+                    Title=g.Take(1).Select(row => row.L),
+                    Path=g.Take(1).Select(row => row.PP),
                     MemberName=g.Select(row => row.M)
                 }
             );
             try
             {
-                return Ok(result);
+                return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
             {
