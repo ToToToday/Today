@@ -96,13 +96,12 @@
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         }
-        var status = @ViewData["Success"];
+        var status = @Html.Raw(ViewData["success"] == null ? "" : ViewData["success"]);
         if(status == "true")
         {
-            toastr.success("傳送信件成功")
-        }
-        else{
-            toastr.error("傳送信件失敗 請再次嘗試")
+            toastr.success("傳送信件成功");
+        }else if(status == "false"){
+            toastr.error("傳送信件失敗 請再次嘗試");
 
         }
         
