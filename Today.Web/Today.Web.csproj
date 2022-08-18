@@ -38,6 +38,7 @@
     
     <ProjectReference Include="..\Ecpay\Ecpay.csproj" />
     <ProjectReference Include="..\Today.Model\Today.Model.csproj" />
+    <ProjectReference Include="..\TodayMVC.Admin\TodayMVC.Admin.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,7 @@ using System.Linq;
 using Today.Model;
 using Today.Model.Models;
 using TodayMVC.Admin.Repositories.DapperCommentManage;
+using TodayMVC.Admin.ViewModels;
 
 namespace TodayMVC.Admin.WebApiControllers
 {
@@ -43,6 +44,17 @@ namespace TodayMVC.Admin.WebApiControllers
             {
                 return null;
             }
+        }
+        [HttpPost]
+        public int DeleteComment([FromBody]DeleteCommentVM id)
+        {
+            //var dataSource = _membercommentdapper.SelectAllComment();
+            //var linq = dataSource.Where(row => row.C.CommentId == a.CommentId);
+            //var result = _membercommentdapper.Delete(linq);
+            //return result;
+            var ci = new Comment { CommentId = id.CommentId };
+            var dataSource = _membercommentdapper.Delete(ci);
+            return dataSource;
         }
     }
     

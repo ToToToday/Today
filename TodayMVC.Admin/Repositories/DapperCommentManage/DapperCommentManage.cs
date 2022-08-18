@@ -22,7 +22,8 @@ namespace TodayMVC.Admin.Repositories.DapperCommentManage
                                     l.Title,
                                     pp.PhotoId split_on,
                                     pp.Path,
-                                    c.CommentId split_on,
+                                    c.OrderDetailsId split_on,
+                                    c.CommentId,
                                     c.RatingStar,
                                     c.CommentDate,
                                     c.PartnerType,
@@ -53,20 +54,6 @@ namespace TodayMVC.Admin.Repositories.DapperCommentManage
             );
 
             return result;
-            //var result = _conn.Query<CommentDTO.BackstageCommentInfo>(productComment).ToList();
-
-            //var a = result.GroupBy(x => x.ProductName);
-            //var b = a.Select(g => new Product
-            //{
-            //    ProductName = g.Key,
-            //    Comments = g.Select(p => new Comment
-            //    {
-            //        CommentTitle = p.CommentTitle,
-            //        CommentText = p.CommentText
-
-            //    }).ToList(),
-            //});
-            //;
         }
 
         public int Create(Comment entity)
@@ -76,7 +63,10 @@ namespace TodayMVC.Admin.Repositories.DapperCommentManage
 
         public int Delete(Comment entity)
         {
-            throw new System.NotImplementedException();
+            var productComment = @"DELETE FROM Comment
+                                   WHERE CommentId= @CommentId";
+            var result = _conn.Execute(productComment, new { entity.CommentId});
+            return result;
         }
 
         public IEnumerable<Comment> SelectAll()
