@@ -23,7 +23,7 @@ using TodayMVC.Admin.Repositories.DapperProductRepositories;
 using TodayMVC.Admin.Services.MemberService;
 using TodayMVC.Admin.Services.UploadService;
 using TodayMVC.Admin.Services.OrderServices;
-
+using TodayMVC.Admin.Services;
 
 namespace TodayMVC.Admin
 {
@@ -72,6 +72,7 @@ namespace TodayMVC.Admin
             
             services.AddTransient<IDapperGenericRepository<Product>, DapperProductRepository>();
             services.AddTransient<IDapperProductRepository,DapperProductRepository>();
+            services.AddTransient<IUpdateProductService, UpdateProductService>();
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IMailService, MailService>();

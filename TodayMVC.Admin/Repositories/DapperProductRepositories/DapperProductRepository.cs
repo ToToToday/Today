@@ -24,9 +24,9 @@ namespace TodayMVC.Admin.Repositories.DapperProductRepositories
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Product> GetOne(Product entity)
+        public Product GetOne(Product entity)
         {
-            return _conn.Query<Product>(@"SELECT * FROM Product Where ProductId = @ProductId", new { entity.ProductId });
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Product> SelectAll()
@@ -63,6 +63,7 @@ namespace TodayMVC.Admin.Repositories.DapperProductRepositories
                             Where pp.Sort = 1";
             
             var result = _conn.Query<UpdateProductDTO.ProductInfo>(product);
+            result.GroupBy(x => x.ProductId);
             
 
             //var result1 = _conn.Query<Product, City, Category, ProductPhoto, Today.Model.Models.Program, ProgramSpecification,ShoppingCart, Product>(
@@ -98,7 +99,8 @@ namespace TodayMVC.Admin.Repositories.DapperProductRepositories
         {
             
             var query = $"UPDATE Product SET ProductName = @ProductName WHERE ProductId = @ProductId";
-            return _conn.Execute(query);
+
+            return _conn.Execute(query, new {ProductId = entity.ProductId, ProductName = entity.ProductName});
         }
     }
 }

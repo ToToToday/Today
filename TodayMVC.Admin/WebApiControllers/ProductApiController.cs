@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using Today.Model;
 using TodayMVC.Admin.Repositories.DapperProductRepositories;
+using TodayMVC.Admin.Services;
+using TodayMVC.Admin.ViewModels;
 
 namespace TodayMVC.Admin.WebApiControllers
 {
@@ -11,14 +14,16 @@ namespace TodayMVC.Admin.WebApiControllers
     public class ProductApiController : ControllerBase
     {
         private readonly IDapperProductRepository _dapperProductRepository;
+        private readonly IUpdateProductService _updateProductService;
 
-        public ProductApiController(IDapperProductRepository dapperProductRepository)
+        public ProductApiController(IDapperProductRepository dapperProductRepository, IUpdateProductService updateProductService)
         {
             _dapperProductRepository = dapperProductRepository;
+            _updateProductService = updateProductService;
         }
 
         [HttpGet]
-        public string UpdateProductInfo()
+        public string ReadProductInfo()
         {
             var productInfo = _dapperProductRepository.SelectAllProduct();
 
@@ -29,6 +34,21 @@ namespace TodayMVC.Admin.WebApiControllers
             catch(Exception ex)
             {
                 return null;
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProductInfo(UpdateProductVM updateProduct)
+        {
+            try
+            {
+                _updateProductService.UpdateProduct(updateProduct);
+
+                return Ok(new APIResult(APIStatus.Success, string.Empty, true));
+            }
+            catch (Exception ex)
+            {
+                return Ok(new APIResult(APIStatus.Fail, ex.Message, false));
             }
         }
     }
