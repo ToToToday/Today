@@ -1,4 +1,4 @@
-﻿using Ecpay;
+﻿ using Ecpay;
 using Ecpay.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ProjectServer.Client;
@@ -55,9 +55,9 @@ namespace Today.Web.WebApiControllers
                 itemList.Add(
                 new Item
                 {
-                    Name = pNameList[i].ToString() /*TempData["OrderProduct"].ToString()*/,
-                    Price = (int)pPriceList[i]/*(int)TempData["OrderPrice"]*/,
-                    Quantity = (int)pQuantityList[i] /*(int)TempData ["OrderQuantity"]*/
+                    Name = pNameList[i].ToString(),
+                    Price = (int)pPriceList[i],
+                    Quantity = (int)pQuantityList[i]
                 });
             }
                 
