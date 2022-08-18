@@ -329,7 +329,7 @@ namespace Today.Web.Controllers
             var classFilters = _classifyService.GetClassifyFilters();
             var result = new LocationVM()
             {   
-                ProductLocationList = getLocation.Where(c=>c.CategoryId==29).Select(lo => new LocationVM.ProductLocation
+                ProductLocationList = getLocation.Where(c=>c.IsIsland==false).Select(lo => new LocationVM.ProductLocation
                 {
                     ProductId = lo.ProductId,
                     LocationId = lo.LocationId,

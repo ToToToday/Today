@@ -17,11 +17,15 @@ using TodayMVC.Admin.Repositories;
 using TodayMVC.Admin.Repositories.DapperMailRepositories;
 using TodayMVC.Admin.Repositories.DapperCommentManage;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
+using TodayMVC.Admin.Repositories.DapperSalesRepositories;
 using TodayMVC.Admin.Repositories.DapperOrderRepositories;
 using TodayMVC.Admin.Services.MailService;
+using TodayMVC.Admin.Repositories.DapperProductRepositories;
 using TodayMVC.Admin.Services.MemberService;
+using TodayMVC.Admin.Services.SalesServices;
 using TodayMVC.Admin.Services.UploadService;
 using TodayMVC.Admin.Services.OrderServices;
+using TodayMVC.Admin.Services;
 using TodayMVC.Admin.Services.CloudinaryService;
 
 using TodayMVC.Admin.Services.ProductServices;
@@ -71,6 +75,11 @@ namespace TodayMVC.Admin
             services.AddTransient<IDapperGenericRepository<Subscription>, DapperMailRepository>();
             services.AddTransient<IDapperMailRepository, DapperMailRepository>();
             services.AddTransient<ICreateProductServices, CreateProductServices>();
+            services.AddTransient<IDapperSalesRepository, DapperSalesRepository>();
+            
+            services.AddTransient<IDapperGenericRepository<Product>, DapperProductRepository>();
+            services.AddTransient<IDapperProductRepository,DapperProductRepository>();
+            services.AddTransient<IUpdateProductService, UpdateProductService>();
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IMailService, MailService>();
@@ -78,6 +87,7 @@ namespace TodayMVC.Admin
 
 
 
+            services.AddTransient<ISalesService, SalesService>();
 
         }
 
@@ -107,7 +117,7 @@ namespace TodayMVC.Admin
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Sales}/{action=Chart}/{id?}");
             });
         }
     }

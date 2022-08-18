@@ -311,6 +311,8 @@ h5 .card-title_group {
     .city-filter-wrap {
         display: block;
         z-index: 10;
+        top: 60px;
+    
     }
 
     .container-fluid-ProductList {

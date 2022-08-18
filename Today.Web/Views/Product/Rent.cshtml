@@ -183,6 +183,7 @@
         </div>
     </div>
 </div>
+        <div class="w-100 h-100 position-absolute bg-dark d-none" style="z-index: 49;" id="coverplate"></div>
 <div class="container-fluid-ProductList ">
     <section class="container m-auto">
         <div class="container row p-0 m-0" >
@@ -392,8 +393,7 @@
   crossorigin=""></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script src="~/js/calendar.js"></script>
-  <script src="~/js/homescript.js"></script>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
 
@@ -401,26 +401,13 @@
        @*vue*@
 <script src="~/lib/vue/vue.js"></script>
 <script src="~/js/cityChoose.js"></script>
-<script src="~/js/calendar.js"></script>
+
 
  <script src="~/js/datePicker.js"></script>
 
 
 
-<script>
-    function filterGet() {
-        const request = new Request("/api/ClassifyApi/Classify");
-        fetch(request)
-    }
+    <script src="~/js/TaiFetch.js"></script>
 
-    function Pick()
-    {
-         const request = new Request("/api/ClassifyApi/Classify");
-        fetch(request)
-    }
-  
-
-</script>
-<script src="~/js/pickToUrl.js"></script>
 <script src="~/js/ClassifyVue.js"></script>
 }

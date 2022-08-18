@@ -1,8 +1,7 @@
-﻿let offIslandA = document.querySelectorAll(".offIsland-item");
-offIslandA.forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-        City = document.querySelectorAll(".offIsland-item>h4")[i].innerText;
-        
+﻿let offCity = document.querySelectorAll(".offIsland-item");
+offCity.forEach(item => {
+    item.addEventListener("click", function () {
+        UrlSearch(item.innerText, 0);
+        filterPost(1);
     })
 })
-

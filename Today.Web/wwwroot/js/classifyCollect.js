@@ -46,14 +46,14 @@ function CRCollect(target, idx) {
         CRurl = "/api/Collection/AddCollect"
         isfavorite = true
     }
-
+    console.log(parseInt(target.dataset.id))
     fetch(CRurl, {
         method: 'post',
-        headers: {
-            'Content-Type': 'application/json;charset=utf - 8',
-        },
+        headers: new Headers ({
+            'Content-Type': 'application/json',
+        }),
         body: JSON.stringify({
-            ProductId: carda[idx].href.substring(carda[idx].href.lastIndexOf('/') + 1, carda[idx].href.length),
+            ProductId: parseInt(target.dataset.id),
             Favorite: isfavorite,
         })
     })
