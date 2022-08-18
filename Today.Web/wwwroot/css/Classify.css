@@ -9,6 +9,10 @@ body {
     /* scroll-behavior: smooth; */
 }
 
+#coverplate{
+    opacity: 0.3;
+}
+
 .container-fluid button .navbar-toggler {
     box-shadow: none;
 }
@@ -117,17 +121,10 @@ h2 {
     padding: 10px;
 }
 
-
 span.sort:hover {
     color: #26bec9;
 }
 
-/* 
-.row-card .fa-heart {
-    top: 10%;
-    right: 5%;
-    cursor: pointer;
-} */
 .sidebar {
     border-bottom: 1px solid #D6D6D6;
     border-top: 1px solid #D6D6D6;
@@ -135,11 +132,6 @@ span.sort:hover {
 
 .card_detail .fa-solid.fa-heart {
     color: #ff0000;
-}
-
-.card_detail .fa-regular.fa-heart {
-    color: #fff;
-    -webkit-text-stroke: 1px #ccc;
 }
 
 .card_detail .fa-regular.fa-heart:hover {
@@ -155,89 +147,8 @@ span.sort:hover {
     -webkit-text-stroke: 2px #ccc;*/
 }
 
-@media screen and (max-width: 991px) {
-    .col-lg-9 {
-        margin-top: 50px;
-    }
-
-    .product-filter,
-    .card-board {
-        display: none;
-    }
-
-    .city-filter-wrap {
-        display: block;
-        z-index: 10;
-        top:60px;
-    }
-
-    .container-fluid-ProductList {
-        margin-top: 55px;
-    }
-
-    #offcanvasBottom {
-        height: 70%;
-    }
-
-    #moreconditions {
-        height: 75%;
-    }
-}
-
 .card_detail .card-title {
     width: 100%;
-}
-
-@media screen and (min-width: 576px) {
-    #sort {
-        height: 60%
-    }
-
-    #offcanvasBottom {
-        height: 60%
-    }
-
-    #moreconditions {
-        height: 60%
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .product-filter {
-        width: none;
-    }
-
-    .product-filter,
-    .card-board {
-        display: block;
-    }
-
-    .city-filter-wrap {
-        display: none;
-    }
-
-    .container-fluid-ProductList {
-        margin-top: 80px;
-    }
-
-    .card-footer,
-    .sort {
-        color: #999;
-    }
-
-    #offcanvasBottom {
-        height: 60%;
-    }
-
-    #moreconditions {
-        height: 60%;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .ProductList {
-        max-width: 1200px;
-    }
 }
 
 .card-point {
@@ -324,15 +235,6 @@ span.heart {
     cursor: pointer;
 }
 
-/*.fa-magnifying-glass-pc, #destFilter {
-    border: transparent;
-    color: #fff;
-}*/
-/*
-    .card_detail:hover {
-        opacity: 0.5;
-        filter: alpha(opacity=50);
-    }*/
 h5 .card-title_group {
     font-weight: 400;
 }
@@ -356,24 +258,6 @@ h5 .card-title_group {
     border-radius: 4px 4px 0 4px;
 }
 
-/* .card_detail .fa-solid.fa-heart {
-    color: #ff0000;
-}
-
-.card_detail .fa-regular.fa-heart {
-    color: #fff;
-    -webkit-text-stroke: 1px #ccc;
-}
-
-.card_detail .fa-regular.fa-heart:hover {
-    color: #f00;
-}
-
-.card_detail .fa-heart {
-    position: absolute;
-    right: 8%;
-    top: 6%;
-} */
 .card_detail .card-title {
     width: 90%;
 }
@@ -412,6 +296,86 @@ h5 .card-title_group {
 .fa-angle-up {
     margin-top: 13px;
     color: white;
+}
+
+@media screen and (max-width: 991px) {
+    .col-lg-9 {
+        margin-top: 50px;
+    }
+
+    .product-filter,
+    .card-board {
+        display: none;
+    }
+
+    .city-filter-wrap {
+        display: block;
+        z-index: 10;
+    }
+
+    .container-fluid-ProductList {
+        margin-top: 55px;
+    }
+
+    #offcanvasBottom {
+        height: 70%;
+    }
+
+    #moreconditions {
+        height: 75%;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #sort {
+        height: 60%
+    }
+
+    #offcanvasBottom {
+        height: 60%
+    }
+
+    #moreconditions {
+        height: 60%
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .product-filter {
+        width: none;
+    }
+
+    .product-filter,
+    .card-board {
+        display: block;
+    }
+
+    .city-filter-wrap {
+        display: none;
+    }
+
+    .container-fluid-ProductList {
+        margin-top: 80px;
+    }
+
+    .card-footer,
+    .sort {
+        color: #999;
+    }
+
+    #offcanvasBottom {
+        height: 60%;
+    }
+
+    #moreconditions {
+        height: 60%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .ProductList {
+        max-width: 1200px;
+    }
 }
 
 /* 平板直向、橫向、桌機 */

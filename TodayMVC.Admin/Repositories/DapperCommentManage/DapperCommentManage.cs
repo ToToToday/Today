@@ -1,7 +1,9 @@
 ﻿using Dapper;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Today.Model.Models;
+using TodayMVC.Admin.ViewModels;
 
 namespace TodayMVC.Admin.Repositories.DapperCommentManage
 {
@@ -11,30 +13,17 @@ namespace TodayMVC.Admin.Repositories.DapperCommentManage
         {
 
         }
-        public int Create(Product entity)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public int Delete(Product entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Product GetOne(Product entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Product> SelectAll()
+        public IEnumerable<CommentVM> SelectAllComment()
         {
             var productComment = @"select 
-                                 p.ProductName,
+                                    p.ProductName,
                                     l.LocationId split_on,
                                     l.Title,
                                     pp.PhotoId split_on,
                                     pp.Path,
-                                    c.CommentId split_on,
+                                    c.OrderDetailsId split_on,
+                                    c.CommentId,
                                     c.RatingStar,
                                     c.CommentDate,
                                     c.PartnerType,
@@ -49,21 +38,48 @@ namespace TodayMVC.Admin.Repositories.DapperCommentManage
                                 inner join Member m on c.MemberId=m.MemberId
                                 where pp.Sort=1
                                 order by p.ProductId asc,c.CommentDate desc";
-            //class
-            var result = _conn.Query<Product, Location, ProductPhoto, Comment, Member, Product>(
+
+            var result = _conn.Query<Product, Location, ProductPhoto, Comment, Member, CommentVM>(
                 productComment, (p, l, pp, c, m) =>
                 {
-                    c.Member = m;
-                    c.Product = p;
-                    l.Product = p;
-                    pp.Product = p;
-                    return p;
+                    return new CommentVM
+                    {
+                        P = p,
+                        L = l,
+                        PP = pp,
+                        C = c,
+                        M = m,
+                    };
                 }, splitOn: "split_on"
             );
+
             return result;
         }
 
-        public int Update(Product entity)
+        public int Create(Comment entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int Delete(Comment entity)
+        {
+            var productComment = @"DELETE FROM Comment
+                                   WHERE CommentId= @CommentId";
+            var result = _conn.Execute(productComment, new { entity.CommentId});
+            return result;
+        }
+
+        public IEnumerable<Comment> SelectAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int Update(Comment entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Comment GetOne(Comment entity)
         {
             throw new System.NotImplementedException();
         }

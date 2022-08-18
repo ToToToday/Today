@@ -2,19 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Today.Model.Models;
+using Today.Web.DTOModels.ClassifyDTO;
 using static Today.Web.ViewModels.FilterVM;
 
 namespace Today.Web.ViewModels
 {
     public class ClassifyVM
     {
-        //public List<CategoryDestinations> CategoryList { get; set; }
-        //public class CategoryDestinations
-        //{
-        //    public int ProductCategoryId { get; set; }
-        //    public string CategoryName { get; set; }
-        //    public List<CategoryDestinations> ChildCategory { get; set; }
-        //}
         public FilterVM AllFilters { get; set; }
         public List<ClassifyCardInfo> ClassifyCardList { get; set; }
         public int CardCount { get; set; }
@@ -25,7 +19,6 @@ namespace Today.Web.ViewModels
     {
         public List<CategoryFilter> CategoryFilterList { get; set; }
         public List<CityFilter> CityFilterList { get; set; }
-        public List<Products> ProductList { get; set; }
 
         //可以擴充 其他篩選器
 
@@ -42,14 +35,7 @@ namespace Today.Web.ViewModels
             public string CityName { get; set; }
             public bool Checked { get; set; }
         }
-        public class Products
-        {
-            public int ProductId { get; set; }
-            public string ProductName { get; set; } 
-        }
-
     }
-
     public class ClassifyCardInfo
     {
         public int ProductId { get; set; }
@@ -70,16 +56,15 @@ namespace Today.Web.ViewModels
             public decimal? Price { get; set; }
         }
     }
-
-
-
-
     public class ClassifyRequestModel
     {
+        //篩 //擴充其他...日期
         public List<int> Cities { get; set; }
         public List<int> Categories { get; set; }
-
-        //擴充其他
+        
+        //排
+        public SortCondition SortBy { get; set; }
+        //切
         public int Page { get; set; }
         public bool IsOffIsland { get; set; }
         public bool IsRent { get; set; }

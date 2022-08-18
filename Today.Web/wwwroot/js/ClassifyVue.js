@@ -1,4 +1,5 @@
-﻿const classifyCardVue = new Vue({
+﻿
+const classifyCardVue = new Vue({
     // 掛載位置
     el: '#classifyCard',
     // 資料, state
@@ -45,8 +46,8 @@
         },
         //排序區
         allsort: [
-            { SortId: 1, SortIcon: "fa-regular fa-thumbs-up", SortName: 'Today推薦', checked: false },
-            { SortId: 2, SortIcon: "fa-solid fa-fire", SortName: '熱門程度', checked: false },
+            //{ SortId: 1, SortIcon: "fa-regular fa-thumbs-up", SortName: 'Today推薦', checked: false },
+            { SortId: 2, SortIcon: "fa-solid fa-fire", SortName: '熱門程度', checked: true },
             { SortId: 3, SortIcon: "fa-solid fa-star", SortName: '用戶評價', checked: false },
             { SortId: 4, SortIcon: "fa-solid fa-dollar-sign", SortName: '價格 : 低到高', checked: false },
         ],
@@ -77,7 +78,7 @@
             {
                 productId: '1',
                 href: '',
-                path: '/image/Classify/2.gif',
+                path: '/image/Classify/1.gif',
                 productName: '',
                 tagText: [],
                 cityName: '',
@@ -92,7 +93,7 @@
             {
                 productId: '1',
                 href: '',
-                path: '/image/Classify/motion-5.gif',
+                path: '/image/Classify/1.gif',
                 productName: '',
                 tagText: [],
                 cityName: '',
@@ -144,7 +145,7 @@
     //         }
     //     },
     // },
-    
+
     // 可寫任何方法到vue實體裡
     methods: {
         cancelAll() {
@@ -172,6 +173,16 @@
         //towNumber(val) {
         //    return val.toFixed(2)
         //},
+        changeSort(target) {
+            this.allsort.forEach(
+                     (item,index)=>{
+                        item.checked = false
+                    }
+            )
+
+            target.checked = true
+            this.filterPost(1)
+        },
         async filterPost(page) {
             //v 戴格停區
             var dateRange = null
@@ -218,6 +229,8 @@
             catch (err) {
                 typeBanner=null
             }
+            // 轉圈啟動
+            coverplate.classList.remove('d-none')
             fetch("/api/ClassifyApi/Classify", {
                 method: 'post',
                 headers: {
@@ -240,19 +253,8 @@
                     offCityName: offCityName,
                     typeBanner: typeBanner,
                     // 排序
-                    allsort: this.allsort.filter(x => x.Checked).map(x => x.SortId,),
-                    // todayrecommend:this.allsort.todayrecommend.filter(x => x.Checked)
-                    // pricelowtohigh(){
-                    //     this.
-                    // }
-                    // listMe: function (list) {
-                    //     return list.filter(function (item) {
-                    //         return item.n <= 33
-                    //     })
-                    // },
+                    sortBy: this.allsort.find(x => x.checked).SortId,
 
-                    //categories: Array.from(selfformchecked).map(x => x.value), 
-                    //citiescategories: Array.from(citiescategorieschecked).map(x => x.value),
                     // popularity:popularity,
                     page: page,
                 })
@@ -263,7 +265,6 @@
                     //重新處理DOM
                     if (classifyCardVue.cardCount != JSobj.cardCount)
                         classifyCardVue.cardCount = JSobj.cardCount
-                    //document.querySelector('.experience-itinerary').innerHTML = JSobj.cardCount
                     classifyCardVue.page = page;
 
                     classifyCardVue.productCards =
@@ -271,9 +272,10 @@
                             x.href = `/Product/ProductInfo/${x.productId}`
                             return x;
                         })
-                        // classifyCardVue.allsort = 
-                    // classifyCardVue.popularity = popularity;
                     document.querySelector('#destFilter').focus();
+                    // 轉圈關掉
+                    coverplate.classList.add('d-none')
+
                 })
                 .then(() => {
                     let OriginalPrice = document.querySelectorAll('.OriginalPrice')
@@ -285,6 +287,5 @@
                     })
                 })
         },
-
     },
 })
