@@ -364,7 +364,7 @@ namespace Today.Web.Services.ProductService
             var cityList = _repo.GetAll<City>();
 
             var result = new ProductDTO { CityList = new List<CityInfo>() };
-            result.CityList = cityList.OrderBy(c => (new Random()).Next()).Select(c => new CityInfo
+            result.CityList = cityList.OrderBy(c => Guid.NewGuid()).Take(5).Select(c => new CityInfo
             {
                 Id = c.CityId,
                 CityName = c.CityName,
