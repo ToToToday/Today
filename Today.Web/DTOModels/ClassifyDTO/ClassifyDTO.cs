@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Today.Web.ViewModels;
-
 namespace Today.Web.DTOModels.ClassifyDTO
 {
     public class ClassifyDTO
     {
         public List<ClassifyCardInfo> ClassifyCardList { get; set; }
         public int CardCount { get; set; }
-
-
-        //public List<CategoryDestinations> CategoryList { get; set; }
-        //public class CategoryDestinations
-        //{
-        //    public int ProductCategoryId { get; set; }
-        //    public string CategoryName { get; set; }
-        //    public List<CategoryDestinations> ChildCategory { get; set; }
-        //}
-
         public class ClassifyRequestDTO
         {
             public int CategoryId { get; set; }
@@ -38,17 +26,20 @@ namespace Today.Web.DTOModels.ClassifyDTO
             public int TotalComment { get; set; }
         }
     }
-
-
-
     public class FilterDTO
     {
         public List<int> CategoryFilterList { get; set; }
         public List<int> CityFilterList { get; set; }
+        public SortCondition SortBy { get; set; }
         public int Page { get; set; }
         public int MemberId { get; set; }
     }
-
+    public enum SortCondition
+    {
+        熱門程度=2,
+        評價星星數=3,
+        價錢低到高=4,
+    }
     public class GetAllFiltersOutputDTO
     {
         public List<FilterVM.CategoryFilter> CategoryFilterList { get; set; }

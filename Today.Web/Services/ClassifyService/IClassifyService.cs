@@ -15,6 +15,8 @@ namespace Today.Web.Services.ClassifyService
         //ClassifyDTO GetClassifyPages(ClassifyRequestDTO categoryId);
         GetAllFiltersOutputDTO GetClassifyFilters();
 
+        //GetAllSortsOutputDTO GetClassifySorts();
+
         ClassifyDTO GetClassifyMatchedCards(FilterDTO input);
         //List<ClassifyDTO.ClassifyCardInfo> AddClassifyCardToResult(List<Product> product);
         //ClassifyDTO AddClassifyCardToResult();

@@ -1,5 +1,4 @@
-﻿@using System.Web;
-@using Newtonsoft.Json
+﻿@using Newtonsoft.Json
 @using Today.Web.ViewModels
 @model ClassifyVM
 @*@{
@@ -9,7 +8,7 @@
 
 <!-- 導覽列 -->
 @*導覽列下的三個BUTTON*@
-
+<div class="w-100 h-100 position-absolute bg-dark d-none" style="z-index: 2;" id="coverplate"></div>
 <div class="container city-filter-wrap position-fixed pt-3">
     <div class="sidebar d-flex mx-0 px-3 bg-white">
         <!-- 第一版 目的地-->
@@ -239,7 +238,7 @@
                     </div>
                 </div>
                 <!-- 價錢 range -->
-                <div class="filter-group rounded ">
+@*                <div class="filter-group rounded ">
                     <div class="filter-block mt-3">
                         <div class="accordion-item">
                             <div class="accordion-header pt-3 pb-4 mx-3" id="headingThree">
@@ -267,7 +266,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+*@            </div>
             <!--右側欄 -->
             <div class="col-lg-9 pt-3 p-2">
                 <!-- 體驗行程 -->
@@ -311,7 +310,7 @@
 
                                 <span class="todayrecommend " :class="{active: todayrecommend.checked}"
                                     :value="todayrecommend.SortId"
-                                    v-on:click="filterPost(1)">{{(todayrecommend.SortName)}}</span>
+                                    v-on:click="changeSort(todayrecommend)">{{(todayrecommend.SortName)}}</span>
                             </div>
                         </div>
                     </div>
@@ -405,6 +404,7 @@
 <script>
     let cityList = @Html.Raw(JsonConvert.SerializeObject(Model.AllFilters.CityFilterList));
     let categoryList = @Html.Raw(JsonConvert.SerializeObject(Model.AllFilters.CategoryFilterList));
+    //let sortList = @Html.Raw(JsonConvert.SerializeObject(Model));
     //console.log(cityList)
     //console.log(categoryList)
 
@@ -466,24 +466,4 @@
             }
         *@
 </script>
-@* <script>
-    var app = new Vue({
-    el: '#app',
-    },
-    computed: {
-    listCmputed: function () {
-    return this.list.filter(function (item) {
-    return item.n >= 33
-    })
-    }
-    }, methods: {
-    listMe: function (list) {
-    return list.filter(function (item) {
-    return item.n <= 33
-    })
-    }
-    }
-    )
-    </script> *@
-
 }
