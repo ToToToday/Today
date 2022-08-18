@@ -12,7 +12,7 @@
                 <b-modal id="myModal" size="lg" title="商品明細">                  
                         <b-img-lazy :src="currentDetail.Path" class="imgDetailStyle"></b-img-lazy>
                         <div class="row mt-3">
-                            @*<p>{{currentDetail.ProductId}}</p>*@
+                            
                             <div class="col-12 mb-2">
                                 <label>商品名稱</label>
                                 <input  v-model="currentDetail.ProductName" class="form-control productName" type="text"/>
@@ -79,25 +79,12 @@
                             <b-img-lazy :src="row.item.Path" class="imgStyle"></b-img-lazy>
                         </template>
 
-                        @*加入*@
-                        <template #cell(headerTitle)="data">
-                            @*加入 data.item*@
+                        
+                        <template #cell(headerTitle)="data">                            
                             <b-button v-on:click="selectEdit(data.item)" variant="outline-primary" v-b-modal="'myModal'" class="edit">編輯</b-button>
                         </template>
                         
-                        @*<template #cell(ProductId)="data">
-                        {{ data.ProductId }}
-                        </template>
-                        <template #cell(ProductName)="data">
-                        {{ data.ProductName }}
-                        </template>
-
-                        <template #cell(CategoryName)="data">
-                        {{ data.CategoryName }}
-                        </template>
-                        <template #cell(UnitPrice)="data">
-                        {{ data.UnitPrice }}
-                        </template>*@
+                        
                     </b-table>
                 </div>
             </b-tab>
@@ -123,19 +110,7 @@
                     <strong class="text-danger">商品下架</strong>
                 </template>
                 <div>
-                    @*<b-table outlined striped hover :ProductInfoList="ProductInfoList" :fields="fields">
-                    <template #cell(index)="data">
-                    {{ data.index + 1 }}
-                    </template>
-                    <template #cell(productName)="data">
-                    {{ data.productName }}
-                    </template>
-
-                    <template #cell(Path)="data">
-                    {{ data.Path }}
-                    </template>
-
-                    </b-table>*@
+                    
                 </div>
             </b-tab>
         </b-tabs>
@@ -216,7 +191,7 @@
                 active: true,
                 page: 1,
                 fields: [
-                    //'index',
+                    
                     { key: 'index', label: '商品順序', sortable: true , sortDirection: 'desc' },
                     { key: 'ProductId', label: '商品編號', sortable: true, sortDirection: 'desc' },
                     { key: 'Path', label: '商品圖片' },
@@ -225,8 +200,7 @@
                     { key: 'CategoryName', label: '分類', sortable: true, sortDirection: 'desc' },
                     { key: 'UnitPrice', label: '單價', sortable: true, sortDirection: 'desc' },
                     { headerTitle: "商品明細" }
-                    //'last_name',
-                    //'age'
+                    
                 ],
                 ProductInfoList: productArray,
                 //編輯
@@ -313,34 +287,7 @@
                 })
         }
 
-        //function UpdateFetch(Url){
-            
-                                                         
-
-        //    fetch(Url,{
-        //        method: 'post',
-        //        headers: {
-        //            'Content-Type': 'application/json'
-        //        },
-        //        body: JSON.stringify({
-
-        //            ProductName:this.currentDetailResult
-
-
-        //        })
-        //    })
-        //    .then(res => {
-        //        if (res.ok) {
-        //            this.currentDetailResult = this.currentDetail.ProductName
-        //            console.log(this.currentDetailResult)
-        //            alert("成功")
-        //        }
-        //        else {
-        //            alert("失敗")
-        //        }
-        //    })
-
-        //}
+        
            
 
     </script>
