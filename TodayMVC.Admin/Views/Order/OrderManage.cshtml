@@ -8,67 +8,67 @@
         </div>
     </div>
     <div>
-      <b-card no-body>
-        <b-tabs card>
-          <b-tab title="訂單總覽" active>
-            <b-card-text>
-                <div>
-                    <b-table id="orderall" :fields="fields" striped hover :items="orderData" :per-page="perPage" :current-page="currentPage">
-                        <template #head(name)>{{ computedName }}</template>
-                    </b-table>
-                </div>
-            </b-card-text>
-          </b-tab>
-          
-        </b-tabs>
-      </b-card>
+        <b-card no-body>
+            <b-tabs card>
+                <b-tab title="訂單總覽" active>
+                    <b-card-text>
+                        <div>
+                            <b-table id="orderall" :fields="fields" striped hover :items="orderData" :per-page="perPage" :current-page="currentPage">
+                                <template #head(name)>{{ computedName }}</template>
+                            </b-table>
+                        </div>
+                    </b-card-text>
+                </b-tab>
+
+            </b-tabs>
+        </b-card>
     </div>
-    
+
     <b-pagination v-model="currentPage" :total-rows="ordercount" :per-page="perPage" aria-controls="orderall" class="mt-4" align="center">
         <span class="text-success">First</span>
         <span class="text-danger">Prev</span>
         <span class="text-warning">Next</span>
         <span class="text-info">Last</span>
-           
-            <b-spinner small type="grow"></b-spinner>
-            <b-spinner small type="grow"></b-spinner>
-            <b-spinner small type="grow"></b-spinner>
-           
-            
-            <b v-if="active">{{ page }}</b>
-            <i v-else>{{ page }}</i>
-            
+
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
+
+
+        <b v-if="active">{{ page }}</b>
+        <i v-else>{{ page }}</i>
+
     </b-pagination>
 
 
-   
+
 </div>
 @section endJS{
     <script>
         let orderData = []
-        window.onload = function(){
-        let url = "/api/OrderApi/GetAllOrder"
-        fetch(url, {
-            method: 'Get',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(res => {
-                if (res.ok) {
-                    console.log('OK')
-                    Promise.resolve(res.json()).then(function(result){
-                        result.map(function(value, key){
-                            orderData.push(value)
-                        })
-                    })
-                }
-                else {
-                    console.log('Fail')
+        window.onload = function() {
+            let url = "/api/OrderApi/GetAllOrder"
+            fetch(url, {
+                method: 'Get',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             })
+                .then(res => {
+                    if (res.ok) {
+                        console.log('OK')
+                        Promise.resolve(res.json()).then(function(result) {
+                            result.map(function(value, key) {
+                                orderData.push(value)
+                            })
+                        })
+                    }
+                    else {
+                        console.log('Fail')
+                    }
+                })
         }
-        
+
         const app = new Vue({
             el: '#allOrder',
             data: {
@@ -78,22 +78,22 @@
                 active: true,
                 page: 1,
                 fields: [
-                    { key: "OrderId", label: "訂單編號", sortable: true},
-                    { key: "OrderDate", label: "訂購時間", sortable: true},
+                    { key: "OrderId", label: "訂單編號", sortable: true },
+                    { key: "OrderDate", label: "訂購時間", sortable: true },
                     { key: "MemberName", label: "會員" },
                     { key: "ProductName", label: "商品" },
                     { key: "ProgramName", label: "方案" },
                     { key: "ItemText", label: "規格" },
-                    { key: "Quantity", label: "數量" ,sortable: true},
-                    { key: "TotalPrice", label: "金額", sortable: true},
-                    { key: "Status", label: "狀態", sortable: true}
+                    { key: "Quantity", label: "數量", sortable: true },
+                    { key: "TotalPrice", label: "金額", sortable: true },
+                    { key: "Status", label: "狀態", sortable: true }
                 ],
             },
             computed: {
                 ordercount() {
                     return this.orders.length
                 },
-                
+
 
             },
         })

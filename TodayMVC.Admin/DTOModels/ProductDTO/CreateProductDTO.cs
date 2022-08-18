@@ -5,24 +5,24 @@ namespace TodayMVC.Admin.DTOModels.ProductDTO
     public class CreateProductDTO
     {
         public int ProductId { get; set; }
-        public List<int> CategoryList { get; set; } //類別s 只能選取已有的 多對多
-        public List<int> TagList { get; set; }//標籤s
-        public int City { get; set; }
         public string ProductName { get; set; }
-        public bool Favorite { get; set; }
-        public string CityName { get; set; }
-        public string? Producttag { get; set; }
+        public List<int> TagList { get; set; }//標籤s
+        //public string? Producttag { get; set; }
+        public List<int> CategoryList { get; set; } //類別s 只能選取已有的 多對多
         public string ProductText { get; set; }//商品說明
         public string CancellationPolicy { get; set; }//取消政策
         public string HowUse { get; set; }//如何使用
         public string ShoppingNotice { get; set; }//購物須知
-        public List<Photo> PhtotList { get; set; }
-        public List<Progarm> ProgarmList { get; set; }
-        public bool ProductIsdeleted { get; set; }//商品狀態
-        public bool Isdeleted { get; set; }//狀態
-        public Supplier supplier { get; set; }
-        public List<AboutProgramOption> AboutProgramOptionList { get; set;}
+        public int City { get; set; }
+        //public string CityName { get; set; }
         public location location { get; set; }
+        public Supplier Supplier { get; set; }
+        public bool ProductIsdeleted { get; set; }//商品狀態
+        public bool Favorite { get; set; }
+        public bool Isdeleted { get; set; }//狀態
+        public List<Photo> PhtotList { get; set; }
+        public List<AboutProgramOption> AboutProgramOptionList { get; set;}
+        public List<Progarm> ProgarmList { get; set; }
     }
     public class Supplier
     {
@@ -47,10 +47,10 @@ namespace TodayMVC.Admin.DTOModels.ProductDTO
         public bool ProgarmIsdeleted { get; set; }//商品狀態
         public string PrgramName { get; set; }
         public string PrgarmText { get; set; }//產品說明
-        public List<int> AboutProgramList { get; set; }
+        //public List<int> AboutProgramList { get; set; }
         public List<ProgramInclude>? ProgramIncludeList { get; set; }
         public List<ProgramSpecification>? ProgramSpecificationList { get; set; }
-        public List<Date>? DateList { get; set; }
+        public List<string>? DateList { get; set; }
 
         public List<Screening>? ScreeningList { get; set; }
     }
@@ -74,7 +74,7 @@ namespace TodayMVC.Admin.DTOModels.ProductDTO
         public string UnitText { get; set; }//間
         public decimal PorgarmUnitPrice { get; set; }//單錢
         public decimal OriginalUnitPrice { get; set; }//原價
-        public int Status { get; set; }
+        //public int Status { get; set; }
     }
     public class Photo
     {
@@ -91,10 +91,10 @@ namespace TodayMVC.Admin.DTOModels.ProductDTO
         public string Inciudetext { get; set; }//方案包含項目
         public bool IsInclude { get; set; }//狀態
     }
-    public class Date
-    {
-        public int ProgramDateId { get; set; }
-        public int ProgramID { get; set; }
-        public string CantuseDate { get; set; } //方案不行的日期
-    }
+    //public class Date
+    //{
+    //    //public int ProgramDateId { get; set; }
+    //    //public int ProgramID { get; set; }
+    //    public string CantuseDate { get; set; } //方案不行的日期
+    //}
 }

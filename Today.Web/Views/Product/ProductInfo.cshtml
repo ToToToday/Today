@@ -5,6 +5,7 @@
     if (@Model.MemberList.Count != 0)
     {
         Stars = (decimal)@Model.MemberList.Select(s => s.Star).Sum() / (decimal)@Model.MemberList.Count;
+        
     }
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
@@ -208,7 +209,7 @@
                     <div class="order-quantity col-12 ">
                         <p>
                             <i class="fa-solid fa-star"></i>
-                            @Stars | (@Model.MemberList.Count) 評論
+                            @Stars.ToString("#0.0") | (@Model.MemberList.Count) 評論
                         </p>
                     </div>
                     <div class="money col-12 d-lg-none">
@@ -304,7 +305,7 @@
                 </h3>
                 <div class="Star col-8">
                     <i class="fa-solid fa-star"></i>
-                    @Stars
+                    @Stars.ToString("#0.0")
                     <span>(@Model.MemberList.Count)</span>
                 </div>
                 @*                <a class="text-break col-4">
@@ -609,10 +610,10 @@
                     num = parseInt(count.innerHTML, 10) + 1
                     count.innerHTML = num
                     myArray[index].Quantity = num
-                    console.log(sum_price.innerText)
+                    //console.log(sum_price.innerText)
                     sum_price.innerHTML = parseInt(sum_price.innerText) + (parseInt(pglist[btn_Next_step.value].ProgramSpecificationList[index].PorgarmUnitPrice, 10) * parseInt(num, 10))
-                    console.log(sum_price.innerText)
-                    console.log(myArray)
+                    //console.log(sum_price.innerText)
+                    //console.log(myArray)
                 })
                 reduce.addEventListener("click", () => {
                     if (count.innerHTML > 0) {
@@ -641,7 +642,8 @@
                     return
                 }
                 let  getdata = iphdate._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + (getdata[0].getMonth() + 1) + `-` + getdata[0].getDate()
+                let dateMoth = getdata[0].getMonth() + 1
+                let Departuredate = getdata[0].getFullYear() + `-` + dateMoth + `-` + getdata[0].getDate()
                 let url = "/api/Shop/AddCart";
                 toastr.options = {
                     "positionClass": "toast-top-center",
@@ -704,10 +706,10 @@
                     num = parseInt(count.innerHTML, 10) + 1
                     count.innerHTML = num
                     myArray[i].Quantity = num
-                    console.log(sum_price.innerText)
+                    //console.log(sum_price.innerText)
                     sum_price.innerHTML = parseInt(sum_price.innerText) + (parseInt(pglist[index].ProgramSpecificationList[i].PorgarmUnitPrice, 10) * parseInt(num, 10))
-                    console.log(sum_price.innerText)
-                    console.log(myArray)
+                    //console.log(sum_price.innerText)
+                    //console.log(myArray)
                 })
                 reduce.addEventListener("click", () => {
                     if (count.innerHTML > 0) {
@@ -749,7 +751,13 @@
                     return
                 }
                 let getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + getdata[0].getMonth()  + 1 + `-` + getdata[0].getDate()
+                let datamonth = getdata[0].getMonth() + 1
+                //console.log(datamonth)
+                let Departuredate = getdata[0].getFullYear() + `-` + datamonth + `-` + getdata[0].getDate()
+
+
+
+                alert(datamonth)
                 let url = "/api/Order/directCreateOrder";
                 toastr.options = {
                     "positionClass": "toast-top-center",
@@ -797,7 +805,9 @@
                     return
                 }
                 getdata = pg.querySelector(".flatpickr-input")._flatpickr.selectedDates
-                let Departuredate = getdata[0].getFullYear() + `-` + (getdata[0].getMonth() + 1) `-` + getdata[0].getDate()
+                let datamonth = getdata[0].getMonth() + 1
+                //console.log(datamonth)
+                let Departuredate = getdata[0].getFullYear() + `-` + datamonth + `-` + getdata[0].getDate()
                 let url = "/api/Shop/AddCart";
                 toastr.options = {
                     "positionClass": "toast-top-center",
@@ -828,7 +838,7 @@
    
         function Addcard(index, PrgarmText, name, ProgramSpecificationList, AboutProgramList, ProgramIncludeList, DateList) {
             let programcard = PrgramNameModel.content.cloneNode(true);
-            console.log(programcard)
+            //console.log(programcard)
             programcard.querySelector("h4").innerText = name
             programcard.querySelector("input.btn-check").id = `btn${index}`
             programcard.querySelector("label.btn").for = `btn${index}`
@@ -839,9 +849,9 @@
 
             programcard.querySelector(".initial-container").setAttribute("data-bs-target", `#flush-collapse${index}`)
             programcard.querySelector(".collapse").id = `flush-collapse${index}`
-            console.log(ProgramSpecificationList.length)
+            //console.log(ProgramSpecificationList.length)
             if (ProgramSpecificationList.length > 0) {
-                console.log(`${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`)
+                //console.log(`${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`)
                 programcard.querySelector(".initial-money").innerHTML = `${ProgramSpecificationList[0].PorgarmUnitPrice}<span>起</span>`
             }
 
@@ -849,7 +859,7 @@
 
 
             datainput.id = `myID${index}`
-            console.log(datainput)
+            //console.log(datainput)
 
             //let xxx = myArray.prototype.slice.call( [datainput] ).filter(
             //    (function(e){return e instanceof HTMLElement})
@@ -864,7 +874,7 @@
             DateList.forEach(d => {
                 CantuseDate.push(d.CantuseDate)
             })
-            console.log(CantuseDate)
+            //console.log(CantuseDate)
             const fp = flatpickr(datainput, {
                 minDate: "today",
                 disable: CantuseDate,

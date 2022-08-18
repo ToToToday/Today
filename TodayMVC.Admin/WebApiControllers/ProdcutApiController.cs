@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using TodayMVC.Admin.DTOModels.ProductDTO;
 using TodayMVC.Admin.Services.ProductServices;
+using System.Text.Json;
+using Newtonsoft.Json;
+
 namespace TodayMVC.Admin.WebApiControllers
 {
     [Route("api/[controller]/[action]")]
@@ -17,7 +20,7 @@ namespace TodayMVC.Admin.WebApiControllers
         //[Http]
         //public  IActionResult Create(CreateProductDTO product)
         [HttpPost]
-        public IActionResult Create(CreateProductDTO createProductDTO)
+        public IActionResult Create([FromBody]CreateProductDTO createProductDTO)
         {
             try
             {
@@ -27,6 +30,22 @@ namespace TodayMVC.Admin.WebApiControllers
             catch(Exception eX)
             {
                 return Ok(eX.Message);
+            }
+        }
+        [HttpGet]
+        public string get()
+        {
+            try
+            {
+                var result =  _createProductServices.get();
+                return JsonConvert.SerializeObject(result);
+                //return JsonConvert.SerializeObject(result);
+                
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+
             }
         }
     }

@@ -3,7 +3,6 @@
     "TodayMVC.Admin": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Product/CreateProduct",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
