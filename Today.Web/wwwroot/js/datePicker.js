@@ -5,28 +5,32 @@ All_search = decodeURI(All_search)
 if (All_search  != '')
     {
         All_search = All_search.substring(1, All_search.length);
-    }
-let queryString=["typeDate","City","Fprice","Eprice"]
+}
+
 function UrlSearch(input,inputnum)
 {
+         let queryString=["City"]
          let queryName= queryString[inputnum]
          if(All_search=='')
          {
              window.location.search = `${queryName}=` + input;
+             console.log('成功')
           }
          else if(!All_search.includes(`${queryName}`))
          {
              window.location.search = `${queryName}=` + input + "&" + All_search;
+             console.log('成功')
          }
          else if(All_search.includes(`${queryName}`)) //要是搜尋路徑存在時候
          {
             let params = new URLSearchParams(All_search);
             let get_Date = params.get(`${queryName}`); //取的 typeDate 的值
             All_search = All_search.replace(`${queryName}=${get_Date}`,`${queryName}=${input}`);
-            window.location.search = All_search ;
+             window.location.search = All_search;
+             console.log('成功')
           }
 }
-
+  
 function DownUrl(inputnum)    //取消單個Url
 {
     let queryName= queryString[inputnum];

@@ -215,7 +215,12 @@ const classifyCardVue = new Vue({
                 city_choosed=null
             }
             try {
-                var offCityName;
+                let params = new URLSearchParams(All_search);
+                let get_Date = params.get("City");
+                if (get_Date == null) {
+                    offCityName= null
+                }
+                var offCityName = get_Date;
             }
             catch (err){
                 offCityName = null;
