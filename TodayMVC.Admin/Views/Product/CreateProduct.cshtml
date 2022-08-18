@@ -1,148 +1,216 @@
-﻿
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">新增產品</h1>
-</div>
+﻿@section topCSS{
+    <style>
+        .img-div img {
+            width: 200px;
+            height: 200px;
+            float: left;
+        }
 
-<div class="container" id="app">
-    <div>
+        .img-div {
+            float: left;
+        }
+
+        .drop-left, .drop-right {
+            width: 50px;
+            height: 200px;
+            float: left;
+        }
+
+        ul {
+            display: flex;
+        }
+
+        li {
+            width: 200px;
+        }
+    </style>
+}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">新增產品</h1>
+    </div>
+
+    <div class="container" id="app">
+
+
+
+
+        <form method="post" action="/Cloudinary/imgtry" enctype="multipart/form-data">
+            <input type="file" id="wizard-picture" name="File">
+            <button type="submit" class="btn btn-outline-dark" id="btn-upload" @*disabled="disabled"*@>點擊上傳</button>
+        </form>
+
+        <ul id="sortable">
+            <li v-for="item in todoList">
+                <img :src="item">
+            </li>
+        </ul>
+        <input type="text"
+           v-model="todoItem"
+           v-on:keyup.enter="addTodoItem">
+        <button v-on:click="addTodoItem">add</button>
+
+
+
+
+        @*        <ul id="sortable">
+    <li id="1">
+    <img src="https://picsum.photos/300/200/?random=10">
+    </li>
+    <li id="2">
+    <img src="https://picsum.photos/300/200/?random=11">
+    </li>
+    <li id="3">
+    <img src="https://picsum.photos/300/200/?random=12">
+    </li>
+    <li id="4">
+    <img src="https://picsum.photos/300/200/?random=13">
+    </li>
+    </ul>*@
+
+
         <div>
-            <b-form-group id="fieldset-1"
+            <div>
+                <b-form-group id="fieldset-1"
                           label="請輸入商品名稱"
                           label-for="input-1"
                           valid-feedback="Thank you!"
                           :invalid-feedback="invalidFeedback"
                           :state="state">
-                <b-form-input id="input-1" v-model="Prdouctname" :state="state" trim></b-form-input>
-                <b-form-select v-model="Category" :options="CategoryList"></b-form-select>
-                <b-form-select v-model="cityid" :options="Cityoptions"></b-form-select>
-            </b-form-group>
-            @*<div v-model="Prdouctname"> {{Prdouctname}}</div>*@
-        </div>
-        <div class="d-flex">
-            <div class="col-6">
-                <b-card bg-variant="light">
-                    <b-form-group 
-                                  label-cols-lg="3"
+                    <b-form-input id="input-1" v-model="Prdouctname" :state="state" trim></b-form-input>
+                    <b-form-select v-model="Category" :options="CategoryList"></b-form-select>
+                    <b-form-select v-model="cityid" :options="Cityoptions"></b-form-select>
+                </b-form-group>
+                @*<div v-model="Prdouctname"> {{Prdouctname}}</div>*@
+            </div>
+
+            <div>
+                <label for="tags-basic">新增方案不包含項目</label>
+                <b-form-tags input-id="tags-basic" v-model="AboutProgramOptionList"></b-form-tags>
+
+            </div>
+            <div class="d-flex">
+                <div class="col-6">
+                    <b-card bg-variant="light">
+                        <b-form-group label-cols-lg="3"
                                   label="公司"
                                   label-size="lg"
                                   label-class="font-weight-bold pt-0"
                                   class="mb-0">
 
-                        <b-form-group label="公司名稱:"
+                            <b-form-group label="公司名稱:"
                                       label-for="nested-street1"
                                       label-cols-sm="3"
-                                      label-align-sm="right"
-                                     >
-                            <b-form-input id="nested-street1" v-model="Supplier.CompanyName"></b-form-input>
-                        </b-form-group>
+                                      label-align-sm="right">
+                                <b-form-input id="nested-street1" v-model="Supplier.CompanyName"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="負責人名稱:"
+                            <b-form-group label="負責人名稱:"
                                       label-for="nested-city"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-city" v-model="Supplier.ContactName"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-city" v-model="Supplier.ContactName"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="負責人職稱:"
+                            <b-form-group label="負責人職稱:"
                                       label-for="nested-state"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-state" v-model="Supplier.ContactTitle"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-state" v-model="Supplier.ContactTitle"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="公司地址:"
+                            <b-form-group label="公司地址:"
                                       label-for="nested-country"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-country" v-model="Supplier.Address"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-country" v-model="Supplier.Address"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="負責人電話:"
+                            <b-form-group label="負責人電話:"
                                       label-for="nested-country"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-country" v-model="Supplier.Phon"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-country" v-model="Supplier.Phon"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="城市:"
+                            <b-form-group label="城市:"
                                       label-cols-sm="3"
                                       label-align-sm="right"
                                       class="mb-0"
                                       v-slot="{ ariaDescribedby }">
 
-                            <div>
-                                <b-form-select v-model="Supplier.City" :options="Cityoptions" class="mb-3">
-                                    <!-- This slot appears above the options from 'options' prop -->
-                                    <template #first>
-                                        <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
-                                    </template>
+                                <div>
+                                    <b-form-select v-model="Supplier.City" :options="Cityoptions" class="mb-3">
+                                        <!-- This slot appears above the options from 'options' prop -->
+                                        <template #first>
+                                            <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
+                                        </template>
 
-                                    <!-- These options will appear after the ones from 'options' prop -->
-                      @*              <b-form-select-option value="C">Option C</b-form-select-option>
+                                        <!-- These options will appear after the ones from 'options' prop -->
+                                        @*              <b-form-select-option value="C">Option C</b-form-select-option>
                                     <b-form-select-option value="D">Option D</b-form-select-option>*@
-                                </b-form-select>
+                                    </b-form-select>
 
-                                @*<div class="mt-3">Selected: <strong>{{ selected }}</strong></div>*@
-                            </div>
+                                    @*<div class="mt-3">Selected: <strong>{{ selected }}</strong></div>*@
+                                </div>
+                            </b-form-group>
+
                         </b-form-group>
-
-                    </b-form-group>
-                </b-card>
-            </div>
+                    </b-card>
+                </div>
 
 
-            <div class="col-6 ">
-                <b-card bg-variant="light h-100">
-                    <b-form-group label-cols-lg="3"
+                <div class="col-6 ">
+                    <b-card bg-variant="light h-100">
+                        <b-form-group label-cols-lg="3"
                                   label="位置"
                                   label-size="lg"
                                   label-class="font-weight-bold pt-0"
                                   class="mb-0">
-                        <b-form-group label="體驗地點標題:"
+                            <b-form-group label="體驗地點標題:"
                                       label-for="nested-street"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-street" v-model="location.locationTitle"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-street" v-model="location.locationTitle"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="內文:"
+                            <b-form-group label="內文:"
                                       label-for="nested-city"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-city" v-model="location.locationtext"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-city" v-model="location.locationtext"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="地址:"
+                            <b-form-group label="地址:"
                                       label-for="nested-state"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-state" v-model="location.locationAddress"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-state" v-model="location.locationAddress"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="經度:"
+                            <b-form-group label="經度:"
                                       label-for="nested-country"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-country" v-model="location.Longitude"></b-form-input>
-                        </b-form-group>
-                        
-                        
-                        <b-form-group label="緯度:"
+                                <b-form-input id="nested-country" v-model="location.Longitude"></b-form-input>
+                            </b-form-group>
+
+
+                            <b-form-group label="緯度:"
                                       label-for="nested-country"
                                       label-cols-sm="3"
                                       label-align-sm="right">
-                            <b-form-input id="nested-country" v-model="location.Latitude"></b-form-input>
-                        </b-form-group>
+                                <b-form-input id="nested-country" v-model="location.Latitude"></b-form-input>
+                            </b-form-group>
 
-                        <b-form-group label="類型:"
+                            <b-form-group label="類型:"
                                       label-cols-sm="3"
                                       label-align-sm="right"
                                       class="mb-0"
-                                      v-slot="{ ariaDescribedby }" 
+                                      v-slot="{ ariaDescribedby }"
                                       v-model="location.Type">
 
-                            <b-form-radio-group class="pt-2"
+                                <b-form-radio-group class="pt-2"
                                                 v-model="location.Type"
                                                 :options="[
                                                             {value: '0', text: '體驗'},
@@ -150,135 +218,135 @@
                                                             {value: '2', text: '其他'},
                                                             ]"
                                                 @*:aria-describedby="ariaDescribedby"*@>
-                            </b-form-radio-group>
+                                </b-form-radio-group>
+                            </b-form-group>
                         </b-form-group>
-                    </b-form-group>
-                </b-card>
+                    </b-card>
+                </div>
             </div>
-        </div>
 
 
-        <div class="col-12 ">
-            <b-card bg-variant="light h-100">
-                <b-form-group label-cols-lg="12"
+            <div class="col-12 ">
+                <b-card bg-variant="light h-100">
+                    <b-form-group label-cols-lg="12"
                               label="方案"
                               label-size="lg"
                               label-class="font-weight-bold pt-0"
                               class="mb-0">
-                    <b-form-group label="方案標題:"
+                        <b-form-group label="方案標題:"
                                   label-for="nested-street"
                                   label-cols-sm="3"
                                   label-align-sm="left">
-                        <b-form-input id="nested-street"  v-model="Progarm.PrgramName"></b-form-input>
-                    </b-form-group>
+                            <b-form-input id="nested-street" v-model="Progarm.PrgramName"></b-form-input>
+                        </b-form-group>
 
-                    <b-form-group label="方案內文:"
+                        <b-form-group label="方案內文:"
                                   label-for="nested-city"
                                   label-cols-sm="3"
                                   label-align-sm="left"
                                   placeholder="asdasda">
-                        @*<b-form-input id="nested-city"></b-form-input>*@
-                        <b-form-textarea id="textarea"
+                            @*<b-form-input id="nested-city"></b-form-input>*@
+                            <b-form-textarea id="textarea"
                                          placeholder="新增方案內文"
                                          rows="3"
-                                         max-rows="6"  v-model="Progarm.PrgarmText"></b-form-textarea>
+                                         max-rows="6" v-model="Progarm.PrgarmText"></b-form-textarea>
 
-                    </b-form-group>
-
-                    @*                    <div>
-                    </div>*@
-                    <div>
-                        <label for="tags-basic">新增方案包含項目</label>
-                        <b-form-tags input-id="tags-basic" v-model="ProgramIncludeTrueListvalue"></b-form-tags>
-
-                    </div>
-@*                    <div>{{ProgramIncludeTrueListvalue}}</div>
-                    <div>{{ProgramIncludeFalsListvalue}}</div>*@
-                    <div>
-                        <label for="tags-basic">新增方案不包含項目</label>
-                        <b-form-tags input-id="tags-basic" v-model="ProgramIncludeFalsListvalue"></b-form-tags>
-
-                    </div>
-
-                    <div>
-                        <label for="tags-basic">方案不可購買日期</label>
-                        <b-form-tags input-id="tags-basic" v-model="Progarm.DateList"></b-form-tags>
-
-                    </div>
-
-
-@*
-                    <div>
-                        <b-form-group label="Radios using sub-components">
-                            <label for="tags-basic"> 有無場次</label>
-                            <b-form-radio-group id="radio-group-2"
-                                                v-model="isShow"
-                                                @*:aria-describedby="ariaDescribedby"
-                                                name="radio-sub-component">
-                                <b-form-radio value="truthy">Toggle this custom radio</b-form-radio>
-                                <b-form-radio value="falsy">Or toggle this other custom radio</b-form-radio>
-                            </b-form-radio-group>
                         </b-form-group>
 
+                        @*                    <div>
                     </div>*@
+                        <div>
+                            <label for="tags-basic">新增方案包含項目</label>
+                            <b-form-tags input-id="tags-basic" v-model="ProgramIncludeTrueListvalue"></b-form-tags>
 
-                    <div>
+                        </div>
+                        @*                    <div>{{ProgramIncludeTrueListvalue}}</div>
+                    <div>{{ProgramIncludeFalsListvalue}}</div>*@
+                        <div>
+                            <label for="tags-basic">新增方案不包含項目</label>
+                            <b-form-tags input-id="tags-basic" v-model="ProgramIncludeFalsListvalue"></b-form-tags>
 
+                        </div>
 
                         <div>
-                            <b-card bg-variant="light ">
-                                <b-form-group label-cols-lg="12"
+                            <label for="tags-basic">方案不可購買日期</label>
+                            <b-form-tags input-id="tags-basic" v-model="Progarm.DateList"></b-form-tags>
+
+                        </div>
+
+
+                        @*
+                    <div>
+                    <b-form-group label="Radios using sub-components">
+                    <label for="tags-basic"> 有無場次</label>
+                    <b-form-radio-group id="radio-group-2"
+                    v-model="isShow"
+                    @*:aria-describedby="ariaDescribedby"
+                    name="radio-sub-component">
+                    <b-form-radio value="truthy">Toggle this custom radio</b-form-radio>
+                    <b-form-radio value="falsy">Or toggle this other custom radio</b-form-radio>
+                    </b-form-radio-group>
+                    </b-form-group>
+
+                    </div>*@
+
+                        <div>
+
+
+                            <div>
+                                <b-card bg-variant="light ">
+                                    <b-form-group label-cols-lg="12"
                                               label="方案規格"
                                               label-size="lg"
                                               label-class="font-weight-bold pt-0"
                                               class="mb-0 ">
-                                    <div class="col-12 d-flex">
+                                        <div class="col-12 d-flex">
 
-                                        <b-form-group class="col-3"
+                                            <b-form-group class="col-3"
                                                       label="身分:"
                                                       label-for="nested-street"
                                                       label-cols-sm="3"
                                                       label-align-sm="right">
-                                            <b-form-input id="nested-street"  v-model="ProgramSpecification.Itemtext"></b-form-input>
-                                        </b-form-group>
+                                                <b-form-input id="nested-street" v-model="ProgramSpecification.Itemtext"></b-form-input>
+                                            </b-form-group>
 
-                                        <b-form-group class="col-3"
+                                            <b-form-group class="col-3"
                                                       label="單位:"
                                                       label-for="nested-city"
                                                       label-cols-sm="3"
                                                       label-align-sm="right">
-                                            <b-form-input id="nested-city"  v-model="ProgramSpecification.UnitText"></b-form-input>
-                                        </b-form-group>
+                                                <b-form-input id="nested-city" v-model="ProgramSpecification.UnitText"></b-form-input>
+                                            </b-form-group>
 
-                                        <b-form-group class="col-3"
+                                            <b-form-group class="col-3"
                                                       label="單價:"
                                                       label-for="nested-state"
                                                       label-cols-sm="3"
                                                       label-align-sm="right">
-                                            <b-form-input id="nested-state"  v-model="ProgramSpecification.PorgarmUnitPrice"></b-form-input>
-                                        </b-form-group>
+                                                <b-form-input id="nested-state" v-model="ProgramSpecification.PorgarmUnitPrice"></b-form-input>
+                                            </b-form-group>
 
-                                        <b-form-group class="col-3"
+                                            <b-form-group class="col-3"
                                                       label="原價:"
                                                       label-for="nested-country"
                                                       label-cols-sm="3"
                                                       label-align-sm="right">
-                                            <b-form-input id="nested-country"  v-model="ProgramSpecification.OriginalUnitPrice"></b-form-input>
-                                        </b-form-group>
+                                                <b-form-input id="nested-country" v-model="ProgramSpecification.OriginalUnitPrice"></b-form-input>
+                                            </b-form-group>
 
 
-                                    </div>
+                                        </div>
 
 
-                                </b-form-group>
-                            </b-card>
+                                    </b-form-group>
+                                </b-card>
+                            </div>
                         </div>
-                    </div>
-                </b-form-group>
-            </b-card>
-        </div>
+                    </b-form-group>
+                </b-card>
+            </div>
 
-        @*       <div>
+            @*       <div>
         <b-form-select v-model="selected" :options="Cityoptions" class="mb-3">
         <!-- This slot appears above the options from 'options' prop -->
         <template #first>
@@ -292,79 +360,76 @@
 
         <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>
         </div>*@
-    </div>
+        </div>
 
-@*
+        @*
     <div>
-        <b-form-textarea id="textarea"
-                         v-model="text"
-                         placeholder="請輸入商品內容"
-                         rows="3"
-                         max-rows="6"></b-form-textarea>
+    <b-form-textarea id="textarea"
+    v-model="text"
+    placeholder="請輸入商品內容"
+    rows="3"
+    max-rows="6"></b-form-textarea>
     </div>*@
 
 
-    <b-form-group label="Tagged input using dropdown" label-for="tags-with-dropdown">
-        <b-form-tags id="tags-with-dropdown" v-model="TagList" no-outer-focus class="mb-2">
-            <template v-slot="{ tags, disabled, addTag, removeTag }">
-                <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
-                    <li v-for="tag in tags" :key="tag" class="list-inline-item" v-on:click="removeTag(tag)">
-                        <b-form-tag :title="tag" :disabled="disabled" variant="info">
-                            {{ tag}}
-                        </b-form-tag>
-                    </li>
-                </ul>
-                <b-dropdown size="sm" variant="outline-secondary" block menu-class="w-100">
-                    <template #button-content>
-                        <b-icon icon="tag-fill"></b-icon> Choose tags
-                    </template>
-                    <b-dropdown-form v-on:submit.prevent="() => {}">
-                        <b-form-group label="Search tags" label-for="tag-search-input" label-cols-md="auto"
+        <b-form-group label="Tagged input using dropdown" label-for="tags-with-dropdown">
+            <b-form-tags id="tags-with-dropdown" v-model="TagList" no-outer-focus class="mb-2">
+                <template v-slot="{ tags, disabled, addTag, removeTag }">
+                    <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
+                        <li v-for="tag in tags" :key="tag" class="list-inline-item" v-on:click="removeTag(tag)">
+                            <b-form-tag :title="tag" :disabled="disabled" variant="info">
+                                {{ tag}}
+                            </b-form-tag>
+                        </li>
+                    </ul>
+                    <b-dropdown size="sm" variant="outline-secondary" block menu-class="w-100">
+                        <template #button-content>
+                            <b-icon icon="tag-fill"></b-icon> Choose tags
+                        </template>
+                        <b-dropdown-form v-on:submit.prevent="() => {}">
+                            <b-form-group label="Search tags" label-for="tag-search-input" label-cols-md="auto"
                                       class="mb-0" label-size="sm" :description="searchDesc" :disabled="disabled">
-                            <b-form-input v-model="Tag" id="tag-search-input" type="search" size="sm"
+                                <b-form-input v-model="Tag" id="tag-search-input" type="search" size="sm"
                                           autocomplete="off"></b-form-input>
-                        </b-form-group>
-                    </b-dropdown-form>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item-button v-for="option in availableOptions" :key="option"
+                            </b-form-group>
+                        </b-dropdown-form>
+                        <b-dropdown-divider></b-dropdown-divider>
+                        <b-dropdown-item-button v-for="option in availableOptions" :key="option"
                                             v-on:click="onOptionClick({ option, addTag })">
-                        {{ option }}
-                    </b-dropdown-item-button>
-                    <b-dropdown-text v-if="availableOptions.length === 0">
-                        There are no tags available to select
-                    </b-dropdown-text>
-                </b-dropdown>
-            </template>
-        </b-form-tags>
-    </b-form-group>
+                            {{ option }}
+                        </b-dropdown-item-button>
+                        <b-dropdown-text v-if="availableOptions.length === 0">
+                            There are no tags available to select
+                        </b-dropdown-text>
+                    </b-dropdown>
+                </template>
+            </b-form-tags>
+        </b-form-group>
 
-    <h2>商品說明</h2>
-    <div class="introEditor"></div>
-    <h2>
-        取消政策
+        <h2>商品說明</h2>
+        <div class="introEditor"></div>
+        <h2>
+            取消政策
 
-    </h2>
-    <div class="introEditor"></div>
-    <h2>
+        </h2>
+        <div class="introEditor"></div>
+        <h2>
 
-        如何使用
-    </h2>
+            如何使用
+        </h2>
 
-    <div class="introEditor"></div>
-    <h2>
-        購物須知
+        <div class="introEditor"></div>
+        <h2>
+            購物須知
 
-    </h2>
+        </h2>
 
-    <div class="introEditor"></div>
+        <div class="introEditor"></div>
 
-    <button v-on:click="CreateProduct">按我</button>
-</div>
-@section endJS{
+        <button v-on:click="CreateProduct">按我</button>
+    </div>
+    @section endJS{
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="~/lib/BackstageCKeditor5/build/ckeditor.js"></script>
     <script src="~/js/CreateProductVue.js"></script>
-    <script>
-
-
-    </script>
 }

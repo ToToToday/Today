@@ -23,11 +23,18 @@ namespace Today.Web.Services.ProductInfoService
 
             // 找不到這個商品id要怎麼處理 -> 這邊我也回傳null
             if (source == null) return null;
-
+            var Member = _repo.GetAll<Member>();
+            var Comment = _repo.GetAll<Model.Models.Comment>();
+            var ProgramCantUseDate = _repo.GetAll<Model.Models.ProgramCantUseDate>();
+            var AboutProgram = _repo.GetAll<Model.Models.AboutProgram>();
+            var AboutProgramOption = _repo.GetAll<Model.Models.AboutProgramOption>();
+            var ProgramSpecification = _repo.GetAll<Model.Models.ProgramSpecification>();
+            var ProgramInclude = _repo.GetAll<Model.Models.ProgramInclude>();
+            var Screening = _repo.GetAll<Model.Models.Screening>();
             var citySource = _repo.GetAll<City>().First(c => c.CityId == source.CityId);
             var locationSource = _repo.GetAll<Location>().First(loc => loc.ProductId == source.ProductId);
-            var productPhotoSource = _repo.GetAll<ProductPhoto>().Where(p => p.ProductId == source.ProductId).ToList();
-            var programSource = _repo.GetAll<Model.Models.Program>().Where(p => p.ProductId == source.ProductId).ToList();
+            var productPhotoSource = _repo.GetAll<ProductPhoto>().Where(p => p.ProductId == source.ProductId);
+            var programSource = _repo.GetAll<Model.Models.Program>().Where(p => p.ProductId == source.ProductId);
             var favorite = (_repo.GetAll<Collect>().Where(c => c.ProductId == requst.ProductId && c.MemberId == requst.MemberId).Count() > 0) ? true : false;
 
             var result = new ProductInfoResponseDTO
@@ -66,7 +73,7 @@ namespace Today.Web.Services.ProductInfoService
                     }).ToList(),
                 }
             };
-            result.ProductInfo.MemberComment = _repo.GetAll<Model.Models.Comment>()
+            result.ProductInfo.MemberComment = Comment
                                                 .Where(c => c.ProductId == requst.ProductId)
                                                 .Select(c => new MemberComment
                                                 {
@@ -77,7 +84,7 @@ namespace Today.Web.Services.ProductInfoService
                                                     Data = c.CommentDate
                                                }).ToList();
             result.ProductInfo.MemberComment.ForEach(c =>
-                _repo.GetAll<Member>().Where(m => c.MemberId == m.MemberId)
+              Member.Where(m => c.MemberId == m.MemberId)
                 .ToList()
                 .ForEach(m =>
                 {
@@ -88,16 +95,16 @@ namespace Today.Web.Services.ProductInfoService
             result.ProductInfo.ProgarmList.ForEach(p =>
             {
                 //DateList
-                p.DateList = _repo.GetAll<Model.Models.ProgramCantUseDate>()
+                p.DateList = ProgramCantUseDate
                     .Where(pcud => pcud.ProgramId == p.ProgarmId)
                     .Select(pcud => new Date { CantuseDate = pcud.Date, ProgramDateId = pcud.ProgramDateId }).ToList();
 
-                _repo.GetAll<Model.Models.AboutProgram>()
+                AboutProgram
                     .Where(ap => p.ProgarmId == ap.ProgramId)
                     .ToList()
                     .ForEach(ap =>
                     {
-                        var apo = _repo.GetAll<Model.Models.AboutProgramOption>()
+                        var apo =   AboutProgramOption
                                     .First(apo => apo.AboutProgramOptionsId == ap.AboutProgramOptionsId);
                         p.AboutProgramList.Add(
                             new ProductInfoDTO.AboutProgram
@@ -107,7 +114,7 @@ namespace Today.Web.Services.ProductInfoService
                             });
                     });
                 //ProgramIncludeList=,
-                _repo.GetAll<Model.Models.ProgramInclude>()
+                 ProgramInclude
                     .Where(pgid => p.ProgarmId == pgid.ProgramId)
                     .ToList()
                     .ForEach(pgid =>
@@ -120,13 +127,13 @@ namespace Today.Web.Services.ProductInfoService
                             });
                     });
                 //ProgramSpecificationList=
-                _repo.GetAll<Model.Models.ProgramSpecification>()
+                ProgramSpecification
                 .Where(pgsc => p.ProgarmId == pgsc.ProgramId)
                 .ToList()
                 .ForEach(pgsc =>
                 {
-
-                    p.ScreeningList = _repo.GetAll<Model.Models.Screening>()
+                   
+                    p.ScreeningList = Screening
                     .Where(sc => sc.SpecificationId == pgsc.SpecificationId)
                     .Select(pss =>
                         new ProductInfoDTO.Screening

@@ -8,6 +8,9 @@ let array = []
 const app = new Vue({
     el: '#app',
     data: {
+        todoItem: '',
+        todoList: [],
+        AboutProgramOptionList:[],
         Prdouctname: '',
         Category: '',
         CategoryList: [],
@@ -109,6 +112,12 @@ const app = new Vue({
         //availableOptions() {
         //    return this.options.filter(opt => this.value.indexOf(opt) === -1)
         //},
+        addTodoItem() {
+            if (this.todoItem != '') {
+                this.todoList.push(this.todoItem)
+                this.todoItem = ''
+            }
+        },
         onOptionClick({ option, addTag }) {
             console.log(option)
             addTag(option)
@@ -205,7 +214,16 @@ const app = new Vue({
             let CancellationPolicy = array[1].getData()//取消政策
             let HowUse = array[2].getData()//如何購買
             let ShoppingNotice = array[3].getData()//購買須知
-            
+
+            let AboutProgramOptions = []
+
+            this.AboutProgramOptionList.forEach(ap => {
+                let obj = { Context: ap, IconClass: "<i class=\"icons icon-paper-plane\"></i>"}
+                AboutProgramOptions.push(obj)
+
+            })
+
+
             this.ProgarmList.push(this.Progarm)//方案push進ProgarmList回傳
             let url = "/api/ProdcutApi/Create"
             fetch(url, {
@@ -226,8 +244,8 @@ const app = new Vue({
                     Supplier: this.Supplier,
                     ProgarmList: this.ProgarmList,
                     City: parseInt(this.cityid),
-                    //AboutProgramOptionList:,
-                    //PhtotList:,
+                    AboutProgramOptionList: AboutProgramOptions,
+                    PhtotList: this.todoList,
                 }),
             })
             //.then(resp => {
@@ -276,6 +294,25 @@ document.querySelectorAll('.introEditor').forEach((u, index) => {
         });
 })
 
+
+drag()
+function drag() {
+    $("#sortable").sortable(
+        {
+            items: "li", //目標是裡面的li
+            opacity: 0.6,
+            cursor: "move",
+        })
+    var Sortable_arr = $("#sortable").sortable('toArray');
+
+    $("#sortable").sortable({
+        stop: function () {
+            var Sortable_arr = $("#sortable").sortable('toArray');
+            console.log(Sortable_arr);
+        }
+    })
+    //當sortable改變的時候 --> 更新 sortable_arr 值
+}
 //let btn = document.querySelector("button")
 //console.log(btn)
 //btn.addEventListener("click", () => {
