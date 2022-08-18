@@ -21,11 +21,7 @@ namespace TodayMVC.Admin.Helper
             SmtpClient client = new SmtpClient();
             client.Host = "smtp.gmail.com";
             client.Port = 587; //通訊埠
-            //smtp 通常是587
-            //sql sever 1433
-            //80 http
-            //443 https
-
+            
             //建構式多載寫法
             //SmtpClient client2 = new SmtpClient("smpt.gmail.com", 587);
 
@@ -42,7 +38,7 @@ namespace TodayMVC.Admin.Helper
 
             mail.Priority = MailPriority.High;
             mail.Subject = subject; //主旨
-            mail.SubjectEncoding = Encoding.UTF8; //中文就需要
+            mail.SubjectEncoding = Encoding.UTF8;
 
             //內文
             mail.Body = body;
@@ -59,7 +55,6 @@ namespace TodayMVC.Admin.Helper
             }
             catch (Exception ex)
             {
-                //這邊DEMO就印出來看看
 
                 Console.WriteLine(ex);
                 Console.WriteLine(ex.Message);

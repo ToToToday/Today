@@ -9,6 +9,8 @@ namespace Today.Web.ViewModels
         public List<ProductLocation> ProductLocationList { get; set; }
         public List<CityLocation> CityLocationList { get; set; }
         public List<GetParentCard> GetParentCardList { get; set; }
+        public List<FilterCity> FilterList { get; set; }
+        
         public class ProductLocation
         {
             public int ProductId { get; set; }
@@ -26,7 +28,12 @@ namespace Today.Web.ViewModels
             public int CategoryId { get; set; }
 
         }
-
+        public class FilterCity
+        {
+            public int CityId { get; set; }
+            public string CityName { get; set; }
+            public string CityImage { get; set; }
+        }
         public class CityLocation
         {
             public int CityId { get; set; }

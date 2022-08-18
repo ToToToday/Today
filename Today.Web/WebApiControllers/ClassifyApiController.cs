@@ -65,8 +65,17 @@ namespace Today.Web.WebApiControllers
                 //擴充其他條件...
 
                 SortBy = c.SortBy,
-                //DateRange = c.DateRange,
+                DateRange = c.DateRange,
                 Page = c.Page,
+
+                IsOffIsland=c.IsOffIsland,
+                IsDIY=c.IsDIY,
+                IsHSR=c.IsHSR,
+                IsParent=c.IsParent,
+                IsRent=c.IsRent,
+                city_choosed = c.City_choosed,
+                OffCityName = c.offCityName,
+                typeBanner=c.typeBanner,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
             };
 
@@ -78,7 +87,7 @@ namespace Today.Web.WebApiControllers
                 CardCount = classifyCardList.CardCount,
             };
 
-            return Ok(result);
+           return Ok(result);
         }
     }
 }
