@@ -14,10 +14,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Today.Model.Models;
 using TodayMVC.Admin.Repositories;
+using TodayMVC.Admin.Repositories.DapperMailRepositories;
+using TodayMVC.Admin.Repositories.DapperCommentManage;
 using TodayMVC.Admin.Repositories.DapperMemberRepositories;
 using TodayMVC.Admin.Repositories.DapperSalesRepositories;
+using TodayMVC.Admin.Repositories.DapperOrderRepositories;
+using TodayMVC.Admin.Services.MailService;
 using TodayMVC.Admin.Services.MemberService;
 using TodayMVC.Admin.Services.SalesServices;
+using TodayMVC.Admin.Services.UploadService;
+using TodayMVC.Admin.Services.OrderServices;
+using TodayMVC.Admin.Services.CloudinaryService;
+
+using TodayMVC.Admin.Services.ProductServices;
 
 namespace TodayMVC.Admin
 {
@@ -53,8 +62,25 @@ namespace TodayMVC.Admin
 
             services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
             services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
+            //??
+            services.AddTransient<IDapperGenericRepository<Comment>, DapperCommentManage>();
+            services.AddTransient<IDapperCommentManage, DapperCommentManage>();
+            services.AddTransient<IMemberService, MemberService>();
+            //services.AddScoped<CloudinaryService>();
+
+            services.AddTransient<IDapperGenericRepository<OrderDetail>, DapperOrderRepository>();
+            services.AddTransient<IDapperOrderRepository, DapperOrderRepository>();
+            services.AddTransient<IDapperGenericRepository<Subscription>, DapperMailRepository>();
+            services.AddTransient<IDapperMailRepository, DapperMailRepository>();
+            services.AddTransient<ICreateProductServices, CreateProductServices>();
             services.AddTransient<IDapperSalesRepository, DapperSalesRepository>();
             services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IMailService, MailService>();
+            services.AddTransient<ICloudinaryService2, CloudinaryService2>();
+
+
+
             services.AddTransient<ISalesService, SalesService>();
 
         }
@@ -85,7 +111,7 @@ namespace TodayMVC.Admin
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Sales}/{action=Chart}/{id?}");
             });
         }
     }

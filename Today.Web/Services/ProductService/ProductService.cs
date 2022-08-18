@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Today.Model.Models;
 using Today.Model.Repositories;
 using Today.Web.DTOModels.ProductDTO;
+using Today.Web.Repository;
 using Today.Web.ViewModels;
 using static Today.Web.DTOModels.ProductDTO.ProductDTO;
 
@@ -14,9 +15,11 @@ namespace Today.Web.Services.ProductService
     public class ProductService : IProductService
     {
         private readonly IGenericRepository _repo;
-        public ProductService (IGenericRepository repo)
+        private readonly IMemoryCacheRepository _iMemoryCacheRepository;
+        public ProductService (IGenericRepository repo, IMemoryCacheRepository iMemoryCacheRepository)
         {
             _repo = repo;
+            _iMemoryCacheRepository = iMemoryCacheRepository;
         }
         public ProductResponseDTO ConvertPages(ProductRequestDTO search)
         {
@@ -126,12 +129,124 @@ namespace Today.Web.Services.ProductService
 
         public ProductDTO GetAllProductCard(int user)
         {
+            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == user).Select(c => c.ProductId);
+            var result = _iMemoryCacheRepository.Get<ProductDTO>("Product.GetAllProductCard");
+            if (result != null)
+            {
+                result = new ProductDTO {
+                    RecentlyViewed = result.RecentlyViewed.Select(x => new RecentlyInfo
+                    {
+                        Id = x.Id,
+                        ProductName = x.ProductName,
+                        ProductPhoto = x.ProductPhoto,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Price = x.Price
+                    }).ToList(),
+                    TopProduct = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Featured = result.Featured.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Paradise = result.Paradise.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    AttractionTickets = result.AttractionTickets.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Exhibition = result.Exhibition.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Hotel = result.Hotel.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Taoyuan = result.Taoyuan.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Evaluation = result.Evaluation.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                };
+                return result;
+            }
+
             var dataSource = AllProduct();
             var productSource = dataSource.QueryProduct;
             var categorySource = dataSource.CategoryList;
-            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == user).Select(c => c.ProductId);
 
-            var result = new ProductDTO
+            result = new ProductDTO
             {
                 RecentlyViewed = productSource.Take(3).Select(x => new ProductDTO.RecentlyInfo
                 {
@@ -239,6 +354,8 @@ namespace Today.Web.Services.ProductService
                 }).ToList()
             };
 
+            _iMemoryCacheRepository.Set<ProductDTO>("Product.GetAllProductCard", result);
+
             return result;
         }
 
@@ -247,7 +364,7 @@ namespace Today.Web.Services.ProductService
             var cityList = _repo.GetAll<City>();
 
             var result = new ProductDTO { CityList = new List<CityInfo>() };
-            result.CityList = cityList.Take(5).Select(c => new CityInfo
+            result.CityList = cityList.OrderBy(c => Guid.NewGuid()).Take(5).Select(c => new CityInfo
             {
                 Id = c.CityId,
                 CityName = c.CityName,

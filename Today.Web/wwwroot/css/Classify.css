@@ -9,12 +9,25 @@ body {
     /* scroll-behavior: smooth; */
 }
 
+#coverplate{
+    opacity: 0.3;
+}
+
 .container-fluid button .navbar-toggler {
     box-shadow: none;
 }
 
 .input-group-text {
     color: #26bec9;
+}
+
+.active {
+    color: #26bec9;
+}
+
+.pic {
+    max-height: 200px;
+    overflow: hidden;
 }
 
 .container {
@@ -24,11 +37,23 @@ body {
     margin: auto;
 }
 
+.rounded-pill {
+    padding: 5px;
+    margin: 5px 5px;
+}
+
+:focus:not(:focus-visible) {
+    outline: 0;
+}
 
 .form-check {
-    /* margin: 0 20px;
-    padding: 10px 20px; */
     border-bottom: 1px solid #eee;
+}
+
+.city_PC:checked,
+.selfform-city:checked {
+    background-color: #26bec9;
+    border-color: #26bec9;
 }
 
 .form-check-input {
@@ -74,10 +99,10 @@ h2 {
     color: dimgray;
 }
 
-    .btn-white:hover {
-        color: #26bec9;
-        border: 1px solid #26bec9;
-    }
+.btn-white:hover {
+    color: #26bec9;
+    border: 1px solid #26bec9;
+}
 
 .chip-clear {
     background-color: #999;
@@ -94,9 +119,7 @@ h2 {
     background-color: #666;
     border: 1px solid #666;
     padding: 10px;
-    /*margin: 0px 5px 15px;*/
 }
-
 
 span.sort:hover {
     color: #26bec9;
@@ -107,95 +130,25 @@ span.sort:hover {
     border-top: 1px solid #D6D6D6;
 }
 
-/* #offcanvas-bottom {
-    height: 18rem;
-} */
-
-
-
-@media screen and (max-width: 991px) {
-    .col-lg-9 {
-        margin-top: 50px;
-    }
-
-    .product-filter,
-    .card-board {
-        display: none;
-    }
-
-    .city-filter-wrap {
-        display: block;
-        z-index: 10;
-    }
-
-    .container-fluid-ProductList {
-        margin-top: 55px;
-    }
-
-    #offcanvasBottom {
-        height: 70%;
-    }
-
-/*    #moreconditions {
-        height: 38rem;
-    }*/
-    #moreconditions {
-        height: 70%;
-    }
-
+.card_detail .fa-solid.fa-heart {
+    color: #ff0000;
 }
 
-@media screen and (min-width: 576px) {
-    #sort {
-        height: 60%
-    }
-
-    #offcanvasBottom {
-        height: 60%
-    }
-
-    #moreconditions {
-        height: 60%
-    }
+.card_detail .fa-regular.fa-heart:hover {
+    color: #f00;
 }
 
-
-@media screen and (min-width: 992px) {
-    .product-filter {
-        width: none;
-    }
-
-    .product-filter,
-    .card-board {
-        display: block;
-    }
-
-    .city-filter-wrap {
-        display: none;
-    }
-
-    .container-fluid-ProductList {
-        margin-top: 57px;
-    }
-
-    .card-footer,
-    .sort {
-        color: #999;
-    }
-
-    #offcanvasBottom {
-        height: 60%;
-    }
-
-    #moreconditions {
-        height: 60%;
-    }
+.card_detail .fa-heart {
+    position: absolute;
+    right: 8%;
+    top: 6%;
+    cursor: pointer;
+    /* color: transparent;
+    -webkit-text-stroke: 2px #ccc;*/
 }
 
-@media screen and (min-width: 1200px) {
-    .ProductList {
-        max-width: 1200px;
-    }
+.card_detail .card-title {
+    width: 100%;
 }
 
 .card-point {
@@ -265,10 +218,10 @@ p .card-text {
     color: #cccccc;
 }
 
-/*.accordion-item .fa-calendar {
-    box-shadow: none;
+input:focus::-webkit-input-placeholder {
+    color: transparent;
 }
-*/
+
 .card_detail {
     position: relative;
     opacity: 1.0;
@@ -276,11 +229,11 @@ p .card-text {
     background-color: #fff;
 }
 
-    .card_detail:hover {
-        opacity: 0.5;
-        filter: alpha(opacity=50);
-    }
-
+span.heart {
+    top: 9%;
+    right: 3%;
+    cursor: pointer;
+}
 
 h5 .card-title_group {
     font-weight: 400;
@@ -304,33 +257,8 @@ h5 .card-title_group {
     text-shadow: 0 1px 2px #e18d0e;
     border-radius: 4px 4px 0 4px;
 }
-.card_detail .fa-solid.fa-heart {
-    color: #ff0000;
-}
 
-.card_detail .fa-regular.fa-heart {
-    color: #fff;
-    -webkit-text-stroke: 1px #ccc;
-}
-
-.card_detail .fa-regular.fa-heart:hover {
-    color: #f00;
-}
-
-/*.card_detail .fa-heart:hover {
-    transform: scale(1.5);
-    color: red;
-    -webkit-text-stroke: 1px red;
-}
-*/
-.card_detail .fa-heart {
-    position: absolute;
-    right: 8%;
-    top: 6%;
-   /* color: transparent;
-    -webkit-text-stroke: 2px #ccc;*/
-}
-.card_detail .card-title{
+.card_detail .card-title {
     width: 90%;
 }
 
@@ -343,7 +271,7 @@ h5 .card-title_group {
     display: inline-block;
     padding-left: 0;
     margin: 20px auto;
-    width: 333px;
+    width: 100%;
     border-radius: 4px;
 }
 
@@ -370,10 +298,94 @@ h5 .card-title_group {
     color: white;
 }
 
+@media screen and (max-width: 991px) {
+    .col-lg-9 {
+        margin-top: 50px;
+    }
+
+    .product-filter,
+    .card-board {
+        display: none;
+    }
+
+    .city-filter-wrap {
+        display: block;
+        z-index: 10;
+    }
+
+    .container-fluid-ProductList {
+        margin-top: 55px;
+    }
+
+    #offcanvasBottom {
+        height: 70%;
+    }
+
+    #moreconditions {
+        height: 75%;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #sort {
+        height: 60%
+    }
+
+    #offcanvasBottom {
+        height: 60%
+    }
+
+    #moreconditions {
+        height: 60%
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .product-filter {
+        width: none;
+    }
+
+    .product-filter,
+    .card-board {
+        display: block;
+    }
+
+    .city-filter-wrap {
+        display: none;
+    }
+
+    .container-fluid-ProductList {
+        margin-top: 80px;
+    }
+
+    .card-footer,
+    .sort {
+        color: #999;
+    }
+
+    #offcanvasBottom {
+        height: 60%;
+    }
+
+    #moreconditions {
+        height: 60%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .ProductList {
+        max-width: 1200px;
+    }
+}
+
 /* 平板直向、橫向、桌機 */
 @media screen and (min-width:768px) {
     .scroll-to-top {
         display: block;
+    }
+
+    .card_detail .card-title {
+        width: 75%;
     }
 
     #offcanvasBottom {
@@ -388,11 +400,14 @@ h5 .card-title_group {
         background-color: #333333;
         transition: 1s;
     }
+
     .card_detail .fa-heart {
         position: absolute;
-        right: 3%;
-        top: 10%;
+        right: 4%;
+        top: 13%;
+        cursor: pointer;
         /* color: transparent;
     -webkit-text-stroke: 2px #ccc;*/
     }
+
 }

@@ -1,30 +1,101 @@
-﻿
-<div class="container-fluid">
+﻿<div class="container-fluid" id="allOrder">
+    <div class="page-text-dynamic">
+        <div class="card_detail_head d-flex">
+            <div class="quantity">
+                <strong class="text-info">{{ordercount}}</strong>
+                筆訂單
+            </div>
+        </div>
+    </div>
+    <div>
+        <b-card no-body>
+            <b-tabs card>
+                <b-tab title="訂單總覽" active>
+                    <b-card-text>
+                        <div>
+                            <b-table id="orderall" :fields="fields" striped hover :items="orderData" :per-page="perPage" :current-page="currentPage">
+                                <template #head(name)>{{ computedName }}</template>
+                            </b-table>
+                        </div>
+                    </b-card-text>
+                </b-tab>
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-    <div id="app">
-       <template>
-            <el-table :data="tableData" style="width: 100%; overflow: hidden;" height="50vh">
-            <el-table-column prop="id" label="ID" align="center" width="100" />
-            <el-table-column prop="name" label="Name" align="center" width="100" />
-            <el-table-column prop="class" label="Class" />
-            <el-table-column prop="date" label="Date" />
-            <el-table-column label="Action" align="center">
-              <template slot-scope="scope">
-                <el-button type="danger" @@click="delCheck(scope.row.id)">DELETE</el-button>
-                <el-button type="warning" @@click="openEditDialog(scope.row)">EDIT</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-      </template>
-   </div>
+            </b-tabs>
+        </b-card>
+    </div>
+
+    <b-pagination v-model="currentPage" :total-rows="ordercount" :per-page="perPage" aria-controls="orderall" class="mt-4" align="center">
+        <span class="text-success">First</span>
+        <span class="text-danger">Prev</span>
+        <span class="text-warning">Next</span>
+        <span class="text-info">Last</span>
+
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
+        <b-spinner small type="grow"></b-spinner>
+
+
+        <b v-if="active">{{ page }}</b>
+        <i v-else>{{ page }}</i>
+
+    </b-pagination>
+
 
 
 </div>
 @section endJS{
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
     <script>
-       
+        let orderData = []
+        window.onload = function() {
+            let url = "/api/OrderApi/GetAllOrder"
+            fetch(url, {
+                method: 'Get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(res => {
+                    if (res.ok) {
+                        console.log('OK')
+                        Promise.resolve(res.json()).then(function(result) {
+                            result.map(function(value, key) {
+                                orderData.push(value)
+                            })
+                        })
+                    }
+                    else {
+                        console.log('Fail')
+                    }
+                })
+        }
+
+        const app = new Vue({
+            el: '#allOrder',
+            data: {
+                orders: orderData,
+                perPage: 15,
+                currentPage: 1,
+                active: true,
+                page: 1,
+                fields: [
+                    { key: "OrderId", label: "訂單編號", sortable: true },
+                    { key: "OrderDate", label: "訂購時間", sortable: true },
+                    { key: "MemberName", label: "會員" },
+                    { key: "ProductName", label: "商品" },
+                    { key: "ProgramName", label: "方案" },
+                    { key: "ItemText", label: "規格" },
+                    { key: "Quantity", label: "數量", sortable: true },
+                    { key: "TotalPrice", label: "金額", sortable: true },
+                    { key: "Status", label: "狀態", sortable: true }
+                ],
+            },
+            computed: {
+                ordercount() {
+                    return this.orders.length
+                },
+
+
+            },
+        })
     </script>
 }

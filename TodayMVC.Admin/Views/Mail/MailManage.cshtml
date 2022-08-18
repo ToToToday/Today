@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "MailManage";
+}
+@*@functions{
+    private void IsSuccess(){
+        if ((bool)ViewData["success"] == true)
+        {
+            toastr.success("傳送信件成功");
+        }
+        else{
+
+        }
+    }
+}*@
+
+
+<div class="container-fluid">
+    <div class="container-md">
+        <form method="post" asp-controller="Mail" asp-action="MailManage">
+    <!--使用 Bootstrap 設計表單-->
+            <div class="panel panel-primary">
+                <h3 class="panel-heading text-center">發送訂閱信件</h3>
+                <div class="panel-body my-2">
+                
+                    <label class="pt-3 pb-1">輸入信件主旨:</label>
+                    <input name="EmailTitle" type="text" class="form-control" id="mailTitle">  
+                    <label class="pt-3 pb-1">輸入信件內容:</label>
+                      <textarea name="EmailBody" id="editor">
+                            &lt;p&gt;This is some sample content.&lt;/p&gt;
+                       </textarea>
+                    @*<div id="introEditor"></div>*@
+                   @* <input name="EmailBody" type="text" class="form-control" id="mailBody">*@
+                
+                </div>
+                <div class="panel-footer mt-5 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary " id="btn-submit">寄送信件</button>
+                </div>
+            </div>
+    
+        </form>
+    </div>
+    
+</div>
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="~/lib/BackstageCKeditor5/build/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+	            licenseKey: '',
+	            simpleUpload: {
+		              // The URL that the images are uploaded to.
+		              uploadUrl: '/api/APICKEditor/CKEditorMedia', 
+		
+		              // Enable the XMLHttpRequest.withCredentials property.
+		              // withCredentials: true,
+		
+		              // Headers sent along with the XMLHttpRequest to the upload server.
+	                headers: {
+	                    //'X-CSRF-TOKEN': 'CSRF-Token',
+	                    //Authorization: 'Bearer <JSON Web Token>'
+	                },
+	            }
+	        })
+	        .then( editor => {
+	            window.introEditor = editor; //這句目的是 定義全域變數
+	        
+	            //CKEditor重要的兩個內建方法：
+	            introEditor.setData( "<p>發送信件內容 打在這!!!!!!</p>" ) ; 
+					    //introEditor.getData();  這是要儲存時用的，要把整段html字串拿到，寫入DB
+	        })
+	        .catch( error => {
+	            console.error( 'Oops, something went wrong!' );
+	            console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+	            console.warn( 'Build id: zdeudx7xcec-a1ii48rgiwrp' );
+	            console.error( error );
+	        });
+    </script>
+    <script>
+        toastr.options = {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+        var status = @Html.Raw(ViewData["success"] == null ? "" : ViewData["success"]);
+        if(status == "true")
+        {
+            toastr.success("傳送信件成功");
+        }else if(status == "false"){
+            toastr.error("傳送信件失敗 請再次嘗試");
+
+        }
+        
+    </script>
+}
+

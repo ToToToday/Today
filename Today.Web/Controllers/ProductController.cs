@@ -24,6 +24,7 @@ using static Today.Web.DTOModels.ClassifyDTO.ClassifyDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO;
 using static Today.Web.DTOModels.ShopCartMemberDTO.ShopCartMemberResponseDTO;
 using static Today.Web.ViewModels.ShopCartVM;
+using Today.Web.DTOModels.ClassifyDTO;
 
 namespace Today.Web.Controllers
 {
@@ -146,59 +147,20 @@ namespace Today.Web.Controllers
             }
 
         }
-        public IActionResult Classify([FromQuery] List<string> typeDate, int id) //楊 分類
+        public IActionResult Classify(int id) //楊 路由會收到 天生的篩選參數
         {
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                RealDate = typeDate
-            };
-
-            var classPages = _classifyService.GetClassifyPages(categoryshow);
-            var cardsource = classPages.ClassifyCardList;
-            var categorysource = classPages.CategoryList;
-
+            var classifyFilters = _classifyService.GetClassifyFilters();
+            
             var result = new ClassifyVM()
             {
-                ClassifyCardList = cardsource,
-                //.Select(c => new ClassifyVM.ClassifyCardInfo
-                //{
-                //    ProductId = c.ProductId,
-                //    ProductName = c.ProductName,
-                //    CityId = c.CityId,
-                //    CityName = c.CityName,
-                //    Path = c.Path,
-                //    TagText = c.TagText,
-                //    //UnitPrice = c.UnitPrice,
-                //    RatingStar = c.RatingStar,
-                //    TotalComment = c.TotalComment,
-                //    //OriginalPrice = c.OriginalPrice,
-                //    TotalOrder = c.TotalOrder,
-                //    Prices = {
-                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //            Price=(c.Prices == null) ? null : c.Prices.Price,
-                //    }
-                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //}).ToList(),
-
-                CardCount = classPages.CardCount,
-
-                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                AllFilters = new FilterVM
                 {
-                    ProductCategoryId = x.ProductCategoryId,
-                    CategoryName = x.CategoryName,
-                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
-                    {
-                        ProductCategoryId = y.ProductCategoryId,
-                        CategoryName = y.CategoryName
-                    }).ToList()
-                }).ToList()
+                    CityFilterList = classifyFilters.CityFilterList, //空
+                    CategoryFilterList = classifyFilters.CategoryFilterList,
+                },
+                //AllSorts = classifySorts.AllSorts,
             };
-
             return View(result);
         }
 
@@ -363,28 +325,18 @@ namespace Today.Web.Controllers
             return View(CityRaider);
         }
 
-        public IActionResult OffIsland([FromQuery] List<string> typeDate, int id ,String searchString) //離島 分類
+        public IActionResult OffIsland(int id ,String searchString) //離島 分類
         {
-            var getLocations = _locationServices.GetLocation();
-            var getLocation = getLocations.ProductLocationList.ToList();
-
+            var getLocation = _locationServices.GetLocation().ProductLocationList.ToList();
+            var getOffCity = _locationServices.GetOffIslandCard().OffIslandList.ToList();
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                RealDate = typeDate
-            };
-
-            var classPages = _classifyService.GetClassifyPages(categoryshow);
-            var cardsource = classPages.ClassifyCardList;
-            var categorysource = classPages.CategoryList;
 
 
+
+            var classFilters = _classifyService.GetClassifyFilters();
             var result = new LocationVM()
             {   
-                ProductLocationList = getLocation.Where(x => x.CategoryId == 29||x.IsIsland==false).Select(lo => new LocationVM.ProductLocation
+                ProductLocationList = getLocation.Where(c=>c.CategoryId==29).Select(lo => new LocationVM.ProductLocation
                 {
                     ProductId = lo.ProductId,
                     LocationId = lo.LocationId,
@@ -396,52 +348,21 @@ namespace Today.Web.Controllers
                     Latitude=lo.Latitude,
                     ProductName = lo.ProductName,
                     Path = lo.Path,
-                    
                     RatingStar = (float)Math.Floor(lo.RatingStar * 10000) / 10000,
-                    
                 }).ToList(),
-                ClassifyCardList = cardsource,
-                //.Select(c => new ClassifyVM.ClassifyCardInfo
-                //{
-                //    ProductId = c.ProductId,
-                //    ProductName = c.ProductName,
-                //    CityId = c.CityId,
-                //    CityName = c.CityName,
-                //    Path = c.Path,
-                //    TagText = c.TagText,
-                //    //UnitPrice = c.UnitPrice,
-                //    RatingStar = c.RatingStar,
-                //    TotalComment = c.TotalComment,
-                //    //OriginalPrice = c.OriginalPrice,
-                //    TotalOrder = c.TotalOrder,
-                //    Prices = {
-                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //            Price=(c.Prices == null) ? null : c.Prices.Price,
-                //    }
-                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //}).ToList(),
-
-                CardCount = classPages.CardCount,
-
-                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                FilterList = getOffCity.Select(x=> new LocationVM.FilterCity
                 {
-                    ProductCategoryId = x.ProductCategoryId,
-                    CategoryName = x.CategoryName,
-                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
-                    {
-                        ProductCategoryId = y.ProductCategoryId,
-                        CategoryName = y.CategoryName
-                    }).ToList()
-                }).ToList()
-            };  
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                result.ClassifyCardList = result.ClassifyCardList.Where(s => s.ProductName.Contains(searchString)).ToList();
-            }
+                    CityId=x.CityId,
+                    CityImage= x.CityImage,
+                    CityName=x.CityName,
+                }).ToList(),
+                AllFilters = new FilterVM
+                {
+                    CityFilterList = classFilters.CityFilterList, //空
+                    CategoryFilterList = classFilters.CategoryFilterList,
+                },
+            };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
             return View(result);
         }
         public IActionResult ParentChild([FromQuery] List<string> typeDate, int id) //親子 分類
@@ -457,18 +378,11 @@ namespace Today.Web.Controllers
             var getLocation = getLocations.ProductLocationList.ToList();
             var getCard = _locationServices.GetParentCard().GetParentCardList.ToList();
 
-            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                RealDate = typeDate
-            };
 
-            var classPages = _classifyService.GetClassifyPages(categoryshow);
-            var cardsource = classPages.ClassifyCardList;
-            var categorysource = classPages.CategoryList;
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+
+
+            var classFilters = _classifyService.GetClassifyFilters();
 
 
             var result = new LocationVM()
@@ -501,44 +415,15 @@ namespace Today.Web.Controllers
                     TotalOrder = Ca.TotalOrder,
                     Favorite = Ca.Favorite,
                 }).OrderByDescending(d => d.Rating).Take(8).ToList(),
-                ClassifyCardList = cardsource,
-                //.Select(c => new ClassifyVM.ClassifyCardInfo
-                //{
-                //    ProductId = c.ProductId,
-                //    ProductName = c.ProductName,
-                //    CityId = c.CityId,
-                //    CityName = c.CityName,
-                //    Path = c.Path,
-                //    TagText = c.TagText,
-                //    //UnitPrice = c.UnitPrice,
-                //    RatingStar = c.RatingStar,
-                //    TotalComment = c.TotalComment,
-                //    //OriginalPrice = c.OriginalPrice,
-                //    TotalOrder = c.TotalOrder,
-                //    Prices = {
-                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //            Price=(c.Prices == null) ? null : c.Prices.Price,
-                //    }
-                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //}).ToList(),
 
-                CardCount = classPages.CardCount,
-
-                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                AllFilters = new FilterVM
                 {
-                    ProductCategoryId = x.ProductCategoryId,
-                    CategoryName = x.CategoryName,
-                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
-                    {
-                        ProductCategoryId = y.ProductCategoryId,
-                        CategoryName = y.CategoryName
-                    }).ToList()
-                }).ToList()
+                    CityFilterList = classFilters.CityFilterList, //空
+                    CategoryFilterList = classFilters.CategoryFilterList,
+                },
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }                                                                                                                                                                                                          
 
@@ -556,18 +441,10 @@ namespace Today.Web.Controllers
             var getLocations = _locationServices.GetLocation();
             var getLocation = getLocations.ProductLocationList.ToList();
 
-            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                RealDate = typeDate
-            };
 
-            var classPages = _classifyService.GetClassifyPages(categoryshow);
-            var cardsource = classPages.ClassifyCardList;
-            var categorysource = classPages.CategoryList;
+            var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
+            var classFilters = _classifyService.GetClassifyFilters();
+
 
             var result = new LocationVM()
             {
@@ -586,44 +463,15 @@ namespace Today.Web.Controllers
                     RatingStar = (float)Math.Floor(lo.RatingStar * 10000) / 10000,
 
                 }).ToList(),
-                ClassifyCardList = cardsource,
-                //.Select(c => new ClassifyVM.ClassifyCardInfo
-                //{
-                //    ProductId = c.ProductId,
-                //    ProductName = c.ProductName,
-                //    CityId = c.CityId,
-                //    CityName = c.CityName,
-                //    Path = c.Path,
-                //    TagText = c.TagText,
-                //    //UnitPrice = c.UnitPrice,
-                //    RatingStar = c.RatingStar,
-                //    TotalComment = c.TotalComment,
-                //    //OriginalPrice = c.OriginalPrice,
-                //    TotalOrder = c.TotalOrder,
-                //    Prices = {
-                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //            Price=(c.Prices == null) ? null : c.Prices.Price,
-                //    }
-                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //}).ToList(),
 
-                CardCount = classPages.CardCount,
-
-                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                AllFilters = new FilterVM
                 {
-                    ProductCategoryId = x.ProductCategoryId,
-                    CategoryName = x.CategoryName,
-                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
-                    {
-                        ProductCategoryId = y.ProductCategoryId,
-                        CategoryName = y.CategoryName
-                    }).ToList()
-                }).ToList()
+                    CityFilterList = classFilters.CityFilterList, //空
+                    CategoryFilterList = classFilters.CategoryFilterList,
+                },
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }
         public IActionResult HSRClassify([FromQuery] List<string> typeDate, int id) //高鐵 分類
@@ -638,31 +486,20 @@ namespace Today.Web.Controllers
 
             var getLocations = _locationServices.GetLocation();
             var getLocation = getLocations.ProductLocationList.ToList();
-
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                RealDate = typeDate
-            };
 
-            var classPages = _classifyService.GetClassifyPages(categoryshow);
-            var cardsource = classPages.ClassifyCardList;
-            var categorysource = classPages.CategoryList;
+            var classFilters = _classifyService.GetClassifyFilters();
 
 
             var result = new LocationVM()
             {
-                ProductLocationList = getLocation.Where(x => x.CategoryId == 13||x.ProductName.Contains("高鐵")).Select(lo => new LocationVM.ProductLocation
+                ProductLocationList = getLocation.Where(x => x.CategoryId == 13).Select(lo => new LocationVM.ProductLocation
                 {
                     ProductId = lo.ProductId,
                     LocationId = lo.LocationId,
                     CityId = lo.CityId,
                     Price = lo.Price,
                     IsIsland = lo.IsIsland,
-                    //PhotoId= lo.PhotoId,
                     Longitude = lo.Longitude,
                     Latitude = lo.Latitude,
                     ProductName = lo.ProductName,
@@ -670,44 +507,15 @@ namespace Today.Web.Controllers
                     RatingStar = (float)Math.Floor(lo.RatingStar * 10000) / 10000,
 
                 }).ToList(),
-                ClassifyCardList = cardsource,
-                //.Select(c => new ClassifyVM.ClassifyCardInfo
-                //{
-                //    ProductId = c.ProductId,
-                //    ProductName = c.ProductName,
-                //    CityId = c.CityId,
-                //    CityName = c.CityName,
-                //    Path = c.Path,
-                //    TagText = c.TagText,
-                //    //UnitPrice = c.UnitPrice,
-                //    RatingStar = c.RatingStar,
-                //    TotalComment = c.TotalComment,
-                //    //OriginalPrice = c.OriginalPrice,
-                //    TotalOrder = c.TotalOrder,
-                //    Prices = {
-                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //            Price=(c.Prices == null) ? null : c.Prices.Price,
-                //    }
-                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //}).ToList(),
 
-                CardCount = classPages.CardCount,
-
-                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                AllFilters = new FilterVM
                 {
-                    ProductCategoryId = x.ProductCategoryId,
-                    CategoryName = x.CategoryName,
-                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
-                    {
-                        ProductCategoryId = y.ProductCategoryId,
-                        CategoryName = y.CategoryName
-                    }).ToList()
-                }).ToList()
+                    CityFilterList = classFilters.CityFilterList, //空
+                    CategoryFilterList = classFilters.CategoryFilterList,
+                },
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }
         public IActionResult Rent([FromQuery] List<string> typeDate, int id) //租車 分類
@@ -720,24 +528,15 @@ namespace Today.Web.Controllers
             ViewData["collapse-search"] = "請選擇取車地點及日期";
 
             var userId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0;
-            var categoryshow = new ClassifyRequestDTO
-            {
-                CategoryId = id,
-                Page = 1,
-                MemberId = userId,
-                RealDate = typeDate
-            };
 
-            var classPages = _classifyService.GetClassifyPages(categoryshow);
-            var cardsource = classPages.ClassifyCardList;
-            var categorysource = classPages.CategoryList;
+            var classFilters = _classifyService.GetClassifyFilters();
 
 
             var getLocations = _locationServices.GetLocation();
             var getLocation = getLocations.ProductLocationList.ToList();
             var result = new LocationVM()
             {
-                ProductLocationList = getLocation.Where(x=>x.CategoryId==42||x.ProductName.Contains("車")).Select(lo => new LocationVM.ProductLocation
+                ProductLocationList = getLocation.Where(x=>x.CategoryId==42).Select(lo => new LocationVM.ProductLocation
                 {
                     ProductId = lo.ProductId,
                     LocationId = lo.LocationId,
@@ -753,44 +552,14 @@ namespace Today.Web.Controllers
                     CategoryId =lo.CategoryId,
 
                 }).ToList(),
-                ClassifyCardList = cardsource,
-                //.Select(c => new ClassifyVM.ClassifyCardInfo
-                //{
-                //    ProductId = c.ProductId,
-                //    ProductName = c.ProductName,
-                //    CityId = c.CityId,
-                //    CityName = c.CityName,
-                //    Path = c.Path,
-                //    TagText = c.TagText,
-                //    //UnitPrice = c.UnitPrice,
-                //    RatingStar = c.RatingStar,
-                //    TotalComment = c.TotalComment,
-                //    //OriginalPrice = c.OriginalPrice,
-                //    TotalOrder = c.TotalOrder,
-                //    Prices = {
-                //            OriginalPrice=(c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //            Price=(c.Prices == null) ? null : c.Prices.Price,
-                //    }
-                //    //OriginalPrice = (c.Prices == null || c.Prices.OriginalPrice == c.Prices.Price) ? null : c.Prices.OriginalPrice,
-                //    //UnitPrice = (c.Prices == null) ? null : c.Prices.Price,
-                //}).ToList(),
-
-                CardCount = classPages.CardCount,
-
-                CategoryList = categorysource.Select(x => new ClassifyVM.CategoryDestinations
+                AllFilters = new FilterVM
                 {
-                    ProductCategoryId = x.ProductCategoryId,
-                    CategoryName = x.CategoryName,
-                    ChildCategory = x.ChildCategory.Select(y => new ClassifyVM.CategoryDestinations()
-                    {
-                        ProductCategoryId = y.ProductCategoryId,
-                        CategoryName = y.CategoryName
-                    }).ToList()
-                }).ToList()
+                    CityFilterList = classFilters.CityFilterList, //空
+                    CategoryFilterList = classFilters.CategoryFilterList,
+                }
             };
 
-            string locationJson = System.Text.Json.JsonSerializer.Serialize(result.ProductLocationList); //把資料編碼 
-            ViewData["locationJson"] = locationJson;
+
             return View(result);
         }
         public IActionResult Camping() //露營頁面

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Today.Web.DTOModels.ProductDTO
 {
+    [Serializable]
     public class ProductDTO
     {
         public class ProductRequestDTO
@@ -33,6 +35,7 @@ namespace Today.Web.DTOModels.ProductDTO
         public List<ProductInfo> Taoyuan { get; set; }
         public List<ProductInfo> TimeLimit { get; set; }
         public List<ProductInfo> Evaluation { get; set; }
+        public IQueryable<int> FavoriteList { get; set; }
         #endregion
 
         public class CategoryInfo

@@ -24,19 +24,8 @@ namespace Today.Web.WebApiControllers
         {
             _classifyService = classifyService;
             _repo = repo;
-
         }
 
-        public class ClassifyRequestModel
-        {
-            public List<int> Cities { get; set; }
-            public List<int> Categories { get; set; }
-
-            public List<string> DateRange { get; set; }
-
-            public int Page { get; set; }
-
-        }
         //[HttpPost]
         //public IActionResult searchCity(string searchword)
         //{
@@ -64,23 +53,6 @@ namespace Today.Web.WebApiControllers
         //    return Ok(_repo.Product.Skip<Product>(pageSize * ((page ?? 1) - 1)).Take(pageSize).ToListAsync());
         //}
 
-        //protected IPagedList<Product> GetPagedProcess(int? page, int pageSize)
-        //{
-        //    // 過濾從client傳送過來有問題頁數
-        //    if (page.HasValue && page < 1)
-        //        return null;
-        //    // 從資料庫取得資料
-        //    var listUnpaged = GetStuffFromDatabase();
-        //    IPagedList<Product> pagelist = listUnpaged.ToPagedList(page ?? 1, pageSize);
-        //    // 過濾從client傳送過來有問題頁數，包含判斷有問題的頁數邏輯
-        //    if (pagelist.PageNumber != 1 && page.HasValue && page > pagelist.PageCount)
-        //        return null;
-        //    return pagelist;
-        //}
-        //protected IQueryable<Product> GetStuffFromDatabase()
-        //{
-        //    return _repo.product;
-        //}
         [HttpPost]
         public IActionResult Classify([FromBody] ClassifyRequestModel c)
         {
@@ -90,13 +62,24 @@ namespace Today.Web.WebApiControllers
                 //c.Categories.Select(x=> new FilterDTO.CategoryFilter { CategoryId = x}).ToList(),
                 CityFilterList = c.Cities,
                 //c.Cities.Select(x => new FilterDTO.CityFilter { CityId = x}).ToList(),
+                //擴充其他條件...
+
+                SortBy = c.SortBy,
                 DateRange = c.DateRange,
                 Page = c.Page,
+
+                IsOffIsland=c.IsOffIsland,
+                IsDIY=c.IsDIY,
+                IsHSR=c.IsHSR,
+                IsParent=c.IsParent,
+                IsRent=c.IsRent,
+                city_choosed = c.City_choosed,
+                OffCityName = c.offCityName,
+                typeBanner=c.typeBanner,
                 MemberId = (User.Identity.Name != null) ? int.Parse(User.Identity.Name) : 0
-        };
+            };
 
-            var classifyCardList = _classifyService.GetClassifyMatchedProducts(inputDto);
-
+            var classifyCardList = _classifyService.GetClassifyMatchedCards(inputDto);
 
             var result = new ClassifyVM()
             {
@@ -104,9 +87,8 @@ namespace Today.Web.WebApiControllers
                 CardCount = classifyCardList.CardCount,
             };
 
-            return Ok(result);
+           return Ok(result);
         }
-
     }
 }
 

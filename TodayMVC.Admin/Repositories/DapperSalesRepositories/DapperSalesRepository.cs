@@ -10,10 +10,7 @@ namespace TodayMVC.Admin.Repositories.DapperSalesRepositories
         public DapperSalesRepository(IDbConnection conn) : base(conn)
         { }
 
-        public IEnumerable<OrderDetail> GetOne(OrderDetail entity)
-        {
-            throw new System.NotImplementedException();
-        }
+        
 
         public IEnumerable<OrderDetail> SelectAll()
         {
@@ -57,6 +54,11 @@ namespace TodayMVC.Admin.Repositories.DapperSalesRepositories
         }
 
         public int Delete(OrderDetail entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public OrderDetail GetOne(OrderDetail entity)
         {
             throw new System.NotImplementedException();
         }

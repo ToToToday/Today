@@ -6,5 +6,6 @@ namespace TodayMVC.Admin.Repositories.DapperMemberRepositories
 
     public interface IDapperMemberRepository : IDapperGenericRepository<Member>
     {
+
     }
 }
