@@ -154,7 +154,7 @@ namespace Today.Web.Services.ProductService
                         TotalOrder = x.TotalOrder,
                         Prices = x.Prices
                     }).ToList(),
-                    Featured = result.TopProduct.Select(x => new ProductInfo
+                    Featured = result.Featured.Select(x => new ProductInfo
                     {
                         Id = x.Id,
                         ProductPhoto = x.ProductPhoto,
@@ -166,7 +166,7 @@ namespace Today.Web.Services.ProductService
                         TotalOrder = x.TotalOrder,
                         Prices = x.Prices
                     }).ToList(),
-                    Paradise = result.TopProduct.Select(x => new ProductInfo
+                    Paradise = result.Paradise.Select(x => new ProductInfo
                     {
                         Id = x.Id,
                         ProductPhoto = x.ProductPhoto,
@@ -178,7 +178,7 @@ namespace Today.Web.Services.ProductService
                         TotalOrder = x.TotalOrder,
                         Prices = x.Prices
                     }).ToList(),
-                    AttractionTickets = result.TopProduct.Select(x => new ProductInfo
+                    AttractionTickets = result.AttractionTickets.Select(x => new ProductInfo
                     {
                         Id = x.Id,
                         ProductPhoto = x.ProductPhoto,
@@ -190,7 +190,7 @@ namespace Today.Web.Services.ProductService
                         TotalOrder = x.TotalOrder,
                         Prices = x.Prices
                     }).ToList(),
-                    Exhibition = result.TopProduct.Select(x => new ProductInfo
+                    Exhibition = result.Exhibition.Select(x => new ProductInfo
                     {
                         Id = x.Id,
                         ProductPhoto = x.ProductPhoto,
@@ -202,7 +202,7 @@ namespace Today.Web.Services.ProductService
                         TotalOrder = x.TotalOrder,
                         Prices = x.Prices
                     }).ToList(),
-                    Hotel = result.TopProduct.Select(x => new ProductInfo
+                    Hotel = result.Hotel.Select(x => new ProductInfo
                     {
                         Id = x.Id,
                         ProductPhoto = x.ProductPhoto,
@@ -214,7 +214,7 @@ namespace Today.Web.Services.ProductService
                         TotalOrder = x.TotalOrder,
                         Prices = x.Prices
                     }).ToList(),
-                    Taoyuan = result.TopProduct.Select(x => new ProductInfo
+                    Taoyuan = result.Taoyuan.Select(x => new ProductInfo
                     {
                         Id = x.Id,
                         ProductPhoto = x.ProductPhoto,
@@ -226,7 +226,7 @@ namespace Today.Web.Services.ProductService
                         TotalOrder = x.TotalOrder,
                         Prices = x.Prices
                     }).ToList(),
-                    Evaluation = result.TopProduct.Select(x => new ProductInfo
+                    Evaluation = result.Evaluation.Select(x => new ProductInfo
                     {
                         Id = x.Id,
                         ProductPhoto = x.ProductPhoto,

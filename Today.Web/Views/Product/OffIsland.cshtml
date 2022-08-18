@@ -31,7 +31,6 @@
     <div class="container p-0 ">
       <h2 class="offIsland-banner-h2 text-white text-md-center h2">台灣離島旅遊特搜！</h2>
       <p class="offIsland-banner-p text-white  text-md-center ">輕鬆安排你的離島假期，一次掌握在地獨特體驗、交通接駁！</p>
-   
             <div class="input-group row  offIsland-search p-1 bg-light rounded" id="offIsland-search">
               <span
                 class="search-span col-1 bg-white d-flex align-items-center justify-content-center justify-content-md-center rounded-start p-0"><i
@@ -40,12 +39,11 @@
               <button  v-on:click="filterPost(1)"  class="col-3  col-md-2  btn text-white btn-info  border rounded p-0" type="submit" id="button-addon2" value="">
                  <i class="fa-solid fa-magnifying-glass search-icon pe-1"></i><span>搜尋</span></button>
             </div>
-            
     </div>
   </div>    
 <div class="container">
     <div class="d-flex offIsland-class-item flex-wrap row justify-content-around p-0 ">
-    <a  v-for='city in allFilter.offIslandcities' class="offIsland-item col-4  position-relative  p-0  rounded" >
+    <a  v-for='city in allFilter.offIslandcities' class="offIsland-item col-4  position-relative  p-0  rounded"  >
         <h4 class="fw-bold  text-white  position-absolute " :id='city.CityId'> {{city.CityName}} </h4>
         <img
           :src="city.CityImage"
@@ -437,41 +435,19 @@ chip_List.forEach(item => {
   <script src="https://kit.fontawesome.com/847bfc3e24.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <script src="~/js/homescript.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
 
 <script src="~/js/google-map.js"></script>
        @*vue*@
  <script src="~/lib/vue/vue.js"></script>
- <script src="~/js/calendar.js"></script>
+
 
 <script src="~/js/datePicker.js"></script>
 
 
 
-<script>
-    function filterGet() {
-        const request = new Request("/api/ClassifyApi/Classify");
-        fetch(request)
-    }
-   let confirmBtnPhone = document.querySelectorAll('.offIsland-item');
-    confirmBtnPhone.forEach((btn) => {
-        btn.addEventListener("click",function(){
-           const request = new Request("/api/ClassifyApi/Classify");
-            fetch(request)
-        })
-    })
-
-
-    let offCity = document.querySelectorAll(".offIsland-item");
-    offCity.forEach(item  =>{
-        item.addEventListener("click",()=>{
-            filterPost(1);
-        })
-    })
-</script>
-<script src="~/js/pickToUrl.js"></script>
+ <script src="~/js/TaiFetch.js"></script>
 <script src="~/js/ClassifyVue.js"></script>
-
-
+<script src="~/js/pickToUrl.js"></script>
 }

@@ -119,7 +119,7 @@
                             <span class="d-inline-block bg-info">已出發</span>
                         </div>
 
-                        <h2 class="card-title lh-base commm-productname">@*@comm.ProductName*@</h2>
+                        <h2 class="card-title lh-base comm-productname">@*@comm.ProductName*@</h2>
                         <p class="card-text overflow-hidden lh-base pb-2 comm-title">
                             <i class="icofont-briefcase"></i>
                             @*@comm.Title*@
@@ -258,7 +258,7 @@
         }
             template_list.OrderDtailList.forEach((x, index) => {
                 let clone_card = template_card.content.cloneNode(true);
-                clone_card.querySelector(".commm-productname").innerText = x.ProductName
+                clone_card.querySelector(".comm-productname").innerText = x.ProductName
                 clone_card.querySelector(".comm-title").innerText = x.Title
                 clone_card.querySelector(".comm-orderid").innerText = "訂單編號：#" + x.OrderId
                 clone_card.querySelector(".day").innerText = x.DepartureDate.slice(0, 10)
