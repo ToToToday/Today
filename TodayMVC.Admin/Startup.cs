@@ -59,8 +59,8 @@ namespace TodayMVC.Admin
 
             services.AddTransient<IDapperGenericRepository<Member>, DapperMemberRepository>();
             services.AddTransient<IDapperMemberRepository, DapperMemberRepository>();
-
-            services.AddTransient<IDapperGenericRepository<Product>, DapperCommentManage>();
+            //??
+            services.AddTransient<IDapperGenericRepository<Comment>, DapperCommentManage>();
             services.AddTransient<IDapperCommentManage, DapperCommentManage>();
             services.AddTransient<IMemberService, MemberService>();
             services.AddScoped<CloudinaryService>();

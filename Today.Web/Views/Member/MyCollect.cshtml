@@ -100,6 +100,9 @@
 </template>
 
 @section endJS{
+    <script>
+        let collectionlist = @Html.Raw(ViewData["Collection"])
+    </script>
     <script src="~/js/MyCollect.js"></script>
     <script src="~/js/memberleftselect.js"></script>
 }

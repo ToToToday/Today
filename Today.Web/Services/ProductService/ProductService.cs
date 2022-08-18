@@ -129,13 +129,122 @@ namespace Today.Web.Services.ProductService
 
         public ProductDTO GetAllProductCard(int user)
         {
+            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == user).Select(c => c.ProductId);
             var result = _iMemoryCacheRepository.Get<ProductDTO>("Product.GetAllProductCard");
-            if (result != null) return result;
+            if (result != null)
+            {
+                result = new ProductDTO {
+                    RecentlyViewed = result.RecentlyViewed.Select(x => new RecentlyInfo
+                    {
+                        Id = x.Id,
+                        ProductName = x.ProductName,
+                        ProductPhoto = x.ProductPhoto,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Price = x.Price
+                    }).ToList(),
+                    TopProduct = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Featured = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Paradise = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    AttractionTickets = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Exhibition = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Hotel = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Taoyuan = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                    Evaluation = result.TopProduct.Select(x => new ProductInfo
+                    {
+                        Id = x.Id,
+                        ProductPhoto = x.ProductPhoto,
+                        ProductName = x.ProductName,
+                        CityName = x.CityName,
+                        Favorite = favoriteList.Contains(x.Id),
+                        Tags = x.Tags,
+                        Rating = x.Rating,
+                        TotalOrder = x.TotalOrder,
+                        Prices = x.Prices
+                    }).ToList(),
+                };
+                return result;
+            }
 
             var dataSource = AllProduct();
             var productSource = dataSource.QueryProduct;
             var categorySource = dataSource.CategoryList;
-            var favoriteList = _repo.GetAll<Collect>().Where(c => c.MemberId == user).Select(c => c.ProductId);
 
             result = new ProductDTO
             {
@@ -255,7 +364,7 @@ namespace Today.Web.Services.ProductService
             var cityList = _repo.GetAll<City>();
 
             var result = new ProductDTO { CityList = new List<CityInfo>() };
-            result.CityList = cityList.Take(5).Select(c => new CityInfo
+            result.CityList = cityList.OrderBy(c => Guid.NewGuid()).Take(5).Select(c => new CityInfo
             {
                 Id = c.CityId,
                 CityName = c.CityName,
