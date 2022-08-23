@@ -45,7 +45,7 @@ namespace TodayMVC.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Imgtry([FromForm] IFormFile File, string About)
+        public async Task<IActionResult> imgtry([FromForm] IFormFile File, string About)
         {
             var outputDTO = new UploadImgOutputDTO();
             if (File != null)

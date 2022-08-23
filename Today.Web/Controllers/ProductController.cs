@@ -136,14 +136,7 @@ namespace Today.Web.Controllers
 
 
                 ViewData["ProgramSpecification"] = JsonConvert.SerializeObject(productinfo.ProgarmList);
-
-
-
-                
                return View(productinfo);
-                
-
-
             }
 
         }

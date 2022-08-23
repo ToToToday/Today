@@ -76,7 +76,7 @@ namespace TodayMVC.Admin.Services.ProductServices
             supplier.Phone = product.Supplier.Phon;
             supplier.CityId = product.Supplier.City;
             ;
-            //_repo.Execute(sqlsupplier, supplier);
+            _repo.Execute(sqlsupplier, supplier);
             ;
             string sqlsupplierId = $"select * from Supplier where Address = '{supplier.Address}' ";
             var supilerId = _repo.Query<Today.Model.Models.Supplier>(sqlsupplierId);
@@ -141,20 +141,20 @@ namespace TodayMVC.Admin.Services.ProductServices
             ;
 
             //假資料------------------
-            product.PhtotList = new List<Photo>()
-            {
-                new Photo(){ Sort= 1,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"},
-                new Photo(){ Sort= 2,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"},
-                new Photo(){ Sort= 3,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"},
-                new Photo(){ Sort= 4,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"}
-            };
+            //product.PhtotList = new List<Photo>()
+            //{
+            //    new Photo(){ Sort= 1,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"},
+            //    new Photo(){ Sort= 2,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"},
+            //    new Photo(){ Sort= 3,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"},
+            //    new Photo(){ Sort= 4,PhotoUrl = "https://image.kkday.com/v2/image/get/h_650%2Cc_fit/s1.kkday.com/product_123611/20211020070942_g6k7U/jpg"}
+            //};
             //假資料------------------
 
-            var CreatePhoto = product.PhtotList.Select(p => new Today.Model.Models.ProductPhoto
+            var CreatePhoto = product.PhtotList.Select((p ,Index)=> new Today.Model.Models.ProductPhoto
             {
                 ProductId = ProductId.First().ProductId,
-                Path = p.PhotoUrl,
-                Sort = p.Sort,
+                Path = p,
+                Sort = Index,
             });
             ;
             _repo.Execute(sqlPhoto, CreatePhoto);
@@ -176,27 +176,29 @@ namespace TodayMVC.Admin.Services.ProductServices
                 Isdeleted = false,
 
             });
+            ;
             _repo.Execute(sqlProgarm, CreateProgarmList);
 
             string sqlProgarmList = $"select * from Program where ProductId = {ProductId.First().ProductId}";
             
             var ProgarmList = _repo.Query<Today.Model.Models.Program>(sqlProgarmList);
             ;
-            //假資料----------------------
-            product.AboutProgramOptionList = new List<DTOModels.ProductDTO.AboutProgramOption>()
-            {
-                new DTOModels.ProductDTO.AboutProgramOption{Context = "2個工作日(不含例假日)內確認", IconClass = "<i class=\"icons icon - check\"></i>"},
-                new DTOModels.ProductDTO.AboutProgramOption{Context = "立即發送憑證", IconClass = "<i class=\"icons icon-paper-plane\"></i>"},
-                new DTOModels.ProductDTO.AboutProgramOption{Context = "4個工作日(不含例假日)內確認", IconClass = "<i class=\"icons icon-check\"></i>"},
-            };
-            //假資料----------------------
+            ////假資料----------------------
+            //product.AboutProgramOptionList = new List<DTOModels.ProductDTO.AboutProgramOption>()
+            //{
+            //    new DTOModels.ProductDTO.AboutProgramOption{Context = "2個工作日(不含例假日)內確認", IconClass = "<i class=\"icons icon - check\"></i>"},
+            //    new DTOModels.ProductDTO.AboutProgramOption{Context = "立即發送憑證", IconClass = "<i class=\"icons icon-paper-plane\"></i>"},
+            //    new DTOModels.ProductDTO.AboutProgramOption{Context = "4個工作日(不含例假日)內確認", IconClass = "<i class=\"icons icon-check\"></i>"},
+            //};
+            ////假資料----------------------
             var CreateAboutProgramOptionList = product.AboutProgramOptionList.Select(apo =>new Today.Model.Models.AboutProgramOption
             {
                 ProductId = ProductId.First().ProductId,
                 IconClass = apo.IconClass,
                 Context = apo.Context
             });
-            //_repo.Execute(sqlAboutProgramOption, CreateAboutProgramOptionList);
+            ;
+            _repo.Execute(sqlAboutProgramOption, CreateAboutProgramOptionList);
 
             string sqlAboutProgramOptionList = @$"select * from AboutProgramOptions where ProductId = {ProductId.First().ProductId}";
 

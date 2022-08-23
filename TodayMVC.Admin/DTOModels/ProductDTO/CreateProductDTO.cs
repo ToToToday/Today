@@ -20,7 +20,7 @@ namespace TodayMVC.Admin.DTOModels.ProductDTO
         public bool ProductIsdeleted { get; set; }//商品狀態
         public bool Favorite { get; set; }
         public bool Isdeleted { get; set; }//狀態
-        public List<Photo> PhtotList { get; set; }
+        public List<string> PhtotList { get; set; }
         public List<AboutProgramOption> AboutProgramOptionList { get; set;}
         public List<Progarm> ProgarmList { get; set; }
     }
@@ -79,7 +79,7 @@ namespace TodayMVC.Admin.DTOModels.ProductDTO
     public class Photo
     {
         public string PhotoUrl { get; set; }
-        public int Sort { get; set; } //排序
+        //public int Sort { get; set; } //排序
     }
     //public class AboutProgram
     //{
