@@ -124,68 +124,76 @@ namespace Today.Web.Services.AccountService
                 IsSuccess = false,
             };
 
-            //以 第三方的provider + nameId，查會員
-            Member memberFound;
-
-            int LongWayName = 0;
-            if (input.Provider == GoogleDefaults.AuthenticationScheme)
+            try
             {
-                LongWayName = 3;
-            }
-            else if (input.Provider == FacebookDefaults.AuthenticationScheme)
-            {
-                LongWayName = 2;
-            }
-            else if (input.Provider == "Line")
-            {
-                LongWayName = 4;
-            }
+                //以 第三方的provider + nameId，查會員
+                Member memberFound;
 
-            LoginWay loginWayFound =
-            _repo.GetAll<LoginWay>().FirstOrDefault(lw =>
-                lw.LongWayName == LongWayName &&
-                lw.UniqueId == input.NameIdentifier
-            );
-
-            //沒查到 => 代表第一次用 這第三方帳號登入 => 代註冊一個無帳密的Member 
-            if (loginWayFound == null)
-            {
-                //資訊可以從第三方來的資訊預填
-
-                //創建帳號
-                var memberEntity = new Member
+                int LongWayName = 0;
+                if (input.Provider == GoogleDefaults.AuthenticationScheme)
                 {
-                    //MemberId 識別規格免填
-                    Email = "",
-                    Password = "",
-
-
-                    //註冊時要填的欄位，第三方都不一定會提供 => DB欄位 應null
-                };
-                //你們實務上 要審慎考慮 信箱 有多少作用、是否是唯一...等
-
-                var e = _repo.Create(memberEntity);
-                _repo.SavaChanges();
-                memberFound = e.Entity;
-
-                var loginWayEntity = new LoginWay
+                    LongWayName = 3;
+                }
+                else if (input.Provider == FacebookDefaults.AuthenticationScheme)
                 {
-                    MemberId = memberFound.MemberId,
-                    LongWayName = LongWayName,
-                    UniqueId = input.NameIdentifier,
-                };
+                    LongWayName = 2;
+                }
+                else if (input.Provider == "Line")
+                {
+                    LongWayName = 4;
+                }
 
-                _repo.Create(loginWayEntity);
-                _repo.SavaChanges();
+                LoginWay loginWayFound =
+                _repo.GetAll<LoginWay>().FirstOrDefault(lw =>
+                    lw.LongWayName == LongWayName &&
+                    lw.UniqueId == input.NameIdentifier
+                );
+
+                //沒查到 => 代表第一次用 這第三方帳號登入 => 代註冊一個無帳密的Member 
+                if (loginWayFound == null)
+                {
+                    //資訊可以從第三方來的資訊預填
+
+                    //創建帳號
+                    var memberEntity = new Member
+                    {
+                        //MemberId 識別規格免填
+                        Email = "",
+                        Password = "",
+
+
+                        //註冊時要填的欄位，第三方都不一定會提供 => DB欄位 應null
+                    };
+                    //你們實務上 要審慎考慮 信箱 有多少作用、是否是唯一...等
+
+                    var e = _repo.Create(memberEntity);
+                    _repo.SavaChanges();
+                    memberFound = e.Entity;
+
+                    var loginWayEntity = new LoginWay
+                    {
+                        MemberId = memberFound.MemberId,
+                        LongWayName = LongWayName,
+                        UniqueId = input.NameIdentifier,
+                    };
+
+                    _repo.Create(loginWayEntity);
+                    _repo.SavaChanges();
+                }
+                else
+                {
+                    memberFound = _repo.GetAll<Member>()
+                        .FirstOrDefault(m => m.MemberId == loginWayFound.MemberId);
+
+                }
+                result.IsSuccess = true;
+                await LoginInByMember(memberFound);
             }
-            else
+            catch (Exception ex)
             {
-                memberFound = _repo.GetAll<Member>()
-                    .FirstOrDefault(m => m.MemberId == loginWayFound.MemberId);
-
+                Console.WriteLine(ex.ToString());
             }
-            result.IsSuccess = true;
-            await LoginInByMember(memberFound);
+            
             return result;
         }
 
